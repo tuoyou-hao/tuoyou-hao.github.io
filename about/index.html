@@ -722,7 +722,7 @@
 </ul>
 <h2 id="研究方向"><a href="#研究方向" class="headerlink" title="研究方向"></a>研究方向</h2><p>主要研究<strong>迁移学习、机器人自动驾驶、分布式计算</strong>等方向.</p>
 <h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><ul>
-<li><b>电子邮箱</b><br><a href="mailto:&#x61;&#x33;&#x31;&#48;&#50;&#x31;&#x38;&#50;&#x37;&#57;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x61;&#x33;&#x31;&#48;&#50;&#x31;&#x38;&#50;&#x37;&#57;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a><br><a href="mailto:&#57;&#x34;&#51;&#54;&#x36;&#x33;&#57;&#54;&#x34;&#x40;&#113;&#113;&#46;&#99;&#x6f;&#x6d;">&#57;&#x34;&#51;&#54;&#x36;&#x33;&#57;&#54;&#x34;&#x40;&#113;&#113;&#46;&#99;&#x6f;&#x6d;</a></li>
+<li><b>电子邮箱</b><br><a href="mailto:&#97;&#51;&#x31;&#48;&#x32;&#x31;&#x38;&#x32;&#55;&#57;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#97;&#51;&#x31;&#48;&#x32;&#x31;&#x38;&#x32;&#55;&#57;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br><a href="mailto:&#57;&#x34;&#51;&#x36;&#54;&#51;&#57;&#x36;&#52;&#64;&#113;&#x71;&#x2e;&#x63;&#111;&#109;">&#57;&#x34;&#51;&#x36;&#54;&#51;&#57;&#x36;&#52;&#64;&#113;&#x71;&#x2e;&#x63;&#111;&#109;</a></li>
 <li><b>地址</b><br>广东省珠海市香洲区前山街道前山路暨南大学珠海校区，邮编519070</li>
 <li><b>微信</b><br>a310218279</li>
 </ul>
@@ -737,7 +737,7 @@
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+        <!-- <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
 <style>
     .aplayer .aplayer-lrc p {
         
@@ -753,7 +753,7 @@
         display: none;
         
         font-size: 15px;
-        color: #42b983;
+        color: #542674;
     }
 
     
@@ -771,25 +771,54 @@
     
     <div class="row">
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
+                   server=""
+                   type=""
+                   id=""
                    fixed='true'
                    autoplay='false'
-                   theme='#42b983'
+                   theme='#542674'
                    loop='all'
                    order='random'
                    preload='auto'
-                   volume='0.7'
-                   list-folded='true'
+                   volume='0.6'
+                   list-folded='false'
         >
         </meting-js>
     </div>
 </div>
 
 <script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script> -->
 
+
+<link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<div class="music-player">
+    
+    <div class="row">
+        <div class="col l8 offset-l2 m10 offset-m1 s12">
+            <div id="aplayer" class="music"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script>
+$(function () {
+    new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: 'true' === 'true',
+        autoplay: 'false' === 'true',
+        theme: '#542674',
+        loop: 'all',
+        order: 'random',
+        preload: 'auto',
+        volume: Number('0.6'),
+        listFolded: 'false' === 'true',
+        listMaxHeight: '',
+        audio: JSON.parse('[{"name":"Horizon","artist":"Gin","url":"/medias/music/GIN-Horizon.mp3","cover":"/medias/music/avatars/GIN-Horizon.jpg"},{"name":"Questions","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Questions.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"}]')
+    });
+});
+</script>
     
 
     <div class="container row center-align"

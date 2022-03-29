@@ -633,7 +633,7 @@
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+        <!-- <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
 <style>
     .aplayer .aplayer-lrc p {
         
@@ -649,7 +649,7 @@
         display: none;
         
         font-size: 15px;
-        color: #42b983;
+        color: #542674;
     }
 
     
@@ -667,25 +667,54 @@
     
     <div class="row">
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
+                   server=""
+                   type=""
+                   id=""
                    fixed='true'
                    autoplay='false'
-                   theme='#42b983'
+                   theme='#542674'
                    loop='all'
                    order='random'
                    preload='auto'
-                   volume='0.7'
-                   list-folded='true'
+                   volume='0.6'
+                   list-folded='false'
         >
         </meting-js>
     </div>
 </div>
 
 <script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script> -->
 
+
+<link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<div class="music-player">
+    
+    <div class="row">
+        <div class="col l8 offset-l2 m10 offset-m1 s12">
+            <div id="aplayer" class="music"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script>
+$(function () {
+    new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: 'true' === 'true',
+        autoplay: 'false' === 'true',
+        theme: '#542674',
+        loop: 'all',
+        order: 'random',
+        preload: 'auto',
+        volume: Number('0.6'),
+        listFolded: 'false' === 'true',
+        listMaxHeight: '',
+        audio: JSON.parse('[{"name":"Horizon","artist":"Gin","url":"/medias/music/GIN-Horizon.mp3","cover":"/medias/music/avatars/GIN-Horizon.jpg"},{"name":"Questions","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Questions.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"}]')
+    });
+});
+</script>
     
 
     <div class="container row center-align"
