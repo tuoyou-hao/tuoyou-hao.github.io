@@ -876,10 +876,10 @@
 <script src="/libs/twikoo/twikoo.all.min.js"></script>
 <script>
     twikoo.init({
-        envId: 'https://vercel-test-beta-silk.vercel.app/',
+        envId: 'https://vercel-test-beta-silk.vercel.app',
         el: '#tcomments',
-        region: 'ap-guangzhou',
-        path: 'window.location.pathname'
+        region: '',
+        path: ''
     }).then(function () {
         var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
         for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
