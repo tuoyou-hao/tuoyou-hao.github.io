@@ -677,10 +677,10 @@
 <script src="/libs/twikoo/twikoo.all.min.js"></script>
 <script>
     twikoo.init({
-        envId: 'vercel-test-beta-silk',
+        envId: 'https://vercel-test-beta-silk.vercel.app/',
         el: '#tcomments',
-        region: '',
-        path: ''
+        region: 'ap-guangzhou',
+        path: 'window.location.pathname'
     }).then(function () {
         var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
         for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
