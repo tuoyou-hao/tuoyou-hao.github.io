@@ -1008,13 +1008,13 @@ Why？为什么会想起来写博">
     </div>
 </div>
 
-<script src="/libs/twikoo/twikoo.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js"></script>
 <script>
     twikoo.init({
         envId: 'https://vercel-test-beta-silk.vercel.app',
         el: '#tcomments',
         region: '',
-        path: ''
+        path: 'window.location.pathname'
     }).then(function () {
         var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
         for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
