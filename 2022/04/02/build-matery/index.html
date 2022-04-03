@@ -482,7 +482,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.7k
                 </div>
                 
 
@@ -526,7 +526,7 @@
 </li>
 </ul>
 <h2 id="1，搭建node-js等等初步工作环境"><a href="#1，搭建node-js等等初步工作环境" class="headerlink" title="1，搭建node.js等等初步工作环境"></a>1，搭建node.js等等初步工作环境</h2><p>先去官网下载<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a>，选择稳定版即可</p>
-<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/1.png"></p>
+<p><img src="https://s2.loli.net/2022/04/03/dOYo2q4nPvJhrcl.png"></p>
 <p>一路默认安装即可。装完会有两个组件，一个是node.js本身，一个是npm组件。</p>
 <ul>
 <li>自己新建一个文件夹，以后的网页代码全放在里面，我的是在d:&#x2F;tuoyou-hao</li>
@@ -540,7 +540,7 @@ v16.14.2
 <p>由于npm下载速度较慢，我们可以选用淘宝的源下载。我们用npm下载cnpm：</p>
 <p><code> &gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
 <p>下载完成后，输入<code>cnpm -v</code>检查一下，输出下列内容即为正常</p>
-<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/2.png"></p>
+<p><img src="https://s2.loli.net/2022/04/03/WDuRxhQiZV1w9IN.png"></p>
 <p>然后我们开始安装hexo</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt; cnpm install -g hexo-cli 
 &gt; hexo -v
@@ -609,7 +609,7 @@ hexo d  # 上传网页文件到github<span aria-hidden="true" class="line-number
 <p>登录该网站：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/">https://ziyuan.baidu.com/</a></p>
 <p>登录成功后，在用户中心-&gt;站点管理-&gt;添加网站操作 </p>
 <p>然后如何寻找token呢，token&#x3D;秘钥：</p>
-<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/5.jpg"></p>
+<p><img src="https://s2.loli.net/2022/04/03/j4m8YTUfV29Dei3.jpg"></p>
 <p>其中matery内置了推送功能，我们只需要写好参数即可。</p>
 <pre class="line-numbers language-none"><code class="language-none">deploy:
 - type: git
@@ -636,8 +636,8 @@ baidu_url_submit:
 <li><p>创建免费 MongoDB 数据库，区域推荐选择 <code>AWS / N. Virginia (us-east-1)</code></p>
 </li>
 <li><p>在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接（<a target="_blank" rel="noopener" href="https://vercel.com/support/articles/how-to-allowlist-deployment-ip-address">为什么？ (opens new window)</a>），创建数据库用户，选择connect，一定要选择链接您的应用，那个数据库连接字符串才是我们需要的，请将连接字符串中的 <code>password</code> 修改为数据库密码</p>
-<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/3.png"></p>
-<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/4.png"></p>
+<p><img src="https://s2.loli.net/2022/04/03/kLJfdnUmFrqZleC.png"></p>
+<p><img src="https://s2.loli.net/2022/04/03/jmieJ9aAYcXLISO.png"></p>
 </li>
 <li><p>申请 <a target="_blank" rel="noopener" href="https://vercel.com/signup">Vercel (opens new window)</a>账号</p>
 </li>
@@ -659,6 +659,9 @@ baidu_url_submit:
   # region: ap-guangzhou # 环境地域，默认为 ap-shanghai
   path: &#39;window.location.pathname&#39; # 自定义文章路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h2 id="5，-配置图像上传"><a href="#5，-配置图像上传" class="headerlink" title="5， 配置图像上传"></a>5， 配置图像上传</h2><p>在写本篇博客的时候，当我推送上来的时候，意外的发现文章的图片迟迟读取不了，测试过以下指令，反而本地localhost也读取不了了<br><code>cnpm install https://github.com/CodeFalling/hexo-asset-image –save</code></p>
+<p>由于我并非前端工作者，对这方面知识还是比较匮乏，你们可以参考这个教程的解决方法：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hugochen1024/p/12570656.html">https://www.cnblogs.com/hugochen1024/p/12570656.html</a></p>
+<p>我自己是注册<code>SM.MS</code>网站，链接：<a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a><br>在该网站上传图片，网站会给你一个链接，导入该链接的图片即可。</p>
 
                 
             </div>
@@ -1467,7 +1470,7 @@ $(function () {
         volume: Number('0.6'),
         listFolded: 'false' === 'true',
         listMaxHeight: '',
-        audio: JSON.parse('[{"name":"Horizon","artist":"Gin","url":"/medias/music/GIN-Horizon.mp3","cover":"/medias/music/avatars/GIN-Horizon.jpg"},{"name":"Questions","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Questions.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"}]')
+        audio: JSON.parse('[{"name":"Horizon","artist":"Gin","url":"/medias/music/GIN-Horizon.mp3","cover":"/medias/music/avatars/GIN-Horizon.jpg"},{"name":"Questions","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Questions.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"},{"name":"Those Who Wait","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Those Who Wait.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"},{"name":"Mombasa","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Mombasa.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"}]')
     });
 });
 </script>
@@ -1486,7 +1489,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.3k</span>
+                        class="white-color">5.4k</span>
             
             
             
