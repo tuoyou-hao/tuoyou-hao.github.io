@@ -309,7 +309,7 @@
 <script src="../../../../libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '76c995ddc14816350dc10c44d6dff38b6883f31be3ba59893d67a82811f7f97a';
+        let pwd = '';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -475,7 +475,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-02
+                    2022-04-03
                 </div>
                 
 
@@ -526,7 +526,7 @@
 </li>
 </ul>
 <h2 id="1，搭建node-js等等初步工作环境"><a href="#1，搭建node-js等等初步工作环境" class="headerlink" title="1，搭建node.js等等初步工作环境"></a>1，搭建node.js等等初步工作环境</h2><p>先去官网下载<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a>，选择稳定版即可</p>
-<p><img src="/2022/04/02/build-matery/medias%5Cpost_img%5Cbuild_matery%5C1.png" alt="1"></p>
+<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/1.png"></p>
 <p>一路默认安装即可。装完会有两个组件，一个是node.js本身，一个是npm组件。</p>
 <ul>
 <li>自己新建一个文件夹，以后的网页代码全放在里面，我的是在d:&#x2F;tuoyou-hao</li>
@@ -540,7 +540,7 @@ v16.14.2
 <p>由于npm下载速度较慢，我们可以选用淘宝的源下载。我们用npm下载cnpm：</p>
 <p><code> &gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
 <p>下载完成后，输入<code>cnpm -v</code>检查一下，输出下列内容即为正常</p>
-<p><img src="/2022/04/02/build-matery/medias%5Cpost_img%5Cbuild_matery%5C2.png" alt="2"></p>
+<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/2.png"></p>
 <p>然后我们开始安装hexo</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt; cnpm install -g hexo-cli 
 &gt; hexo -v
@@ -609,7 +609,7 @@ hexo d  # 上传网页文件到github<span aria-hidden="true" class="line-number
 <p>登录该网站：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/">https://ziyuan.baidu.com/</a></p>
 <p>登录成功后，在用户中心-&gt;站点管理-&gt;添加网站操作 </p>
 <p>然后如何寻找token呢，token&#x3D;秘钥：</p>
-<p><img src="/2022/04/02/build-matery/medias%5Cpost_img%5Cbuild_matery%5C5.jpg" alt="5"></p>
+<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/5.jpg"></p>
 <p>其中matery内置了推送功能，我们只需要写好参数即可。</p>
 <pre class="line-numbers language-none"><code class="language-none">deploy:
 - type: git
@@ -636,8 +636,8 @@ baidu_url_submit:
 <li><p>创建免费 MongoDB 数据库，区域推荐选择 <code>AWS / N. Virginia (us-east-1)</code></p>
 </li>
 <li><p>在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接（<a target="_blank" rel="noopener" href="https://vercel.com/support/articles/how-to-allowlist-deployment-ip-address">为什么？ (opens new window)</a>），创建数据库用户，选择connect，一定要选择链接您的应用，那个数据库连接字符串才是我们需要的，请将连接字符串中的 <code>password</code> 修改为数据库密码</p>
-<p><img src="/2022/04/02/build-matery/medias%5Cpost_img%5Cbuild_matery%5C3.png" alt="3"></p>
-<p><img src="/2022/04/02/build-matery/medias%5Cpost_img%5Cbuild_matery%5C4.png" alt="4"></p>
+<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/3.png"></p>
+<p><img src="https://github.com/tuoyou-hao/tuoyou-hao.github.io/blob/master/post_img/build_matery/4.png"></p>
 </li>
 <li><p>申请 <a target="_blank" rel="noopener" href="https://vercel.com/signup">Vercel (opens new window)</a>账号</p>
 </li>
