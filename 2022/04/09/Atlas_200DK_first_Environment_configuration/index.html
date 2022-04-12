@@ -443,16 +443,16 @@
                     
                     <div class="article-tag">
                         
+                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                <span class="chip bg-color">环境搭建</span>
+                            </a>
+                        
                             <a href="../../../../tags/Atlas-200DK/">
                                 <span class="chip bg-color">Atlas 200DK</span>
                             </a>
                         
                             <a href="../../../../tags/Linux/">
                                 <span class="chip bg-color">Linux</span>
-                            </a>
-                        
-                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">环境搭建</span>
                             </a>
                         
                     </div>
@@ -524,30 +524,23 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>Atlas 200DK 初步环境配置指南</h1>
-<p>本教程教你如何搭建Atlas 200DK开发运行环境，快速预备Atlas 200DK的开发</p>
-<h2 id="一、配置VMware虚拟机开发环境">一、配置VMware虚拟机开发环境</h2>
-<h3 id="第一步，设置root密码">第一步，设置root密码</h3>
-<p><code>sudo passwd root</code></p>
+                <h1 id="Atlas-200DK-初步环境配置指南"><a href="#Atlas-200DK-初步环境配置指南" class="headerlink" title="Atlas 200DK 初步环境配置指南"></a>Atlas 200DK 初步环境配置指南</h1><p>本教程教你如何搭建Atlas 200DK开发运行环境，快速预备Atlas 200DK的开发</p>
+<h2 id="一、配置VMware虚拟机开发环境"><a href="#一、配置VMware虚拟机开发环境" class="headerlink" title="一、配置VMware虚拟机开发环境"></a>一、配置VMware虚拟机开发环境</h2><h3 id="第一步，设置root密码"><a href="#第一步，设置root密码" class="headerlink" title="第一步，设置root密码"></a>第一步，设置root密码</h3><p><code>sudo passwd root</code></p>
 <p>然后显示屏会跳出一句</p>
 <p><code>[sudo] password for pi: </code></p>
 <ol>
-<li>
-<p>pi是我设置的账号名</p>
+<li><p>pi是我设置的账号名</p>
 </li>
-<li>
-<p>在这里需要输入你一开始设置的账户密码，并且是<strong>不会显示在屏幕上</strong></p>
+<li><p>在这里需要输入你一开始设置的账户密码，并且是<strong>不会显示在屏幕上</strong></p>
 </li>
-<li>
-<p>输入完毕你的账户密码，就设置root账户密码:<code>sudo passwd root</code></p>
-<p>Enter new UNIX password:</p>
-<p>Retype new UNIX password:</p>
+<li><p>输入完毕你的账户密码，就设置root账户密码:<code>sudo passwd root</code></p>
+<p>Enter new UNIX password: </p>
+<p>Retype new UNIX password: </p>
 <p>passwd: password updated successfully</p>
 </li>
 </ol>
 <p>如以上显示则说明密码设置成功，请记住你的root密码</p>
-<h3 id="第二步，换源（可选）">第二步，换源（可选）</h3>
-<p>（内容参照https://www.cnblogs.com/huang-y-x/p/11082168.html，可在里面选用不同的源）</p>
+<h3 id="第二步，换源（可选）"><a href="#第二步，换源（可选）" class="headerlink" title="第二步，换源（可选）"></a>第二步，换源（可选）</h3><p>（内容参照<a target="_blank" rel="noopener" href="https://www.cnblogs.com/huang-y-x/p/11082168.html%EF%BC%8C%E5%8F%AF%E5%9C%A8%E9%87%8C%E9%9D%A2%E9%80%89%E7%94%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E6%BA%90%EF%BC%89">https://www.cnblogs.com/huang-y-x/p/11082168.html，可在里面选用不同的源）</a></p>
 <p>1：备份原来的源</p>
 <p><code>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></p>
 <p>2：进入root账户</p>
@@ -567,6 +560,7 @@ deb https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-security main
 deb-src https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-security main restricted universe multiverse
 deb https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse
 deb-src https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后按<kbd>esc</kbd>键，输入 :wq 回车，保存并退出</p>
 <p>也可以选用清华源</p>
 <pre class="line-numbers language-none"><code class="language-none">##清华源
@@ -581,38 +575,40 @@ deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-
 deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse
 deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 <p>换完源之后，一定要更新一下软件列表</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">apt-get update
 apt-get upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>下载vim</p>
 <p><code>apt-get install vim</code></p>
 <ul>
-<li>
-<p>如果出现什么问题，可以试试 <code>apt-get -f install</code>，或者重复多跑几次</p>
+<li><p>如果出现什么问题，可以试试 <code>apt-get -f install</code>，或者重复多跑几次</p>
 </li>
-<li>
-<p>如果出现编辑一半就报错退出，请在root账户底下<code>rm /etc/apt/.sources.list.swp</code>，然后重新使用vi指令进入即可。</p>
+<li><p>如果出现编辑一半就报错退出，请在root账户底下<code>rm /etc/apt/.sources.list.swp</code>，然后重新使用vi指令进入即可。</p>
 </li>
 </ul>
-<h2 id="二、Atlas-200DK-初步制卡">二、Atlas 200DK 初步制卡</h2>
-<p>准备依赖环境</p>
+<h2 id="二、Atlas-200DK-初步制卡"><a href="#二、Atlas-200DK-初步制卡" class="headerlink" title="二、Atlas 200DK 初步制卡"></a>二、Atlas 200DK 初步制卡</h2><p>准备依赖环境</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get install python3 python3-pip git
 pip3 install pyyaml
 sudo apt-get install qemu-user-static binfmt-support python3-yaml squashfs-tools gcc-aarch64-linux-gnu g++-aarch64-linux-gnu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
 <p>把以下文件整合进home目录下的<code>mksd</code>文件夹，比如说我的路径是<code>/home/pi/mksd</code>。</p>
-<p>在home/pi目录下执行<code>mkdir mksd</code>，然后<code>cd mksd</code>进入mksd文件夹</p>
+<p>在home&#x2F;pi目录下执行<code>mkdir mksd</code>，然后<code>cd mksd</code>进入mksd文件夹</p>
 <ul>
 <li>ubuntu-18.04-server-arm64.iso(在历史版本里面找，本教程选用的是18.04.4)</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://releases.ubuntu.com/?_ga=2.35892448.1525631547.1620916708-1630382698.1620537185">下载Ubuntu server arm 镜像</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://releases.ubuntu.com/?_ga=2.35892448.1525631547.1620916708-1630382698.1620537185">下载Ubuntu server arm 镜像</a></p>
 <ul>
 <li>200dk固件与驱动（本教程的版本号选用5.1.RC1.alpha002）</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://www.hiascend.com/hardware/firmware-drivers?tag=community">atlas 200dk 驱动</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://www.hiascend.com/hardware/firmware-drivers?tag=community">atlas 200dk 驱动</a></p>
 <ul>
 <li>获取软件包（主要下载run文件）</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://support.huaweicloud.com/environment-deployment-Atlas200DK202/atlased_04_0020.html">atlas 200 dk软件包</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://support.huaweicloud.com/environment-deployment-Atlas200DK202/atlased_04_0020.html">atlas 200 dk软件包</a></p>
 <ul>
 <li>制卡脚本（务必参考下列版本号说明）</li>
 </ul>
@@ -621,83 +617,84 @@ sudo apt-get install qemu-user-static binfmt-support python3-yaml squashfs-tools
 wget https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Huawei-Ascend&#x2F;tools&#x2F;master&#x2F;configure_usb_ethernet&#x2F;for_20.1&#x2F;configure_usb_ethernet.sh
 # 下载python包（可选）
 wget https:&#x2F;&#x2F;www.python.org&#x2F;ftp&#x2F;python&#x2F;3.7.5&#x2F;Python-3.7.5.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>! 注意</strong>：<strong>制卡脚本</strong>版本号需要一一对应。不同版本的工具连接有可能已经更新，请前往https://gitee.com/ascend/tools/tree/master/makesd，参考下表给的版本号进行查询</p>
+
+
+
+<p><strong>! 注意</strong>：<strong>制卡脚本</strong>版本号需要一一对应。不同版本的工具连接有可能已经更新，请前往<a target="_blank" rel="noopener" href="https://gitee.com/ascend/tools/tree/master/makesd%EF%BC%8C%E5%8F%82%E8%80%83%E4%B8%8B%E8%A1%A8%E7%BB%99%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2">https://gitee.com/ascend/tools/tree/master/makesd，参考下表给的版本号进行查询</a></p>
 <p><strong>! 点击上述链接，参考下表选择对应版本号的文件夹，然后下载里面的<code>make_sd_card.py</code>和<code>make_ubuntu_sd.sh</code>两个工具。然后把工具放进mksd里。</strong></p>
 <p><strong>如果你的各项文件版本和本教程使用的一致，本教程需要打开的文件夹是<code>generic_script</code></strong></p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><strong>驱动与固件版本</strong></th>
-<th style="text-align:center"><strong>CANN版本</strong></th>
+<th align="center"><strong>驱动与固件版本</strong></th>
+<th align="center"><strong>CANN版本</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">1.0.13.alpha</td>
-<td style="text-align:center">5.1.RC1.alpha005</td>
+<tbody><tr>
+<td align="center">1.0.13.alpha</td>
+<td align="center">5.1.RC1.alpha005</td>
 </tr>
 <tr>
-<td style="text-align:center"><strong>1.0.12.alpha</strong></td>
-<td style="text-align:center">5.1.RC1.alpha003</td>
+<td align="center"><strong>1.0.12.alpha</strong></td>
+<td align="center">5.1.RC1.alpha003</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"><strong>5.1.RC1.alpha002</strong></td>
+<td align="center"></td>
+<td align="center"><strong>5.1.RC1.alpha002</strong></td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">5.1.RC1.alpha001</td>
+<td align="center"></td>
+<td align="center">5.1.RC1.alpha001</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">5.0.5.alpha001</td>
+<td align="center"></td>
+<td align="center">5.0.5.alpha001</td>
 </tr>
 <tr>
-<td style="text-align:center">1.0.11.alpha</td>
-<td style="text-align:center">5.0.3.alpha005</td>
+<td align="center">1.0.11.alpha</td>
+<td align="center">5.0.3.alpha005</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">5.0.2.alpha005</td>
+<td align="center"></td>
+<td align="center">5.0.2.alpha005</td>
 </tr>
 <tr>
-<td style="text-align:center">1.0.10.alpha</td>
-<td style="text-align:center">5.0.2.alpha003</td>
+<td align="center">1.0.10.alpha</td>
+<td align="center">5.0.2.alpha003</td>
 </tr>
 <tr>
-<td style="text-align:center">1.0.9.alpha</td>
-<td style="text-align:center">5.0.2.alpha002</td>
+<td align="center">1.0.9.alpha</td>
+<td align="center">5.0.2.alpha002</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">5.0.2.alpha001</td>
+<td align="center"></td>
+<td align="center">5.0.2.alpha001</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">3.3.0.alpha006</td>
+<td align="center"></td>
+<td align="center">3.3.0.alpha006</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">3.3.0.alpha005</td>
+<td align="center"></td>
+<td align="center">3.3.0.alpha005</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">3.3.0.alpha001</td>
+<td align="center"></td>
+<td align="center">3.3.0.alpha001</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">3.2.0.alpha001 备注：曾用版本号“20.2.alpha001”</td>
+<td align="center"></td>
+<td align="center">3.2.0.alpha001 备注：曾用版本号“20.2.alpha001”</td>
 </tr>
 <tr>
-<td style="text-align:center">1.0.8.alpha</td>
-<td style="text-align:center">3.1.0.alpha001 备注：曾用版本号“20.1.alpha001”</td>
+<td align="center">1.0.8.alpha</td>
+<td align="center">3.1.0.alpha001 备注：曾用版本号“20.1.alpha001”</td>
 </tr>
 <tr>
-<td style="text-align:center">1.0.7.alpha</td>
-<td style="text-align:center">20.0.0</td>
+<td align="center">1.0.7.alpha</td>
+<td align="center">20.0.0</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p><img src="https://s2.loli.net/2022/04/09/fhin7djFQ51YGyJ.png" alt="atlas-mksd-file.png"></p>
 <p>（请确保制卡的时候，对应版本号的文件是正确的，并且至少需要有上免图片中的文件）</p>
 <p>用读卡器接入你需要制卡的sd卡，把读卡机接入VMware。在 虚拟机-&gt;可移动设备中 吧读卡器接入虚拟机</p>
@@ -706,14 +703,17 @@ wget https:&#x2F;&#x2F;www.python.org&#x2F;ftp&#x2F;python&#x2F;3.7.5&#x2F;Pytho
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Device     Boot Start       End   Sectors  Size Id Type
 &#x2F;dev&#x2F;sdb1       32768 124735487 124702720 59.5G  7 HPFS&#x2F;NTFS&#x2F;exFAT
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>这里的sdb1就是我的读卡器的标号</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">su
 python3 make_sd_card.py local &#x2F;dev&#x2F;sdb1   #自己选好路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>然后系统就会自己开始制卡，请耐心等待。</p>
 <p>如果最终制卡成功，会显示<code>Make SD Card successfully!</code>。如果有报错，请检查<strong>制卡工具的版本号</strong>是否有问题。</p>
 <p>制好卡之后把卡放在atlas-200dk上，通电，让atlas自己进行初始化。</p>
 <p>请参考指示灯，从网线接口一端数起各个灯分别为：MINI_LED2、MINI_LED1、3559_ACT、3559_VEDIO</p>
 <img src="https://support.huaweicloud.com/productdesc-Atlas200DK1012/figure/zh-cn_image_0205566091.png" style="zoom: 33%;">
+
 <p>通电后，等待一会儿，等四个灯常亮才算正常开机。如果出现问题，请参考下表排查问题：</p>
 <table>
 <thead>
@@ -724,8 +724,7 @@ python3 make_sd_card.py local &#x2F;dev&#x2F;sdb1   #自己选好路径<span ari
 <th>注意事项</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>灭</td>
 <td>灭</td>
 <td>Atlas 200 DK 开发者套件（型号 3000）开发者板启动</td>
@@ -749,8 +748,7 @@ python3 make_sd_card.py local &#x2F;dev&#x2F;sdb1   #自己选好路径<span ari
 <td>Atlas 200 DK 开发者套件（型号 3000）开发者板启动完成</td>
 <td>可以对Atlas 200 DK 开发者套件（型号 3000）开发者板断电或重启。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <table>
 <thead>
 <tr>
@@ -760,8 +758,7 @@ python3 make_sd_card.py local &#x2F;dev&#x2F;sdb1   #自己选好路径<span ari
 <th>注意事项</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>灭</td>
 <td>灭</td>
 <td>Hi3559C系统未启动</td>
@@ -779,12 +776,11 @@ python3 make_sd_card.py local &#x2F;dev&#x2F;sdb1   #自己选好路径<span ari
 <td>Hi3559C系统启动完成</td>
 <td>无</td>
 </tr>
-</tbody>
-</table>
-<h2 id="三、USB线连接atlas">三、USB线连接atlas</h2>
-<p>我们还是在这个Ubuntu系统内。</p>
+</tbody></table>
+<h2 id="三、USB线连接atlas"><a href="#三、USB线连接atlas" class="headerlink" title="三、USB线连接atlas"></a>三、USB线连接atlas</h2><p>我们还是在这个Ubuntu系统内。</p>
 <pre class="line-numbers language-none"><code class="language-none">sudo apt install net-tools
 ifconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>找到如下内容，这是没配置好的网卡：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ens35u1: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         ether 4e:57:14:39:8b:22  txqueuelen 1000  (Ethernet)
@@ -793,6 +789,7 @@ ifconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
         TX packets 88  bytes 20428 (20.4 KB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>为了能够让atlas和其他linux系统通过type-c线进行通信，我们在mksd目录下启动命令行，执行<code>sudo bash configure_usb_ethernet.sh</code></p>
 <p>然后执行<code>ssh HwHiAiUser@192.168.1.2</code>即可正常使用ssh连接通信。默认密码<code>Mind@123</code>。</p>
 <p>如果你在虚拟机Ubuntu执行<code>sudo vim /etc/netplan/01-network-manager-all.yaml</code>查看文件配置</p>
@@ -808,6 +805,7 @@ ifconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
        nameservers:
          addresses: [114.114.114.114]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>而你再输入<code>ipconfig -a</code>可以看到如下信息：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ens33: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 192.168.112.142  netmask 255.255.255.0  broadcast 192.168.112.255
@@ -827,6 +825,7 @@ ens35u1: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         TX packets 472  bytes 80561 (80.5 KB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>证明已经配置好了。</p>
 <p>在虚拟机Ubuntu进入管理员root用户，输入以下配置：</p>
 <p>！其中，参数ens35u1输入的是上面那份输出内容中<strong>第二个网卡</strong>的名字，ens33输入的是<strong>第一个网卡</strong>的名字。</p>
@@ -834,6 +833,7 @@ ens35u1: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 iptables -t nat -A POSTROUTING -o &lt;ens33&gt; -s 192.168.1.0&#x2F;24 -j MASQUERADE
 iptables -A FORWARD -i &lt;ens35u1&gt; -o &lt;ens33&gt; -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -i &lt;ens35u1&gt; -o &lt;ens33&gt; -j ACCEPT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>在ssh连接atlas的终端进入管理员账户，输入以下指令</p>
 <p>其中[192.168.1.166]对应的是第二个网卡（atlas的）对应ip</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">route add default gw [192.168.1.166] dev usb0
@@ -842,9 +842,9 @@ vim &#x2F;etc&#x2F;systemd&#x2F;resolved.conf
 DNS&#x3D;114.114.114.114 
 :wq
 ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后你就会发现，atlas可以通过usb线联网。</p>
-<h2 id="四、路由器连Atlas">四、路由器连Atlas</h2>
-<p>在开发板root账户下，输入<code>vim /etc/netplan/01-netcfg.yaml</code></p>
+<h2 id="四、路由器连Atlas"><a href="#四、路由器连Atlas" class="headerlink" title="四、路由器连Atlas"></a>四、路由器连Atlas</h2><p>在开发板root账户下，输入<code>vim /etc/netplan/01-netcfg.yaml</code></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">network:
   version: 2
   renderer: networkd
@@ -862,15 +862,16 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       #gateway4: 192.168.1.1
       nameservers:
             addresses: [114.114.114.114]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>用网线连接开发板到一个可以上网的路由器当中，这个路由器需要开启DHCP。</p>
 <p>输入<code>netplan apply</code></p>
 <p>在Ubuntu虚拟机里面执行<code>ssh HwHiAiUser@192.168.0.2</code>，即可连上atlas</p>
-<h2 id="五、网线共享网络">五、网线共享网络</h2>
-<p><strong>此过程建议提前将type-c先和网线一并连接好</strong></p>
+<h2 id="五、网线共享网络"><a href="#五、网线共享网络" class="headerlink" title="五、网线共享网络"></a>五、网线共享网络</h2><p><strong>此过程建议提前将type-c先和网线一并连接好</strong></p>
 <p>进入**\控制面板\网络和 Internet\网络连接\ **</p>
 <img src="https://bbs-img.huaweicloud.com/blogs/img/1609137121924096771.png">
-<p><img src="https://bbs-img.huaweicloud.com/blogs/img/1609137189933024388.png" alt></p>
-<p>其余的配置和<strong>四、路由器连Atlas</strong>步骤是一致的，都需要修改/etc/netplan/01-netcfg.yaml，都需要<code>netplan apply</code>。</p>
+
+<p><img src="https://bbs-img.huaweicloud.com/blogs/img/1609137189933024388.png"></p>
+<p>其余的配置和<strong>四、路由器连Atlas</strong>步骤是一致的，都需要修改&#x2F;etc&#x2F;netplan&#x2F;01-netcfg.yaml，都需要<code>netplan apply</code>。</p>
 
                 
             </div>
@@ -935,16 +936,16 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     
                         <div class="article-tag">
                             
+                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                    <span class="chip bg-color">环境搭建</span>
+                                </a>
+                            
                                 <a href="../../../../tags/Atlas-200DK/">
                                     <span class="chip bg-color">Atlas 200DK</span>
                                 </a>
                             
                                 <a href="../../../../tags/Linux/">
                                     <span class="chip bg-color">Linux</span>
-                                </a>
-                            
-                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">环境搭建</span>
                                 </a>
                             
                         </div>

@@ -516,16 +516,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>浅谈搭建matery的一些流程</h1>
-<p>好不容易完善了该matery，发现自己并没有记录如何真正搭建的流程。</p>
+                <h1 id="浅谈搭建matery的一些流程"><a href="#浅谈搭建matery的一些流程" class="headerlink" title="浅谈搭建matery的一些流程"></a>浅谈搭建matery的一些流程</h1><p>好不容易完善了该matery，发现自己并没有记录如何真正搭建的流程。</p>
 <p>乘着刚搭建不久，来记录一下搭建<code>hexo-theme-matery</code>的一些流程</p>
-<h2 id="0，介绍开发环境">0，介绍开发环境</h2>
-<ul>
-<li>
-<p>长年未更新的老Win10，以及更新过的vscode</p>
+<h2 id="0，介绍开发环境"><a href="#0，介绍开发环境" class="headerlink" title="0，介绍开发环境"></a>0，介绍开发环境</h2><ul>
+<li><p>长年未更新的老Win10，以及更新过的vscode</p>
 </li>
-<li>
-<p>这里建议参考以下几个链接一起看</p>
+<li><p>这里建议参考以下几个链接一起看</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">https://www.bilibili.com/video/BV1Yb411a7ty</a></li>
 <li><a target="_blank" rel="noopener" href="https://godweiyang.com/2018/04/13/hexo-blog/">https://godweiyang.com/2018/04/13/hexo-blog/</a></li>
@@ -533,22 +529,22 @@
 </ul>
 </li>
 </ul>
-<h2 id="1，搭建node-js等等初步工作环境">1，搭建node.js等等初步工作环境</h2>
-<p>先去官网下载<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a>，选择稳定版即可</p>
-<p><img src="https://s2.loli.net/2022/04/03/dOYo2q4nPvJhrcl.png" alt></p>
+<h2 id="1，搭建node-js等等初步工作环境"><a href="#1，搭建node-js等等初步工作环境" class="headerlink" title="1，搭建node.js等等初步工作环境"></a>1，搭建node.js等等初步工作环境</h2><p>先去官网下载<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a>，选择稳定版即可</p>
+<p><img src="https://s2.loli.net/2022/04/03/dOYo2q4nPvJhrcl.png"></p>
 <p>一路默认安装即可。装完会有两个组件，一个是node.js本身，一个是npm组件。</p>
 <ul>
-<li>自己新建一个文件夹，以后的网页代码全放在里面，我的是在d:/tuoyou-hao</li>
+<li>自己新建一个文件夹，以后的网页代码全放在里面，我的是在d:&#x2F;tuoyou-hao</li>
 <li>用vscode打开这个文件夹（或者你用命令行 cd 进去 也可以），在vscode打开终端，输入以下指令</li>
 </ul>
 <pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">&gt; node -v
 v16.14.2
 &gt; npm -v
 8.5.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>由于npm下载速度较慢，我们可以选用淘宝的源下载。我们用npm下载cnpm：</p>
 <p><code> &gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
 <p>下载完成后，输入<code>cnpm -v</code>检查一下，输出下列内容即为正常</p>
-<p><img src="https://s2.loli.net/2022/04/03/WDuRxhQiZV1w9IN.png" alt></p>
+<p><img src="https://s2.loli.net/2022/04/03/WDuRxhQiZV1w9IN.png"></p>
 <p>然后我们开始安装hexo</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt; cnpm install -g hexo-cli 
 &gt; hexo -v
@@ -574,6 +570,7 @@ unicode: 14.0
 ngtcp2: 0.1.0-DEV
 nghttp3: 0.1.0-DEV
 # 显示如上内容，hexo就是正常的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>在这个文件夹里面 <code>hexo init</code></p>
 <p>hexo会为你生成很多文件，然后下载并配置一个默认主题（在theme文件夹）</p>
 <p>配置完成后，命令行输入<code>hexo s</code>即可在本地localhost:4000看到hexo给你生成的网页</p>
@@ -581,12 +578,10 @@ nghttp3: 0.1.0-DEV
 <p>确认完毕以后，先去申请一个新的GitHub仓库</p>
 <p>会让你填写自己GitHub的地址。此时需要申请自己的GitHub，并将仓库命名为&lt;你的GitHub名字&gt;.github.io</p>
 <ul>
-<li>
-<p>比如我的GitHub名字叫tuoyou-hao，创建的新仓库就叫做“<a href="http://tuoyou-hao.github.io">tuoyou-hao.github.io</a>&quot;。<strong>必须符合该命名格式</strong>！</p>
+<li><p>比如我的GitHub名字叫tuoyou-hao，创建的新仓库就叫做“tuoyou-hao.github.io”。<strong>必须符合该命名格式</strong>！</p>
 <p>创建完该仓库即可，无需进行其他操作</p>
 </li>
-<li>
-<p>去配置GitHub的ssh key，建立ssh链接，具体步骤参考：<a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></p>
+<li><p>去配置GitHub的ssh key，建立ssh链接，具体步骤参考：<a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></p>
 </li>
 </ul>
 <p>配置完毕后，执行该指令，下载GitHub推送工具</p>
@@ -596,33 +591,29 @@ nghttp3: 0.1.0-DEV
 - type: git
   repository: git@github.com:xxx&#x2F;xxx.github.io.git #填你的仓库名
   branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后执行hexo指令。命令行常用以下指令：</p>
 <pre class="line-numbers language-none"><code class="language-none">hexo clean #清理本地生成文件
 hexo g  # 生成博客网页文件
 hexo s  # 本地预览博客
 hexo d  # 上传网页文件到github<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>hexo d完毕以后，进入你xxx.gihub.io网站，即可查看到你部署的网页（会有几分钟的延迟）</p>
-<h2 id="2，配置matery">2，配置matery</h2>
-<ul>
-<li>
-<p>git clone该链接到themes文件夹：<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></p>
+<h2 id="2，配置matery"><a href="#2，配置matery" class="headerlink" title="2，配置matery"></a>2，配置matery</h2><ul>
+<li><p>git clone该链接到themes文件夹：<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></p>
 </li>
-<li>
-<p>并把根目录下<code>_config.yml</code>文件里的theme参数改成你clone的文件夹名字（我自己重命名叫matery，theme参数也要叫matery）</p>
+<li><p>并把根目录下<code>_config.yml</code>文件里的theme参数改成你clone的文件夹名字（我自己重命名叫matery，theme参数也要叫matery）</p>
 </li>
-<li>
-<p>在matery主题文件夹里面也有一个<code>_config.yml</code>文件，还有一个<code>README_CN.md</code>文件，请你一定要认真仔细看那份文件，需要根据那份文件下载各种依赖。下载完成后，根据自己的需要去配置</p>
+<li><p>在matery主题文件夹里面也有一个<code>_config.yml</code>文件，还有一个<code>README_CN.md</code>文件，请你一定要认真仔细看那份文件，需要根据那份文件下载各种依赖。下载完成后，根据自己的需要去配置</p>
 </li>
-<li>
-<p>配置完成就发布到自己的GitHub仓库吧</p>
+<li><p>配置完成就发布到自己的GitHub仓库吧</p>
 </li>
 </ul>
-<h2 id="3，百度推送">3，百度推送</h2>
-<p>在百度推送上，建议参考：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1">https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1</a></p>
+<h2 id="3，百度推送"><a href="#3，百度推送" class="headerlink" title="3，百度推送"></a>3，百度推送</h2><p>在百度推送上，建议参考：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1">https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1</a></p>
 <p>登录该网站：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/">https://ziyuan.baidu.com/</a></p>
-<p>登录成功后，在用户中心-&gt;站点管理-&gt;添加网站操作</p>
-<p>然后如何寻找token呢，token=秘钥：</p>
-<p><img src="https://s2.loli.net/2022/04/03/j4m8YTUfV29Dei3.jpg" alt></p>
+<p>登录成功后，在用户中心-&gt;站点管理-&gt;添加网站操作 </p>
+<p>然后如何寻找token呢，token&#x3D;秘钥：</p>
+<p><img src="https://s2.loli.net/2022/04/03/j4m8YTUfV29Dei3.jpg"></p>
 <p>其中matery内置了推送功能，我们只需要写好参数即可。</p>
 <pre class="line-numbers language-none"><code class="language-none">deploy:
 - type: git
@@ -635,41 +626,34 @@ baidu_url_submit:
   host: https:&#x2F;&#x2F;xxx.github.io # 在百度资源搜索平台中注册的域名
   token: xxxxxxx # 请注意这是推送秘钥， 所以请不要把博客源代码发布在公众仓库里!
   path: baidu_urls.txt # 文本文档的地址， 新链接会保存在此文本文档里<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="4，-配置评论控件">4， 配置评论控件</h2>
-<p>首先，在matery底下，将js底下的twikoo更新至最新版</p>
+
+
+
+<h2 id="4，-配置评论控件"><a href="#4，-配置评论控件" class="headerlink" title="4， 配置评论控件"></a>4， 配置评论控件</h2><p>首先，在matery底下，将js底下的twikoo更新至最新版</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">js:
 	twikoo: https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;twikoo&#x2F;dist&#x2F;twikoo.all.min.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">https://twikoo.js.org/quick-start.html#云函数部署</a></p>
+
+<p>参考链接：<a target="_blank" rel="noopener" href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2</a></p>
 <ol>
-<li>
-<p>申请 <a target="_blank" rel="noopener" href="https://www.mongodb.com/cloud/atlas/register">MongoDB (opens new window)</a>账号</p>
+<li><p>申请 <a target="_blank" rel="noopener" href="https://www.mongodb.com/cloud/atlas/register">MongoDB (opens new window)</a>账号</p>
 </li>
-<li>
-<p>创建免费 MongoDB 数据库，区域推荐选择 <code>AWS / N. Virginia (us-east-1)</code></p>
+<li><p>创建免费 MongoDB 数据库，区域推荐选择 <code>AWS / N. Virginia (us-east-1)</code></p>
 </li>
-<li>
-<p>在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接（<a target="_blank" rel="noopener" href="https://vercel.com/support/articles/how-to-allowlist-deployment-ip-address">为什么？ (opens new window)</a>），创建数据库用户，选择connect，一定要选择链接您的应用，那个数据库连接字符串才是我们需要的，请将连接字符串中的 <code>password</code> 修改为数据库密码</p>
-<p><img src="https://s2.loli.net/2022/04/03/kLJfdnUmFrqZleC.png" alt></p>
-<p><img src="https://s2.loli.net/2022/04/03/jmieJ9aAYcXLISO.png" alt></p>
+<li><p>在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接（<a target="_blank" rel="noopener" href="https://vercel.com/support/articles/how-to-allowlist-deployment-ip-address">为什么？ (opens new window)</a>），创建数据库用户，选择connect，一定要选择链接您的应用，那个数据库连接字符串才是我们需要的，请将连接字符串中的 <code>password</code> 修改为数据库密码</p>
+<p><img src="https://s2.loli.net/2022/04/03/kLJfdnUmFrqZleC.png"></p>
+<p><img src="https://s2.loli.net/2022/04/03/jmieJ9aAYcXLISO.png"></p>
 </li>
-<li>
-<p>申请 <a target="_blank" rel="noopener" href="https://vercel.com/signup">Vercel (opens new window)</a>账号</p>
+<li><p>申请 <a target="_blank" rel="noopener" href="https://vercel.com/signup">Vercel (opens new window)</a>账号</p>
 </li>
-<li>
-<p>进入以下网址把 Twikoo 一键部署到 Vercel<br>
-<a target="_blank" rel="noopener" href="https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min">https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min</a></p>
+<li><p>进入以下网址把 Twikoo 一键部署到 Vercel<br><a target="_blank" rel="noopener" href="https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min">https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min</a></p>
 </li>
-<li>
-<p>进入 Settings - Environment Variables，添加环境变量 <code>MONGODB_URI</code>，值为第 3 步的数据库连接字符串</p>
+<li><p>进入 Settings - Environment Variables，添加环境变量 <code>MONGODB_URI</code>，值为第 3 步的数据库连接字符串</p>
 </li>
-<li>
-<p>进入 Overview，点击 Domains 下方的链接，如果环境配置正确，可以看到 “Twikoo 云函数运行正常” 的提示</p>
+<li><p>进入 Overview，点击 Domains 下方的链接，如果环境配置正确，可以看到 “Twikoo 云函数运行正常” 的提示</p>
 </li>
-<li>
-<p>Vercel Domains（包含 <code>https://</code> 前缀，例如 <code>https://xxx.vercel.app</code>）整个网址即为您的环境 id</p>
+<li><p>Vercel Domains（包含 <code>https://</code> 前缀，例如 <code>https://xxx.vercel.app</code>）整个网址即为您的环境 id</p>
 </li>
-<li>
-<p>把网址贴进主题的_config.yml里头对应的twikoo的envId，并启用twikoo功能。</p>
+<li><p>把网址贴进主题的_config.yml里头对应的twikoo的envId，并启用twikoo功能。</p>
 </li>
 </ol>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">twikoo:
@@ -678,13 +662,10 @@ baidu_url_submit:
   envId: https:&#x2F;&#x2F;xxxx.app #搭建教程：https:&#x2F;&#x2F;twikoo.js.org&#x2F;quick-start.html
   # region: ap-guangzhou # 环境地域，默认为 ap-shanghai
   path: &#39;window.location.pathname&#39; # 自定义文章路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="5，-配置图像上传">5， 配置图像上传</h2>
-<p>在写本篇博客的时候，当我推送上来的时候，意外的发现文章的图片迟迟读取不了，测试过以下指令，反而本地localhost也读取不了了<br>
-<code>cnpm install https://github.com/CodeFalling/hexo-asset-image –save</code></p>
-<p>由于我并非前端工作者，对这方面知识还是比较匮乏，你们可以参考这个教程的解决方法：<br>
-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hugochen1024/p/12570656.html">https://www.cnblogs.com/hugochen1024/p/12570656.html</a></p>
-<p>我自己是注册<code>SM.MS</code>网站，链接：<a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a><br>
-在该网站上传图片，网站会给你一个链接，导入该链接的图片即可。</p>
+
+<h2 id="5，-配置图像上传"><a href="#5，-配置图像上传" class="headerlink" title="5， 配置图像上传"></a>5， 配置图像上传</h2><p>在写本篇博客的时候，当我推送上来的时候，意外的发现文章的图片迟迟读取不了，测试过以下指令，反而本地localhost也读取不了了<br><code>cnpm install https://github.com/CodeFalling/hexo-asset-image –save</code></p>
+<p>由于我并非前端工作者，对这方面知识还是比较匮乏，你们可以参考这个教程的解决方法：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hugochen1024/p/12570656.html">https://www.cnblogs.com/hugochen1024/p/12570656.html</a></p>
+<p>我自己是注册<code>SM.MS</code>网站，链接：<a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a><br>在该网站上传图片，网站会给你一个链接，导入该链接的图片即可。</p>
 
                 
             </div>
