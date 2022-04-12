@@ -5,7 +5,7 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="操作系统,计算机知识">
-    <meta name="description" content="操作系统概述">
+    <meta name="description" content="操作系统--进程与线程概述">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>操作系统概述(第一部分) | 拓佑豪的博客</title>
+    <title>操作系统概述(2.1进程与线程) | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -322,12 +322,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">操作系统概述(第一部分)</h1>
+                    <h1 class="description center-align post-title">操作系统概述(2.1进程与线程)</h1>
                 </div>
             </div>
         </div>
@@ -472,7 +472,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-05
+                    2022-04-12
                 </div>
                 
 
@@ -486,7 +486,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.5k
+                    5.2k
                 </div>
                 
 
@@ -516,359 +516,493 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="操作系统——第一章-系统概述"><a href="#操作系统——第一章-系统概述" class="headerlink" title="操作系统——第一章: 系统概述"></a>操作系统——第一章: 系统概述</h1><h2 id="1-1-基本概念（定义）"><a href="#1-1-基本概念（定义）" class="headerlink" title="1.1 基本概念（定义）"></a>1.1 基本概念（定义）</h2><ul>
-<li>操作系统（operating system，os）是系统资源的<strong>管理者</strong>，管理<strong>软件、硬件资源</strong>，给用户和其他软件方便的接口和环境，是一个<strong>系统软件</strong>。</li>
-</ul>
-<h2 id="1-2-操作系统特征"><a href="#1-2-操作系统特征" class="headerlink" title="1.2  操作系统特征"></a>1.2  操作系统特征</h2><h3 id="1-并发（concurrence）"><a href="#1-并发（concurrence）" class="headerlink" title="1. 并发（concurrence）"></a>1. 并发（concurrence）</h3><p>微观上交替进行，宏观上同时执行。（操作系统和程序并发是一起诞生的）</p>
+                <h1 id="操作系统——2-1-进程与线程"><a href="#操作系统——2-1-进程与线程" class="headerlink" title="操作系统——2.1 进程与线程"></a>操作系统——2.1 进程与线程</h1><h2 id="2-1-1-进程"><a href="#2-1-1-进程" class="headerlink" title="2.1.1 进程"></a>2.1.1 进程</h2><ul>
+<li><p>程序，是静态的，就是一系列的指令集合。</p>
+</li>
+<li><p>进程，是动态的，是程序的一次执行过程。</p>
+</li>
+<li><p>当进程被创建的时候，操作系统会给该进程分配一个<strong>唯一的、不重复的ID</strong>——PID(Process ID)，进程ID</p>
+</li>
+<li><p>每个进程，操作系统会记录：</p>
 <ul>
-<li>重点：<ul>
-<li>单核CPU：同一时刻只能执行一个程序，各个程序只能<strong>并发</strong>执行。</li>
-<li>多核CPU：同一时刻可以同时执行多个程序，多个程序可以<strong>并行</strong>执行。</li>
+<li>其PID，进程所属用户ID（UID）</li>
+<li>还要记录给每个进程分配了多少资源（如内存，正在使用哪些IO设备，正在使用那些文件，可用于实现操作系统对资源的管理。）</li>
+<li>记录进程的运行情况（CPU使用时间、磁盘使用情况、网络流量使用情况等等，可用于实现操作系统对进程的控制、调度）</li>
+<li>这些信息都会同意保存在一个数据结构<strong>PCB</strong>（process control block）中，即进程控制块，存放管理时需要的信息。</li>
 </ul>
 </li>
 </ul>
-<h3 id="2-共享（sharing）"><a href="#2-共享（sharing）" class="headerlink" title="2. 共享（sharing）"></a>2. 共享（sharing）</h3><p>系统中的资源可供内存中多个并发执行的进程共同使用。</p>
-<p>互斥：系统中某些资源，虽然可以给多进程使用，但一个时间段内只允许一个进程访问该资源。</p>
-<p>同时：系统中某些资源，允许一个时间段内由多个进程 “同时” 对他们进行访问。（微观上可能是交替的）</p>
 <pre class="mermaid">graph LR
-A(两种资源共享方式) -->B(互斥共享方式)
-    B -->C(一个时间段内只允许一个进程访问该资源)
-    A -->D(同时共享模式)
-    D -->E(一个时间段内由多个进程 同时 对他们进行访问)
-    F[sharing]</pre>
+PCB(PCB) -->A(进程描述信息)
+    A -->A1(进程标识符PID)
+    A -->A2(用户标识符UID)
+PCB -->B(进程控制和管理信息)
+    B -->B1(CPU/磁盘/网络流量 使用统计)
+    B -->B2(进程当前状态 就绪/阻塞/运行)
+PCB -->C(资源分配清单)
+    C -->C1(正在使用的文件)
+    C -->C2(正在使用的内存区域)
+    C -->C3(正在使用的IO设备)
+PCB -->D(处理机相关信息)
+    D -->D1(PSW/PC等 寄存器的值)</pre>
 
-<p><strong>注意</strong>：并发和共享是操作系统两个最基本特征，<strong>两者互为存在条件</strong>：</p>
+<ul>
+<li>当进程被创建时，操作系统为期创建一个PCB。当进程运行结束，操作系统会将其收回。操作系统对进程进行管理工作所需信息都存在PCB中。</li>
+</ul>
+<pre class="mermaid">graph LR
+S(进程的组成) -->PCB
+PCB -->P1(进程描述信息)
+PCB -->P2(进程控制和管理信息)
+PCB -->P3(资源分配清单)
+PCB -->P4(处理机相关信息)
+S -->A(程序段)
+A -->A1(程序的代码  指令序列)
+S -->B(数据段)
+B -->B1(运行过程中产生的各种数据)
+B -->B2(如 程序中定义的变量)
+S1[准确来说, 应该是 进程实体的组成]</pre>
+
+<p>PCB通常包含的内容：</p>
+<table>
+<thead>
+<tr>
+<th align="center">进程描述信息</th>
+<th align="center">进程控制和管理信息</th>
+<th align="center">资源分配清单</th>
+<th align="center">处理机相关信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">进程标识符PID</td>
+<td align="center">进程当前状态</td>
+<td align="center">代码段指针</td>
+<td align="center">通用寄存器值</td>
+</tr>
+<tr>
+<td align="center">用户标识符UID</td>
+<td align="center">进程优先级</td>
+<td align="center">数据段指针</td>
+<td align="center">地址寄存器值</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">代码运行入口地址</td>
+<td align="center">堆栈段指针</td>
+<td align="center">控制寄存器值</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">程序的外存地址</td>
+<td align="center">文件描述符</td>
+<td align="center">标志寄存器值</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">进入内存时间</td>
+<td align="center">键盘</td>
+<td align="center">状态字</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">处理机占用时间</td>
+<td align="center">鼠标</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">信号量使用</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>PCB是给操作系统用的。<strong>PCB是进程存在的唯一标志！</strong></li>
+<li>程序段、数据段是给进程自己使用的。和自身的运行逻辑有关</li>
+</ul>
+<p>进程，是动态的，是程序进行资源分配和调度的一个独立个体。</p>
+<p>进程实体（进程映像）：是静态的，是进程某一时刻运行时的快照（照片）。进程实体可以反映进程在某一时刻的状态。</p>
+<ul>
+<li>一个进程的调度，就是操作系统决定让这个进程上CPU运行。</li>
+</ul>
+<p><strong>进程的特征</strong>：</p>
+<ul>
+<li><p>动态性：</p>
+<p>是进程的最基本特征。进程是程序的一次执行过程，动态产生、变化和消亡</p>
+</li>
+<li><p>并发性：</p>
+<p>内存中有多个进程实体。各个进程可以并发执行。</p>
+</li>
+<li><p>独立性：</p>
+<p>课接受独立运行、调度、获得资源的基本单位</p>
+<p>各个进程拥有的内存地址空间相互独立</p>
+</li>
+<li><p>异步性：</p>
+<p>各自独立，不可预知的速度运行。操作系统要提供 <strong>进程同步机制</strong> 来解决异步问题</p>
+</li>
+<li><p>结构性：</p>
+<p>每个进程都配有一个PCB。</p>
+</li>
+</ul>
+<h2 id="2-1-2-进程的状态"><a href="#2-1-2-进程的状态" class="headerlink" title="2.1.2 进程的状态"></a>2.1.2 进程的状态</h2><p><strong>进程的状态</strong>：</p>
+<ul>
+<li><p>创建态：进程被创建时的状态。系统会为其分配资源，初始化PCB。</p>
+</li>
+<li><p>就绪态：进程创建完成的状态。<strong>但由于没有CPU，暂时不能运行</strong></p>
+</li>
+<li><p>运行态：进程正在CPU上运行。</p>
+</li>
+</ul>
+<p>进程运行过程中，可能会请求等待某个时间的发生（如等待某种系统资源的分配，或者等待其他进程的响应）。所以还有：</p>
+<ul>
+<li>阻塞态：在这个事件发生之前，该进程无法继续运行。操作系统会将其设置为阻塞态。</li>
+</ul>
+<pre class="mermaid">graph LR
+A((新建)) --> |创建|B(就绪)
+B -->|调度|C(运行)
+C -->|时间到|B
+C -->|退出|E(终止)
+C -->|事件等待|D(阻塞)
+D -->|事件发生|B</pre>
+
+<ul>
+<li><p>就绪态 -&gt; 运行态：进程被调度</p>
+</li>
+<li><p>运行态 -&gt; 阻塞态：是一种主动行为，等待资源分配</p>
+</li>
+<li><p>阻塞态 -&gt; 就绪态：是一种被动行为，资源分配到位</p>
+</li>
+<li><p>运行态 -&gt; 就绪态：时间片结束时候会有适中中断，或者CPU被其他优先级更高的进程抢占</p>
+</li>
+<li><p>三种基本状态：运行态、就绪态、阻塞态。</p>
+</li>
+<li><p>PCB中会有个state表示进程的当前状态</p>
+</li>
+</ul>
+<p><strong>进程的组织——链接方式</strong>：</p>
+<ul>
+<li>主要使用到了：执行指针、就绪队列指针、阻塞队列指针</li>
+</ul>
+<p>链式方式（系统管理一系列的队列，每个队列都会指向相应状态的PCB）大多数操作系统使用该方式</p>
+<p>​        执行指针指向当前运行态（执行态）的进程</p>
+<p>索引方式</p>
+<p>​        给各个相应进程建立索引表，每个索引表的表项指向PCB</p>
+<h2 id="2-1-3-进程控制"><a href="#2-1-3-进程控制" class="headerlink" title="2.1.3 进程控制"></a>2.1.3 进程控制</h2><p>实现进程的状态转换。进程控制需要用<strong>原语</strong>来实现。</p>
+<p>原语的执行具有原子性，即允许过程只能一气呵成，期间不允许被中断。</p>
+<p>可以用“关中断指令“和”开中断指令“这两个特权指令来实现原子性。</p>
+<ul>
+<li>没有关闭中断指令的时候，CPU每执行一句话就会检查是否有中断信号，有的换就中断程序，去执行中断信号所对应的程序。</li>
+<li>关闭了中断指令之后，即使有中断指令进来，CPU就不会理会，继续执行自己当前的指令。</li>
+<li>执行了“开中断指令” ，才会检查刚才是否有中断信号。有的话，就马上转去中断处理程序。</li>
+<li>在”关中断“与“开中断”之间的指令就是原子性的，不可被中断。</li>
+</ul>
+<h3 id="2-1-3-1-进程的创建："><a href="#2-1-3-1-进程的创建：" class="headerlink" title="2.1.3.1 进程的创建："></a>2.1.3.1 进程的创建：</h3><ul>
+<li>创建原语：<ul>
+<li>申请空白的PCB</li>
+<li>为新进程分配所需资源</li>
+<li>初始化PCB</li>
+<li>将PCB插入 就绪队列</li>
+</ul>
+</li>
+<li>引起进程创建的事件<ul>
+<li>用户登录：分时系统中，用户登录成功，系统会为其建立一个新的进程</li>
+<li>作业调度：多道批处理系统中，有新的作业放入内存时，会为其建立一个新的进程</li>
+<li>提供服务：用户向操作系统提出某些请求时，会新建一个进程处理这个请求</li>
+<li>应用请求：由用户进程主动请求创建的一个子进程</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-3-2-进程的摧毁："><a href="#2-1-3-2-进程的摧毁：" class="headerlink" title="2.1.3.2 进程的摧毁："></a>2.1.3.2 进程的摧毁：</h3><ul>
+<li>撤销原语：<ul>
+<li>从PCB集合中找到终止进程的PCB</li>
+<li>若该进程正在运行，立即剥夺CPU，将CPU分配给其他进程</li>
+<li>终止其所有子进程（进程之间的关系是树形的结构）</li>
+<li>将该进程拥有的所有资源归还给父进程或者操作系统</li>
+<li>删除PCB</li>
+</ul>
+</li>
+<li>引起进程终止的时间<ul>
+<li>正常结束：进程自己请求终止（exit系统调用）</li>
+<li>异常结束：整数除0、非法使用特权指令然后被操作系统强行杀掉</li>
+<li>外接干预：命令行<kbd>ctrl</kbd>+<kbd>c</kbd>键直接中断代码运行</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-3-3-进程的阻塞和唤醒："><a href="#2-1-3-3-进程的阻塞和唤醒：" class="headerlink" title="2.1.3.3 进程的阻塞和唤醒："></a>2.1.3.3 进程的阻塞和唤醒：</h3><ul>
+<li>进程的阻塞<ul>
+<li>阻塞原语<ul>
+<li>找到要阻塞的进程 对应的PCB</li>
+<li>保护进程运行现场，将PCB状态信息设置为 “阻塞态” ，暂停进程的运行</li>
+<li>将PCB插入相应事件的等待队列</li>
+</ul>
+</li>
+<li>引起进程阻塞的事件<ul>
+<li>需要等待系统分配某种资源</li>
+<li>需要等待相互合作的其他进程完成工作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>进程的唤醒<ul>
+<li>唤醒原语<ul>
+<li>在事件等待队列中找到PCB</li>
+<li>将PCB从等待队列溢出，设置进程为就绪态</li>
+<li>将PCB插入就绪队列，等待被调度</li>
+</ul>
+</li>
+<li>引起进程唤醒的事件：等待的事件发生了。 <strong>一个进程因为什么事情被阻塞，就应该由这个事件来唤醒</strong> 。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-3-4进程的切换："><a href="#2-1-3-4进程的切换：" class="headerlink" title="2.1.3.4进程的切换："></a>2.1.3.4进程的切换：</h3><ul>
+<li>切换原语<ul>
+<li>将运行环境信息存入PCB</li>
+<li>PCB移入相应队列</li>
+<li>选择另一个进程执行，更新其PCB</li>
+<li>根据PCB恢复新进程所需的运行环境</li>
+</ul>
+</li>
+<li>引起进程切换的时间<ul>
+<li>当前进程的时间片计时结束</li>
+<li>有更高优先级的进程到达</li>
+<li>当前进程主动阻塞</li>
+<li>当前进程终止</li>
+</ul>
+</li>
+</ul>
+<p>无论哪个进程要控制原语，要做的无非三类事情：</p>
 <ol>
-<li>资源共享是一程序并发为条件的。（若系统不允许程序并发执行，自然不存在资源共享问题）</li>
-<li>若系统不能对资源共享进行有效管理，一定影响到程序的并发执行。</li>
+<li><p>更新PCB中的信息</p>
+</li>
+<li><p>将PCB插入合适的队列</p>
+</li>
+<li><p>分配&#x2F;回收资源</p>
+</li>
 </ol>
-<h3 id="3-虚拟（virtual）"><a href="#3-虚拟（virtual）" class="headerlink" title="3. 虚拟（virtual）"></a>3. 虚拟（virtual）</h3><ul>
-<li>可归纳为：<ul>
-<li>时分复用技术：如处理器的分时共享（微观：处理机在微小时间段为各个进程服务，大时间分成小时间）</li>
-<li>空分复用技术：如虚拟存储器</li>
-</ul>
-</li>
-</ul>
-<p>详见第三章</p>
-<h3 id="4-异步（asynchronism）"><a href="#4-异步（asynchronism）" class="headerlink" title="4. 异步（asynchronism）"></a>4. 异步（asynchronism）</h3><p>并发的程序不是从头走到底的，是“走走停停”，如果进程正在占用资源，其他进程需要先被阻塞，等待资源释放。</p>
-<h2 id="1-3-操作系统运行机制"><a href="#1-3-操作系统运行机制" class="headerlink" title="1.3 操作系统运行机制"></a>1.3 操作系统运行机制</h2><ul>
-<li><p>实现操作系统，需要写<strong>内核程序</strong>，很多个内核程序组成**操作系统内核(kernel)**，简称内核，是整个操作系统最核心的部分。</p>
-<ul>
-<li>操作系统有个内核就足够了 (eg. Docker容器 -&gt; 仅需linux内核)</li>
-<li>操作系统的功能未必都在内核中，如GUI图形化界面</li>
-</ul>
-</li>
-<li><p>CPU设计的时候就划分了特权指令和非特权指令</p>
-<ul>
-<li>应用程序只能运行非特权指令（如加法减法）</li>
-<li>内核程序可以运行特权指令（如内存清0指令，这条指令影响重大，只允许“管理者”——即操作系统内核来使用）。</li>
-</ul>
-</li>
-<li><p>但是CPU运行的时候，只会把一条一条指令（二进制指令）送进去运行，怎么判断运行的程序是应用程序指令还是内核程序的指令？</p>
-<p>此时我们把CPU划分成为两种状态，<strong>”内核态“</strong>，<strong>“用户态”</strong></p>
-<ul>
-<li><p>内核态：说明此时运行的是<code>内核程序</code>，<strong>可以执行特权指令</strong></p>
-</li>
-<li><p>用户态：说明此时运行的是<code>应用程序</code>，<strong>只能执行非特权指令</strong></p>
-</li>
-<li><p>CPU中的寄存器**程序状态字寄存器（PSW)**，其中有一个二进制位，1表示内核态，0表示用户态</p>
-<p>当需要交换状态，修改PSW值即可</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="1-4-中断和异常"><a href="#1-4-中断和异常" class="headerlink" title="1.4 中断和异常"></a>1.4 中断和异常</h2><ul>
-<li>中断的作用：如果应用程序运行的时候，发生了中断，就会让cpu立即停止此时运行的应用程序，转而执行相应的内核程序。中断是让管理者（操作系统内核）夺回使用权的唯一途径，而中断，会使CPU由用户态转变为内核态</li>
-</ul>
-<pre class="mermaid">graph LR
-A(内核态 -> 用户态) -->B(用特权指令 修改PSW的值)
-C(用户态 -> 内核态) -->D(引发 中断 硬件自动完成 CPU状态转换过程 强行夺回CPU使用权)</pre>
+<h2 id="2-1-4-进程通信"><a href="#2-1-4-进程通信" class="headerlink" title="2.1.4 进程通信"></a>2.1.4 进程通信</h2><pre class="mermaid">graph LR
+A(进程通信) -->B(共享存储)
+B -->B1(基于数据结构的共享)
+B -->B2(基于存储区的共享)
+A -->C(消息传递)
+C -->C1(直接通信)
+C -->C2(间接通信)
+A -->D(管道通信)</pre>
 
+<h3 id="2-1-4-1进程通信"><a href="#2-1-4-1进程通信" class="headerlink" title="2.1.4.1进程通信"></a>2.1.4.1进程通信</h3><p>进程之间的信息交换。为了保证安全，一个进程不能直接访问另一个进程的地址空间</p>
 <ul>
-<li><p>中断的类型：</p>
+<li><p>共享空间：<strong>两个进程对共享空间的访问必须是互斥的</strong>（互斥访问通过操作系统给的工具实现）。操作系统只提供共享空间和同步互斥工具（如P、V操作）</p>
 <ul>
-<li><p>内中断（也叫做 <strong>异常</strong>）：与当前执行指令有关，中断信号来源于CPU内部</p>
-<p>有时候应用程序想请求操作系统内核的服务，此时会执行一条<strong>特殊的指令——陷入指令</strong>。该指令会引发一个内部中断信号。应用程序主动吧使用权归还给操作系统，希望操作系统提供某项服务。（先传入所需的参数，再调用陷入指令）</p>
-<ul>
-<li>而<strong>系统调用</strong>就是利用陷入指令来完成</li>
-<li><strong>陷入指令并不是特权指令</strong>,陷入指令在用户态执行，执行后立刻引发一个<strong>内中断</strong>，使CPU进入内核态。</li>
-</ul>
-<p>异常分三个种类：</p>
-<ul>
-<li><p>陷阱、陷入（trap）：</p>
-<p>由陷入指令引发，是应用程序故意引发的</p>
-</li>
-<li><p>故障（fault）：</p>
-<p>由错误条件引起，可能被内核程序修复。内核程序修复后会把CPU使用权还给应用程序，让他继续执行下去。如：缺页故障</p>
-</li>
-<li><p>终止（abort）：</p>
-<p>由致命错误引起，内核程序无法修复，因此一般不再将CPU使用权还给引发终止的应用程序，而是直接终止该应用程序。如：整数除0，非法使用特权指令</p>
-</li>
+<li>基于数据结构共享：比如共享空间只能存放长度为10的数组，这种方式速度慢，限制多，是一种低级的通信方式</li>
+<li>基于存储区的共享：在内存中划出一块共享存储区，数据的形式、存放的位置都是由进程来控制，而不是操作系统。该共享方式更快，是一种高级的通信方式。</li>
 </ul>
 </li>
-<li><p>外中断（狭义上统称 <strong>中断</strong>）：与当前执行指令无关，中断信号来源于CPU外部</p>
-<p>例子：时钟中断。由时钟部件（在cpu的外部）发来中断信号，实现程序并发的重要前提。</p>
-<p>​            io设备提供中断信号。这些中断信号让操作系统可以很好的调度各个进程。</p>
-<p>外部中断又分可屏蔽中断<strong>INTR</strong>和不可屏蔽中断<strong>NMI</strong></p>
-</li>
+<li><p>管道通信：</p>
+<p>管道是指用于连接读写进程的一个共享文件，又叫做<strong>pipe</strong>文件。其实就是在内存中开辟一个大小固定的缓冲区。</p>
+<ul>
+<li>一个管道只能采用<code>半双工通信</code>，某一时间段内只能实现<strong>单向</strong>的传输。如果要实现<code>双向同时通信</code>，则需要设置两个管道。</li>
+<li>各个进程要<strong>互斥</strong>地访问管道。</li>
+<li>数据以字符流的形式进入管道。<ul>
+<li>当管道写满时，写进程的write()系统调用将被阻塞，等待读进程将数据取走</li>
+<li>当读进程将数据全部取走后，管道变空，此时读进程的read()系统调用将被阻塞。</li>
 </ul>
 </li>
-<li><p>中断机制的基本原理：</p>
-<p>  不同类型的中断信号，需要用不同的中断处理程序来处理。查询<strong>中断向量表</strong>，以此来找到相应的中断处理程序在内存中存放的位置。</p>
+<li>如果没写满，就不允许读；如果没读空，就不允许写</li>
+<li>数据一旦被读出，就会从管道中被抛弃。这就意味着读进程最多只能有一个。否则可能会出现读错数据的情况</li>
+</ul>
 </li>
 </ul>
-<p>显然，中断处理程序一定是在内核态的，需要运行在内核态（涉及计算机组成原理）</p>
-<h2 id="1-5-系统调用"><a href="#1-5-系统调用" class="headerlink" title="1.5 系统调用"></a>1.5 系统调用</h2><p>操作系统作为用户和计算机硬件之间的接口，需要向上提供一些简单好用的服务。主要包括命令接口和程序接口。其中，程序接口由一组系统调用组成。<strong>应用程序可以通过系统调用来请求获得操作系统内核的服务</strong>。</p>
-<pre class="mermaid">graph TD
-A[应用程序] --> system(系统调用)
-    A --> |高级语言| C(c库函数)
-    C --> system(系统调用)
-    system(系统调用) --> operating[操作系统]
-    F[系统调用与库函数的区别]</pre>
+<h3 id="2-1-4-2-消息传递"><a href="#2-1-4-2-消息传递" class="headerlink" title="2.1.4.2 消息传递"></a>2.1.4.2 消息传递</h3><p>进程之间的数据交换以<strong>格式化的消息（message）</strong>为单位。进程通过操作系统提供的“发送消息&#x2F;接收消息”两个原语进行数据交换。</p>
+<p>消息分为消息头和消息体两个板块</p>
+<ul>
+<li>消息头：包括发送进程ID、接受进程ID、消息类型、消息长度等等信息（计算机网络中发送的“报文”，就是一种格式化消息）</li>
+<li>消息体：消息本体</li>
+</ul>
+<p>消息传递有两种方式：</p>
+<ul>
+<li>直接通信方式：消息直接挂到接受进程的消息缓冲队列上</li>
+<li>间接通信方式：消息先发送到中间实体（信箱）中，也成为“信箱通信方式”，如：计算机网络中的电子邮件系统</li>
+</ul>
+<h2 id="2-1-5-线程的概念"><a href="#2-1-5-线程的概念" class="headerlink" title="2.1.5 线程的概念"></a>2.1.5 线程的概念</h2><p>有的进程可能需要 “同时” 做很多事情，传统的进程只能串行执行一系列程序。所以引入了 “线程” ，来增加并发度。</p>
+<p>可以把线程理解为“轻量级进程”</p>
+<p>线程是一个基本的CPU执行单元，也是程序执行流的最小单位。</p>
+<p>引入线程后，进程只作为除CPU之外的系统资源的分配单元（如打印机、内存地址空间等等都是分配给进程的）</p>
+<p>带来的变化：</p>
+<ul>
+<li>资源分配、调度<ul>
+<li>传统进程机制中，进程是资源分配、调度的基本单位</li>
+<li>引入线程后，进程是资源分配的基本单位，线程是调度的基本单位</li>
+</ul>
+</li>
+<li>并发性<ul>
+<li>传统进程机制中，只能进程间并发</li>
+<li>引入线程后，各个线程之间也能并发，提升了并发度</li>
+</ul>
+</li>
+<li>系统开销<ul>
+<li>传统的进程间并发，需要切换进程的运行环境，系统开销很大</li>
+<li>引入线程后，并发所带来的系统开销减小。</li>
+<li>线程间并发，如果是统一进程内的线程切换，则不需要切换进程环境，系统开销小</li>
+</ul>
+</li>
+</ul>
+<p>线程的属性：</p>
+<ul>
+<li><p>线程是处理机调度的单位。</p>
+<ul>
+<li>同一个进程中线程切换，不引起进程切换。</li>
+<li>不同的进程中线程切换，会引起进程切换。</li>
+<li>切换同进程内的线程，系统开销很小</li>
+<li>切换进程，系统开销较大</li>
+</ul>
+</li>
+<li><p>多CPU计算机中，各个线程可以占用不同CPU</p>
+</li>
+<li><p>每个线程都拥有一个线程ID，线程控制块TCB，TCB记录了线程执行的寄存器和栈等现场状态。</p>
+<ul>
+<li>线程也有就绪、阻塞、运行三种基本状态。</li>
+<li>不同线程可以执行相同的程序</li>
+</ul>
+</li>
+<li><p>线程几乎不拥有系统资源。但线程可以访问其隶属进程的系统资源。属于同一进程的所有线程都具有相同的地址空间</p>
+</li>
+<li><p>同一进程的不同线程间贡献进程的资源</p>
+</li>
+<li><p>由于共享内存地址空间，同一进程中的线程间通信甚至无需系统干预</p>
+</li>
+</ul>
+<h2 id="2-1-6-多线程"><a href="#2-1-6-多线程" class="headerlink" title="2.1.6 多线程"></a>2.1.6 多线程</h2><pre class="mermaid">graph LR
+A(线程) -->B(实现方式)
+B -->B1(用户级线程)
+B -->B2(内核级线程)
+A -->C(多线程模型)
+C -->C1(一对一模型)
+C -->C2(多对一模型)
+C -->C3(多对多模型)</pre>
 
-<pre class="mermaid">graph LR
-A(系统调用 按功能分类) -->B(设备管理 完成对设备的 请求/释放/启动 等功能)
-A -->C(文件管理 完成对文件的 读/写/创建/删除 等功能)
-A -->D(进程控制 完成进程的 创建/撤销/阻塞/唤醒 等功能)
-A -->E(进程通信 完成进程之间的 消息传送/信号传递 等功能)
-A -->F(内存管理 完成内存的 分配/回收 等功能)</pre>
-
-<p>*拓展链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghuaijun/p/6548633.html">linux提供了哪些系统调用</a></p>
-<ul>
-<li><p>凡是与共享资源有关的操作（如存储分配、IO操作、文件管理等），都必须通过系统调用的方式向<strong>操作系统内核</strong>提出服务请求。由内核代为完成，保证系统的稳定性与安全性。（也防止用户非法操作）</p>
+<h3 id="2-1-6-1用户级线程（User-Level-Thread，ULT）"><a href="#2-1-6-1用户级线程（User-Level-Thread，ULT）" class="headerlink" title="2.1.6.1用户级线程（User-Level-Thread，ULT）"></a>2.1.6.1用户级线程（User-Level-Thread，ULT）</h3><ul>
+<li><p>由应用程序在用户控件完成，用户才能感知到线程的存在，而内核意识不到线程的存在。</p>
+<p>应用于早期操作系统，线程的实现是使用线程库实现的。</p>
+<p>很多编程语言提供了强大的线程库，可以实现线程的创建、销毁、调度等功能。</p>
 </li>
-<li><p>总结：</p>
-<ul>
-<li>陷入指令是在用户态执行，执行陷入指令后立即引发一个内中断，使CPU进入内核态。</li>
-<li>发出系统调用的请求是在用户态，而对系统调用的相应处理是在内核态下进行。</li>
-</ul>
+<li><p>用户级线程有应用程序通过线程库实现，所有的<strong>线程管理工作</strong>都有<strong>应用程序负责</strong>（包括线程切换）</p>
 </li>
-<li><p>别名：<strong>内核态&#x3D;核心态&#x3D;管态</strong>    <strong>用户态&#x3D;目态</strong>  <strong>陷入指令&#x3D;trap指令&#x3D;访管指令</strong></p>
-<ul>
-<li>访管指令的基本功能是让程序拥有 “自愿进管” 的手段。从而引起访管中断。访管中断处理程序将按照系统调用的操作数和参数转到相应的例行子程序[^1]。完成服务功能后，退出中断，返回到用户程序断点继续执行。</li>
-</ul>
-<p>[^1]: 例行程序 (routine)亦称例程.一种计算机程序.是与一项计算任务相对应的处理对象和处理规则的描述.可以是一个主程序的一部分或一个专用程序，也可包含若干个子程序.它一般在一个程序或多个程序中多次使用.例行程序和子程序常常存放在程序库中，通常存储在外存储器上.</p>
+<li><p>用户级线程中，<strong>线程切换</strong>可以在<strong>用户态下即可完成</strong>，无需操作系统干预</p>
 </li>
-</ul>
-<h2 id="1-6-操作系统的体系结构"><a href="#1-6-操作系统的体系结构" class="headerlink" title="1.6 操作系统的体系结构"></a>1.6 操作系统的体系结构</h2><h3 id="1-分层法"><a href="#1-分层法" class="headerlink" title="1 分层法"></a>1 分层法</h3><p>将操作系统分为若干层，最底层（层0）为硬件，最高层（层N）为用户接口。每层只能调用紧邻它的低层的功能与服务（单向依赖）</p>
-<ul>
-<li>优点：<ul>
-<li>便于系统的调试和验证，简化了系统设计与实现。</li>
-<li>易扩充、易维护：增加、修改或替换其中一层，只要不改变接口，就不会影响其它层。</li>
-</ul>
-</li>
-<li>缺点：<ul>
-<li>各层合理定义较难，依赖关系稳定之后，往往不够灵活。</li>
-<li>效率较差，通常调用的时候需要自上而下地穿越多层，增加开销。</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-模块化"><a href="#2-模块化" class="headerlink" title="2 模块化"></a>2 模块化</h3><p>是将操作系统按功能分为若干个功能模块。每个模块具有某种功能，并规定好接口，使各个模块之间可以通信。然后细分下各个子模块，这种设计方法叫做<strong>模块-接口法</strong>。</p>
-<p>划分模块的时候，如果分的太小，虽然可以降低模块本身的复杂性，但会使得模块之间的联系过多，造成系统比较混乱。如果模块分的过大，会增加模块内部复杂性。</p>
-<p>而且，划分模块的时候，要充分考虑模块的独立性，独立性越高，各个模块之间交互就变少，系统结构也就越清晰。衡量模块的独立性主要有两个标准：</p>
-<ul>
-<li><p>内聚性：模块内部各个部分联系的紧密程度。内聚性越高，模块独立性越好。</p>
-</li>
-<li><p>耦合度：模块间相互联系和相互影响的程度。耦合性越高，模块独立性越好。</p>
+<li><p>在用户看来，是有多个线程。但是在操作系统内核看来，并意识不到线程的存在。“用户级线程” 就是 <strong>从用户视角看，能看到的线程</strong>。</p>
 </li>
 <li><p>优点：</p>
-<ul>
-<li>提高了操作系统设计的正确性、可理解性、可维护性</li>
-<li>增强了操作系统的课适应性</li>
-<li>加速了操作系统的开发过程</li>
-</ul>
+<ol>
+<li>用户级线程的切换在用户控件即可完成，不需要切换到核心态。</li>
+<li>线程管理的系统开销小，效率高。</li>
+<li>调度算法可以是进程专用的，不同的进程可以根据自人需要，对自己的线程选择不同的调度算法。</li>
+<li>用户级线程的实现与操作系统无关，对象池管理的代码是属于用户程序的一部分。</li>
+</ol>
 </li>
 <li><p>缺点：</p>
+<ol>
+<li>当一个用户级线程被阻塞后，<strong>整个进程都会被阻塞</strong>，<strong>并发度不高</strong>。</li>
+<li>多个线程不可在多核处理机上并行运行。不能发挥多处理机的优势，内核每次分配给一个进程的只有一个CPU，因此进程中仅有一个线程能执行。</li>
+</ol>
+</li>
+</ul>
+<pre class="mermaid">graph TB
+A1(用户级线程) ---|用户空间|S(线程库)
+A2(用户级线程) ---|用户空间|S
+A3(用户级线程) ---|用户空间|S
+subgraph kernel_area
+    P(内核级线程)
+end
+S ---|内核空间|P
+T((用户级方式))</pre>
+
+<h3 id="2-1-6-2-内核级线程（KLT"><a href="#2-1-6-2-内核级线程（KLT" class="headerlink" title="2.1.6.2 内核级线程（KLT)"></a>2.1.6.2 内核级线程（KLT)</h3><ul>
+<li><p>内核级线程的管理工作由操作系统内核完成</p>
+</li>
+<li><p>线程调度、切换等工作都由内核负责。因此<strong>内核级线程的切换必须在核心态下才能完成</strong>。</p>
+</li>
+<li><p>操作系统会为每个内核级线程创建TCB（Thread Control Bolck，线程控制块）</p>
+</li>
+<li><p>优点：</p>
+<ol>
+<li>能发挥多处理机的优势，并发能力强。多线程可以在多核处理机上并行执行。</li>
+<li>如果进程中的一个线程被阻塞，内核可以调度该进程中的其他线程占用处理机。</li>
+<li>内核支持线程具有很小的数据结构和堆栈，线程切换比较快、开销小。</li>
+<li>内核本身也可以采用多线程技术，提高系统的执行速度和效率。</li>
+</ol>
+</li>
+<li><p>缺点：</p>
+<p>同一进程中的线程切换，需要从用户态转为核心态，系统开销较大。</p>
+<p>因为用户进程的线程在用户态执行，而线程调度和管理需要在内核实现</p>
+</li>
+</ul>
+<pre class="mermaid">graph TB
+A1(用户级线程) ---|用户空间|P1
+A2(用户级线程) ---|用户空间|P2
+A3(用户级线程) ---|用户空间|P3
+subgraph kernel_area
+    P1 ---|内核空间|P(内核级线程)
+    P2 ---|内核空间|P
+    P3 ---|内核空间|P
+end
+T((内核级方式))</pre>
+
+<h3 id="2-1-6-3-组合方式"><a href="#2-1-6-3-组合方式" class="headerlink" title="2.1.6.3 组合方式"></a>2.1.6.3 组合方式</h3><p>同一个进程中的多个线程可以同时在多处理机上并行执行，且在阻塞一个线程时不需要将整个进程阻塞，结合了ULT与KLT的优势，并克服了各自的不足</p>
+<p>实现线程库主要方式有</p>
 <ul>
-<li>模块间的接口规定很难满足对接口的实际需求</li>
-<li>各个模块规格的设计没有一个统一的好答案，没找到可靠的决定顺序</li>
+<li>在用户空间中提供一个没有内核支持的库</li>
+<li>实现由操作系统直接支持的内核级的库</li>
 </ul>
-</li>
-</ul>
-<h3 id="3-内核架构"><a href="#3-内核架构" class="headerlink" title="3 内核架构"></a>3 内核架构</h3><p><strong>而操作系统从内核上分大致分为两点：</strong></p>
+<pre class="mermaid">graph TB
+A1(用户级线程) ---|用户空间|S1(线程库1)
+A2(用户级线程) ---|用户空间|S1
+A3(用户级线程) ---|用户空间|S1
+A4(用户级线程) ---|用户空间|S2(线程库2)
+subgraph kernel_area
+    P1(内核级线程)
+    P2(内核级线程)
+    P3(内核级线程)
+end
+S1 ---|内核空间|P1
+S1 ---|内核空间|P2
+S2 ---|内核空间|P3
+T((组合 方式))</pre>
+
+<h3 id="2-1-6-4-多线程模型"><a href="#2-1-6-4-多线程模型" class="headerlink" title="2.1.6.4 多线程模型"></a>2.1.6.4 多线程模型</h3><h4 id="1、一对一模型"><a href="#1、一对一模型" class="headerlink" title="1、一对一模型"></a>1、一对一模型</h4><p>类比内核级线程图</p>
+<p>一个用户级线程映射到一盒内核级线程。每个用户进程有和用户线程一样多的内核级线程。</p>
 <ul>
-<li><p>大内核&#x2F;单内核&#x2F;宏内核 </p>
+<li><p>优点：当一个线程被阻塞后，别的线程还可以继续执行，<strong>并发能力强</strong>。多线程可以在多核处理机上运行</p>
+</li>
+<li><p>缺点：一个用户进程会占用多个内核级线程，线程切换又需要操作系统来完成，需要切换到核心态。<strong>线程管理的成本高，开销大</strong>。</p>
+</li>
+</ul>
+<h4 id="2、多对一模型"><a href="#2、多对一模型" class="headerlink" title="2、多对一模型"></a>2、多对一模型</h4><p>类比用户级线程图</p>
+<p>多个用户级线程映射到一个内核级线程，且一个进程只能被分配到一个内核级线程。</p>
 <ul>
-<li>操作系统的主要功能模块都作为系统内核，运行在核心态</li>
-<li>优点：高性能</li>
-<li>缺点：内核代码量庞大，结构混乱，难以维护</li>
-<li>典型的大内核操作系统：Linux、Unix</li>
+<li>优点：用户级线程的切换在用户空间即可完成，不需要切换到核心态，系统管理的开销小，效率高</li>
+<li>缺点：当一个用户级线程被阻塞后，整个进程都会被阻塞，并发度不高。多个线程不可在多核处理机上并行运行</li>
+<li><strong>！重点</strong>：操作系统只 “看得见” 内核级线程，因此只有内核级线程才是处理机分配的单位</li>
 </ul>
-</li>
-<li><p>微内核</p>
+<h4 id="3、多对多模型"><a href="#3、多对多模型" class="headerlink" title="3、多对多模型"></a>3、多对多模型</h4><p>类比组合模型图</p>
 <ul>
-<li><p>只把最基本的功能留在内核</p>
+<li><p>n个用户级线程映射到m个内核级线程<strong>（n&gt;&#x3D;m）</strong>。每个用户级进程对应m个内核级线程。</p>
 </li>
-<li><p>微内核基本功能：</p>
+<li><p>克服了多对一模型并发度不高的缺点（一个阻塞全体阻塞）</p>
+</li>
+<li><p>克服了一对一模型中一个用户占用太多线程，开销太大的缺点</p>
+</li>
+<li><p>可以理解为：</p>
 <ul>
-<li><p>进程&#x2F;线程管理</p>
-</li>
-<li><p>低级存储器管理</p>
-<p>在微内核中，只配置了最基本的低级存储器管理机制。如用于实现将逻辑地址变换为物理地址等的页表机制和地址变换机制，这一部分需要依赖于硬件，因此放入微内核。</p>
-<p>而实现虚拟存储器管理的策略，则包含应采取何种页面置换算法，采用何种内存分配与回收的策略，应将这部分放在微内核外的存储器管理服务器中。</p>
-</li>
-<li><p>中断和陷入处理</p>
-</li>
+<li>用户级线程是 “代码逻辑”的载体</li>
+<li>内核级线程是 “运行机会”的载体</li>
+<li>内核级线程才是处理机分配的单位</li>
 </ul>
 </li>
-<li><p>优点：内核功能少，结构清晰，方便维护</p>
-</li>
-<li><p>缺点：需要频繁地在内核态和用户态切换，容易降低CPU性能</p>
-</li>
-<li><p>典型的微内核操作系统：Windows NT</p>
-</li>
-<li><p>定义微内核结构OS的四个方面：</p>
+<li><p>一段 “代码逻辑”只有获得 “运行机会”，才能被CPU执行</p>
 <ul>
-<li><p>足够小的内核</p>
-</li>
-<li><p>基于客户&#x2F;服务器模式</p>
-</li>
-<li><p>应用<strong>机制与策略分离</strong>原理</p>
-<ul>
-<li><p>机制是指实现某一功能的具体执行机构</p>
-</li>
-<li><p>策略是指在机制的基础上借助于某些参数和算法来实现该功能的优化，或者达到不同的功能目标。</p>
-<p>传统OS中，将机制放在OS内核的较低层中，把策略放在内核的较高层。而微内核OS中，通常将机制放在微内核里，才能把内核做的很小</p>
-</li>
-</ul>
-</li>
-<li><p>采用面向对象技术</p>
-<p>基于面向对象技术中的<strong>抽象</strong>与<strong>隐蔽</strong>原则，能控制系统的复杂性。进一步利用<strong>对象、封装、继承</strong>等概念还能确保系统运行的正确、可靠、易扩展性。也是因为如此，面向对象技术被广泛应用在操作系统的设计中。</p>
-</li>
+<li>内核级线程中可以运行任意一个有映射关系的用户级线程代码</li>
+<li>只有两个内核级线程中正在运行的代码逻辑全都阻塞，这个进程才会阻塞。</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<p>操作系统主要分两个板块：</p>
-<ul>
-<li><p>非内核功能：如GUI</p>
-</li>
-<li><p>内核功能：</p>
-<ul>
-<li><p>与硬件管理较紧密的模块</p>
-<ul>
-<li>时钟管理（利用时钟中断实现计时功能）</li>
-<li>中断处理</li>
-<li>原语（设备驱动、CPU切换等）<ul>
-<li>是一种特殊程序</li>
-<li>处于操作系统最底层，是最接近硬件的部分</li>
-<li>这种程序具有原子性，运行必须一气呵成，不可被中断。</li>
-<li>运行时间短，调用频繁</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>这些管理工作更多是对数据结构的操作，不会直接涉及硬件。</p>
-<ul>
-<li><p>把这部分功能也写进内核的内核叫大内核。反之，只有时钟，中断，原语的内核称之为微内核，其进程管理等等内容将运行在用户态，对性能有一定的影响。</p>
-</li>
-<li><p>进程管理、存储器管理、设备管理等功能</p>
-</li>
-</ul>
-</li>
-<li><p>这些内核功能，必须运行在内核态</p>
-</li>
-<li><p>微内核相比大内核，CPU运行状态的转换（psw）的次数会变多。CPU运行状态的转换是有成本的，消耗不少时间。频繁转换运行状态会降低系统性能</p>
-</li>
-</ul>
-</li>
-<li><p>Ubuntu、centos的开发团队主要是实现了非内核功能，而内核功能都是用了Linux内核。</p>
-</li>
-</ul>
-<h2 id="1-7-操作系统的发展与分类"><a href="#1-7-操作系统的发展与分类" class="headerlink" title="1.7 操作系统的发展与分类"></a>1.7 操作系统的发展与分类</h2><h3 id="1-手工操作阶段"><a href="#1-手工操作阶段" class="headerlink" title="1 手工操作阶段"></a>1 手工操作阶段</h3><ul>
-<li><p>纸带机打孔</p>
-</li>
-<li><p>缺点：用户独占全集，”人机速度矛盾“ 导致资源利用率低。</p>
-</li>
-<li><p>人机速度矛盾:人需要很长时间写纸带代码，且一次只能由一名程序员使用计算机，不允许多人使用；而计算机很快就可以运行完纸带代码</p>
-</li>
-</ul>
-<h3 id="2-单道批处理系统"><a href="#2-单道批处理系统" class="headerlink" title="2 单道批处理系统"></a>2 单道批处理系统</h3><ul>
-<li><p>引入<strong>脱机输入&#x2F;输出技术</strong>（用外围机+磁带完成），并由<strong>监督程序（操作系统的雏形）</strong>负责控制作业的输入输出，磁带读取熟读比纸带快很多</p>
-</li>
-<li><p>主要优点：缓解一定程度的人及速度矛盾，资源利用率有一定的提升</p>
-</li>
-<li><p>主要缺点：内存中仅能有一道程序运行，运行结束才能进行下一道（串行执行）。而<strong>CPU有大量的时间在空闲等待IO完成</strong>，资源利用率还是不高</p>
-</li>
-</ul>
-<h3 id="3-多道批处理系统"><a href="#3-多道批处理系统" class="headerlink" title="3 多道批处理系统"></a>3 多道批处理系统</h3><ul>
-<li><p>每次往内存中读取多道程序</p>
-</li>
-<li><p>操作系统正式诞生，支持多道程序并发运行</p>
-</li>
-<li><p>主要优点：多道程序<strong>并发</strong>执行，<strong>共享</strong>计算机资源，<strong>资源利用率大幅度提升</strong>，CPU和其他组员更能保持 “忙碌” 状态，系统吞吐量增大</p>
-</li>
-<li><p>主要缺点：用户响应时间长，<strong>没有人机交互功能</strong>（用户提交自己的作业指挥就只能等待计算机处理完毕，中间不能控制自己的作业执行</p>
-<p>如：无法调试程序，无法在程序运行中输入参数）</p>
-</li>
-</ul>
-<h3 id="4-分时操作系统"><a href="#4-分时操作系统" class="headerlink" title="4 分时操作系统"></a>4 分时操作系统</h3><ul>
-<li><p>计算机以<strong>时间片</strong>为单位<strong>轮流为各个用户&#x2F;作业服务</strong>，各个用户可以通过终端与计算机进行交互</p>
-</li>
-<li><p>主要优点：用户请求可以被即时响应，<strong>解决人机交互的问题</strong>。允许多个用户同时使用一台计算机，并且用户对计算机的操作相互独立，感受不到别人的存在</p>
-</li>
-<li><p>主要缺点：<strong>不能优先处理一些紧急任务</strong>。操作系统对各个用户&#x2F;作业都是公平的，循环地为每个用户&#x2F;作业服务一个时间片，不区分任务优先级&#x2F;紧急性。</p>
-</li>
-</ul>
-<h3 id="5-实时操作系统"><a href="#5-实时操作系统" class="headerlink" title="5 实时操作系统"></a>5 实时操作系统</h3><ul>
-<li><p>计算机接收到外部信号后及时进行处理，并且<strong>要在严格的时限内处理完事件</strong>。实时操作系统的主要特点是<strong>及时性和可靠性</strong>。</p>
-<ul>
-<li><p>硬实时系统：必须在绝对严格的时间内完成任务</p>
-<ul>
-<li>如：自动驾驶系统</li>
-</ul>
-</li>
-<li><p>软实时系统：能够接受偶尔的违反时间规定</p>
-<ul>
-<li>如：订票系统（实时更新票数）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>主要优点：能够及时响应一些紧急任务，某些优先级高的任务不需要时间片排队。</p>
-<h3 id="6-其他操作系统"><a href="#6-其他操作系统" class="headerlink" title="*6 其他操作系统"></a>*6 其他操作系统</h3></li>
-<li><p>网络操作系统：实现网络中各种资源的共享（文件共享）和各个计算机之间的通信</p>
-</li>
-<li><p>分布式操作系统：特点是分布性、并行性，任何任务都可以分布在这些计算机上，并行协同地完成任务</p>
-</li>
-<li><p>个人操作系统：Windows、macOS等等</p>
-</li>
-</ul>
-<h2 id="1-8-操作系统引导"><a href="#1-8-操作系统引导" class="headerlink" title="1.8 操作系统引导"></a>1.8 操作系统引导</h2><p>常见的操作系统引导流程如下</p>
-<ul>
-<li><p>激活CPU：</p>
-<p>激活的CPU读取<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BE%8B%E8%A1%8C%E7%A8%8B%E5%BA%8F/19140404?fr=aladdin">ROM</a>中的boot程序，将指令寄存器置为BIOS<a href="%E5%9F%BA%E6%9C%AC%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%B3%BB%E7%BB%9F">^BIOS</a>的第一条指令，即开始执行BIOS的指令。</p>
-</li>
-<li><p>硬件自检：</p>
-<p>启动BIOS程序之后，先进行硬件自检，检测是否故障。如有故障，用蜂鸣器发出不同含义的蜂鸣；如无故障，屏幕会开始显示cpu，内存，硬盘等等信息。</p>
-</li>
-<li><p>加载带有操作系统的硬盘：</p>
-<p>BIOS在自检结束后，开始读取Boot Sequence(通过CMOS里存的启动顺序，或者通过与用户交互的方式)，把控制权交给排序第一位的设备。然后CPU将该存储设备的<strong>引导扇区</strong>的内容存至内存中。</p>
-</li>
-<li><p>加载主引导记录<strong>MBR</strong>：</p>
-<p>硬盘以特定的标识符区分引导硬盘和非引导硬盘。如果发现该盘不是可引导盘，就换下一个。若没有课引导盘，会导致死机。<strong>主引导记录MBR的作用就是告诉CPU去硬盘的哪个分区去寻找操作系统</strong>。</p>
-</li>
-<li><p>扫描硬盘分区表，并加载硬盘活动分区：</p>
-<p>MBR包含硬盘分区表，硬盘分区表以特定的标识符区分活动分区和非活动分区。主引导记录扫描硬盘分区表，进而识别含有操作系统的硬盘分区（活动分区）。找到硬盘的活动分区之后，开始加载硬盘的活动分区，将控制权交给活动分区。</p>
-</li>
-<li><p>加载分区引导记录PBR：</p>
-<p>读取活动分区的第一个扇区，这个扇区称为**分区引导记录(PBR)**，其作用是寻找并激活分区根目录下，用于引导操作系统的程序（启动管理器）。</p>
-</li>
-<li><p>加载启动管理器：</p>
-<p>分区引导记录搜索活动分区中的启动管理器，并加载它。</p>
-</li>
-<li><p>加载操作系统</p>
-</li>
-</ul>
-<p>ROM: 只读存储器，即使切断电源，信息也不会丢失，又称为固定存储器。整机工作过程中只能读出，不能像随机存储器能快速方便地改写存储内容。</p>
-<p>ROM: 只读存储器，即使切断电源，信息也不会丢失，又称为固定存储器。整机工作过程中只能读出，不能像随机存储器能快速方便地改写存储内容。<br>BIOS: 基本输入输出系统</p>
-<h2 id="1-9-虚拟机"><a href="#1-9-虚拟机" class="headerlink" title="1.9 虚拟机"></a>1.9 虚拟机</h2><p>虚拟机是一台逻辑计算机。通过隐藏特点计算平台的实际物理特性，为用户提供抽象、统一、模拟的计算环境。有两种虚拟方法。</p>
-<h3 id="1-第一类虚拟管理程序"><a href="#1-第一类虚拟管理程序" class="headerlink" title="1 第一类虚拟管理程序"></a>1 第一类虚拟管理程序</h3><p>该虚拟机作为用户态执行，不允许使用特权指令。而虚拟机上的操作系统认为自己是在内核态（实际上不是），成为虚拟内核态。</p>
-<p>在支持虚拟化的CPU上，执行特权指令时，，虚拟机管理程序会检测是虚拟机中的操作系统执行的还是虚拟机中的用户程序执行的。前者，会安排正常执行；否则，虚拟机管理程序会模拟真实硬件，面对用户，模拟执行特权指令时的行为。</p>
-<h3 id="2-第二类虚拟管理程序"><a href="#2-第二类虚拟管理程序" class="headerlink" title="2 第二类虚拟管理程序"></a>2 第二类虚拟管理程序</h3><p>是一类与操作系统分配和调度资源的程序，很像一个普通的进程。。这一类仍然伪装成具有CPU和各种资源的完备计算机。VMware是首个在x86上的第二类虚拟管理程序。</p>
-<p>刚开始启动的时候，这一类虚拟管理程序像一台刚启动的计算机那样运转，期望找到的驱动器可以是虚拟设备。然后将操作系统安装到虚拟磁盘上（宿主操作系统中的一个文件）。安装完成后即可运行。</p>
-<p>有的说法，把第一类成为<strong>裸金属架构</strong>，第二类称为<strong>寄居架构</strong>。</p>
 
                 
             </div>
@@ -1386,9 +1520,64 @@ A -->F(内存管理 完成内存的 分配/回收 等功能)</pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="">
+                    <div class="card-image">
+                        
+                        
+                        <img src="../../../../medias/featureimages/21.jpg" class="responsive-img" alt="操作系统概述(2.1进程与线程)">
+                        
+                        <span class="card-title">操作系统概述(2.1进程与线程)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            操作系统--进程与线程概述
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机知识
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">计算机知识</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="../../09/Atlas_200DK_first_Environment_configuration/">
                     <div class="card-image">
@@ -1406,9 +1595,9 @@ A -->F(内存管理 完成内存的 分配/回收 等功能)</pre>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1434,59 +1623,6 @@ A -->F(内存管理 完成内存的 分配/回收 等功能)</pre>
                     
                     <a href="../../../../tags/Linux/">
                         <span class="chip bg-color">Linux</span>
-                    </a>
-                    
-                    <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                        <span class="chip bg-color">环境搭建</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="../../02/build-matery/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="../../../../medias/featureimages/13.jpg" class="responsive-img" alt="浅谈搭建Matery的一些流程">
-                        
-                        <span class="card-title">浅谈搭建Matery的一些流程</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            浅谈搭建matery的流程
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="../../../../categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    环境搭建
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="../../../../tags/Matrey/">
-                        <span class="chip bg-color">Matrey</span>
                     </a>
                     
                     <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
