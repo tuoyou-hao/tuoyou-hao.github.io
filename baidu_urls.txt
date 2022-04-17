@@ -1,7 +1,7 @@
+http://tuoyou-hao.github.io/2022/04/16/markdown-quick-get-start/
 http://tuoyou-hao.github.io/2022/04/12/operating_system2-1/
 http://tuoyou-hao.github.io/2022/04/09/Atlas_200DK_first_Environment_configuration/
 http://tuoyou-hao.github.io/2022/04/05/operating_system1/
 http://tuoyou-hao.github.io/2022/04/02/build-matery/
 http://tuoyou-hao.github.io/2022/03/31/Makefile-quick-get-start/
-http://tuoyou-hao.github.io/2022/03/31/markdown-quick-get-start/
 http://tuoyou-hao.github.io/2022/03/21/first/
