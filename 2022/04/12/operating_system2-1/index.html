@@ -445,12 +445,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">操作系统</span>
-                            </a>
-                        
                             <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
                                 <span class="chip bg-color">计算机知识</span>
+                            </a>
+                        
+                            <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
                             </a>
                         
                     </div>
@@ -481,7 +481,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-12
+                    2022-04-17
                 </div>
                 
 
@@ -518,7 +518,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="操作系统——2-1-进程与线程"><a href="#操作系统——2-1-进程与线程" class="headerlink" title="操作系统——2.1 进程与线程"></a>操作系统——2.1 进程与线程</h1><h2 id="2-1-1-进程"><a href="#2-1-1-进程" class="headerlink" title="2.1.1 进程"></a>2.1.1 进程</h2><ul>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="操作系统——2-1-进程与线程"><a href="#操作系统——2-1-进程与线程" class="headerlink" title="操作系统——2.1 进程与线程"></a>操作系统——2.1 进程与线程</h1><h2 id="2-1-1-进程"><a href="#2-1-1-进程" class="headerlink" title="2.1.1 进程"></a>2.1.1 进程</h2><ul>
 <li><p>程序，是静态的，就是一系列的指令集合。</p>
 </li>
 <li><p>进程，是动态的，是程序的一次执行过程。</p>
@@ -535,33 +535,33 @@
 </li>
 </ul>
 <pre class="mermaid">graph LR
-PCB(PCB) -->A(进程描述信息)
-    A -->A1(进程标识符PID)
-    A -->A2(用户标识符UID)
-PCB -->B(进程控制和管理信息)
-    B -->B1(CPU/磁盘/网络流量 使用统计)
-    B -->B2(进程当前状态 就绪/阻塞/运行)
-PCB -->C(资源分配清单)
-    C -->C1(正在使用的文件)
-    C -->C2(正在使用的内存区域)
-    C -->C3(正在使用的IO设备)
-PCB -->D(处理机相关信息)
-    D -->D1(PSW/PC等 寄存器的值)</pre>
+PCB(PCB) --&gt;A(进程描述信息)
+    A --&gt;A1(进程标识符PID)
+    A --&gt;A2(用户标识符UID)
+PCB --&gt;B(进程控制和管理信息)
+    B --&gt;B1(CPU/磁盘/网络流量 使用统计)
+    B --&gt;B2(进程当前状态 就绪/阻塞/运行)
+PCB --&gt;C(资源分配清单)
+    C --&gt;C1(正在使用的文件)
+    C --&gt;C2(正在使用的内存区域)
+    C --&gt;C3(正在使用的IO设备)
+PCB --&gt;D(处理机相关信息)
+    D --&gt;D1(PSW/PC等 寄存器的值)</pre>
 
 <ul>
 <li>当进程被创建时，操作系统为期创建一个PCB。当进程运行结束，操作系统会将其收回。操作系统对进程进行管理工作所需信息都存在PCB中。</li>
 </ul>
 <pre class="mermaid">graph LR
-S(进程的组成) -->PCB
-PCB -->P1(进程描述信息)
-PCB -->P2(进程控制和管理信息)
-PCB -->P3(资源分配清单)
-PCB -->P4(处理机相关信息)
-S -->A(程序段)
-A -->A1(程序的代码  指令序列)
-S -->B(数据段)
-B -->B1(运行过程中产生的各种数据)
-B -->B2(如 程序中定义的变量)
+S(进程的组成) --&gt;PCB
+PCB --&gt;P1(进程描述信息)
+PCB --&gt;P2(进程控制和管理信息)
+PCB --&gt;P3(资源分配清单)
+PCB --&gt;P4(处理机相关信息)
+S --&gt;A(程序段)
+A --&gt;A1(程序的代码  指令序列)
+S --&gt;B(数据段)
+B --&gt;B1(运行过程中产生的各种数据)
+B --&gt;B2(如 程序中定义的变量)
 S1[准确来说, 应该是 进程实体的组成]</pre>
 
 <p>PCB通常包含的内容：</p>
@@ -659,12 +659,12 @@ S1[准确来说, 应该是 进程实体的组成]</pre>
 <li>阻塞态：在这个事件发生之前，该进程无法继续运行。操作系统会将其设置为阻塞态。</li>
 </ul>
 <pre class="mermaid">graph LR
-A((新建)) --> |创建|B(就绪)
-B -->|调度|C(运行)
-C -->|时间到|B
-C -->|退出|E(终止)
-C -->|事件等待|D(阻塞)
-D -->|事件发生|B</pre>
+A((新建)) --&gt; |创建|B(就绪)
+B --&gt;|调度|C(运行)
+C --&gt;|时间到|B
+C --&gt;|退出|E(终止)
+C --&gt;|事件等待|D(阻塞)
+D --&gt;|事件发生|B</pre>
 
 <ul>
 <li><p>就绪态 -&gt; 运行态：进程被调度</p>
@@ -777,17 +777,17 @@ D -->|事件发生|B</pre>
 </li>
 <li><p>将PCB插入合适的队列</p>
 </li>
-<li><p>分配&#x2F;回收资源</p>
+<li><p>分配/回收资源</p>
 </li>
 </ol>
 <h2 id="2-1-4-进程通信"><a href="#2-1-4-进程通信" class="headerlink" title="2.1.4 进程通信"></a>2.1.4 进程通信</h2><pre class="mermaid">graph LR
-A(进程通信) -->B(共享存储)
-B -->B1(基于数据结构的共享)
-B -->B2(基于存储区的共享)
-A -->C(消息传递)
-C -->C1(直接通信)
-C -->C2(间接通信)
-A -->D(管道通信)</pre>
+A(进程通信) --&gt;B(共享存储)
+B --&gt;B1(基于数据结构的共享)
+B --&gt;B2(基于存储区的共享)
+A --&gt;C(消息传递)
+C --&gt;C1(直接通信)
+C --&gt;C2(间接通信)
+A --&gt;D(管道通信)</pre>
 
 <h3 id="2-1-4-1进程通信"><a href="#2-1-4-1进程通信" class="headerlink" title="2.1.4.1进程通信"></a>2.1.4.1进程通信</h3><p>进程之间的信息交换。为了保证安全，一个进程不能直接访问另一个进程的地址空间</p>
 <ul>
@@ -812,7 +812,7 @@ A -->D(管道通信)</pre>
 </ul>
 </li>
 </ul>
-<h3 id="2-1-4-2-消息传递"><a href="#2-1-4-2-消息传递" class="headerlink" title="2.1.4.2 消息传递"></a>2.1.4.2 消息传递</h3><p>进程之间的数据交换以<strong>格式化的消息（message）</strong>为单位。进程通过操作系统提供的“发送消息&#x2F;接收消息”两个原语进行数据交换。</p>
+<h3 id="2-1-4-2-消息传递"><a href="#2-1-4-2-消息传递" class="headerlink" title="2.1.4.2 消息传递"></a>2.1.4.2 消息传递</h3><p>进程之间的数据交换以<strong>格式化的消息（message）</strong>为单位。进程通过操作系统提供的“发送消息/接收消息”两个原语进行数据交换。</p>
 <p>消息分为消息头和消息体两个板块</p>
 <ul>
 <li>消息头：包括发送进程ID、接受进程ID、消息类型、消息长度等等信息（计算机网络中发送的“报文”，就是一种格式化消息）</li>
@@ -872,13 +872,13 @@ A -->D(管道通信)</pre>
 </li>
 </ul>
 <h2 id="2-1-6-多线程"><a href="#2-1-6-多线程" class="headerlink" title="2.1.6 多线程"></a>2.1.6 多线程</h2><pre class="mermaid">graph LR
-A(线程) -->B(实现方式)
-B -->B1(用户级线程)
-B -->B2(内核级线程)
-A -->C(多线程模型)
-C -->C1(一对一模型)
-C -->C2(多对一模型)
-C -->C3(多对多模型)</pre>
+A(线程) --&gt;B(实现方式)
+B --&gt;B1(用户级线程)
+B --&gt;B2(内核级线程)
+A --&gt;C(多线程模型)
+C --&gt;C1(一对一模型)
+C --&gt;C2(多对一模型)
+C --&gt;C3(多对多模型)</pre>
 
 <h3 id="2-1-6-1用户级线程（User-Level-Thread，ULT）"><a href="#2-1-6-1用户级线程（User-Level-Thread，ULT）" class="headerlink" title="2.1.6.1用户级线程（User-Level-Thread，ULT）"></a>2.1.6.1用户级线程（User-Level-Thread，ULT）</h3><ul>
 <li><p>由应用程序在用户控件完成，用户才能感知到线程的存在，而内核意识不到线程的存在。</p>
@@ -985,7 +985,7 @@ T((组合 方式))</pre>
 </ul>
 <h4 id="3、多对多模型"><a href="#3、多对多模型" class="headerlink" title="3、多对多模型"></a>3、多对多模型</h4><p>类比组合模型图</p>
 <ul>
-<li><p>n个用户级线程映射到m个内核级线程<strong>（n&gt;&#x3D;m）</strong>。每个用户级进程对应m个内核级线程。</p>
+<li><p>n个用户级线程映射到m个内核级线程<strong>（n&gt;=m）</strong>。每个用户级进程对应m个内核级线程。</p>
 </li>
 <li><p>克服了多对一模型并发度不高的缺点（一个阻塞全体阻塞）</p>
 </li>
@@ -1069,12 +1069,12 @@ T((组合 方式))</pre>
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">操作系统</span>
-                                </a>
-                            
                                 <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
                                     <span class="chip bg-color">计算机知识</span>
+                                </a>
+                            
+                                <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
                                 </a>
                             
                         </div>
@@ -1617,16 +1617,16 @@ T((组合 方式))</pre>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                        <span class="chip bg-color">环境搭建</span>
-                    </a>
-                    
                     <a href="../../../../tags/Atlas-200DK/">
                         <span class="chip bg-color">Atlas 200DK</span>
                     </a>
                     
                     <a href="../../../../tags/Linux/">
                         <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                        <span class="chip bg-color">环境搭建</span>
                     </a>
                     
                 </div>
@@ -1745,13 +1745,6 @@ T((组合 方式))</pre>
 </main>
 
 
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
-
 
 
     <footer class="page-footer bg-color">
@@ -1853,7 +1846,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.5k</span>
+                        class="white-color">40.5k</span>
             
             
             

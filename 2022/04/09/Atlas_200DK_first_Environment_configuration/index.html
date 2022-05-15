@@ -445,16 +445,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">环境搭建</span>
-                            </a>
-                        
                             <a href="../../../../tags/Atlas-200DK/">
                                 <span class="chip bg-color">Atlas 200DK</span>
                             </a>
                         
                             <a href="../../../../tags/Linux/">
                                 <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                <span class="chip bg-color">环境搭建</span>
                             </a>
                         
                     </div>
@@ -489,21 +489,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-09
+                    2022-04-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    2.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    11 分
                 </div>
                 
 
@@ -526,7 +526,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Atlas-200DK-初步环境配置指南"><a href="#Atlas-200DK-初步环境配置指南" class="headerlink" title="Atlas 200DK 初步环境配置指南"></a>Atlas 200DK 初步环境配置指南</h1><p>本教程教你如何搭建Atlas 200DK开发运行环境，快速预备Atlas 200DK的开发</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Atlas-200DK-初步环境配置指南"><a href="#Atlas-200DK-初步环境配置指南" class="headerlink" title="Atlas 200DK 初步环境配置指南"></a>Atlas 200DK 初步环境配置指南</h1><p>本教程教你如何搭建Atlas 200DK开发运行环境，快速预备Atlas 200DK的开发</p>
 <h2 id="一、配置VMware虚拟机开发环境"><a href="#一、配置VMware虚拟机开发环境" class="headerlink" title="一、配置VMware虚拟机开发环境"></a>一、配置VMware虚拟机开发环境</h2><h3 id="第一步，设置root密码"><a href="#第一步，设置root密码" class="headerlink" title="第一步，设置root密码"></a>第一步，设置root密码</h3><p><code>sudo passwd root</code></p>
 <p>然后显示屏会跳出一句</p>
 <p><code>[sudo] password for pi: </code></p>
@@ -552,30 +552,30 @@
 <p>4：</p>
 <p>本文使用中科大的源，粘贴以下内容</p>
 <pre class="line-numbers language-none"><code class="language-none">##中科大源
-deb https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-updates main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-updates main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-backports main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-backports main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-security main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-security main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>然后按<kbd>esc</kbd>键，输入 :wq 回车，保存并退出</p>
 <p>也可以选用清华源</p>
 <pre class="line-numbers language-none"><code class="language-none">##清华源
-deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-updates main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-updates main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-backports main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-backports main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-security main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-security main restricted universe multiverse
-deb https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse
-deb-src https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;ubuntu&#x2F; bionic-proposed main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
@@ -598,7 +598,7 @@ sudo apt-get install qemu-user-static binfmt-support python3-yaml squashfs-tools
 
 
 <p>把以下文件整合进home目录下的<code>mksd</code>文件夹，比如说我的路径是<code>/home/pi/mksd</code>。</p>
-<p>在home&#x2F;pi目录下执行<code>mkdir mksd</code>，然后<code>cd mksd</code>进入mksd文件夹</p>
+<p>在home/pi目录下执行<code>mkdir mksd</code>，然后<code>cd mksd</code>进入mksd文件夹</p>
 <ul>
 <li>ubuntu-18.04-server-arm64.iso(在历史版本里面找，本教程选用的是18.04.4)</li>
 </ul>
@@ -616,9 +616,9 @@ sudo apt-get install qemu-user-static binfmt-support python3-yaml squashfs-tools
 </ul>
 <p><a target="_blank" rel="noopener" href="https://gitee.com/ascend/tools/tree/master/makesd">atlas-tools</a></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># usb数据线连Ubuntu的脚本
-wget https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Huawei-Ascend&#x2F;tools&#x2F;master&#x2F;configure_usb_ethernet&#x2F;for_20.1&#x2F;configure_usb_ethernet.sh
+wget https://raw.githubusercontent.com/Huawei-Ascend/tools/master/configure_usb_ethernet/for_20.1/configure_usb_ethernet.sh
 # 下载python包（可选）
-wget https:&#x2F;&#x2F;www.python.org&#x2F;ftp&#x2F;python&#x2F;3.7.5&#x2F;Python-3.7.5.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+wget https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -703,12 +703,12 @@ wget https:&#x2F;&#x2F;www.python.org&#x2F;ftp&#x2F;python&#x2F;3.7.5&#x2F;Pytho
 <p>用这个指令搜索你的读卡器<code>sudo fdisk -l</code></p>
 <p>我在输出的最后一栏找到这个输出</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Device     Boot Start       End   Sectors  Size Id Type
-&#x2F;dev&#x2F;sdb1       32768 124735487 124702720 59.5G  7 HPFS&#x2F;NTFS&#x2F;exFAT
+/dev/sdb1       32768 124735487 124702720 59.5G  7 HPFS/NTFS/exFAT
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>这里的sdb1就是我的读卡器的标号</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">su
-python3 make_sd_card.py local &#x2F;dev&#x2F;sdb1   #自己选好路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+python3 make_sd_card.py local /dev/sdb1   #自己选好路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>然后系统就会自己开始制卡，请耐心等待。</p>
 <p>如果最终制卡成功，会显示<code>Make SD Card successfully!</code>。如果有报错，请检查<strong>制卡工具的版本号</strong>是否有问题。</p>
@@ -784,7 +784,7 @@ python3 make_sd_card.py local &#x2F;dev&#x2F;sdb1   #自己选好路径<span ari
 ifconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>找到如下内容，这是没配置好的网卡：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ens35u1: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ens35u1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         ether 4e:57:14:39:8b:22  txqueuelen 1000  (Ethernet)
         RX packets 0  bytes 0 (0.0 B)
         RX errors 0  dropped 0  overruns 0  frame 0
@@ -802,14 +802,14 @@ ifconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
   ethernets:
      ens35u1:
        dhcp4: no
-       addresses: [192.168.1.166&#x2F;8]
+       addresses: [192.168.1.166/8]
        gateway4: 255.255.255.0
        nameservers:
          addresses: [114.114.114.114]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>而你再输入<code>ipconfig -a</code>可以看到如下信息：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ens33: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 192.168.112.142  netmask 255.255.255.0  broadcast 192.168.112.255
         inet6 fe80::ffdf:db40:6e3a:7437  prefixlen 64  scopeid 0x20&lt;link&gt;
         ether 00:0c:29:7d:50:10  txqueuelen 1000  (Ethernet)
@@ -818,7 +818,7 @@ ifconfig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
         TX packets 43731  bytes 3099983 (3.0 MB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-ens35u1: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+ens35u1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 192.168.1.166  netmask 255.0.0.0  broadcast 192.255.255.255
         inet6 fe80::4c57:14ff:fe39:8b22  prefixlen 64  scopeid 0x20&lt;link&gt;
         ether 4e:57:14:39:8b:22  txqueuelen 1000  (Ethernet)
@@ -831,17 +831,17 @@ ens35u1: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 <p>证明已经配置好了。</p>
 <p>在虚拟机Ubuntu进入管理员root用户，输入以下配置：</p>
 <p>！其中，参数ens35u1输入的是上面那份输出内容中<strong>第二个网卡</strong>的名字，ens33输入的是<strong>第一个网卡</strong>的名字。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">echo &quot;1&quot; &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward #允许报文转换
-iptables -t nat -A POSTROUTING -o &lt;ens33&gt; -s 192.168.1.0&#x2F;24 -j MASQUERADE
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">echo "1" &gt; /proc/sys/net/ipv4/ip_forward #允许报文转换
+iptables -t nat -A POSTROUTING -o &lt;ens33&gt; -s 192.168.1.0/24 -j MASQUERADE
 iptables -A FORWARD -i &lt;ens35u1&gt; -o &lt;ens33&gt; -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -i &lt;ens35u1&gt; -o &lt;ens33&gt; -j ACCEPT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在ssh连接atlas的终端进入管理员账户，输入以下指令</p>
 <p>其中[192.168.1.166]对应的是第二个网卡（atlas的）对应ip</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">route add default gw [192.168.1.166] dev usb0
-vim &#x2F;etc&#x2F;systemd&#x2F;resolved.conf
+vim /etc/systemd/resolved.conf
 # 按i进入编辑模式，加入
-DNS&#x3D;114.114.114.114 
+DNS=114.114.114.114 
 :wq
 ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
@@ -853,14 +853,14 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
   ethernets:
     eth0:
       dhcp4: no #改为yes，保存退出
-      addresses: [192.168.0.2&#x2F;24]
+      addresses: [192.168.0.2/24]
       gateway4: 192.168.0.1
       nameservers:
             addresses: [114.114.114.114]
 
     usb0:
       dhcp4: no
-      addresses: [192.168.1.2&#x2F;24]
+      addresses: [192.168.1.2/24]
       #gateway4: 192.168.1.1
       nameservers:
             addresses: [114.114.114.114]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -869,11 +869,11 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <p>输入<code>netplan apply</code></p>
 <p>在Ubuntu虚拟机里面执行<code>ssh HwHiAiUser@192.168.0.2</code>，即可连上atlas</p>
 <h2 id="五、网线共享网络"><a href="#五、网线共享网络" class="headerlink" title="五、网线共享网络"></a>五、网线共享网络</h2><p><strong>此过程建议提前将type-c先和网线一并连接好</strong></p>
-<p>进入**\控制面板\网络和 Internet\网络连接\ **</p>
+<p>进入*<em>\控制面板\网络和 Internet\网络连接\*</em></p>
 <img src="https://bbs-img.huaweicloud.com/blogs/img/1609137121924096771.png">
 
 <p><img src="https://bbs-img.huaweicloud.com/blogs/img/1609137189933024388.png"></p>
-<p>其余的配置和<strong>四、路由器连Atlas</strong>步骤是一致的，都需要修改&#x2F;etc&#x2F;netplan&#x2F;01-netcfg.yaml，都需要<code>netplan apply</code>。</p>
+<p>其余的配置和<strong>四、路由器连Atlas</strong>步骤是一致的，都需要修改/etc/netplan/01-netcfg.yaml，都需要<code>netplan apply</code>。</p>
 
                 
             </div>
@@ -938,16 +938,16 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">环境搭建</span>
-                                </a>
-                            
                                 <a href="../../../../tags/Atlas-200DK/">
                                     <span class="chip bg-color">Atlas 200DK</span>
                                 </a>
                             
                                 <a href="../../../../tags/Linux/">
                                     <span class="chip bg-color">Linux</span>
+                                </a>
+                            
+                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                    <span class="chip bg-color">环境搭建</span>
                                 </a>
                             
                         </div>
@@ -1433,12 +1433,12 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
-                    </a>
-                    
                     <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
                         <span class="chip bg-color">计算机知识</span>
+                    </a>
+                    
+                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
                     </a>
                     
                 </div>
@@ -1486,12 +1486,12 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
-                    </a>
-                    
                     <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
                         <span class="chip bg-color">计算机知识</span>
+                    </a>
+                    
+                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
                     </a>
                     
                 </div>
@@ -1610,13 +1610,6 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 </main>
 
 
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
-
 
 
     <footer class="page-footer bg-color">
@@ -1718,7 +1711,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.5k</span>
+                        class="white-color">40.5k</span>
             
             
             

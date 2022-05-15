@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Matery">
-    <meta name="description" content="浅谈搭建matery的流程">
+    <meta name="keywords" content="计算机组成,计算机知识">
+    <meta name="description" content="存储器介绍">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅谈搭建Matery的一些流程 | 拓佑豪的博客</title>
+    <title>计算机组成概述（2.1存储器） | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -311,7 +311,7 @@
 <script src="../../../../libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '76c995ddc14816350dc10c44d6dff38b6883f31be3ba59893d67a82811f7f97a';
+        let pwd = '';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅谈搭建Matery的一些流程</h1>
+                    <h1 class="description center-align post-title">计算机组成概述（2.1存储器）</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">环境搭建</span>
+                            <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
+                                <span class="chip bg-color">计算机组成</span>
                             </a>
                         
-                            <a href="../../../../tags/Matrey/">
-                                <span class="chip bg-color">Matrey</span>
+                            <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                                <span class="chip bg-color">计算机知识</span>
                             </a>
                         
                     </div>
@@ -461,8 +461,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="../../../../categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
-                                环境搭建
+                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
+                                计算机知识
                             </a>
                         
                     </div>
@@ -474,28 +474,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-02
+                    2022-05-15
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-19
+                    2022-05-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    4.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    15 分
                 </div>
                 
 
@@ -518,157 +518,356 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="浅谈搭建matery的一些流程"><a href="#浅谈搭建matery的一些流程" class="headerlink" title="浅谈搭建matery的一些流程"></a>浅谈搭建matery的一些流程</h1><p>好不容易完善了该matery，发现自己并没有记录如何真正搭建的流程。</p>
-<p>乘着刚搭建不久，来记录一下搭建<code>hexo-theme-matery</code>的一些流程</p>
-<h2 id="0，介绍开发环境"><a href="#0，介绍开发环境" class="headerlink" title="0，介绍开发环境"></a>0，介绍开发环境</h2><ul>
-<li><p>长年未更新的老Win10，以及更新过的vscode</p>
-</li>
-<li><p>这里建议参考以下几个链接一起看</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="计算机组成原理——2-1-存储系统"><a href="#计算机组成原理——2-1-存储系统" class="headerlink" title="计算机组成原理——2.1 存储系统"></a>计算机组成原理——2.1 存储系统</h1><h2 id="一、存储器的层次结构"><a href="#一、存储器的层次结构" class="headerlink" title="一、存储器的层次结构"></a>一、存储器的层次结构</h2><pre class="mermaid">graph TB
+CPU --&gt; Cache(Cache高速缓冲储存器)
+Cache --&gt; A(主存/内存)
+A --&gt;B(磁盘/辅存)
+B --&gt;C(U盘-磁带-光盘/外存)</pre>
+
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">https://www.bilibili.com/video/BV1Yb411a7ty</a></li>
-<li><a target="_blank" rel="noopener" href="https://godweiyang.com/2018/04/13/hexo-blog/">https://godweiyang.com/2018/04/13/hexo-blog/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.matemaster.cn/posts/52745.html">https://www.matemaster.cn/posts/52745.html</a></li>
-</ul>
+<li><p>从上到下：容量从小到大、速度，价格从大到小</p>
+</li>
+<li><p>性能更高的，还会将cache分为L1（一级cache）L2（ 二级cache）等等，通常来说，L1最快。cache成本比内存大得多。</p>
+</li>
+<li><p>主存&amp;辅存：实现虚拟存储系统，解决主存容量不够的问题。</p>
+</li>
+<li><p>Cache&amp;主存：解决了主存与CPU速度不匹配的问题。</p>
 </li>
 </ul>
-<h2 id="1，搭建node-js等等初步工作环境"><a href="#1，搭建node-js等等初步工作环境" class="headerlink" title="1，搭建node.js等等初步工作环境"></a>1，搭建node.js等等初步工作环境</h2><p>先去官网下载<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a>，选择稳定版即可</p>
-<p><img src="https://s2.loli.net/2022/04/03/dOYo2q4nPvJhrcl.png"></p>
-<p>一路默认安装即可。装完会有两个组件，一个是node.js本身，一个是npm组件。</p>
+<h3 id="1、按层次分类"><a href="#1、按层次分类" class="headerlink" title="1、按层次分类"></a>1、按层次分类</h3><pre class="mermaid">graph LR
+A(按层次分类)
+subgraph memory
+B(高速缓存--cache)
+C(主存储器--主存 - 内存)
+end
+D(辅助存储器--辅存 - 外存)
+E(可直接被CPU读写)
+
+A --&gt;B
+A --&gt;C
+A --&gt;D
+B --&gt;E
+C --&gt;E</pre>
+
+<h3 id="2、存储介质"><a href="#2、存储介质" class="headerlink" title="2、存储介质"></a>2、存储介质</h3><ul>
+<li>半导体存储器（主存，Cache）</li>
+<li>磁性材料存储器（磁盘，磁带）</li>
+<li>光存储器，以光介质存储信息（光盘）</li>
+</ul>
+<h3 id="3、存取方式"><a href="#3、存取方式" class="headerlink" title="3、存取方式"></a>3、存取方式</h3><ul>
+<li><p>随机存储器（Random Access Memory，RAM）</p>
+<p>读写任何一个存储单元所需要的时间都相同，与存储单元所在物理位置无关。如内存条</p>
+</li>
+<li><p>顺序存储器（Sequential Access Memory，SAM）</p>
+<p>读写一个存储单元所需的时间取决于存储单元所在位置。如磁带</p>
+</li>
+<li><p>直接存取存储器（Direct Access Memory，DAM）</p>
+<p>既有随机存储特性，也有顺序存储特性。先直接选取信息所在的区域，然后按顺序的方式存储。如：机械硬盘</p>
+</li>
+<li><p>相联存储器（Associative Memory）即可以按内容访问的存储器（Content Addressed Memory，CAM）</p>
+<p>可以按照内容检索到存储位置进行读写。快表<sup class="refplus-num"><a href="#ref-k">[1]</a></sup>就是一种相联存储器
+
+  </p><ul id="refplus" style="display:none;"><li id="ref-k" data-num="1">[1]  快表是一种特殊的高速缓冲存储器（Cache），内容是页表中的一部分或全部内容。</li><li id="ref-在操作系统中引入快表是为了加快地址映射速度" data-num="2">[2] 在操作系统中引入快表是为了加快地址映射速度。</li><li id="ref-在虚拟页式存储管理中设置了快表，作为当前进程页表的Cache。通常快表处于MMU中" data-num="3">[3] 在虚拟页式存储管理中设置了快表，作为当前进程页表的Cache。通常快表处于MMU中。</li></ul><p></p>
+</li>
+<li><p>顺序存储和直接存储的存储器统称<strong>串行访问存储器</strong>：</p>
+<p>读取某个存储单元所需时间与存储单元的物理位置有关。</p>
+</li>
+</ul>
+<h3 id="4、信息的可更改性"><a href="#4、信息的可更改性" class="headerlink" title="4、信息的可更改性"></a>4、信息的可更改性</h3><ul>
+<li>读写存储器（read/write Memory）== 可读也可写（磁盘，内存，cache）</li>
+<li>只读存储器（Read Only Memory）== 只读，不可写（CD-ROM，BIOS存储的ROM）要写入比较麻烦，需要先擦除再写入。</li>
+</ul>
+<h3 id="5、信息的可保存性"><a href="#5、信息的可保存性" class="headerlink" title="5、信息的可保存性"></a>5、信息的可保存性</h3><ul>
+<li>易失性存储器（主存，cache）：断电后存储信息就消失了</li>
+<li>非易失存储器（磁盘，光盘）：断电后信息还保留</li>
+<li>破坏性读出（DRAM）：信息读出后，原存储信息被破坏。DRAM读出数据后需要进行重写</li>
+<li>非破坏性读出（SRAM，磁盘，光盘）：信息读出后，原本信息不会被破坏</li>
+</ul>
+<h3 id="6、存储器性能指标"><a href="#6、存储器性能指标" class="headerlink" title="6、存储器性能指标"></a>6、存储器性能指标</h3><ul>
+<li><p>存储容量：存储字长（MDR位数） x 字长（如：1M x 16位）</p>
+</li>
+<li><p>单位成本：每位加个 = 总成本 / 总容量</p>
+</li>
+<li><p>存储速度：数据传输率 = 数据的宽度 / 存储周期</p>
+</li>
+<li><p>存取时间Ta：从启动一次存储器操作到完成该操作所经历的时间，分读出时间和写入时间。</p>
+</li>
+<li><p>存取周期Tm：存储器进行一次完整的读写操作所需的全部时间。（也就是连续两次独立访问存储器操作，所需的最小时间间隔）</p>
+</li>
+<li><p>主存带宽Bm：又称数据传输率。表每秒从主存进出心理的最大数量，单位：字/秒、字节/每秒（B/s）、位/秒（b/s）</p>
+</li>
+</ul>
+<h2 id="二、主存储器基本组成"><a href="#二、主存储器基本组成" class="headerlink" title="二、主存储器基本组成"></a>二、主存储器基本组成</h2><p>由电容与MOS关组成</p>
+<p><img src="https://s2.loli.net/2022/05/13/fR9LpVQDsGouOe4.png" alt="原理图"></p>
+<p>我们使用译码器，使用n位地址找到2^n个存储单元里对应的存储信息。地址由MAR存储。CPU通过地址总线连接MAR。</p>
+<p>CPU给MAR一个地址，通过译码器找到对应地址的存储单元，将其数据通过数据总线（位线）输出给MDR，MDR吧数据给CPU。数据总线的宽度 = 存储字长</p>
 <ul>
-<li>自己新建一个文件夹，以后的网页代码全放在里面，我的是在d:/tuoyou-hao</li>
-<li>用vscode打开这个文件夹（或者你用命令行 cd 进去 也可以），在vscode打开终端，输入以下指令</li>
+<li>总容量 = 存储单元个数 * 存储字长</li>
 </ul>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">&gt; node -v
-v16.14.2
-&gt; npm -v
-8.5.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>由于npm下载速度较慢，我们可以选用淘宝的源下载。我们用npm下载cnpm：</p>
-<p><code> &gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
-<p>下载完成后，输入<code>cnpm -v</code>检查一下，输出下列内容即为正常</p>
-<p><img src="https://s2.loli.net/2022/04/03/WDuRxhQiZV1w9IN.png"></p>
-<p>然后我们开始安装hexo</p>
-<pre class="line-numbers language-none"><code class="language-none">&gt; cnpm install -g hexo-cli 
-&gt; hexo -v
-INFO  Validating config
-hexo: 6.1.0
-hexo-cli: 4.3.0
-os: win32 10.0.17134
-node: 16.14.2
-v8: 9.4.146.24-node.20
-uv: 1.43.0
-zlib: 1.2.11
-brotli: 1.0.9
-ares: 1.18.1
-modules: 93
-nghttp2: 1.45.1
-napi: 8
-llhttp: 6.0.4
-openssl: 1.1.1n+quic
-cldr: 40.0
-icu: 70.1
-tz: 2021a3
-unicode: 14.0
-ngtcp2: 0.1.0-DEV
-nghttp3: 0.1.0-DEV
-# 显示如上内容，hexo就是正常的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>在这个文件夹里面 <code>hexo init</code></p>
-<p>hexo会为你生成很多文件，然后下载并配置一个默认主题（在theme文件夹）</p>
-<p>配置完成后，命令行输入<code>hexo s</code>即可在本地localhost:4000看到hexo给你生成的网页</p>
-<p>进入\source\_posts文件夹底下，就是存放你的博客的地方，使用markdown格式编写。</p>
-<p>确认完毕以后，先去申请一个新的GitHub仓库</p>
-<p>会让你填写自己GitHub的地址。此时需要申请自己的GitHub，并将仓库命名为&lt;你的GitHub名字&gt;.github.io</p>
+<p>其中，MAR和MDR需要通过<strong>控制电路</strong>和<strong>译码器驱动器</strong>，可以理解为负责稳定输出。只有MAR和MDR里的数据存储稳定之后，控制电路才会打开通路的开关，让数据在总线上进行传输。</p>
+<p><img src="https://s2.loli.net/2022/05/14/Ke6lCakUjm5MNB1.png"></p>
+<p>片选线负责在多个存储芯片中，选择其中一个存储芯片，在里头读取数据。</p>
+<p><img src="https://s2.loli.net/2022/05/14/R4umtJ9oEPwWhvS.png" alt="多个存储芯片"></p>
+<p>存储芯片总结一共由于五类引脚：</p>
 <ul>
-<li><p>比如我的GitHub名字叫tuoyou-hao，创建的新仓库就叫做“tuoyou-hao.github.io”。<strong>必须符合该命名格式</strong>！</p>
-<p>创建完该仓库即可，无需进行其他操作</p>
+<li><p>地址线</p>
 </li>
-<li><p>去配置GitHub的ssh key，建立ssh链接，具体步骤参考：<a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></p>
+<li><p>数据线</p>
 </li>
-</ul>
-<p>配置完毕后，执行该指令，下载GitHub推送工具</p>
-<p><code>cnpm install --save hexo-deployer-git</code></p>
-<p>然后修改根目录下<code>_config.yml</code>里头的配置，找到deploy选修</p>
-<pre class="line-numbers language-none"><code class="language-none">deploy:
-- type: git
-  repository: git@github.com:xxx/xxx.github.io.git #填你的仓库名
-  branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后执行hexo指令。命令行常用以下指令：</p>
-<pre class="line-numbers language-none"><code class="language-none">hexo clean #清理本地生成文件
-hexo g  # 生成博客网页文件
-hexo s  # 本地预览博客
-hexo d  # 上传网页文件到github<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>hexo d完毕以后，进入你xxx.gihub.io网站，即可查看到你部署的网页（会有几分钟的延迟）</p>
-<h2 id="2，配置matery"><a href="#2，配置matery" class="headerlink" title="2，配置matery"></a>2，配置matery</h2><ul>
-<li><p>git clone该链接到themes文件夹：<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></p>
+<li><p>片选线</p>
 </li>
-<li><p>并把根目录下<code>_config.yml</code>文件里的theme参数改成你clone的文件夹名字（我自己重命名叫matery，theme参数也要叫matery）</p>
+<li><p>读写控制线</p>
 </li>
-<li><p>在matery主题文件夹里面也有一个<code>_config.yml</code>文件，还有一个<code>README_CN.md</code>文件，请你一定要认真仔细看那份文件，需要根据那份文件下载各种依赖。下载完成后，根据自己的需要去配置</p>
-</li>
-<li><p>配置完成就发布到自己的GitHub仓库吧</p>
+<li><p>供电引脚与接地引脚</p>
 </li>
 </ul>
-<h2 id="3，百度推送"><a href="#3，百度推送" class="headerlink" title="3，百度推送"></a>3，百度推送</h2><p>在百度推送上，建议参考：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1">https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1</a></p>
-<p>登录该网站：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/">https://ziyuan.baidu.com/</a></p>
-<p>登录成功后，在用户中心-&gt;站点管理-&gt;添加网站操作 </p>
-<p>然后如何寻找token呢，token=秘钥：</p>
-<p><img src="https://s2.loli.net/2022/04/03/j4m8YTUfV29Dei3.jpg"></p>
-<p>其中matery内置了推送功能，我们只需要写好参数即可。</p>
-<pre class="line-numbers language-none"><code class="language-none">deploy:
-- type: git
-  repository: git@github.com:xxx/xxx.github.io.git
-  branch: master
-- type: baidu_url_submitter #记得在deploy下配置这一句
+<p><strong>寻址</strong></p>
+<p>按字节寻址</p>
+<p>按字寻址</p>
+<ul>
+<li>字地址算术左移一定位数，即可转换为对应的字节地址</li>
+</ul>
+<p>按半字寻址</p>
+<p>按双字寻址</p>
+<h2 id="三、SRAM-amp-DRAM"><a href="#三、SRAM-amp-DRAM" class="headerlink" title="三、SRAM & DRAM"></a>三、SRAM &amp; DRAM</h2><ul>
+<li><p>DRAM，Dynamic Random Access Memory，即动态RAM</p>
+<p>SRAM，Static Random Access Memory，即静态RAM</p>
+</li>
+<li><p>DRAM用于主存，SRAM用于Cache</p>
+</li>
+<li><p>上述介绍的 “主存储器基本组成” 就是DRAM。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型特点</th>
+<th>DRAM（常用主存）</th>
+<th>SRAM（常用cache）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储器</td>
+<td>栅极电容</td>
+<td>双稳态触发器</td>
+</tr>
+<tr>
+<td>是否破坏性</td>
+<td>电容放电时信息被破坏，是破坏性读出，读出之后应有重写操作。也称 “再生” 。</td>
+<td>读出数据的时候，触发器保持状态稳定，非破坏性读出，无需重写。</td>
+</tr>
+<tr>
+<td>读写速度</td>
+<td>更慢</td>
+<td>更快</td>
+</tr>
+<tr>
+<td>集成度&amp;成本</td>
+<td>集成度高，成本低</td>
+<td>集成度低，成本高</td>
+</tr>
+<tr>
+<td>是否易失</td>
+<td>是，断电后信息消失</td>
+<td>是，断电后信息消失</td>
+</tr>
+<tr>
+<td>需要刷新</td>
+<td>需要，存储介质是电容</td>
+<td>不需要，存储介质是触发器</td>
+</tr>
+<tr>
+<td>送行列地址</td>
+<td>分两次送</td>
+<td>同时送</td>
+</tr>
+<tr>
+<td>功耗&amp;发热量</td>
+<td>功耗低，发热量小</td>
+<td>功耗高，发热量高</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>DRAM存储单元使用的MOS管比SRAM更少，在芯片面积不变的情况下，DRAM集成度更高。</p>
+</li>
+<li><p>核心区别：存储元不一样</p>
+</li>
+</ul>
+<h3 id="3-1-DRAM刷新"><a href="#3-1-DRAM刷新" class="headerlink" title="3.1 DRAM刷新"></a>3.1 DRAM刷新</h3><ul>
+<li><p>刷新的概念</p>
+<ul>
+<li><p>刷新一次的时间间隔：</p>
+<p>DRAM使用的电容存储信息，大概2ms后信息会消失，所以DRAM每2ms就需要刷新一次。</p>
+</li>
+<li><p>每次刷新多少个存储单元：</p>
+<p>由于DRAM存储器需要刷新，如果我们有20根选线，就有2^20 = 1M根选线。如果全部接在一个译码器，难度会很大。</p>
+<p>此时我们把这个译码器拆分成两个，为（行地址译码器）和（列地址译码器），每个译码器只需要处理一半的地址，即2^10 = 1k = 1024根选线，这样就可以把存储单元排列成2^{n/2} x 2^{n/2}的存储单元<strong>矩阵</strong>。</p>
+<p><strong>使用行列地址可以减少选通线的数量</strong></p>
+</li>
+</ul>
+</li>
+<li><p>如何刷新？</p>
+<p>所以每次刷新的时候，以行为单位，<strong>每次刷新一行存储单元</strong>。</p>
+<p>这里有硬件的支持，由存储器独立完成，不需要CPU控制。</p>
+<p>读出一行的信息之后就重新写入。</p>
+<p>由于刷新一次类似于一次读操作，所以时间上占用一个读或写周期。</p>
+</li>
+<li><p>刷新的思路</p>
+<ul>
+<li><p>思路一，分散刷新：</p>
+<p>每次读写完都刷新一行</p>
+</li>
+<li><p>思路二，集中刷新：</p>
+<p>2ms内集中安排一块时间全部刷新。那就会出现有一段时间专门用于刷新，无法访问存储器，称为访存 “死区”。</p>
+</li>
+<li><p>思路三，异步刷新：</p>
+<p>2ms内每行刷新一次即可，那每隔2ms就会出现一次 “死时间”（可以理解为分散了死区），在这期间，CPU无法访问。<strong>可以在译码阶段刷新</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p>送行列地址：</p>
+<ul>
+<li>因为DRAM使用了两个译码器，所以我们使用<strong>地址线复用技术</strong>，也就是说，每次传输一半的地址给其中一个译码器即可先接受行地址，再接受列地址，分两次传输地址，给两个译码器。我们就可以减少一半的地址线，芯片引脚也会更少。</li>
+<li>SRAM因为集成度更低，所以地址我们同时传输即可</li>
+</ul>
+</li>
+<li><p>现在主存芯片通常使用<code>SDRAM</code>芯片，</p>
+</li>
+</ul>
+<h2 id="四、只读存储器ROM"><a href="#四、只读存储器ROM" class="headerlink" title="四、只读存储器ROM"></a>四、只读存储器ROM</h2><p>RAM芯片断电后数据会消失（易失性的），而：</p>
+<p>ROM芯片，断电后数据不会消失（非易失性的）。</p>
+<p>ROM还可以细分为：<code>MROM</code>、<code>PROM</code>、<code>EPROM</code>、<code>flash闪存</code>、 <code>SSD</code></p>
+<p>很多ROM也具有 “随机存储” 特性。</p>
+<h3 id="1、MROM"><a href="#1、MROM" class="headerlink" title="1、MROM"></a>1、MROM</h3><p>MROM（Mask Read Only Memory），掩模式只读寄存器</p>
+<p>由厂家直接写入信息，只能读出，之后任何人<strong>不可重写</strong></p>
+<p>可靠性高、灵活性差、生产周期长，只适合批量生产</p>
+<h3 id="2、PROM"><a href="#2、PROM" class="headerlink" title="2、PROM"></a>2、PROM</h3><p>PROM（Programmable Read Only Memory），可编程只读存储器</p>
+<p>用户可以用专门的软件写入信息，<strong>写一次之后就不可更改</strong></p>
+<h3 id="3、EPROM"><a href="#3、EPROM" class="headerlink" title="3、EPROM"></a>3、EPROM</h3><p>EPROM（Erasable Programmable Read Only Memory）</p>
+<p>允许用户写入信息，之后可以擦除数据，可进行多次重写</p>
+<h3 id="4、UVEPROM"><a href="#4、UVEPROM" class="headerlink" title="4、UVEPROM"></a>4、UVEPROM</h3><p>UVEPROM（Ultraviolet rays），可以使用紫外线照射8-20分钟，擦除<strong>所有</strong>信息</p>
+<h3 id="5、EEPROM"><a href="#5、EEPROM" class="headerlink" title="5、EEPROM"></a>5、EEPROM</h3><p>第一个E表示的是Electrically，也就是说，可以使用电擦除，擦除<strong>特定</strong>的字。</p>
+<h3 id="6、FLASH-MEMORY"><a href="#6、FLASH-MEMORY" class="headerlink" title="6、FLASH MEMORY"></a>6、FLASH MEMORY</h3><p>Flash Memory，闪速存储器（比如U盘、sd卡），从<code>EEPROM</code>发展来的。断电后可以保存信息，且<strong>可以进行多次快速擦除重写</strong>。</p>
+<p>由于闪存需要先电擦除再写入，所以闪存的 “写” 要比 “读” 来的更慢。</p>
+<p>每个存储元只需要一个MOS管，位密度要比<code>RAM</code>高。</p>
+<h3 id="7、SSD固态硬盘"><a href="#7、SSD固态硬盘" class="headerlink" title="7、SSD固态硬盘"></a>7、SSD固态硬盘</h3><p>由控制单元+存储单元（flash）组成。</p>
+<p>与闪存的核心区别在于：控制单元不一样。</p>
+<p>但是由于存储介质类似，<strong>可以进行多次快速擦除重写</strong>。</p>
+<p>SSD速度快、功耗低、价格高，目前个人电脑常用SSD取代传统的机械硬盘。</p>
+<p>手机辅存也是用的FLASH芯片。相比SSD使用的芯片，集成度高，功耗低，价格贵</p>
+<h2 id="五、计算机内重要的ROM"><a href="#五、计算机内重要的ROM" class="headerlink" title="五、计算机内重要的ROM"></a>五、计算机内重要的ROM</h2><pre class="mermaid">graph TB
+subgraph 主机
+A[主存RAM //+ROM] 
+subgraph CPU
+    B(运算器)
+    C(控制器)
+end
+end</pre>
 
-baidu_url_submit:
-  count: 20 # 提交最新的一个链接
-  host: https://xxx.github.io # 在百度资源搜索平台中注册的域名
-  token: xxxxxxx # 请注意这是推送秘钥， 所以请不要把博客源代码发布在公众仓库里!
-  path: baidu_urls.txt # 文本文档的地址， 新链接会保存在此文本文档里<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>CPU的任务是到<strong>主存</strong>中取指令，然后去运行。主存RAM中存放着指令与数据。而断电后，RAM数据全部丢失。</p>
+<p>所以CPU开机的时候，里头是没有存放指令的。需要把操作系统、应用程序相关的<strong>指令、数据</strong>，重新调入主存。</p>
+<p>而我们知道，操作系统是安装在<strong>辅存</strong>里面的。如何开机，也是需要CPU执行开机指令。但此时CPU里头完全没有指令。</p>
+<p>所以CPU开机的时候，就需要在主板上的ROM芯片读取开机的指令。这块ROM就是<strong>BIOS</strong>。</p>
+<ul>
+<li>主板上BIOS芯片（ROM)，存储了<strong>自举装入程序</strong>，负责引导装入操作系统（开机）</li>
+</ul>
+<p>逻辑上来说，主存由RAM（内存）+ROM（BIOS）组成，且二者通常统一编址。<strong>主板上ROM也是 “主存” 的一部分</strong>。</p>
+<h2 id="六、双端口RAM-amp-多模块存储器"><a href="#六、双端口RAM-amp-多模块存储器" class="headerlink" title="六、双端口RAM & 多模块存储器"></a>六、双端口RAM &amp; 多模块存储器</h2><ul>
+<li><p>存取周期：存取（启动存取 -&gt; 存取完）的时间 + 恢复（存取完 + 下次存取之前）的时间</p>
+<p>也可以表示成：可以连续读写的最短时间间隔</p>
+<ul>
+<li>注：DRAM的恢复时间比较长，有可能会是存取时间的几倍（SRAM的恢复时间比较短）</li>
+</ul>
+</li>
+</ul>
+<p>每次读取完数据，都需要一段时间恢复。如果此时多核CPU都需要访存，那是不是每个CPU都需要等待RAM的恢复时间，才能进行下一次的存取？且即使是单核CPU，读写数据的速度比主存快很多，主存恢复时间太长了该怎么办？</p>
+<p>这里就使用到双端口存储器</p>
+<h3 id="6-1-双端口RAM"><a href="#6-1-双端口RAM" class="headerlink" title="6.1 双端口RAM"></a>6.1 双端口RAM</h3><ul>
+<li><p>作用：<strong>优化多核CPU访问一根内存条的速度</strong>，可以通过两个端口</p>
+</li>
+<li><p>需要有两组完全独立的数据线、地址线、控制线</p>
+</li>
+<li><p>两个端口同时操作主存时：</p>
+<ul>
+<li>两个端口同时对不同的地址单元存数据</li>
+<li>两个端口同时对同一个地址单元读出数据</li>
+<li>两个端口同时对同一个地址单元写入数据（会造成写入错误）</li>
+<li>两个端口同时对同一个地址单元，一个写入，一个读出（会造成读出错误）</li>
+<li>解决方案：<ul>
+<li>把<code>busy</code>信号置0，由判断逻辑决定暂时关闭一个端口（被延时），未被关闭的端口正常访问，被关闭的端口延长很小一段时间后可以再次访问。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-2-多体并行存储器"><a href="#6-2-多体并行存储器" class="headerlink" title="6.2 多体并行存储器"></a>6.2 多体并行存储器</h3><p>CPU读写速度比内存快很多，而内存每次读写过后，需要一段恢复的时间。当CPU需要连续读取的时候，就必须等待内存的恢复时间。所以可以用上多体并行存储器</p>
+<p>多体并行存储器可以理解为使用了多个存储体（每个内存条大小一致，<strong>假设我们使用四个存储体</strong>）</p>
+<p>CPU访存的时候，一定需要一个地址。有以下两种编址模式</p>
+<ul>
+<li><p>高位交叉编址的多体存储器</p>
+<p><img src="https://s2.loli.net/2022/05/14/lQFVykqaizZ2C78.png" alt="高位多体并行存储器原理图"></p>
+<p>假设说我们用的八位地址，那我们就会用<strong>最高位</strong>来区分我存在第几个存储体里（比如最高两比特位共有四种状态）</p>
+<ul>
+<li>看图可知，高位内模块地址是连续的，存取方式仍然是串行存储。<strong>仍然是顺序存储器</strong></li>
+<li>高位交叉的方式下，总是把低位的体内地址送到由高位体号确定的模块内进行译码。</li>
+<li>访问一个连续主存块时，总是先在一个模块内进行访问，等到这个模块访问结束之后才转到下一个模块进行访问。</li>
+<li>CPU总是按顺序访问存储模块，各个模块不能被并行访问，所以不能提高存储器的吞吐率</li>
+</ul>
+</li>
+<li><p>低位交叉编址的多体存储器</p>
+<p><img src="https://s2.loli.net/2022/05/14/SN7A3Kc5rlZDvXW.png" alt="低位多体并行存储器原理图"></p>
+<p>假设说我们用的八位地址，那我们就会用<strong>最低位</strong>来区分我存在第几个存储体里（比如最低两比特位共有四种状态）</p>
+<ul>
+<li><p>看图可知，每个模块按照 “模m” 交叉编址，<strong>模块号 = 单元地址 % m</strong>。</p>
+</li>
+<li><p>低位交叉方式下，总是把高位的体内地址送到由低位体号确定的模块内进行译码。程序连续放在相邻的模块中，因此称这种编址方式的存储器叫<strong>交叉存储器</strong>。可以在不改变每个模块存储周期的前提下，使用流水线并行存取，提高存储器的带宽。</p>
+<ul>
+<li>如果单模块存取周期为T，总线传送周期为r，实现流水线存储，**存储器交叉模块数m(交叉存储度)  应该大于等于<code>T/r</code>**。以保证启动某个模块后的<code>m*r</code>的时间内要再次启动模块的时候，这个模块已经存取完毕，并已经度过了内存的恢复时间。</li>
+<li>存取周期为T，存取时间为r，为了流水线不间断，保证模块数量为<code>m&gt;=T/r</code>。</li>
+</ul>
+</li>
+<li><p>这样下来，连续存取m个字所需要的时间为:<br>$$<br>t1 = T + (m-1)r<br>$$</p>
+</li>
+<li><p>而顺序方式连续读取m个字所需要的时间为：<br>$$<br>t2 = mT<br>$$</p>
+</li>
+<li><p>综上所述，低位交叉存储器的带宽得到了大幅度的提高（如下图）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/05/14/Wfg1po5J3sv67Od.png" alt="低位交叉编址甘特图"></p>
+<p>类似数组等等数据，或者编写的指令代码，其数据存放方式就是连续的存储（除了指令跳转部分）。所以连续存取的速度提升对于计算机来说很有意义。</p>
+<h3 id="6-3-单体多字存储器"><a href="#6-3-单体多字存储器" class="headerlink" title="6.3 单体多字存储器"></a>6.3 单体多字存储器</h3><p>多体并行存储器就是，每个模块都有相同的容量和存储速度，是互相独立的。CPU可以自由选择在哪个存储体的哪个位置读取数据。</p>
+<p>各个模块都有独立的读写控制电路、地址寄存器和数据寄存器等等。可以<strong>并行、交叉</strong>地工作。</p>
+<p>单体多字存储器相当于做了一个合并。共用一套读写控制电路、地址控制器和数据寄存器（类似位拓展）。</p>
+<p><img src="https://s2.loli.net/2022/05/15/BsiGhIDR1wzo8yc.png"></p>
+<p>每次可以读取一整行的数据</p>
+<p>设每个存储单元，存储m个字</p>
+<p>总线宽度也为m个字</p>
+<p>一次并行即可读出m个字</p>
+<p>缺点：指令和数据在主存内必须是连续存放的。一旦遇到转移指令或者操作数不能连续存放，提速的效果就不明显了。</p>
 
-
-
-<h2 id="4，-配置评论控件"><a href="#4，-配置评论控件" class="headerlink" title="4， 配置评论控件"></a>4， 配置评论控件</h2><p>首先，在matery底下，将js底下的twikoo更新至最新版</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">js:
-	twikoo: https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>参考链接：<a target="_blank" rel="noopener" href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2</a></p>
-<ol>
-<li><p>申请 <a target="_blank" rel="noopener" href="https://www.mongodb.com/cloud/atlas/register">MongoDB (opens new window)</a>账号</p>
-</li>
-<li><p>创建免费 MongoDB 数据库，区域推荐选择 <code>AWS / N. Virginia (us-east-1)</code></p>
-</li>
-<li><p>在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接（<a target="_blank" rel="noopener" href="https://vercel.com/support/articles/how-to-allowlist-deployment-ip-address">为什么？ (opens new window)</a>），创建数据库用户，选择connect，一定要选择链接您的应用，那个数据库连接字符串才是我们需要的，请将连接字符串中的 <code>password</code> 修改为数据库密码</p>
-<p><img src="https://s2.loli.net/2022/04/03/kLJfdnUmFrqZleC.png"></p>
-<p><img src="https://s2.loli.net/2022/04/03/jmieJ9aAYcXLISO.png"></p>
-</li>
-<li><p>申请 <a target="_blank" rel="noopener" href="https://vercel.com/signup">Vercel (opens new window)</a>账号</p>
-</li>
-<li><p>进入以下网址把 Twikoo 一键部署到 Vercel<br><a target="_blank" rel="noopener" href="https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min">https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min</a></p>
-</li>
-<li><p>进入 Settings - Environment Variables，添加环境变量 <code>MONGODB_URI</code>，值为第 3 步的数据库连接字符串</p>
-</li>
-<li><p>进入 Overview，点击 Domains 下方的链接，如果环境配置正确，可以看到 “Twikoo 云函数运行正常” 的提示</p>
-</li>
-<li><p>Vercel Domains（包含 <code>https://</code> 前缀，例如 <code>https://xxx.vercel.app</code>）整个网址即为您的环境 id</p>
-</li>
-<li><p>把网址贴进主题的_config.yml里头对应的twikoo的envId，并启用twikoo功能。</p>
-</li>
-</ol>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">twikoo:
-  enable: true
-  visitor: true
-  envId: https://xxxx.app #搭建教程：https://twikoo.js.org/quick-start.html
-  # region: ap-guangzhou # 环境地域，默认为 ap-shanghai
-  path: 'window.location.pathname' # 自定义文章路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="5，-配置图像上传"><a href="#5，-配置图像上传" class="headerlink" title="5， 配置图像上传"></a>5， 配置图像上传</h2><p>在写本篇博客的时候，当我推送上来的时候，意外的发现文章的图片迟迟读取不了，测试过以下指令，反而本地localhost也读取不了了<br><code>cnpm install https://github.com/CodeFalling/hexo-asset-image –save</code></p>
-<p>由于我并非前端工作者，对这方面知识还是比较匮乏，你们可以参考这个教程的解决方法：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hugochen1024/p/12570656.html">https://www.cnblogs.com/hugochen1024/p/12570656.html</a></p>
-<p>我自己是注册<code>SM.MS</code>网站，链接：<a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a><br>在该网站上传图片，网站会给你一个链接，导入该链接的图片即可。</p>
-
+    <style>
+    #refplus, #refplus li{ 
+        padding:0;
+        margin:0;
+        list-style:none;
+    }；
+    </style>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+    document.querySelectorAll(".refplus-num").forEach((ref) => {
+        let refid = ref.firstChild.href.replace(location.origin+location.pathname,'');
+        let refel = document.querySelector(refid);
+        let refnum = refel.dataset.num;
+        let ref_content = refel.innerText.replace(`[${refnum}]`,'');
+        tippy(ref, {
+            content: ref_content,
+        });
+    });
+    </script>
+    
                 
             </div>
             <hr/>
@@ -732,12 +931,12 @@ baidu_url_submit:
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">环境搭建</span>
+                                <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
+                                    <span class="chip bg-color">计算机组成</span>
                                 </a>
                             
-                                <a href="../../../../tags/Matrey/">
-                                    <span class="chip bg-color">Matrey</span>
+                                <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                                    <span class="chip bg-color">计算机知识</span>
                                 </a>
                             
                         </div>
@@ -1185,29 +1384,30 @@ baidu_url_submit:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="../../05/operating_system1/">
+                <a href="">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/16.jpg" class="responsive-img" alt="操作系统概述(第一部分)">
+                        <img src="../../../../medias/featureimages/12.jpg" class="responsive-img" alt="计算机组成概述（2.1存储器）">
                         
-                        <span class="card-title">操作系统概述(第一部分)</span>
+                        <span class="card-title">计算机组成概述（2.1存储器）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统概述
+                            存储器介绍
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1220,15 +1420,16 @@ baidu_url_submit:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                        <span class="chip bg-color">计算机知识</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
+                        <span class="chip bg-color">计算机组成</span>
                     </a>
                     
-                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">计算机知识</span>
                     </a>
                     
                 </div>
@@ -1242,31 +1443,31 @@ baidu_url_submit:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="../../../03/31/Makefile-quick-get-start/">
+                <a href="../../12/error-linux-Unable-to%20acquire-the-dpkg-frontend-lock/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/10.jpg" class="responsive-img" alt="快速入门Makefile(新手向)">
+                        <img src="../../../../medias/featureimages/4.jpg" class="responsive-img" alt="Linux Apt运行报错排查">
                         
-                        <span class="card-title">快速入门Makefile(新手向)</span>
+                        <span class="card-title">Linux Apt运行报错排查</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            新手快速入门Makefile
+                            解决Unable to acquire the dpkg frontend lock
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    编程技术
+                            <a href="../../../../categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/" class="post-category">
+                                    报错排查
                                 </a>
                             
                             
@@ -1276,12 +1477,8 @@ baidu_url_submit:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/Makefile/">
-                        <span class="chip bg-color">Makefile</span>
-                    </a>
-                    
-                    <a href="../../../../tags/%E6%96%B0%E6%89%8B/">
-                        <span class="chip bg-color">新手</span>
+                    <a href="../../../../tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -1399,6 +1596,13 @@ baidu_url_submit:
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 

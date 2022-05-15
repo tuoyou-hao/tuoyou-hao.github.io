@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Matery">
-    <meta name="description" content="浅谈搭建matery的流程">
+    <meta name="keywords" content="Linux Apt运行报错排查, JNU CV 拓佑 拓佑豪 tuoyou-hao 江元豪 yuanhao 元豪 拓佑豪的博客">
+    <meta name="description" content="解决Unable to acquire the dpkg frontend lock">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅谈搭建Matery的一些流程 | 拓佑豪的博客</title>
+    <title>Linux Apt运行报错排查 | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -311,7 +311,7 @@
 <script src="../../../../libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '76c995ddc14816350dc10c44d6dff38b6883f31be3ba59893d67a82811f7f97a';
+        let pwd = '';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅谈搭建Matery的一些流程</h1>
+                    <h1 class="description center-align post-title">Linux Apt运行报错排查</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">环境搭建</span>
-                            </a>
-                        
-                            <a href="../../../../tags/Matrey/">
-                                <span class="chip bg-color">Matrey</span>
+                            <a href="../../../../tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -461,8 +457,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="../../../../categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
-                                环境搭建
+                            <a href="../../../../categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/" class="post-category">
+                                报错排查
                             </a>
                         
                     </div>
@@ -474,28 +470,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-02
+                    2022-05-12
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-19
+                    2022-05-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    603
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    2 分
                 </div>
                 
 
@@ -518,156 +514,54 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="浅谈搭建matery的一些流程"><a href="#浅谈搭建matery的一些流程" class="headerlink" title="浅谈搭建matery的一些流程"></a>浅谈搭建matery的一些流程</h1><p>好不容易完善了该matery，发现自己并没有记录如何真正搭建的流程。</p>
-<p>乘着刚搭建不久，来记录一下搭建<code>hexo-theme-matery</code>的一些流程</p>
-<h2 id="0，介绍开发环境"><a href="#0，介绍开发环境" class="headerlink" title="0，介绍开发环境"></a>0，介绍开发环境</h2><ul>
-<li><p>长年未更新的老Win10，以及更新过的vscode</p>
-</li>
-<li><p>这里建议参考以下几个链接一起看</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="linux中对于Unable-to-acquire-the-dpkg-frontend-lock的解决方法"><a href="#linux中对于Unable-to-acquire-the-dpkg-frontend-lock的解决方法" class="headerlink" title="linux中对于Unable to acquire the dpkg frontend lock的解决方法"></a>linux中对于Unable to acquire the dpkg frontend lock的解决方法</h1><p>运行环境：Ubuntu 18.04<br>问题描述：在别人配置好的Ubuntu下安装软件时，进行<code>apt-get</code>操作，出现了如下报错：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">E: Could not get lock /var/lib/dpkg/lock-frontend - open (11: Resource temporarily unavailable)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>解决办法:</p>
+<h2 id="一、终止占用的进程"><a href="#一、终止占用的进程" class="headerlink" title="一、终止占用的进程"></a>一、终止占用的进程</h2><p>导致的原因：<strong>进程中存在与apt相关的运行中的进程</strong></p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">https://www.bilibili.com/video/BV1Yb411a7ty</a></li>
-<li><a target="_blank" rel="noopener" href="https://godweiyang.com/2018/04/13/hexo-blog/">https://godweiyang.com/2018/04/13/hexo-blog/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.matemaster.cn/posts/52745.html">https://www.matemaster.cn/posts/52745.html</a></li>
+<li>检查是否在运行apt,apt-get相关的进程</li>
 </ul>
-</li>
-</ul>
-<h2 id="1，搭建node-js等等初步工作环境"><a href="#1，搭建node-js等等初步工作环境" class="headerlink" title="1，搭建node.js等等初步工作环境"></a>1，搭建node.js等等初步工作环境</h2><p>先去官网下载<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a>，选择稳定版即可</p>
-<p><img src="https://s2.loli.net/2022/04/03/dOYo2q4nPvJhrcl.png"></p>
-<p>一路默认安装即可。装完会有两个组件，一个是node.js本身，一个是npm组件。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ps aux | grep -i apt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
-<li>自己新建一个文件夹，以后的网页代码全放在里面，我的是在d:/tuoyou-hao</li>
-<li>用vscode打开这个文件夹（或者你用命令行 cd 进去 也可以），在vscode打开终端，输入以下指令</li>
+<li>如果存在与apt相关的正在运行的进程，kill掉对应的进程ID；</li>
 </ul>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">&gt; node -v
-v16.14.2
-&gt; npm -v
-8.5.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo kill -9 &lt;process id&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>​        或使用简单粗暴的方式:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo killall apt apt-get <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>由于npm下载速度较慢，我们可以选用淘宝的源下载。我们用npm下载cnpm：</p>
-<p><code> &gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
-<p>下载完成后，输入<code>cnpm -v</code>检查一下，输出下列内容即为正常</p>
-<p><img src="https://s2.loli.net/2022/04/03/WDuRxhQiZV1w9IN.png"></p>
-<p>然后我们开始安装hexo</p>
-<pre class="line-numbers language-none"><code class="language-none">&gt; cnpm install -g hexo-cli 
-&gt; hexo -v
-INFO  Validating config
-hexo: 6.1.0
-hexo-cli: 4.3.0
-os: win32 10.0.17134
-node: 16.14.2
-v8: 9.4.146.24-node.20
-uv: 1.43.0
-zlib: 1.2.11
-brotli: 1.0.9
-ares: 1.18.1
-modules: 93
-nghttp2: 1.45.1
-napi: 8
-llhttp: 6.0.4
-openssl: 1.1.1n+quic
-cldr: 40.0
-icu: 70.1
-tz: 2021a3
-unicode: 14.0
-ngtcp2: 0.1.0-DEV
-nghttp3: 0.1.0-DEV
-# 显示如上内容，hexo就是正常的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>在这个文件夹里面 <code>hexo init</code></p>
-<p>hexo会为你生成很多文件，然后下载并配置一个默认主题（在theme文件夹）</p>
-<p>配置完成后，命令行输入<code>hexo s</code>即可在本地localhost:4000看到hexo给你生成的网页</p>
-<p>进入\source\_posts文件夹底下，就是存放你的博客的地方，使用markdown格式编写。</p>
-<p>确认完毕以后，先去申请一个新的GitHub仓库</p>
-<p>会让你填写自己GitHub的地址。此时需要申请自己的GitHub，并将仓库命名为&lt;你的GitHub名字&gt;.github.io</p>
+<h2 id="二、删除lockfile并配置dpkg"><a href="#二、删除lockfile并配置dpkg" class="headerlink" title="二、删除lockfile并配置dpkg"></a>二、删除lockfile并配置dpkg</h2><p>问题现象：<strong>进程列表中已经没有与(apt/apt-get)相关的进程在运行，但依然报错</strong></p>
+<p>导致的原因：lock file未被正常删除</p>
 <ul>
-<li><p>比如我的GitHub名字叫tuoyou-hao，创建的新仓库就叫做“tuoyou-hao.github.io”。<strong>必须符合该命名格式</strong>！</p>
-<p>创建完该仓库即可，无需进行其他操作</p>
-</li>
-<li><p>去配置GitHub的ssh key，建立ssh链接，具体步骤参考：<a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></p>
-</li>
+<li>lock file用于防止两个或多个进程使用相同的数据。 当运行apt及其相关指令时，它会在几个地方创建lock files。<br>当前一个apt命令未正确终止时，lock file就不会被删除。因此它们会阻止任何新的apt / apt-get命令实例，</li>
+<li>比如正在执行<code>apt-get update</code>，在执行过程中直接ctrl+c取消了该操作，很有可能就会造成这种情况。</li>
+<li>要解决此问题，首先要删除lock file。<br>使用<code>lsof</code>命令获取持有lock file的进程的进程ID,依次运行如下命令:</li>
 </ul>
-<p>配置完毕后，执行该指令，下载GitHub推送工具</p>
-<p><code>cnpm install --save hexo-deployer-git</code></p>
-<p>然后修改根目录下<code>_config.yml</code>里头的配置，找到deploy选修</p>
-<pre class="line-numbers language-none"><code class="language-none">deploy:
-- type: git
-  repository: git@github.com:xxx/xxx.github.io.git #填你的仓库名
-  branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后执行hexo指令。命令行常用以下指令：</p>
-<pre class="line-numbers language-none"><code class="language-none">hexo clean #清理本地生成文件
-hexo g  # 生成博客网页文件
-hexo s  # 本地预览博客
-hexo d  # 上传网页文件到github<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>hexo d完毕以后，进入你xxx.gihub.io网站，即可查看到你部署的网页（会有几分钟的延迟）</p>
-<h2 id="2，配置matery"><a href="#2，配置matery" class="headerlink" title="2，配置matery"></a>2，配置matery</h2><ul>
-<li><p>git clone该链接到themes文件夹：<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></p>
-</li>
-<li><p>并把根目录下<code>_config.yml</code>文件里的theme参数改成你clone的文件夹名字（我自己重命名叫matery，theme参数也要叫matery）</p>
-</li>
-<li><p>在matery主题文件夹里面也有一个<code>_config.yml</code>文件，还有一个<code>README_CN.md</code>文件，请你一定要认真仔细看那份文件，需要根据那份文件下载各种依赖。下载完成后，根据自己的需要去配置</p>
-</li>
-<li><p>配置完成就发布到自己的GitHub仓库吧</p>
-</li>
-</ul>
-<h2 id="3，百度推送"><a href="#3，百度推送" class="headerlink" title="3，百度推送"></a>3，百度推送</h2><p>在百度推送上，建议参考：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1">https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1</a></p>
-<p>登录该网站：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/">https://ziyuan.baidu.com/</a></p>
-<p>登录成功后，在用户中心-&gt;站点管理-&gt;添加网站操作 </p>
-<p>然后如何寻找token呢，token=秘钥：</p>
-<p><img src="https://s2.loli.net/2022/04/03/j4m8YTUfV29Dei3.jpg"></p>
-<p>其中matery内置了推送功能，我们只需要写好参数即可。</p>
-<pre class="line-numbers language-none"><code class="language-none">deploy:
-- type: git
-  repository: git@github.com:xxx/xxx.github.io.git
-  branch: master
-- type: baidu_url_submitter #记得在deploy下配置这一句
-
-baidu_url_submit:
-  count: 20 # 提交最新的一个链接
-  host: https://xxx.github.io # 在百度资源搜索平台中注册的域名
-  token: xxxxxxx # 请注意这是推送秘钥， 所以请不要把博客源代码发布在公众仓库里!
-  path: baidu_urls.txt # 文本文档的地址， 新链接会保存在此文本文档里<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="4，-配置评论控件"><a href="#4，-配置评论控件" class="headerlink" title="4， 配置评论控件"></a>4， 配置评论控件</h2><p>首先，在matery底下，将js底下的twikoo更新至最新版</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">js:
-	twikoo: https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>参考链接：<a target="_blank" rel="noopener" href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2</a></p>
-<ol>
-<li><p>申请 <a target="_blank" rel="noopener" href="https://www.mongodb.com/cloud/atlas/register">MongoDB (opens new window)</a>账号</p>
-</li>
-<li><p>创建免费 MongoDB 数据库，区域推荐选择 <code>AWS / N. Virginia (us-east-1)</code></p>
-</li>
-<li><p>在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接（<a target="_blank" rel="noopener" href="https://vercel.com/support/articles/how-to-allowlist-deployment-ip-address">为什么？ (opens new window)</a>），创建数据库用户，选择connect，一定要选择链接您的应用，那个数据库连接字符串才是我们需要的，请将连接字符串中的 <code>password</code> 修改为数据库密码</p>
-<p><img src="https://s2.loli.net/2022/04/03/kLJfdnUmFrqZleC.png"></p>
-<p><img src="https://s2.loli.net/2022/04/03/jmieJ9aAYcXLISO.png"></p>
-</li>
-<li><p>申请 <a target="_blank" rel="noopener" href="https://vercel.com/signup">Vercel (opens new window)</a>账号</p>
-</li>
-<li><p>进入以下网址把 Twikoo 一键部署到 Vercel<br><a target="_blank" rel="noopener" href="https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min">https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min</a></p>
-</li>
-<li><p>进入 Settings - Environment Variables，添加环境变量 <code>MONGODB_URI</code>，值为第 3 步的数据库连接字符串</p>
-</li>
-<li><p>进入 Overview，点击 Domains 下方的链接，如果环境配置正确，可以看到 “Twikoo 云函数运行正常” 的提示</p>
-</li>
-<li><p>Vercel Domains（包含 <code>https://</code> 前缀，例如 <code>https://xxx.vercel.app</code>）整个网址即为您的环境 id</p>
-</li>
-<li><p>把网址贴进主题的_config.yml里头对应的twikoo的envId，并启用twikoo功能。</p>
-</li>
-</ol>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">twikoo:
-  enable: true
-  visitor: true
-  envId: https://xxxx.app #搭建教程：https://twikoo.js.org/quick-start.html
-  # region: ap-guangzhou # 环境地域，默认为 ap-shanghai
-  path: 'window.location.pathname' # 自定义文章路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="5，-配置图像上传"><a href="#5，-配置图像上传" class="headerlink" title="5， 配置图像上传"></a>5， 配置图像上传</h2><p>在写本篇博客的时候，当我推送上来的时候，意外的发现文章的图片迟迟读取不了，测试过以下指令，反而本地localhost也读取不了了<br><code>cnpm install https://github.com/CodeFalling/hexo-asset-image –save</code></p>
-<p>由于我并非前端工作者，对这方面知识还是比较匮乏，你们可以参考这个教程的解决方法：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hugochen1024/p/12570656.html">https://www.cnblogs.com/hugochen1024/p/12570656.html</a></p>
-<p>我自己是注册<code>SM.MS</code>网站，链接：<a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a><br>在该网站上传图片，网站会给你一个链接，导入该链接的图片即可。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">lsof /var/lib/dpkg/lock
+lsof /var/lib/apt/lists/lock
+lsof /var/cache/apt/archives/lock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>需要注意的是</p>
+<p>以上命令执行结果如果无返回，说明没有正在运行的进程</p>
+<p>如果返回了相应的进程，就需要kill掉。</p>
+<p>删除所有的lock file</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>最后重新配置一下dpkg：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo dpkg --configure -a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果上述命令不出任何错误，就万事大吉了。</p>
+<hr>
+<p>但是有时候，执行配置命令时可能会出现以下错误：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">dpkg: error: dpkg frontend is locked by another process<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这时需要找出正在锁定lock file的进程:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">lsof /var/lib/dpkg/lock-frontend<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>kill掉输出的进程（如果输出为空则忽略）</p>
+<pre class="line-numbers language-none"><code class="language-none">sudo kill -9 &lt;process id&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>删除lock file并重新配置dpkg:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo rm /var/lib/dpkg/lock-frontend
+sudo dpkg --configure -a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -732,12 +626,8 @@ baidu_url_submit:
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">环境搭建</span>
-                                </a>
-                            
-                                <a href="../../../../tags/Matrey/">
-                                    <span class="chip bg-color">Matrey</span>
+                                <a href="../../../../tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -1189,24 +1079,24 @@ baidu_url_submit:
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="../../05/operating_system1/">
+                <a href="../../15/computer_organization3/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/16.jpg" class="responsive-img" alt="操作系统概述(第一部分)">
+                        <img src="../../../../medias/featureimages/12.jpg" class="responsive-img" alt="计算机组成概述（2.1存储器）">
                         
-                        <span class="card-title">操作系统概述(第一部分)</span>
+                        <span class="card-title">计算机组成概述（2.1存储器）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统概述
+                            存储器介绍
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-05
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-15
                         </span>
                         <span class="publish-author">
                             
@@ -1223,12 +1113,12 @@ baidu_url_submit:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                        <span class="chip bg-color">计算机知识</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
+                        <span class="chip bg-color">计算机组成</span>
                     </a>
                     
-                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">计算机知识</span>
                     </a>
                     
                 </div>
@@ -1242,31 +1132,31 @@ baidu_url_submit:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="../../../03/31/Makefile-quick-get-start/">
+                <a href="../../../04/19/computer_organization1/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/10.jpg" class="responsive-img" alt="快速入门Makefile(新手向)">
+                        <img src="../../../../medias/featureimages/20.jpg" class="responsive-img" alt="计算机组成概述（1.概述）">
                         
-                        <span class="card-title">快速入门Makefile(新手向)</span>
+                        <span class="card-title">计算机组成概述（1.概述）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            新手快速入门Makefile
+                            计算机组成基本概念
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-19
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    编程技术
+                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机知识
                                 </a>
                             
                             
@@ -1276,12 +1166,12 @@ baidu_url_submit:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/Makefile/">
-                        <span class="chip bg-color">Makefile</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
+                        <span class="chip bg-color">计算机组成</span>
                     </a>
                     
-                    <a href="../../../../tags/%E6%96%B0%E6%89%8B/">
-                        <span class="chip bg-color">新手</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">计算机知识</span>
                     </a>
                     
                 </div>

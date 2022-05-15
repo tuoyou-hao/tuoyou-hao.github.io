@@ -1,3 +1,8 @@
+http://tuoyou-hao.github.io/2022/05/15/computer_organization3/
+http://tuoyou-hao.github.io/2022/05/12/error-linux-Unable-to%20acquire-the-dpkg-frontend-lock/
+http://tuoyou-hao.github.io/2022/04/19/computer_organization1/
+http://tuoyou-hao.github.io/2022/04/19/operating_system2-2/
+http://tuoyou-hao.github.io/2022/04/17/numpy-summary/
 http://tuoyou-hao.github.io/2022/04/16/markdown-quick-get-start/
 http://tuoyou-hao.github.io/2022/04/12/operating_system2-1/
 http://tuoyou-hao.github.io/2022/04/09/Atlas_200DK_first_Environment_configuration/

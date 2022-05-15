@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Matery">
-    <meta name="description" content="浅谈搭建matery的流程">
+    <meta name="keywords" content="操作系统,计算机知识">
+    <meta name="description" content="操作系统--处理机调度概述">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅谈搭建Matery的一些流程 | 拓佑豪的博客</title>
+    <title>操作系统概述(2.2处理机调度) | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -311,7 +311,7 @@
 <script src="../../../../libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '76c995ddc14816350dc10c44d6dff38b6883f31be3ba59893d67a82811f7f97a';
+        let pwd = '';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅谈搭建Matery的一些流程</h1>
+                    <h1 class="description center-align post-title">操作系统概述(2.2处理机调度)</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">环境搭建</span>
+                            <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                                <span class="chip bg-color">计算机知识</span>
                             </a>
                         
-                            <a href="../../../../tags/Matrey/">
-                                <span class="chip bg-color">Matrey</span>
+                            <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
                             </a>
                         
                     </div>
@@ -461,8 +461,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="../../../../categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
-                                环境搭建
+                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
+                                计算机知识
                             </a>
                         
                     </div>
@@ -474,7 +474,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-02
+                    2022-04-19
                 </div>
                 
 
@@ -488,14 +488,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    5.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    18 分
                 </div>
                 
 
@@ -518,157 +518,388 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="浅谈搭建matery的一些流程"><a href="#浅谈搭建matery的一些流程" class="headerlink" title="浅谈搭建matery的一些流程"></a>浅谈搭建matery的一些流程</h1><p>好不容易完善了该matery，发现自己并没有记录如何真正搭建的流程。</p>
-<p>乘着刚搭建不久，来记录一下搭建<code>hexo-theme-matery</code>的一些流程</p>
-<h2 id="0，介绍开发环境"><a href="#0，介绍开发环境" class="headerlink" title="0，介绍开发环境"></a>0，介绍开发环境</h2><ul>
-<li><p>长年未更新的老Win10，以及更新过的vscode</p>
-</li>
-<li><p>这里建议参考以下几个链接一起看</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="操作系统——2-2-处理机调度"><a href="#操作系统——2-2-处理机调度" class="headerlink" title="操作系统——2.2 处理机调度"></a>操作系统——2.2 处理机调度</h1><h2 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h2><p>进程调度（低级调度），就是按照某种算法，从就绪队列中，选择一个进程，为其分配处理机。</p>
+<p>当有一堆任务要处理的时候，由于资源有限，这些事情没办法同时处理，这就需要确定某种规则来决定处理这些任务的顺序，这就是<strong>调度</strong>研究的问题。</p>
+<p>一些概念的介绍：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">https://www.bilibili.com/video/BV1Yb411a7ty</a></li>
-<li><a target="_blank" rel="noopener" href="https://godweiyang.com/2018/04/13/hexo-blog/">https://godweiyang.com/2018/04/13/hexo-blog/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.matemaster.cn/posts/52745.html">https://www.matemaster.cn/posts/52745.html</a></li>
+<li>作业：一个具体的运行任务</li>
+<li>用户向系统提交一个作业 <strong>≈</strong>用户让操作系统启动一个程序（来处理一个具体的任务）</li>
 </ul>
-</li>
-</ul>
-<h2 id="1，搭建node-js等等初步工作环境"><a href="#1，搭建node-js等等初步工作环境" class="headerlink" title="1，搭建node.js等等初步工作环境"></a>1，搭建node.js等等初步工作环境</h2><p>先去官网下载<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a>，选择稳定版即可</p>
-<p><img src="https://s2.loli.net/2022/04/03/dOYo2q4nPvJhrcl.png"></p>
-<p>一路默认安装即可。装完会有两个组件，一个是node.js本身，一个是npm组件。</p>
+<h3 id="1-1高级调度（作业调度）"><a href="#1-1高级调度（作业调度）" class="headerlink" title="1.1高级调度（作业调度）"></a>1.1高级调度（作业调度）</h3><p>按一定的原则从外存的作业后备队列中挑选一个作业调入内存，并创建进程。<strong>每个作业只调入一次，调出一次</strong>。作业调入会建立PCB，调出时才撤销PCB。</p>
 <ul>
-<li>自己新建一个文件夹，以后的网页代码全放在里面，我的是在d:/tuoyou-hao</li>
-<li>用vscode打开这个文件夹（或者你用命令行 cd 进去 也可以），在vscode打开终端，输入以下指令</li>
+<li>简单理解就是：好几个程序需要启动，这个调度方式要确定先调度哪个。</li>
+<li>*<strong>作业控制块（JCB）：</strong>操作系统想用户提供的一组作业控制语言，用户将这种语言写作业说明书，然后程序、数据和作业一起交给系统操作员。</li>
+<li>*多道批处理系统通常配有作业调度，其他系统中通常不需要配置作业调度。</li>
 </ul>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">&gt; node -v
-v16.14.2
-&gt; npm -v
-8.5.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>由于npm下载速度较慢，我们可以选用淘宝的源下载。我们用npm下载cnpm：</p>
-<p><code> &gt; npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
-<p>下载完成后，输入<code>cnpm -v</code>检查一下，输出下列内容即为正常</p>
-<p><img src="https://s2.loli.net/2022/04/03/WDuRxhQiZV1w9IN.png"></p>
-<p>然后我们开始安装hexo</p>
-<pre class="line-numbers language-none"><code class="language-none">&gt; cnpm install -g hexo-cli 
-&gt; hexo -v
-INFO  Validating config
-hexo: 6.1.0
-hexo-cli: 4.3.0
-os: win32 10.0.17134
-node: 16.14.2
-v8: 9.4.146.24-node.20
-uv: 1.43.0
-zlib: 1.2.11
-brotli: 1.0.9
-ares: 1.18.1
-modules: 93
-nghttp2: 1.45.1
-napi: 8
-llhttp: 6.0.4
-openssl: 1.1.1n+quic
-cldr: 40.0
-icu: 70.1
-tz: 2021a3
-unicode: 14.0
-ngtcp2: 0.1.0-DEV
-nghttp3: 0.1.0-DEV
-# 显示如上内容，hexo就是正常的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>在这个文件夹里面 <code>hexo init</code></p>
-<p>hexo会为你生成很多文件，然后下载并配置一个默认主题（在theme文件夹）</p>
-<p>配置完成后，命令行输入<code>hexo s</code>即可在本地localhost:4000看到hexo给你生成的网页</p>
-<p>进入\source\_posts文件夹底下，就是存放你的博客的地方，使用markdown格式编写。</p>
-<p>确认完毕以后，先去申请一个新的GitHub仓库</p>
-<p>会让你填写自己GitHub的地址。此时需要申请自己的GitHub，并将仓库命名为&lt;你的GitHub名字&gt;.github.io</p>
+<h3 id="1-2-中级调度（内存调度）"><a href="#1-2-中级调度（内存调度）" class="headerlink" title="1.2 中级调度（内存调度）"></a>1.2 中级调度（内存调度）</h3><p>按照某种策略决定将那个处于挂起状态的进程重新调入内存。</p>
 <ul>
-<li><p>比如我的GitHub名字叫tuoyou-hao，创建的新仓库就叫做“tuoyou-hao.github.io”。<strong>必须符合该命名格式</strong>！</p>
-<p>创建完该仓库即可，无需进行其他操作</p>
+<li><p>引入中级调度的目的是提高内存利用率和系统吞吐量。</p>
 </li>
-<li><p>去配置GitHub的ssh key，建立ssh链接，具体步骤参考：<a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></p>
+<li><p>内存不够时，可将那些暂时用不上的进程调度至外存等待，等内存空闲或者进程需要运行的时候再重新调入内存。</p>
 </li>
-</ul>
-<p>配置完毕后，执行该指令，下载GitHub推送工具</p>
-<p><code>cnpm install --save hexo-deployer-git</code></p>
-<p>然后修改根目录下<code>_config.yml</code>里头的配置，找到deploy选修</p>
-<pre class="line-numbers language-none"><code class="language-none">deploy:
-- type: git
-  repository: git@github.com:xxx/xxx.github.io.git #填你的仓库名
-  branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>然后执行hexo指令。命令行常用以下指令：</p>
-<pre class="line-numbers language-none"><code class="language-none">hexo clean #清理本地生成文件
-hexo g  # 生成博客网页文件
-hexo s  # 本地预览博客
-hexo d  # 上传网页文件到github<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>hexo d完毕以后，进入你xxx.gihub.io网站，即可查看到你部署的网页（会有几分钟的延迟）</p>
-<h2 id="2，配置matery"><a href="#2，配置matery" class="headerlink" title="2，配置matery"></a>2，配置matery</h2><ul>
-<li><p>git clone该链接到themes文件夹：<a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></p>
-</li>
-<li><p>并把根目录下<code>_config.yml</code>文件里的theme参数改成你clone的文件夹名字（我自己重命名叫matery，theme参数也要叫matery）</p>
-</li>
-<li><p>在matery主题文件夹里面也有一个<code>_config.yml</code>文件，还有一个<code>README_CN.md</code>文件，请你一定要认真仔细看那份文件，需要根据那份文件下载各种依赖。下载完成后，根据自己的需要去配置</p>
-</li>
-<li><p>配置完成就发布到自己的GitHub仓库吧</p>
+<li><p>此时进程状态为<strong>挂起态</strong>，被挂起的进程PCB会被组织成<strong>挂起队列</strong>。</p>
 </li>
 </ul>
-<h2 id="3，百度推送"><a href="#3，百度推送" class="headerlink" title="3，百度推送"></a>3，百度推送</h2><p>在百度推送上，建议参考：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1">https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=1</a></p>
-<p>登录该网站：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/">https://ziyuan.baidu.com/</a></p>
-<p>登录成功后，在用户中心-&gt;站点管理-&gt;添加网站操作 </p>
-<p>然后如何寻找token呢，token=秘钥：</p>
-<p><img src="https://s2.loli.net/2022/04/03/j4m8YTUfV29Dei3.jpg"></p>
-<p>其中matery内置了推送功能，我们只需要写好参数即可。</p>
-<pre class="line-numbers language-none"><code class="language-none">deploy:
-- type: git
-  repository: git@github.com:xxx/xxx.github.io.git
-  branch: master
-- type: baidu_url_submitter #记得在deploy下配置这一句
+<p>中级调度实际上是存储器管理中的对换功能。</p>
+<ul>
+<li>一个进程可能会被多次调出、调入内存，因此中级调度发生的频率比高级调度更高。</li>
+</ul>
+<h3 id="1-3-低级调度（进程调度-x2F-处理机调度）"><a href="#1-3-低级调度（进程调度-x2F-处理机调度）" class="headerlink" title="1.3 低级调度（进程调度 / 处理机调度）"></a>1.3 低级调度（进程调度 / 处理机调度）</h3><p>按照某种策略，从就绪队列中选取一个进程，将处理机分配给它。</p>
+<p>这是一种最基本的调度，调用频率最高。</p>
+<h3 id="1-4-进程的挂起"><a href="#1-4-进程的挂起" class="headerlink" title="1.4 进程的挂起"></a>1.4 进程的挂起</h3><p>被挂起的进程称为 <u>挂起态（suspend）</u></p>
+<p>挂起态可以进一步分为<strong>就绪挂起</strong>和<strong>阻塞挂起</strong>。</p>
+<ul>
+<li>进程在就绪态可以挂起为就绪挂起，就绪挂起可以激活为就绪态</li>
+<li>进程在阻塞态可以挂起为阻塞挂起，阻塞挂起可以激活为阻塞态</li>
+<li>阻塞挂起可以在事件出现的时候变成就绪挂起</li>
+<li>并且，在创建态和运行态的进程，也可以直接挂起为就绪挂起</li>
+</ul>
+<p><strong>！挂起和阻塞的区别：</strong></p>
+<ul>
+<li>两种状态都是参数不能获得CPU的服务的</li>
+<li><strong>挂起态</strong>是将进程调到外存去了，<strong>阻塞态</strong>下的进程还在内存中。</li>
+<li>有的操作系统会把<strong>就绪挂起</strong>，<strong>阻塞挂起</strong>分为两个挂起队列，甚至会根据阻塞原因不同，把挂起队列细分为多个队列。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>调度</th>
+<th>调度发生在</th>
+<th>发生频率</th>
+<th>对进程状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高级调度（作业调度）</td>
+<td>外存-&gt;内存（面向作业）</td>
+<td>最低</td>
+<td>无-&gt;创建态-&gt;就绪态</td>
+</tr>
+<tr>
+<td>中级调度（内存调度）</td>
+<td>外存-&gt;内存（面向进程）</td>
+<td>中等</td>
+<td>挂起态-&gt;就绪态（阻塞挂起-&gt;阻塞态）</td>
+</tr>
+<tr>
+<td>低级调度（进程调度）</td>
+<td>内存-&gt;CPU</td>
+<td>最高</td>
+<td>就绪态-&gt;运行态</td>
+</tr>
+</tbody></table>
+<h2 id="二、进程调度方式"><a href="#二、进程调度方式" class="headerlink" title="二、进程调度方式"></a>二、进程调度方式</h2><h3 id="2-1进程调度的时机"><a href="#2-1进程调度的时机" class="headerlink" title="2.1进程调度的时机"></a>2.1进程调度的时机</h3><p><strong>！</strong>什么时候<strong>需要</strong>进程调度</p>
+<ul>
+<li><p>当前运行的进程<strong>主动放弃</strong>处理机</p>
+<ul>
+<li>进程终止</li>
+<li>运行过程中发生异常而终止</li>
+<li>进程主动请求阻塞（如：等待IO）</li>
+<li>有的系统中，只允许进程主动放弃处理机</li>
+</ul>
+</li>
+<li><p>当前运行的进程<strong>被动放弃</strong>处理机</p>
+<ul>
+<li>分给进程的时间片用完</li>
+<li>有更紧急的事需要处理（如：IO中断）</li>
+<li>有更高优先级的进程进入就绪队列<ul>
+<li>有的系统中，当有更紧急的任务需要处理的时候，也会强行剥夺处理机（被动放弃）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>！</strong>什么时候<strong>不能</strong>进程调度</p>
+<ul>
+<li><strong>处理中断的过程中</strong>：处理中断过程复杂，与硬件密切相关，很难在冲段处理的时候进行进程切换</li>
+<li>进程在<strong>操作系统内核程序临界区中</strong>。但是进程在普通临界区中是可以进行调度和切换的。</li>
+<li>在<strong>原子操作过程中（原语）</strong>。原子操作不可中断（如修改PCB中进程状态标志，并放置在相应队列）</li>
+</ul>
+<p><strong>！eg：</strong>进程在<strong>操作系统内核临界区</strong>中<strong>不能</strong>进行调度切换（√）</p>
+<p><strong>！eg：</strong>进程处于<strong>临界区</strong>时<strong>不能</strong>进行处理机调度（×）</p>
+<p><strong>！临界资源：</strong>一个时间段内只允许一个进程使用的资源。个进程需要<strong>互斥地</strong>访问临界资源。</p>
+<p><strong>！临界    区：</strong>访问临界资源的那段代码。</p>
+<p><strong>内核程序临界区</strong>一般是用来访问<strong>某种内核数据结构的</strong>，比如说进程的就绪队列（由各个就绪进程的PCB组成）</p>
+<ul>
+<li>举个栗子：</li>
+</ul>
+<p>比如有一个内核进程，要访问就绪队列</p>
+<pre class="mermaid">graph LR
+A(进程) --&gt;B(就绪队列)</pre>
 
-baidu_url_submit:
-  count: 20 # 提交最新的一个链接
-  host: https://xxx.github.io # 在百度资源搜索平台中注册的域名
-  token: xxxxxxx # 请注意这是推送秘钥， 所以请不要把博客源代码发布在公众仓库里!
-  path: baidu_urls.txt # 文本文档的地址， 新链接会保存在此文本文档里<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>那就需要先锁住<span class="github-emoji"><span>🔒</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f512.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>就绪队列 。如果还没退出临界区（还没解锁）就进行进程调度，但经常调度相关程序也需要访问就绪队列，此时就绪队列又被锁住了，因此有无法顺利进行进程调度。</p>
+<p>由此可见，内核程序临界区访问的临界资源，如果不尽快释放，很有可能因此影响到操作系统内核的其他管理工作。所以，访问内核程序临界区期间不可以进行调度与切换。</p>
+<ul>
+<li>再举个栗子：</li>
+</ul>
+<p>有一个进程要控制打印机，在打印机打印完成之前，进程一直处于临界区内，临界资源不会解锁。但是打印机是慢速的设备，如果一直不允许进程调度，会导致CPU一直空闲。</p>
+<p>普通临界区访问的临界资源不会直接影响操作系统内核的管理工作。访问普通临界区时可以进行调度与切换。</p>
+<h3 id="2-1-进程调度的方式"><a href="#2-1-进程调度的方式" class="headerlink" title="2.1 进程调度的方式"></a>2.1 进程调度的方式</h3><h5 id="非剥夺方式（非抢占方式）"><a href="#非剥夺方式（非抢占方式）" class="headerlink" title="非剥夺方式（非抢占方式）"></a>非剥夺方式（非抢占方式）</h5><p>只允许进程主动放弃处理机，如果运行过程中有更紧迫的任务到达，当前进程还会继续使用处理机，直到该进程终止或主动进入阻塞态。</p>
+<ul>
+<li>实现简单，系统开销小，但无法及时处理紧急任务。适用早期的批处理系统。</li>
+</ul>
+<h5 id="剥夺方式（抢占方式）"><a href="#剥夺方式（抢占方式）" class="headerlink" title="剥夺方式（抢占方式）"></a>剥夺方式（抢占方式）</h5><p>当一个进程正在处理机上执行时，如果有一个更重要的任务到达，则立即暂停正在执行的进程，将处理机分配给那个紧迫的进程。</p>
+<ul>
+<li>可以优先处理更紧急的进程，也可以让各个进程按时间片轮流执行的功能（通过使用时钟中断）。适用于分时操作系统，实时操作系统。</li>
+</ul>
+<h5 id="细分进程调度"><a href="#细分进程调度" class="headerlink" title="细分进程调度"></a>细分进程调度</h5><ul>
+<li><p>狭义的进程调度：从就绪队列中选中一个要运行的进程</p>
+</li>
+<li><p>广义的进程调度：包含了选择进程和进程切换两个步骤</p>
+<ul>
+<li>对原来运行的进程的数据进行保存</li>
+<li>对新进程的数据恢复（通常这些信息保存在PCB）</li>
+<li>！进程切换是有代价的。因此如果过于频繁的进行进程调度、切换，必然会降低整个系统的运行效率。并不是调度越频繁、并发度越高</li>
+</ul>
+</li>
+</ul>
+<h2 id="三、调度算法的评价指标"><a href="#三、调度算法的评价指标" class="headerlink" title="三、调度算法的评价指标"></a>三、调度算法的评价指标</h2><h3 id="1-CPU利用率："><a href="#1-CPU利用率：" class="headerlink" title="1 CPU利用率："></a>1 CPU利用率：</h3><ul>
+<li>CPU处于忙碌的时间占总时间的比例。</li>
+</ul>
+<p>$$<br>利用率 = \frac{有效工作的时间}{总时间 – 空闲+工作的时间}<br>$$</p>
+<h3 id="2-系统吞吐量："><a href="#2-系统吞吐量：" class="headerlink" title="2 系统吞吐量："></a>2 系统吞吐量：</h3><ul>
+<li>单位时间内完成的作业数量</li>
+</ul>
+<p>$$<br>系统吞吐量 = \frac{总完成的作业数量}{总共花费的时间}<br>$$</p>
+<h3 id="3-周转时间："><a href="#3-周转时间：" class="headerlink" title="3 周转时间："></a>3 周转时间：</h3><ul>
+<li>作业提交给系统开始，到作业完成为止的时间间隔</li>
+</ul>
+<p>包括四个部分：</p>
+<ul>
+<li>作业在外存后备队列等待调度的时间（高级调度）</li>
+<li>进程在就绪队列上等待调度的时间（低级调度）</li>
+<li>进程上CPU执行的时间</li>
+<li>进程等待I/O操作完成的时间<ul>
+<li>其中后三项在作业整个处理的过程中，可能发生多次</li>
+</ul>
+</li>
+</ul>
+<p>$$<br>作业周转时间 = 作业完成时间 - 作业提交时间 \\<br>平均周转时间 = \frac{\sum_{i=1}^n作业n的周转时间}{作业数} \\<br>带权周转时间 = \frac{作业周转时间}{作业实际运行时间} =  \frac{作业完成时间 - 作业提交时间}{作业实际运行时间}\\<br>平均带权周转时间 = \sum_{i=1}^n 作业n的带权周转时间<br>$$</p>
+<p>其中，带权周转时间可以理解为：周转时间比运行时间大多少倍。如果带权周转时间太大，说明原本只需要少量时间让CPU为其服务，却让他等待了很长的时间。</p>
+<h3 id="4-等待时间："><a href="#4-等待时间：" class="headerlink" title="4 等待时间："></a>4 等待时间：</h3><ul>
+<li>指进程/作业<strong>处于等待处理机窗台时间之和</strong>。等待时间越长，用户满意度越低。</li>
+</ul>
+<p>因为处理机调度算法不影响作业执行或者I/O时间，只影响作业在就绪队列中等待所花的时间。</p>
+<p>因此，衡量一个调度算法的优劣，只需要简单的看等待时间。</p>
+<ul>
+<li>对于<strong>进程</strong>来说，等待时间就是指进程建立后<strong>等待被服务的时间之和</strong>。等待I/O完成的期间其实进程也是在被服务的，所以不计入等待时间。</li>
+<li>对于<strong>作业</strong>来说，不仅要考虑<strong>建立进程后等待的时间，还要加上作业在外存后备队列中等待的时间</strong>。</li>
+<li>一个作业总共需要被CPU服务多久，被I/O设备服务多久，一般情况下，是确定不变的。调度算法值影响作业、进程的等待时间。我们也可以使用<strong>平均等待时间</strong>来评价整体性能。</li>
+</ul>
+<h3 id="5-响应时间"><a href="#5-响应时间" class="headerlink" title="5 响应时间"></a>5 响应时间</h3><ul>
+<li>指用户提交请求到首次产生响应所使用的时间</li>
+</ul>
+<h2 id="四、调度算法"><a href="#四、调度算法" class="headerlink" title="四、调度算法"></a>四、调度算法</h2><h3 id="1、先来先服务——FCFS"><a href="#1、先来先服务——FCFS" class="headerlink" title="1、先来先服务——FCFS"></a>1、先来先服务——FCFS</h3><h4 id="1-算法思想"><a href="#1-算法思想" class="headerlink" title="1 算法思想"></a>1 算法思想</h4><p>主要从<strong>公平</strong>的角度去考虑（类比食堂排队打饭的例子）</p>
+<h4 id="2-算法规则"><a href="#2-算法规则" class="headerlink" title="2 算法规则"></a>2 算法规则</h4><p>按照作业/进程到达的先后顺序进行服务</p>
+<h4 id="3-用于作业-x2F-进程调度"><a href="#3-用于作业-x2F-进程调度" class="headerlink" title="3 用于作业/进程调度"></a>3 用于作业/进程调度</h4><p>作业调度：考虑的是哪个作业先到达后备队列</p>
+<p>进程调度：考虑的是哪个进程先到达就绪队列</p>
+<h4 id="4-是否可抢占"><a href="#4-是否可抢占" class="headerlink" title="4 是否可抢占"></a>4 是否可抢占</h4><p>使用非抢占式算法</p>
+<h4 id="5-优缺点"><a href="#5-优缺点" class="headerlink" title="5 优缺点"></a>5 优缺点</h4><ul>
+<li>优点：公平，实现简单</li>
+<li>缺点：排在长作业/进程后面的短作业需要等待很长的时间，带权周转时间很大，对短作业用户来说，体验不好。</li>
+<li>总结：FCFS<strong>对长作业有利，对短作业不利</strong>。</li>
+</ul>
+<h4 id="6-是否会导致饥饿"><a href="#6-是否会导致饥饿" class="headerlink" title="6 是否会导致饥饿"></a>6 是否会导致饥饿</h4><p>不会。排在前面的作业总会处理完。</p>
+<ul>
+<li>饥饿的概念：某个作业或者进程长时间得不到服务</li>
+</ul>
+<h3 id="2、短作业优先——SJF"><a href="#2、短作业优先——SJF" class="headerlink" title="2、短作业优先——SJF"></a>2、短作业优先——SJF</h3><h4 id="1-算法思想-1"><a href="#1-算法思想-1" class="headerlink" title="1 算法思想"></a>1 算法思想</h4><p>追求最少的平均等待时间，最少的平均周转时间，最少的平均带权周转时间</p>
+<h4 id="2-算法规则-1"><a href="#2-算法规则-1" class="headerlink" title="2 算法规则"></a>2 算法规则</h4><p>最短的作业/进程优先得到服务（指要求服务的时间最短）</p>
+<h4 id="3-用于作业-x2F-进程调度-1"><a href="#3-用于作业-x2F-进程调度-1" class="headerlink" title="3 用于作业/进程调度"></a>3 用于作业/进程调度</h4><p>两种都可以用。对进程来说，叫<strong>短进程优先（SPF，shortest process first）</strong>算法</p>
+<h4 id="4-是否可抢占-1"><a href="#4-是否可抢占-1" class="headerlink" title="4 是否可抢占"></a>4 是否可抢占</h4><p>SJF和SPF是非抢占式的算法。但也有抢占式的版本，叫<strong>最短剩余时间优先算法（SRTN Shortest Remaining Time Next）</strong></p>
+<ul>
+<li><p>SRTN：当有进程<strong>加入就绪队列改变时就需要调度</strong>。如果新到达的进程<strong>剩余时间</strong>比当前运行的进程剩余时间更短，则由新进程<strong>抢占</strong>处理机。当前运行进程重新回到就绪队列。</p>
+<p><strong>! 另外</strong>，当一个进程完成时<sup class="refplus-num"><a href="#ref-f">[1]</a></sup>也需要用这种算法进行调度。
 
-
-
-<h2 id="4，-配置评论控件"><a href="#4，-配置评论控件" class="headerlink" title="4， 配置评论控件"></a>4， 配置评论控件</h2><p>首先，在matery底下，将js底下的twikoo更新至最新版</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">js:
-	twikoo: https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>参考链接：<a target="_blank" rel="noopener" href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2</a></p>
-<ol>
-<li><p>申请 <a target="_blank" rel="noopener" href="https://www.mongodb.com/cloud/atlas/register">MongoDB (opens new window)</a>账号</p>
+  </p><ul id="refplus" style="display:none;"><li id="ref-f" data-num="1">[1]  进程主动放弃处理机的时候</li></ul><p></p>
 </li>
-<li><p>创建免费 MongoDB 数据库，区域推荐选择 <code>AWS / N. Virginia (us-east-1)</code></p>
+<li><p>细节：</p>
+<ul>
+<li><p>平时讨论短作业优先默认是<code>SJF / SPF</code>，是非抢占式的</p>
 </li>
-<li><p>在 Clusters 页面点击 CONNECT，按步骤设置允许所有 IP 地址的连接（<a target="_blank" rel="noopener" href="https://vercel.com/support/articles/how-to-allowlist-deployment-ip-address">为什么？ (opens new window)</a>），创建数据库用户，选择connect，一定要选择链接您的应用，那个数据库连接字符串才是我们需要的，请将连接字符串中的 <code>password</code> 修改为数据库密码</p>
-<p><img src="https://s2.loli.net/2022/04/03/kLJfdnUmFrqZleC.png"></p>
-<p><img src="https://s2.loli.net/2022/04/03/jmieJ9aAYcXLISO.png"></p>
+<li><p>其实<code>SRTN</code>比<code>SJF</code>的平均的等待时间，平均周转时间要更少。</p>
+<p>应该说：<strong>在所有进程同时可运行时</strong>，或者<strong>在所有进程都几乎同时到达的时候</strong>，采用<code>SJF</code>调度算法的平均等待时间，平均周转时间最少。</p>
 </li>
-<li><p>申请 <a target="_blank" rel="noopener" href="https://vercel.com/signup">Vercel (opens new window)</a>账号</p>
+<li><p>一般来说，<code>SJF</code>的平均等待时间和平均周转时间，比除了SRTN以外的算法（如FCFS）要更少。</p>
 </li>
-<li><p>进入以下网址把 Twikoo 一键部署到 Vercel<br><a target="_blank" rel="noopener" href="https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min">https://vercel.com/import/project?template=https://github.com/imaegoo/twikoo/tree/dev/src/vercel-min</a></p>
+<li><p>不过说<code>SJF</code>是平均等待时间，平均周转时间最少，仍然是不够严谨的</p>
 </li>
-<li><p>进入 Settings - Environment Variables，添加环境变量 <code>MONGODB_URI</code>，值为第 3 步的数据库连接字符串</p>
+</ul>
 </li>
-<li><p>进入 Overview，点击 Domains 下方的链接，如果环境配置正确，可以看到 “Twikoo 云函数运行正常” 的提示</p>
+</ul>
+<h4 id="5-优缺点-1"><a href="#5-优缺点-1" class="headerlink" title="5 优缺点"></a>5 优缺点</h4><ul>
+<li>优点：“最短的” 平均等待时间、平均周转时间</li>
+<li>缺点：<ul>
+<li>不公平。<strong>对短作业有利，对长作业不利</strong>。可能产生<strong>饥饿</strong>现象。</li>
+<li>作业/进程的运行时间，是由用户提供的，并不一定完全准确，不一定真正可以实现短作业优先。</li>
+<li>该算法完全没有考虑作业的紧迫程度，不能保证紧迫性作业会被及时处理。</li>
+</ul>
 </li>
-<li><p>Vercel Domains（包含 <code>https://</code> 前缀，例如 <code>https://xxx.vercel.app</code>）整个网址即为您的环境 id</p>
+</ul>
+<h4 id="6-是否会导致饥饿-1"><a href="#6-是否会导致饥饿-1" class="headerlink" title="6 是否会导致饥饿"></a>6 是否会导致饥饿</h4><p>会。如果源源不断有大量短作业/进程到来，可能会使长作业很长时间都得不到服务。产生饥饿现象。</p>
+<p>如果一直得不到服务，则称之为 “饿死”。</p>
+<h3 id="3、高响应比优先——HRRN"><a href="#3、高响应比优先——HRRN" class="headerlink" title="3、高响应比优先——HRRN"></a>3、高响应比优先——HRRN</h3><h4 id="1-算法思想-2"><a href="#1-算法思想-2" class="headerlink" title="1 算法思想"></a>1 算法思想</h4><p>综合考虑 作业/进程 的等待时间和要求服务的时间。</p>
+<h4 id="2-算法规则-2"><a href="#2-算法规则-2" class="headerlink" title="2 算法规则"></a>2 算法规则</h4><p>在每次调度时，先计算各个 作业/进程 的<strong>响应比</strong>，选择<strong>响应比最高的</strong> 作业/进程 为其服务。<br>$$<br>响应比 = \frac{等待时间+要求服务时间}{要求服务时间}<br>\geq 1<br>$$</p>
+<h4 id="3-用于作业-x2F-进程调度-2"><a href="#3-用于作业-x2F-进程调度-2" class="headerlink" title="3 用于作业/进程调度"></a>3 用于作业/进程调度</h4><p>都可以使用</p>
+<h4 id="4-是否可抢占-2"><a href="#4-是否可抢占-2" class="headerlink" title="4 是否可抢占"></a>4 是否可抢占</h4><p>非抢占式算法，只有当前运行中的作业或进程<strong>主动放弃处理机时</strong>，才需要调度，才需要计算响应比。调度时<strong>计算所有就绪进程的响应比，选中响应比最高的</strong>进程上处理机。</p>
+<h4 id="5-优点"><a href="#5-优点" class="headerlink" title="5 优点"></a>5 优点</h4><ul>
+<li>综合考虑了等待时间和运行时间（要求服务时间）</li>
+<li>等待时间相同时，要求服务时间短的优先（SJF的优点）</li>
+<li>要求服务时间相同时，等待时间长的优先（FCFS的优点）</li>
+<li>对于长作业来说，随着等待时间越来越久，其响应比夜壶越来越大，从而避免了长作业饥饿的问题。</li>
+</ul>
+<h4 id="6-是否会导致饥饿-2"><a href="#6-是否会导致饥饿-2" class="headerlink" title="6 是否会导致饥饿"></a>6 是否会导致饥饿</h4><p>不会</p>
+<ul>
+<li>以上三种算法总结</li>
+</ul>
+<p>这几种算法主要关心对用户的公平性，平均周转时间，平均等待时间等评价系统性能的指标。但是不关心 “响应时间” ，也不区分任务的紧急程度。</p>
+<p>因此，对用户来说，交互性很差，这三种算法一般适用于<strong>早期的批处理系统</strong>。</p>
+<p>当然，<code>FCFS</code>也常结合其他算法使用。</p>
+<h3 id="4、时间片轮转（RR-Round-Robin）"><a href="#4、时间片轮转（RR-Round-Robin）" class="headerlink" title="4、时间片轮转（RR, Round-Robin）"></a>4、时间片轮转（RR, Round-Robin）</h3><h4 id="1-算法思想-3"><a href="#1-算法思想-3" class="headerlink" title="1 算法思想"></a>1 算法思想</h4><p>公平地、轮流地为各个进程服务，让每个进程在一定时间内都可以得到响应</p>
+<p><strong>！常用于分时操作系统，更注重 "响应时间"</strong></p>
+<h4 id="2-算法规则-3"><a href="#2-算法规则-3" class="headerlink" title="2 算法规则"></a>2 算法规则</h4><p>按照各个进程到达就绪队列的顺序，轮流让各个进程执行一个<strong>时间片</strong>。</p>
+<p>若进程未在一个时间片内执行完，则剥夺处理机，将进程程序放到就绪队列队尾重新排队。</p>
+<p><strong>！时间片划分需要注意：</strong></p>
+<ul>
+<li><p>如果时间片太大：</p>
+<p>使每个进程在一个时间片内就可以完成。则该算法会退化成FCFS（先到先服务）算法，并增大进程响应时间。</p>
 </li>
-<li><p>把网址贴进主题的_config.yml里头对应的twikoo的envId，并启用twikoo功能。</p>
+<li><p>如果时间片太小：</p>
+<p>会导致进程切换过于频繁，系统要花大量的时间来处理进程切换。从而导致实际用于进程执行的时间比例减少。</p>
+</li>
+<li><p>* 一般来说设计时间片时需要让切换进程的开销比例不超过 1%。</p>
+</li>
+</ul>
+<h4 id="3-用于作业-x2F-进程调度-3"><a href="#3-用于作业-x2F-进程调度-3" class="headerlink" title="3 用于作业/进程调度"></a>3 用于作业/进程调度</h4><p>用于进程调度（只有作业放入内存建立了相应的进程后，才能被分配处理机时间片）</p>
+<h4 id="4-是否可抢占-3"><a href="#4-是否可抢占-3" class="headerlink" title="4 是否可抢占"></a>4 是否可抢占</h4><p>抢占式算法。</p>
+<p>若进程未能在时间片内运行完，将被强制剥夺处理机使用权。</p>
+<p>由时钟装置发出的<strong>时钟中断</strong>来通知CPU时间片已到时。</p>
+<h4 id="5-优缺点-2"><a href="#5-优缺点-2" class="headerlink" title="5 优缺点"></a>5 优缺点</h4><ul>
+<li><p>优点：</p>
+<p>公平，响应快，适用于分时操作系统</p>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li><p>由于高频率的进程切换，因此有一定的开销</p>
+</li>
+<li><p>不区分任务紧急程度</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-是否会导致饥饿-3"><a href="#6-是否会导致饥饿-3" class="headerlink" title="6 是否会导致饥饿"></a>6 是否会导致饥饿</h4><p>不会</p>
+<h3 id="5、优先级调度算法"><a href="#5、优先级调度算法" class="headerlink" title="5、优先级调度算法"></a>5、优先级调度算法</h3><h4 id="1-算法思想-4"><a href="#1-算法思想-4" class="headerlink" title="1 算法思想"></a>1 算法思想</h4><p>实时操作系统的出现，越来越多的应用场景需要根据任务的紧急程度来决定处理顺序。</p>
+<h4 id="2-算法规则-4"><a href="#2-算法规则-4" class="headerlink" title="2 算法规则"></a>2 算法规则</h4><p>给每一个 作业/进程 各自的优先级，调度的时候选择优先级最高的 作业/进程 。</p>
+<h4 id="3-用于作业-x2F-进程调度-4"><a href="#3-用于作业-x2F-进程调度-4" class="headerlink" title="3 用于作业/进程调度"></a>3 用于作业/进程调度</h4><p>可用于作业调度、进程调度、以及I/O调度。</p>
+<h4 id="4-是否可抢占-4"><a href="#4-是否可抢占-4" class="headerlink" title="4 是否可抢占"></a>4 是否可抢占</h4><p>抢占式&amp;非抢占式。</p>
+<p>区别：</p>
+<ul>
+<li>非抢占式只需在进程主动放弃处理机时进行调度即可</li>
+<li>抢占式还需在就绪队列变化时，检查是否会发生进程之间的抢占</li>
+</ul>
+<p>要注意的是，就绪队列未必只有一个，可以按照优先级不同来组织。另外，也可以把优先级高的进程排在更靠近队头的位置。</p>
+<ul>
+<li><p>优先级</p>
+<ul>
+<li><p>静态优先级：光剑进程时候确定的，之后一直不变</p>
+<ul>
+<li><p>通常来说：</p>
+<ul>
+<li><p>系统进程优先级 高于 用户进程</p>
+</li>
+<li><p>前台进程优先级 高于 后台进程</p>
+</li>
+<li><p>操作系统更偏好I/O型进程（I/O繁忙型进程）</p>
+<p>I/O设备可以和CPU设备并行工作。</p>
+<p>让I/O设备尽早投入工作，资源利用率、系统吞吐量会得到提升。</p>
+</li>
+<li><p>与I/O型进程先对的是<strong>计算型进程（CPU繁忙进程）</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>动态优先级：创建的时候有个初始值，之后会根据情况动态地调整优先级</p>
+<ul>
+<li>如果进程在就绪队列中等待很长时间，就可以适当提升优先级</li>
+<li>如果进程占用处理机很长时间，则可以适当降低优先级</li>
+<li>如果发现一个进程频繁地进行I/O操作，则可以适当提升优先级</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-优缺点-3"><a href="#5-优缺点-3" class="headerlink" title="5 优缺点"></a>5 优缺点</h4><ul>
+<li><p>优点：</p>
+<p>用优先级区分任务紧急程度。适用于实时操作系统。可以灵活地调整对各个 作业/进程 的偏好程度</p>
+</li>
+<li><p>缺点</p>
+<p>如果源源不断的有高优先级的进程进来，可能会导致饥饿</p>
+</li>
+</ul>
+<h4 id="6-是否会导致饥饿-4"><a href="#6-是否会导致饥饿-4" class="headerlink" title="6 是否会导致饥饿"></a>6 是否会导致饥饿</h4><p>会</p>
+<h3 id="6、多级反馈队列"><a href="#6、多级反馈队列" class="headerlink" title="6、多级反馈队列"></a>6、多级反馈队列</h3><h4 id="1-算法思想-5"><a href="#1-算法思想-5" class="headerlink" title="1 算法思想"></a>1 算法思想</h4><p>对其他调度算法的整理集中</p>
+<h4 id="2-算法规则-5"><a href="#2-算法规则-5" class="headerlink" title="2 算法规则"></a>2 算法规则</h4><ol>
+<li><p>设置多个就绪队列</p>
+<p><strong>各级队列优先级 从高到低，时间片 从小到大</strong></p>
+</li>
+<li><p>新进程到大时，先进入1级队列，按<code>FCFS</code>原则排队等待被分配。</p>
+<p>若用完时间片进程还未结束，则进入下一级队列的队尾。</p>
+<p>如果此时已经在最下级的队列，则重新放回该队队尾。</p>
+</li>
+<li><p>只有第k级队列为空时，才会为k+1级的队列分配时间片</p>
 </li>
 </ol>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">twikoo:
-  enable: true
-  visitor: true
-  envId: https://xxxx.app #搭建教程：https://twikoo.js.org/quick-start.html
-  # region: ap-guangzhou # 环境地域，默认为 ap-shanghai
-  path: 'window.location.pathname' # 自定义文章路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3-用于作业-x2F-进程调度-5"><a href="#3-用于作业-x2F-进程调度-5" class="headerlink" title="3 用于作业/进程调度"></a>3 用于作业/进程调度</h4><p>用于进程调度</p>
+<h4 id="4-是否可抢占-5"><a href="#4-是否可抢占-5" class="headerlink" title="4 是否可抢占"></a>4 是否可抢占</h4><p>抢占式算法。</p>
+<p>在k级队列的进程运行过程中，若更上级的队列中进了一个新进程，则由于新进程处于优先级更高的队列中，因此新进程会抢占处理机，原来运行的进程放回k级队列队尾。</p>
+<h4 id="5-优缺点-4"><a href="#5-优缺点-4" class="headerlink" title="5 优缺点"></a>5 优缺点</h4><ul>
+<li><p>优点：</p>
+<ul>
+<li><p>对各类型进程相对公平（FCFS的优点）</p>
+</li>
+<li><p>每个新到达的进程都苦很快得到响应（RR的优点）</p>
+</li>
+<li><p>短进程只用较少的时间就可以完成（SPF的优点）</p>
+</li>
+<li><p>不比实现估计进程的运行时间（避免用户提供的运行时间不准确）</p>
+</li>
+<li><p>可以灵活地调整对各类进程的偏好程度，比如CPU密集型进程，I/O密集型进程</p>
+<p>（可以将因I/O而阻塞的进程重新放回原队列，这样I/O型进程就可以保持较高的优先级）</p>
+</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<p>可能会导致饥饿</p>
+</li>
+</ul>
+<h4 id="6-是否会导致饥饿-5"><a href="#6-是否会导致饥饿-5" class="headerlink" title="6 是否会导致饥饿"></a>6 是否会导致饥饿</h4><p>会</p>
+<p>如果源源不断有短进程进入队列，可能会导致饥饿</p>
+<ul>
+<li>后三种算法适用于交互式的系统（比如Unix就是使用多级反馈队列调度算法）</li>
+</ul>
 
-<h2 id="5，-配置图像上传"><a href="#5，-配置图像上传" class="headerlink" title="5， 配置图像上传"></a>5， 配置图像上传</h2><p>在写本篇博客的时候，当我推送上来的时候，意外的发现文章的图片迟迟读取不了，测试过以下指令，反而本地localhost也读取不了了<br><code>cnpm install https://github.com/CodeFalling/hexo-asset-image –save</code></p>
-<p>由于我并非前端工作者，对这方面知识还是比较匮乏，你们可以参考这个教程的解决方法：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hugochen1024/p/12570656.html">https://www.cnblogs.com/hugochen1024/p/12570656.html</a></p>
-<p>我自己是注册<code>SM.MS</code>网站，链接：<a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a><br>在该网站上传图片，网站会给你一个链接，导入该链接的图片即可。</p>
-
+    <style>
+    #refplus, #refplus li{ 
+        padding:0;
+        margin:0;
+        list-style:none;
+    }；
+    </style>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+    document.querySelectorAll(".refplus-num").forEach((ref) => {
+        let refid = ref.firstChild.href.replace(location.origin+location.pathname,'');
+        let refel = document.querySelector(refid);
+        let refnum = refel.dataset.num;
+        let ref_content = refel.innerText.replace(`[${refnum}]`,'');
+        tippy(ref, {
+            content: ref_content,
+        });
+    });
+    </script>
+    
                 
             </div>
             <hr/>
@@ -732,12 +963,12 @@ baidu_url_submit:
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">环境搭建</span>
+                                <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                                    <span class="chip bg-color">计算机知识</span>
                                 </a>
                             
-                                <a href="../../../../tags/Matrey/">
-                                    <span class="chip bg-color">Matrey</span>
+                                <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
                                 </a>
                             
                         </div>
@@ -1189,24 +1420,24 @@ baidu_url_submit:
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="../../05/operating_system1/">
+                <a href="../computer_organization1/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/16.jpg" class="responsive-img" alt="操作系统概述(第一部分)">
+                        <img src="../../../../medias/featureimages/20.jpg" class="responsive-img" alt="计算机组成概述（1.概述）">
                         
-                        <span class="card-title">操作系统概述(第一部分)</span>
+                        <span class="card-title">计算机组成概述（1.概述）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统概述
+                            计算机组成基本概念
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-05
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-19
                         </span>
                         <span class="publish-author">
                             
@@ -1223,12 +1454,12 @@ baidu_url_submit:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                        <span class="chip bg-color">计算机知识</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
+                        <span class="chip bg-color">计算机组成</span>
                     </a>
                     
-                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">计算机知识</span>
                     </a>
                     
                 </div>
@@ -1242,24 +1473,24 @@ baidu_url_submit:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="../../../03/31/Makefile-quick-get-start/">
+                <a href="../../17/numpy-summary/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/10.jpg" class="responsive-img" alt="快速入门Makefile(新手向)">
+                        <img src="../../../../medias/featureimages/3.jpg" class="responsive-img" alt="Numpy 总结笔记">
                         
-                        <span class="card-title">快速入门Makefile(新手向)</span>
+                        <span class="card-title">Numpy 总结笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            新手快速入门Makefile
+                            比较简单的总结，以备参考
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-17
                             </span>
                         <span class="publish-author">
                             
@@ -1276,12 +1507,12 @@ baidu_url_submit:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/Makefile/">
-                        <span class="chip bg-color">Makefile</span>
+                    <a href="../../../../tags/Numpy/">
+                        <span class="chip bg-color">Numpy</span>
                     </a>
                     
-                    <a href="../../../../tags/%E6%96%B0%E6%89%8B/">
-                        <span class="chip bg-color">新手</span>
+                    <a href="../../../../tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">数据分析</span>
                     </a>
                     
                 </div>
@@ -1399,6 +1630,13 @@ baidu_url_submit:
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 

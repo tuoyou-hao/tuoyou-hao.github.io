@@ -1,0 +1,2989 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta name="keywords" content="Numpy">
+    <meta name="description" content="比较简单的总结，以备参考">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Numpy 总结笔记 | 拓佑豪的博客</title>
+    <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
+
+    <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="../../../../libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/matery.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/my.css">
+
+    <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.1.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="../../../../index.html" class="waves-effect waves-light">
+                    
+                    <img src="../../../../medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">拓佑豪的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="../../../../index.html" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="../../../../tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="../../../../categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="../../../../archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="../../../../about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="../../../../contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="../../../../friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="../../../../medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">拓佑豪的博客</div>
+        <div class="logo-desc">
+            
+            暨南大学 | 人工智能 | 华为云MDG核心成员
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="../../../../index.html" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="../../../../tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="../../../../categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="../../../../archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="../../../../about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="../../../../contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="../../../../friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/tuoyou-hao" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/tuoyou-hao" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="../../../../libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '../../../../index.html';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Numpy 总结笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="../../../../libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="../../../../tags/Numpy/">
+                                <span class="chip bg-color">Numpy</span>
+                            </a>
+                        
+                            <a href="../../../../tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                                <span class="chip bg-color">数据分析</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                编程技术
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-04-17
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-04-17
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    28 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="../../../../libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="numpy-总结笔记"><a href="#numpy-总结笔记" class="headerlink" title="numpy 总结笔记"></a>numpy 总结笔记</h1><p>偶然翻到一篇以前整理的numpy笔记，由于数据分析是人工智能很重要很基础的内容，因此稍作整理和大家共享</p>
+<h2 id="一、Ndarray-对象"><a href="#一、Ndarray-对象" class="headerlink" title="一、Ndarray 对象"></a>一、Ndarray 对象</h2><p>ndarray 内部由以下内容组成：</p>
+<ul>
+<li><p>一个指向数据（内存 | 内存映射文件中的一块数据）的指针。</p>
+</li>
+<li><p>数据类型或 dtype，描述在数组中的 固定大小值的格子。</p>
+</li>
+<li><p>一个表示数组形状（shape）的元组，表各维度大小的元组。</p>
+</li>
+<li><p>一个跨度元组（stride），其中的整数指的是 为了前进到当前维度 下一个元素需要”跨过”的字节数。</p>
+</li>
+</ul>
+<p> <img src="https://s2.loli.net/2022/04/17/D6L4eZEcpbjw1AR.png" alt="np-nparray"></p>
+<p>跨度可以是负数，这样会使数组在内存中后向移动，切片中 obj[::-1] 或 obj[:,::-1] 就是如此。</p>
+<p>创建一个 ndarray 只需调用 NumPy 的 array 函数即可：</p>
+<p><code>numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)</code></p>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>object</strong></td>
+<td>数组或嵌套的数列</td>
+</tr>
+<tr>
+<td><strong>dtype</strong></td>
+<td>数组元素的数据类型，可选</td>
+</tr>
+<tr>
+<td><strong>copy</strong></td>
+<td>对象是否需要复制，可选</td>
+</tr>
+<tr>
+<td><strong>order</strong></td>
+<td>创建数组的样式，C为行方向，F为列方向，A为任意方向（默认）</td>
+</tr>
+<tr>
+<td><strong>subok</strong></td>
+<td>默认返回一个与基类类型一致的数组</td>
+</tr>
+<tr>
+<td><strong>ndmin</strong></td>
+<td>指定生成数组的最小维度</td>
+</tr>
+</tbody></table>
+<h2 id="二、NumPy-数据类型"><a href="#二、NumPy-数据类型" class="headerlink" title="二、NumPy 数据类型"></a>二、NumPy 数据类型</h2><h3 id="1）：基本数据类型"><a href="#1）：基本数据类型" class="headerlink" title="1）：基本数据类型"></a>1）：基本数据类型</h3><table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bool_</td>
+<td>布尔型数据类型（True 或者 False）</td>
+</tr>
+<tr>
+<td>int_</td>
+<td>默认的整数类型（类似于 C 语言中的 long，int32 或 int64）</td>
+</tr>
+<tr>
+<td>intc</td>
+<td>与 C 的 int 类型一样，一般是 int32 或 int 64</td>
+</tr>
+<tr>
+<td>intp</td>
+<td>用于索引的整数类型（类似于 C 的 ssize_t，一般情况下仍然是 int32 或 int64）</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>字节（-128 to 127）</td>
+</tr>
+<tr>
+<td>int16</td>
+<td>整数（-32768 to 32767）</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>整数（-2147483648 to 2147483647）</td>
+</tr>
+<tr>
+<td>int64</td>
+<td>整数（-9223372036854775808 to 9223372036854775807）</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>无符号整数（0 to 255）</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>无符号整数（0 to 65535）</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>无符号整数（0 to 4294967295）</td>
+</tr>
+<tr>
+<td>uint64</td>
+<td>无符号整数（0 to 18446744073709551615）</td>
+</tr>
+<tr>
+<td>float_</td>
+<td>float64 类型的简写</td>
+</tr>
+<tr>
+<td>float16</td>
+<td>半精度浮点数，包括：1 个符号位，5 个指数位，10 个尾数位</td>
+</tr>
+<tr>
+<td>float32</td>
+<td>单精度浮点数，包括：1 个符号位，8 个指数位，23 个尾数位</td>
+</tr>
+<tr>
+<td>float64</td>
+<td>双精度浮点数，包括：1 个符号位，11 个指数位，52 个尾数位</td>
+</tr>
+<tr>
+<td>complex_</td>
+<td>complex128 类型的简写，即 128 位复数</td>
+</tr>
+<tr>
+<td>complex64</td>
+<td>复数，表示双 32 位浮点数（实数部分和虚数部分）</td>
+</tr>
+<tr>
+<td>complex128</td>
+<td>复数，表示双 64 位浮点数（实数部分和虚数部分）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>numpy 的数值类型实际上是 dtype 对象的实例，并且对应唯一的字符，如 np.bool_，np.int32，np.float32，等等。</p>
+</li>
+<li><p>int8, int16, int32, int64 四种数据类型可以使用字符串 ‘i1’, ‘i2’,’i4’,’i8’ 代替</p>
+</li>
+</ul>
+<h3 id="2）：数据类型对象dtype"><a href="#2）：数据类型对象dtype" class="headerlink" title="2）：数据类型对象dtype"></a>2）：数据类型对象dtype</h3><p>dtype 对象使用以下语法构造：</p>
+<p><code>numpy.dtype(object, align, copy)</code></p>
+<ul>
+<li><p>object 要转换为的数据类型对象</p>
+</li>
+<li><p>align    如果为 true，填充字段使其类似 C 的结构体。</p>
+</li>
+<li><p>copy    复制 dtype 对象 ，若为 false，则是对内置数据类型对象的引用</p>
+</li>
+</ul>
+<p>每个内建类型都有一个唯一定义它的字符代码，如下：        </p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>对应类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>b</td>
+<td>布尔型</td>
+</tr>
+<tr>
+<td>i</td>
+<td>(有符号) 整型</td>
+</tr>
+<tr>
+<td>u</td>
+<td>无符号整型 integer</td>
+</tr>
+<tr>
+<td>f</td>
+<td>浮点型</td>
+</tr>
+<tr>
+<td>c</td>
+<td>复数浮点型</td>
+</tr>
+<tr>
+<td>m</td>
+<td>timedelta（时间间隔）</td>
+</tr>
+<tr>
+<td>M</td>
+<td>datetime（日期时间）</td>
+</tr>
+<tr>
+<td>O</td>
+<td>(Python) 对象</td>
+</tr>
+<tr>
+<td>S, a</td>
+<td>(byte-)字符串</td>
+</tr>
+<tr>
+<td>U</td>
+<td>Unicode</td>
+</tr>
+<tr>
+<td>V</td>
+<td>原始数据 (void)</td>
+</tr>
+</tbody></table>
+<p>实例：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">print(np.dtype(np.int32))
+&gt;int32
+
+print(np.dtype('i4'))
+&gt;int32
+
+print(np.dtype('&lt;i4'))
+&gt;int32
+
+print(np.dtype([('age',np.int8)]))
+&gt;[('age', 'i1')]
+
+dt = np.dtype([('age',np.int8)]) 
+print(np.array([(10,),(20,),(30,)], dtype = dt))
+&gt;[(10,) (20,) (30,)]
+
+dt = np.dtype([('age',np.int8)]) 
+a = np.array([(10,),(20,),(30,)], dtype = dt) 
+print(a['age'])
+&gt;[10 20 30]
+
+student = np.dtype([('name','S20'), ('age', 'i1'), ('marks', 'f4')]) 
+print(student)
+&gt;[('name', 'S20'), ('age', 'i1'), ('marks', 'f4')]
+
+student = np.dtype([('name','S20'), ('age', 'i1'), ('marks', 'f4')]) 
+print(np.array([('abc', 21, 50),('xyz', 18, 75)], dtype = student))
+&gt;[('abc', 21, 50.0), ('xyz', 18, 75.0)]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="三、数组"><a href="#三、数组" class="headerlink" title="三、数组"></a>三、数组</h2><h3 id="1）：数组属性"><a href="#1）：数组属性" class="headerlink" title="1）：数组属性"></a>1）：数组属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ndarray.ndim</td>
+<td>秩，即轴的数量或维度的数量</td>
+</tr>
+<tr>
+<td>ndarray.shape</td>
+<td>数组的维度，对于矩阵，n 行 m 列</td>
+</tr>
+<tr>
+<td>ndarray.size</td>
+<td>数组元素的总个数，相当于 .shape 中 n*m 的值</td>
+</tr>
+<tr>
+<td>ndarray.dtype</td>
+<td>ndarray 对象的元素类型</td>
+</tr>
+<tr>
+<td>ndarray.itemsize</td>
+<td>ndarray 对象中每个元素的大小，以字节为单位</td>
+</tr>
+<tr>
+<td>ndarray.flags</td>
+<td>ndarray 对象的内存信息</td>
+</tr>
+<tr>
+<td>ndarray.real</td>
+<td>ndarray 元素的实部</td>
+</tr>
+<tr>
+<td>ndarray.imag</td>
+<td>ndarray 元素的虚部</td>
+</tr>
+<tr>
+<td>ndarray.data</td>
+<td>包含实际数组元素的缓冲区由于一般通过数组的索引获取元素，所以通常不需要使用这个属性。</td>
+</tr>
+<tr>
+<td>ndarray.reshape</td>
+<td>ndarray重新分配大小，包括秩等等都可以变换</td>
+</tr>
+</tbody></table>
+<p>ndarray.flags 返回 ndarray 对象的内存信息，包含以下属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C_CONTIGUOUS (C)</td>
+<td>数据是在一个单一的C风格的连续段中</td>
+</tr>
+<tr>
+<td>F_CONTIGUOUS (F)</td>
+<td>数据是在一个单一的Fortran风格的连续段中</td>
+</tr>
+<tr>
+<td>OWNDATA (O)</td>
+<td>数组拥有它所使用的内存或从另一个对象中借用它</td>
+</tr>
+<tr>
+<td>WRITEABLE (W)</td>
+<td>数据区域可以被写入，将该值设置为 False，则数据为只读</td>
+</tr>
+<tr>
+<td>ALIGNED (A)</td>
+<td>数据和所有元素都适当地对齐到硬件上</td>
+</tr>
+<tr>
+<td>UPDATEIFCOPY (U)</td>
+<td>这个数组是其它数组的一个副本当这个数组被释放时，原数组的内容将被更新</td>
+</tr>
+</tbody></table>
+<p>实例：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x = np.array([1,2,3,4,5]) 
+print (x.flags)
+
+&gt;C_CONTIGUOUS : True
+&gt;F_CONTIGUOUS : True
+&gt;OWNDATA : True
+&gt;WRITEABLE : True
+&gt;ALIGNED : True
+&gt;WRITEBACKIFCOPY : False
+&gt;UPDATEIFCOPY : False
+
+a = np.array([[1,2,3],[4,5,6]]) 
+a.shape = (3,2) 
+print (a)
+
+&gt;[[1 2]
+  [3 4]
+  [5 6]]
+
+# 数组的 dtype 为 int8（一个字节） 
+
+x = np.array([1,2,3,4,5], dtype = np.int8) 
+print (x.itemsize) 
+
+# 数组的 dtype 现在为 float64（八个字节） 
+
+y = np.array([1,2,3,4,5], dtype = np.float64) 
+print (y.itemsize)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>一个元素类型为float64的数组，itemsize属性值为8(float64占用64个bits，每个字节长度为8，所以64/8占用 8 个字节）</p>
+</li>
+<li><p>一个元素类型为complex32的数组item属性为4（32/8）</p>
+</li>
+</ul>
+<h3 id="2）：创建数组"><a href="#2）：创建数组" class="headerlink" title="2）：创建数组"></a>2）：创建数组</h3><p><code>numpy.zeros(shape, dtype = float, order = 'C')</code></p>
+<p><code>numpy.ones(shape, dtype = None, order = 'C')</code></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 默认为浮点数 
+x = np.ones(5) print(x) 
+# 设置类型为整数 
+y = np.zeros((5,), dtype = np.int) print(y) 
+# 自定义类型 
+z = np.zeros((2,2), dtype = [('x', 'i4'), ('y', 'i4')]) print(z)
+
+# 输出
+[1. 1. 1. 1. 1.]
+[0 0 0 0 0]
+[[(0, 0) (0, 0)]
+ [(0, 0) (0, 0)]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3）：从已有的数组创建数组"><a href="#3）：从已有的数组创建数组" class="headerlink" title="3）：从已有的数组创建数组"></a>3）：从已有的数组创建数组</h3><h4 id="1、asarray"><a href="#1、asarray" class="headerlink" title="1、asarray"></a>1、asarray</h4><p><code>numpy.asarray(a, dtype = None, order = None)</code></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>任意形式的输入参数，可以是 列表, 列表的元组, 元组, 元组的元组, 元组的列表，多维数组</td>
+</tr>
+<tr>
+<td>dtype</td>
+<td>数据类型，可选</td>
+</tr>
+<tr>
+<td>order</td>
+<td>可选，有”C”和”F”两个选项,分别代表，行优先和列优先，在计算机内存中的存储元素的顺序。</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x = [(1,2,3),(4,5)] a = np.asarray(x) 
+print (a)
+
+# 输出
+[(1, 2, 3) (4, 5)]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="2、numpy-frombuffer"><a href="#2、numpy-frombuffer" class="headerlink" title="2、numpy.frombuffer"></a>2、numpy.frombuffer</h4><p>numpy.frombuffer 用于实现动态数组。</p>
+<p>numpy.frombuffer 接受 buffer 输入参数，以流的形式读入转化成 ndarray 对象。</p>
+<p><code>numpy.frombuffer(buffer, dtype = float, count = -1, offset = 0)</code></p>
+<ul>
+<li>注：<br>buffer是字符串的时候，Python3默认str是Unicode 类型所以要转成bytestring在原str前加上b。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>buffer</td>
+<td>可以是任意对象，会以流的形式读入</td>
+</tr>
+<tr>
+<td>dtype</td>
+<td>返回数组的数据类型，可选</td>
+</tr>
+<tr>
+<td>count</td>
+<td>读取的数据数量，默认为-1，读取所有数据</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>读取的起始位置，默认为0</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">s = b'Hello World' a = np.frombuffer(s, dtype = 'S1') 
+print (a)
+# 输出
+[b'H' b'e' b'l' b'l' b'o' b' ' b'W' b'o' b'r' b'l' b'd']<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="3、numpy-fromiter"><a href="#3、numpy-fromiter" class="headerlink" title="3、numpy.fromiter"></a>3、numpy.fromiter</h4><p>numpy.fromiter 方法从可迭代对象中建立 ndarray 对象，返回一维数组。</p>
+<p><code>numpy.fromiter(iterable, dtype, count=-1)</code></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iterable</td>
+<td>可迭代对象</td>
+</tr>
+<tr>
+<td>dtype</td>
+<td>返回数组的数据类型</td>
+</tr>
+<tr>
+<td>count</td>
+<td>读取的数据数量，默认为-1，读取所有数据</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 使用 range 函数创建列表对象 
+list=range(5) 
+it=iter(list) 
+# 使用迭代器创建 ndarray 
+x=np.fromiter(it, dtype=float) 
+print(x)
+
+# 输出
+[0. 1. 2. 3. 4.]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4）：从数值范围创建数组"><a href="#4）：从数值范围创建数组" class="headerlink" title="4）：从数值范围创建数组"></a>4）：从数值范围创建数组</h3><h4 id="1、numpy-arange"><a href="#1、numpy-arange" class="headerlink" title="1、numpy.arange"></a>1、numpy.arange</h4><p>numpy 包中的使用 arange 函数创建数值范围并返回 ndarray 对象：</p>
+<p><code>numpy.arange(start, stop, step, dtype)</code></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>start</td>
+<td>序列的起始值</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>序列的终止值，若endpoint为true，该值包含于数列中</td>
+</tr>
+<tr>
+<td>num</td>
+<td>要生成的等步长的样本数量，默认为50</td>
+</tr>
+<tr>
+<td>endpoint</td>
+<td>该值为 true 时，数列中包含stop值，反之不包含，默认True</td>
+</tr>
+<tr>
+<td>retstep</td>
+<td>如果为 True 时，生成的数组中会显示间距，反之不显示</td>
+</tr>
+<tr>
+<td>dtype</td>
+<td>ndarray 的数据类型</td>
+</tr>
+</tbody></table>
+<h4 id="2、numpy-logspace"><a href="#2、numpy-logspace" class="headerlink" title="2、numpy.logspace"></a>2、numpy.logspace</h4><p>numpy.logspace 函数用于创建一个于等比数列。格式如下：</p>
+<p><code>np.logspace(start, stop, num=50, endpoint=True, base=10.0, dtype=None)</code></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>start</td>
+<td>序列的起始值为：base ** start</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>序列的终止值为：base ** stop。如果endpoint为true，该值包含于数列中</td>
+</tr>
+<tr>
+<td>num</td>
+<td>要生成的等步长的样本数量，默认为50</td>
+</tr>
+<tr>
+<td>endpoint</td>
+<td>该值为true时，数列中中包含stop值，反之不包含，默认True</td>
+</tr>
+<tr>
+<td>base</td>
+<td>对数 log 的底数，取对数的时候 log 的下标</td>
+</tr>
+<tr>
+<td>dtype</td>
+<td>ndarray 的数据类型</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">print (np.logspace(1.0, 2.0, num = 10))
+&gt;[ 10.           12.91549665     16.68100537      21.5443469  27.82559402      
+  35.93813664   46.41588834     59.94842503      77.42636827    100.    ]
+  
+print (np.logspace(0,9,10,base=2))
+&gt;[  1.   2.   4.   8.  16.  32.  64. 128. 256. 512.]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="3、索引、切片"><a href="#3、索引、切片" class="headerlink" title="3、索引、切片"></a>3、索引、切片</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">a = np.arange(10) 
+s = slice(2,7,2) # 从索引 2 开始到索引 7 停止，间隔为2 
+print (a[s])
+
+&gt;[2  4  6]
+
+b = a[2:7:2] # 从索引 2 开始到索引 7 停止，间隔为 2 
+print(b)
+
+&gt;[2  4  6]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>切片还可以包括省略号 <code>…</code>，来使选择元组的长度与数组的维度相同。 </p>
+<p>如果在行位置使用省略号，它将返回包含行中元素的 ndarray。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">a = np.array([[1,2,3],[3,4,5],[4,5,6]]) 
+print (a[...,1]) # 第2列元素 
+print (a[1,...]) # 第2行元素 
+print (a[...,1:]) # 第2列及剩下的所有元素
+
+# 输出
+&gt;[2 4 5]
+
+&gt;[3 4 5]
+
+&gt;[[2 3]
+  [4 5]
+  [5 6]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="4、高级索引"><a href="#4、高级索引" class="headerlink" title="4、高级索引"></a>4、高级索引</h4><ul>
+<li>整数索引</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x = np.array([[1, 2], [3, 4], [5, 6]]) 
+y = x[[0,1,2], [0,1,0]] 
+print (y)
+
+# 输出
+[1  4  5]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>布尔索引</li>
+</ul>
+<p>我们可以通过一个布尔数组来索引目标数组。</p>
+<p>布尔索引通过布尔运算（如：比较运算符）来获取符合指定条件的元素的数组。</p>
+<p>如大于 5 的元素：<code>print (x[x &gt; 5])</code></p>
+<p>使用 <code>~</code>（取补运算符）来过滤 NaN：</p>
+<p><code>a = np.array([np.nan, 1,2,np.nan,3,4,5]) print (a[~np.isnan(a)])</code></p>
+<ul>
+<li>花式索引</li>
+</ul>
+<p>关于 np.ix_ 的具体使用：</p>
+<p><code>x[np.ix_([1,5,7,2],[0,3,1,2])]</code>这句话会输出一个4*4的矩阵，其中的元素分别是：</p>
+<pre class="line-numbers language-none"><code class="language-none">x[1,0] x[1,3] x[1,1] x[1,2]
+x[5,0] x[5,3] x[5,1] x[5,2]
+x[7,0] x[7,3] x[7,1] x[7,2]
+x[2,0] x[2,3] x[2,1] x[2,2]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>相当于：</p>
+<pre class="line-numbers language-none"><code class="language-none">y=np.array([[x[1,0], x[1,3], x[1,1], x[1,2]],\
+            [x[5,0], x[5,3], x[5,1],x[5,2]],\
+      		[x[7,0] ,x[7,3], x[7,1], x[7,2]],\
+          	[x[2,0], x[2,3], x[2,1], x[2,2]]])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>就是说，如果 np.xi_ 中输入两个列表，则第一个列表存的是待提取元素的行标，第二个列表存的是待提取元素的列标，第一个列表中的每个元素都会遍历第二个列表中的每个值，构成新矩阵的一行元素。</p>
+<h4 id="5、数组广播"><a href="#5、数组广播" class="headerlink" title="5、数组广播"></a>5、数组广播</h4><p>广播的规则:</p>
+<ul>
+<li><p>让所有输入数组都向其中形状最长的数组看齐，形状中不足的部分都通过在前面加 1 补齐。</p>
+</li>
+<li><p>输出数组的形状是输入数组形状的各个维度上的最大值。</p>
+</li>
+<li><p>如果输入数组的某个维度和输出数组的对应维度的长度相同或者其长度为 1 时，这个数组能够用来计算，否则出错。</p>
+</li>
+<li><p>当输入数组的某个维度的长度为 1 时，沿着此维度运算时都用此维度上的第一组值。</p>
+</li>
+</ul>
+<p>简单理解：对两个数组，分别比较他们的每一个维度（若其中一个数组没有当前维度则忽略），满足：</p>
+<ul>
+<li><p>数组拥有相同形状。</p>
+</li>
+<li><p>当前维度的值相等。</p>
+</li>
+<li><p>当前维度的值有一个是 1。</p>
+</li>
+</ul>
+<p>若条件不满足，抛出 “ValueError: frames are not aligned” 异常。</p>
+<h4 id="6、迭代器"><a href="#6、迭代器" class="headerlink" title="6、迭代器"></a>6、迭代器</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">a = np.arange(6).reshape(2,3) 
+print ('迭代输出：') 
+for x in np.nditer(a): 
+print (x, end=", " ) 
+
+# 迭代输出：
+0, 1, 2, 3, 4, 5, <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<ul>
+<li>控制遍历顺序</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">for x in np.nditer(a, order='F'):	Fortran order，即是列序优先；
+
+for x in np.nditer(a.T, order='C'):	C order，即是行序优先；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<ul>
+<li>修改数组中元素的值</li>
+</ul>
+<p>nditer 对象另一个可选参数 op_flags</p>
+<p>默认情况下，nditer 将视待迭代遍历的数组为只读对象（read-only）</p>
+<p>为了在遍历数组的同时，实现对数组元素值得修改</p>
+<p>必须指定 read-write 或者 write-only 的模式。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">a = np.arange(0,60,5) a = a.reshape(3,4) 
+print ('原始数组：') print (a) print ('\n') 
+for x in np.nditer(a, op_flags=['readwrite']): 
+x[...]=2*x 
+print ('改后数组：') print (a)
+
+#原始数组：			改后数组：
+[[ 0  5 10 15]		[[  0  10  20  30]
+ [20 25 30 35]		[ 40  50  60  70]
+ [40 45 50 55]]		[ 80  90 100 110]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>外部循环</strong></p>
+<p>nditer 类的构造器拥有 flags 参数，它可以接受下列值：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>c_index</td>
+<td>可以跟踪 C 顺序的索引</td>
+</tr>
+<tr>
+<td>f_index</td>
+<td>可以跟踪 Fortran 顺序的索引</td>
+</tr>
+<tr>
+<td>multi_index</td>
+<td>每次迭代可以跟踪一种索引类型</td>
+</tr>
+<tr>
+<td>external_loop</td>
+<td>给出的值是具有多个值的一维数组，而不是零维数组</td>
+</tr>
+</tbody></table>
+<h4 id="7、数组操作"><a href="#7、数组操作" class="headerlink" title="7、数组操作"></a>7、数组操作</h4><ul>
+<li>修改数组形状</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>reshape</td>
+<td>不改变数据的条件下修改形状</td>
+</tr>
+<tr>
+<td>flat</td>
+<td>数组元素迭代器</td>
+</tr>
+<tr>
+<td>flatten</td>
+<td>返回一份数组拷贝，对拷贝所做的修改不会影响原始数组</td>
+</tr>
+<tr>
+<td>ravel</td>
+<td>返回展开数组</td>
+</tr>
+</tbody></table>
+<p><code>numpy.reshape(arr, newshape, order='C')</code></p>
+<ul>
+<li><p>arr：要修改形状的数组</p>
+</li>
+<li><p>newshape：整数或者整数数组，新的形状应当兼容原有形状</p>
+</li>
+<li><p>order：’C’ – 按行，’F’ – 按列，’A’ – 原顺序，’k’ – 元素在内存中的出现顺序。</p>
+</li>
+</ul>
+<p><code>ndarray.flatten(order='C')</code></p>
+<p><code>numpy.ravel(a, order='C')</code></p>
+<ul>
+<li><p>numpy.ravel() 展平的数组元素，顺序通常是”C风格”，返回的是数组视图（view，类似 C/C++引用reference），修改会影响原始数组。</p>
+</li>
+<li><p>翻转数组</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>transpose</td>
+<td>对换数组的维度</td>
+</tr>
+<tr>
+<td>ndarray.T</td>
+<td>和 self.transpose() 相同，转置</td>
+</tr>
+<tr>
+<td>rollaxis</td>
+<td>向后滚动指定的轴</td>
+</tr>
+<tr>
+<td>swapaxes</td>
+<td>对换数组的两个轴</td>
+</tr>
+</tbody></table>
+<ul>
+<li>修改数组维度</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>broadcast</td>
+<td>产生模仿广播的对象</td>
+</tr>
+<tr>
+<td>broadcast_to</td>
+<td>将数组广播到新形状</td>
+</tr>
+<tr>
+<td>expand_dims</td>
+<td>通过在指定位置插入新的轴扩展数组形状</td>
+</tr>
+<tr>
+<td>squeeze</td>
+<td>从数组的形状中删除一维条目</td>
+</tr>
+</tbody></table>
+<ul>
+<li>numpy.broadcast ：</li>
+</ul>
+<p>用于模仿广播的对象，它返回一个对象，该对象封装了将一个数组广播到另一个数组的结果。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">x = np.array([[1], [2], [3]]) 
+y = np.array([4, 5, 6])
+# 对 y 广播 x 
+
+b = np.broadcast(x,y) 
+# 它拥有 iterator 属性，基于自身组件的迭代器元组<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<ul>
+<li><p>numpy.broadcast_to(array, shape, subok)：</p>
+<p>将数组广播到新形状。它在原始数组上返回只读视图。 它通常不连续。 如果新形状不符合 NumPy 的广播规则，该函数可能会抛出ValueError。</p>
+</li>
+<li><p>numpy.expand_dims(arr, axis)</p>
+<p>arr：输入数组</p>
+<p>axis：新轴插入的位置</p>
+</li>
+<li><p>numpy.squeeze(arr, axis)</p>
+</li>
+<li><p>连接数组</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>concatenate</td>
+<td>连接沿现有轴的数组序列</td>
+</tr>
+<tr>
+<td>stack</td>
+<td>沿着新的轴加入一系列数组。</td>
+</tr>
+<tr>
+<td>hstack</td>
+<td>水平堆叠序列中的数组（列方向）</td>
+</tr>
+<tr>
+<td>vstack</td>
+<td>竖直堆叠序列中的数组（行方向）</td>
+</tr>
+</tbody></table>
+<p><code>numpy.concatenate((a1, a2, ...), axis)</code></p>
+<ul>
+<li><p>a1, a2, …：相同类型的数组</p>
+</li>
+<li><p>axis：沿着它连接数组的轴，默认为0，即为竖直方向链接。1为水平方向链接。</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">#沿轴 0 连接两个数组：		沿轴 1 连接两个数组：
+[[1 2]				[[1 2 5 6]
+ [3 4]				[3 4 7 8]]
+ [5 6]
+ [7 8]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>numpy.stack(arrays, axis)</code></p>
+<p>用于沿新轴连接数组序列</p>
+<ul>
+<li><p>arrays相同形状的数组序列</p>
+</li>
+<li><p>axis：返回数组中的轴，输入数组沿着它来堆叠</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 沿轴 0 堆叠两个数组：	沿轴 1 堆叠两个数组：
+
+[[[1 2]			[[[1 2]
+  [3 4]]		 [5 6]]
+ [[5 6]			[[3 4]
+  [7 8]]]		 [7 8]]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>numpy.hstack(array1, array2)    水平堆叠</p>
+</li>
+<li><p>numpy.vstack(array1, array2)    竖直堆叠</p>
+</li>
+<li><p>分割数组</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>数组及操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>split</td>
+<td>将一个数组分割为多个子数组</td>
+</tr>
+<tr>
+<td>hsplit</td>
+<td>将一个数组水平分割为多个子数组（按列）</td>
+</tr>
+<tr>
+<td>vsplit</td>
+<td>将一个数组垂直分割为多个子数组（按行）</td>
+</tr>
+</tbody></table>
+<p><code>numpy.split(ary, indices_or_sections, axis)</code></p>
+<ul>
+<li><p>ary：被分割的数组</p>
+</li>
+<li><p>indices_or_sections：若是一个整数，就用该数平均切分，若是一个数组，为沿轴切分的位置（左开右闭）</p>
+</li>
+<li><p>axis：设置沿着哪个方向进行切分，默认为 0，水平切分。为 1 时，竖直切分。</p>
+</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">print (np.split(a,[4,7]))
+
+&gt;[array([0, 1, 2, 3]), array([4, 5, 6]), array([7, 8])]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>数组元素添加&amp;删除</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>元素及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>resize</td>
+<td>返回指定形状的新数组</td>
+</tr>
+<tr>
+<td>append</td>
+<td>将值添加到数组末尾</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>沿指定轴将值插入到指定下标之前</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>删掉某个轴的子数组，并返回删除后的新数组</td>
+</tr>
+<tr>
+<td>unique</td>
+<td>查找数组内的唯一元素</td>
+</tr>
+</tbody></table>
+<p><code>numpy.resize(arr, shape)</code></p>
+<p>函数返回指定大小的新数组。</p>
+<p>如果新数组大小大于原始大小，则包含原始数组中的元素的副本。</p>
+<ul>
+<li><p>arr：要修改大小的数组</p>
+</li>
+<li><p>shape：返回数组的新形状</p>
+</li>
+</ul>
+<p><code>numpy.append(arr, values, axis=None)</code></p>
+<p>函数在数组的末尾添加值。 追加操作会分配整个数组，并把原来的数组复制到新数组中。 </p>
+<p>输入数组的维度必须匹配否则将生成ValueError。</p>
+<ul>
+<li><p>append 函数返回的始终是一个一维数组。</p>
+</li>
+<li><p>arr：输入数组</p>
+</li>
+<li><p>values：要向arr添加的值，需要和arr形状相同（除了要添加的轴）</p>
+</li>
+<li><p>axis：默认为 None。当axis无定义时，是横向加成，****返回总是为一维数组****。</p>
+<ul>
+<li>当axis为0时，数组是加在下边（列数要相同）</li>
+<li>当axis为1时，数组是加在右边（行数要相同）</li>
+</ul>
+</li>
+</ul>
+<p><code>numpy.insert(arr, obj, values, axis)</code></p>
+<p>函数在给定索引之前，沿给定轴在输入数组中插入值。</p>
+<p>如果值的类型转换为要插入，则它与输入数组不同。 </p>
+<p>插入没有原地的，函数会返回一个新数组。</p>
+<p>如果未提供轴，则输入数组会被展开。</p>
+<ul>
+<li><p>arr：输入数组</p>
+</li>
+<li><p>obj：在其之前插入值的索引</p>
+</li>
+<li><p>values：要插入的值</p>
+</li>
+<li><p>axis：沿着它插入的轴，如果未提供，则输入数组会被展开</p>
+</li>
+</ul>
+<p><code>Numpy.delete(arr, obj, axis)</code></p>
+<p>函数返回从输入数组中删除指定子数组的新数组。 与 insert() 函数情况一样，如果未提供轴参数，则输入数组将展开。</p>
+<ul>
+<li><p>arr：输入数组</p>
+</li>
+<li><p>obj：可以被切片，整数或者整数数组，表明要从输入数组删除的子数组</p>
+</li>
+<li><p>axis：沿着它删除给定子数组的轴，如果未提供，则输入数组会被展开</p>
+</li>
+</ul>
+<p><code>numpy.unique(arr, return_index, return_inverse, return_counts)</code></p>
+<p>用于去除数组中的重复元素。</p>
+<ul>
+<li><p>arr：输入数组，若不是一维数组则会展开</p>
+</li>
+<li><p>return_index：为true，返回新列表元素在旧列表中的位置（下标），并以列表形式储</p>
+</li>
+<li><p>return_inverse：为true，返回旧列表元素在新列表中的位置（下标），并以列表形式储</p>
+</li>
+<li><p>return_counts：为true，返回去重数组中的元素在原数组中的出现次数</p>
+</li>
+</ul>
+<h4 id="8、numpy位运算"><a href="#8、numpy位运算" class="headerlink" title="8、numpy位运算"></a>8、numpy位运算</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bitwise_and</td>
+<td>对数组元素执行位与操作</td>
+</tr>
+<tr>
+<td>bitwise_or</td>
+<td>对数组元素执行位或操作</td>
+</tr>
+<tr>
+<td>invert</td>
+<td>按位取反</td>
+</tr>
+<tr>
+<td>left_shift</td>
+<td>向左移动二进制表示的位</td>
+</tr>
+<tr>
+<td>right_shift</td>
+<td>向右移动二进制表示的位</td>
+</tr>
+</tbody></table>
+<h2 id="四、字符串"><a href="#四、字符串" class="headerlink" title="四、字符串"></a>四、字符串</h2><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add()</td>
+<td>对两个数组的逐个字符串元素进行连接</td>
+</tr>
+<tr>
+<td>multiply()</td>
+<td>返回按元素多重连接后的字符串</td>
+</tr>
+<tr>
+<td>center()</td>
+<td>居中字符串</td>
+</tr>
+<tr>
+<td>capitalize()</td>
+<td>将字符串第一个字母转换为大写</td>
+</tr>
+<tr>
+<td>title()</td>
+<td>将字符串的每个单词的第一个字母转换为大写</td>
+</tr>
+<tr>
+<td>lower()</td>
+<td>数组元素转换为小写</td>
+</tr>
+<tr>
+<td>upper()</td>
+<td>数组元素转换为大写</td>
+</tr>
+<tr>
+<td>split()</td>
+<td>指定分隔符对字符串进行分割，并返回数组列表</td>
+</tr>
+<tr>
+<td>splitlines()</td>
+<td>返回元素中的行列表，以换行符分割</td>
+</tr>
+<tr>
+<td>strip()</td>
+<td>移除元素开头或者结尾处的特定字符</td>
+</tr>
+<tr>
+<td>join()</td>
+<td>通过指定分隔符来连接数组中的元素</td>
+</tr>
+<tr>
+<td>replace()</td>
+<td>使用新字符串替换字符串中的所有子字符串</td>
+</tr>
+<tr>
+<td>decode()</td>
+<td>数组元素依次调用str.decode</td>
+</tr>
+<tr>
+<td>encode()</td>
+<td>数组元素依次调用str.encode</td>
+</tr>
+</tbody></table>
+<h2 id="五、统计"><a href="#五、统计" class="headerlink" title="五、统计"></a>五、统计</h2><ul>
+<li><p>numpy.amin()         用于计算数组中的元素沿指定轴的最小值。</p>
+</li>
+<li><p>numpy.amax()         用于计算数组中的元素沿指定轴的最大值。</p>
+</li>
+<li><p>numpy.ptp()            计算数组中元素最大值与最小值的差（最大值 - 最小值）。</p>
+</li>
+<li><p>numpy.percentile(a, q, axis)</p>
+<p>百分位数是统计中使用的度量，表示小于这个值的观察值的百分比。 </p>
+<ul>
+<li><p>a: 输入数组</p>
+</li>
+<li><p>q: 要计算的百分位数，在 0 ~ 100 之间</p>
+</li>
+<li><p>axis: 沿着它计算百分位数的轴</p>
+</li>
+</ul>
+<p>第 p 个百分位数是这样一个值，它使得至少有 p% 的数据项小于或等于这个值，且至少有 (100-p)% 的数据项大于或等于这个值。</p>
+<p>例子：入学考试成绩以百分位数的形式报告。假设某个考生在考试中的语文部分的原始分数为 54 分。相对于参加同一考试的其他学生来说，他的成绩如何并不容易知道。但是如果原始分数54分恰好对应的是第70百分位数，我们就能知道大约70%的学生的考分比他低，而约30%的学生考分比他高。这里的 p = 70。</p>
+</li>
+<li><p>numpy.median()         函数用于计算数组 a 中元素的中位数（中值）</p>
+</li>
+<li><p>numpy.mean()        返回数组中元素的算术平均值。 如果提供了轴，则沿其计算。</p>
+<p>算术平均值是沿轴的元素的总和除以元素的数量。</p>
+</li>
+<li><p>numpy.average()        根据在另一个数组中给出的各自的权重计算数组中元素的加权平均值。该函数可以接受一个轴参数。 如果没有指定轴，则数组会被展开。</p>
+<p>加权平均值即将各数值乘以相应的权数，然后加总求和得到总体值，再除以总的单位数。</p>
+<p>$$<br>加权平均值 = \frac{1*4+2*3+3*2+4*1}{4+3+2+1}<br>$$</p>
+</li>
+<li><p>标准差        <code>numpy.std = sqrt(mean((x - x.mean())**2))</code></p>
+</li>
+<li><p>方差            <code>numpy.var = mean((x - x.mean())** 2)</code></p>
+</li>
+</ul>
+<h2 id="六、排序、条件刷选函数"><a href="#六、排序、条件刷选函数" class="headerlink" title="六、排序、条件刷选函数"></a>六、排序、条件刷选函数</h2><table>
+<thead>
+<tr>
+<th>种类</th>
+<th>速度</th>
+<th>最坏情况</th>
+<th>工作空间</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>‘quicksort’（快速排序）</td>
+<td>1</td>
+<td>O(n^2)</td>
+<td>0</td>
+<td>否</td>
+</tr>
+<tr>
+<td>‘mergesort’（归并排序）</td>
+<td>2</td>
+<td>O(n*log(n))</td>
+<td>~n/2</td>
+<td>是</td>
+</tr>
+<tr>
+<td>‘heapsort’（堆排序）</td>
+<td>3</td>
+<td>O(n*log(n))</td>
+<td>0</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><code>numpy.sort(a, axis, kind, order)</code></p>
+<ul>
+<li><p>a: 要排序的数组</p>
+</li>
+<li><p>axis: 沿着排序数组的轴，若没有数组则会被展开，沿着最后的轴排序，0按列，1按行</p>
+</li>
+<li><p>kind: 默认’quicksort’</p>
+</li>
+</ul>
+<p> -order: 如果数组包含字段，则是要排序的字段</p>
+</li>
+<li><p>numpy.argsort()            返回的是数组值从小到大的索引值。</p>
+</li>
+<li><p>numpy.lexsort()             用于对多个序列进行排序。</p>
+</li>
+</ul>
+<p>想象成对电子表格进行排序，每一列代表一个序列，排序时优先照顾靠后的列。</p>
+<p>例子：在总成绩相同时，数学成绩高的优先录取，在总成绩和数学成绩都相同时，按照英语成绩录取…… 这里，总成绩排在电子表格的最后一列，数学成绩在倒数第二列，英语成绩在倒数第三列。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">a = ('aaaa','arrr','raaa','rrmm')
+b = ('fy','sy','sy','fy')
+ind = np.lexsort((a,b)) 
+print(ind)
+&gt;[0 3 1 2]
+
+print ([a[i] + ", " + b[i] for i in ind])
+&gt;['aaaa, fy', 'rrmm, fy', 'arrr, sy', 'raaa, sy']<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>msort(a)</td>
+<td>数组按第一个轴排序，返回排序后的数组副本。np.msort(a) 相当于 np.sort(a, axis=0)。</td>
+</tr>
+<tr>
+<td>sort_complex(a)</td>
+<td>对复数按照先实部后虚部的顺序进行排序。</td>
+</tr>
+<tr>
+<td>partition(a, kth[, axis, kind, order])</td>
+<td>指定一个数，对数组进行分区</td>
+</tr>
+<tr>
+<td>argpartition(a, kth[, axis, kind, order])</td>
+<td>可以通过关键字 kind 指定算法沿着指定轴对数组进行分区</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>numpy.argmax() &amp; numpy.argmin()    分别沿给定轴返回最大和最小元素的索引。</p>
+</li>
+<li><p>numpy.nonzero()                 函数返回输入数组中非零元素的索引。</p>
+</li>
+<li><p>numpy.where()                     函数返回输入数组中满足给定条件的元素的索引。</p>
+</li>
+<li><p>numpy.extract()             函数根据某个条件从数组中抽取元素，返回满条件的元素。</p>
+</li>
+</ul>
+<h2 id="七、字节交换"><a href="#七、字节交换" class="headerlink" title="七、字节交换"></a>七、字节交换</h2><p>在几乎所有的机器上，多字节对象都被存储为连续的字节序列。字节顺序，是跨越多字节的程序对象的存储规则。</p>
+<ul>
+<li><p>大端模式：</p>
+<p>指数据的高字节保存在内存的低地址中，而数据的低字节保存在内存的高地址中，这样的存储模式有点儿类似于把数据当作字符串顺序处理：地址由小向大增加，而数据从高位往低位放；这和我们的阅读习惯一致。</p>
+</li>
+<li><p>小端模式：</p>
+<p>指数据的高字节保存在内存的高地址中，而数据的低字节保存在内存的低地址中，这种存储模式将地址的高低和数据位权有效地结合起来，高地址部分权值高，低地址部分权值低。</p>
+</li>
+</ul>
+<p>例如：在 C 语言中，一个类型为 int 的变量 x 地址为 0x100，那么其对应地址表达式&amp;x的值为 0x100。且x的四个字节将被存储在存储器的 0x100, 0x101, 0x102, 0x103位置。</p>
+<p><img src="https://s2.loli.net/2022/04/17/nqu9VrwvxIR5SYG.png" alt="np-address"></p>
+<ul>
+<li>numpy.ndarray.byteswap()            将 ndarray 中每个元素中的字节进行大小端转换。</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">&gt;&gt;&gt; A = np.array([1,256,8755],dtype=np.int16)
+&gt;&gt;&gt; print(list(map(hex,A)))
+['0x1', '0x100', '0x2233']
+&gt;&gt;&gt; print(A.byteswap(inplace=True))
+[  256     1 13090]
+&gt;&gt;&gt; print(list(map(hex,A)))
+['0x100', '0x1', '0x3322']<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="八、线性代数"><a href="#八、线性代数" class="headerlink" title="八、线性代数"></a>八、线性代数</h2><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>速度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dot</td>
+<td>两个数组的点积，即元素对应相乘</td>
+</tr>
+<tr>
+<td>vdot</td>
+<td>两个向量的点积</td>
+</tr>
+<tr>
+<td>inner</td>
+<td>两个数组的内积</td>
+</tr>
+<tr>
+<td>matmul</td>
+<td>两个数组的矩阵积</td>
+</tr>
+<tr>
+<td>determinant</td>
+<td>数组的行列式</td>
+</tr>
+<tr>
+<td>solve</td>
+<td>求解线性矩阵方程</td>
+</tr>
+<tr>
+<td>inv</td>
+<td>计算矩阵的乘法逆矩阵</td>
+</tr>
+<tr>
+<td>linalg.det</td>
+<td>计算矩阵的行列式</td>
+</tr>
+<tr>
+<td>linalg.solve</td>
+<td>求解线性矩阵方程</td>
+</tr>
+</tbody></table>
+<h2 id="九、I-x2F-O"><a href="#九、I-x2F-O" class="headerlink" title="九、I/O"></a>九、I/O</h2><p>NumPy 为 ndarray 对象引入了一个简单的文件格式：npy。</p>
+<p>npy 文件用于存储重建 ndarray 所需的数据、图形、dtype 和其他信息。</p>
+<p>常用的 IO 函数：</p>
+<ul>
+<li><p>load() 和 save() 函数是读写文件数组数据的两个主要函数，默认情况下，数组是以未压缩的原始二进制格式保存在扩展名为 .npy 的文件中。</p>
+</li>
+<li><p>savez() 函数用于将多个数组写入文件，默认情况下，数组是以未压缩的原始二进制格式保存在扩展名为 .npz 的文件中。</p>
+</li>
+<li><p>loadtxt() 和 savetxt() 函数处理正常的文本文件(.txt 等)</p>
+</li>
+<li><p>numpy.save(file, arr, allow_pickle=True, fix_imports=True)</p>
+<p>将数组保存到以 .npy 为扩展名的文件中。</p>
+<p>它们是 Numpy 专用的二进制格式后的数据</p>
+<p>使用 load() 函数来读取数据才可以正常显示</p>
+<ul>
+<li>file：要保存的文件，扩展名为 .npy，如果文件路径末尾没有扩展名 .npy，该扩展名会被自动加上。</li>
+<li>arr: 要保存的数组</li>
+<li>allow_pickle: 可选，布尔值，允许使用 Python pickles 保存对象数组，Python 中的 pickle 用于在保存到磁盘文件或从磁盘文件读取之前，对对象进行序列化和反序列化。</li>
+<li>fix_imports: 可选，为了方便 Pyhton2 中读取 Python3 保存的数据。</li>
+</ul>
+</li>
+<li><p>numpy.savez(file, *args, **kwds)函数将多个数组保存到以 npz 为扩展名的文件中。</p>
+<ul>
+<li>file：要保存的文件，扩展名为 .npz，如果文件路径末尾没有扩展名 .npz，该扩展名会被自动加上。</li>
+<li>args: 要保存的数组，可以用关键字参数为数组起名，非关键字参数传递的数组会自动起名为 arr_0, arr_1, …　。</li>
+<li>kwds: 要保存的数组使用关键字名称。</li>
+</ul>
+</li>
+<li><p>savetxt() 以简单的文本文件格式存储数据，对应使用 loadtxt() 函数来获取数据。</p>
+</li>
+</ul>
+<p><code>np.loadtxt(FILENAME, dtype=int, delimiter=' ')</code></p>
+<p><code>np.savetxt(FILENAME, a, fmt="%d", delimiter=",")</code></p>
+<p><strong>参数 delimiter 可以指定各种分隔符、针对特定列的转换器函数、需要跳过的行数等。</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">a=np.arange(0,10,0.5).reshape(4,-1) 
+np.savetxt("out.txt",a,fmt="%d",delimiter=",") # 改为保存为整数，以逗号分隔 
+b = np.loadtxt("out.txt",delimiter=",") # load 时也指定为逗号分隔 
+print(b)
+
+# 输出
+[[0. 0. 1. 1. 2.]
+ [2. 3. 3. 4. 4.]
+ [5. 5. 6. 6. 7.]
+ [7. 8. 8. 9. 9.]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="../../../../about" rel="external nofollow noreferrer">拓佑豪</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://tuoyou-hao.github.io">http://tuoyou-hao.github.io</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="../../../../about" target="_blank">拓佑豪</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="../../../../tags/Numpy/">
+                                    <span class="chip bg-color">Numpy</span>
+                                </a>
+                            
+                                <a href="../../../../tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                                    <span class="chip bg-color">数据分析</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="../../../../libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="../../../../libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="../../../../medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="../../../../medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("../../../../index.html") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'https://vercel-test-beta-silk.vercel.app',
+        el: '#tcomments',
+        region: '',
+        path: 'window.location.pathname'
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="../../19/operating_system2-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="../../../../medias/featureimages/5.jpg" class="responsive-img" alt="操作系统概述(2.2处理机调度)">
+                        
+                        <span class="card-title">操作系统概述(2.2处理机调度)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            操作系统--处理机调度概述
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机知识
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">计算机知识</span>
+                    </a>
+                    
+                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="../../16/markdown-quick-get-start/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="../../../../medias/featureimages/13.jpg" class="responsive-img" alt="快速入门 Markdown(新手向)">
+                        
+                        <span class="card-title">快速入门 Markdown(新手向)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            用最简单的方式教你 Markdown
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    编程技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/%E6%96%B0%E6%89%8B/">
+                        <span class="chip bg-color">新手</span>
+                    </a>
+                    
+                    <a href="../../../../tags/Markdown/">
+                        <span class="chip bg-color">Markdown</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="../../../../libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="../../../../libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="../../../../libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="../../../../libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="../../../../libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <!-- <link rel="stylesheet" href="../../../../libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #542674;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server=""
+                   type=""
+                   id=""
+                   fixed='true'
+                   autoplay='false'
+                   theme='#542674'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.6'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="../../../../libs/aplayer/APlayer.min.js"></script>
+<script src="../../../../libs/aplayer/Meting.min.js"></script> -->
+
+
+<link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<div class="music-player">
+    
+    <div class="row">
+        <div class="col l8 offset-l2 m10 offset-m1 s12">
+            <div id="aplayer" class="music"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script>
+$(function () {
+    new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: 'true' === 'true',
+        autoplay: 'false' === 'true',
+        theme: '#542674',
+        loop: 'all',
+        order: 'random',
+        preload: 'auto',
+        volume: Number('0.6'),
+        listFolded: 'false' === 'true',
+        listMaxHeight: '',
+        audio: JSON.parse('[{"name":"Horizon","artist":"Gin","url":"/medias/music/GIN-Horizon.mp3","cover":"/medias/music/avatars/GIN-Horizon.jpg"},{"name":"Questions","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Questions.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"},{"name":"Those Who Wait","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Those Who Wait.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"},{"name":"Mombasa","artist":"Tommy","url":"/medias/music/Tommy Emmanuel-Mombasa.mp3","cover":"/medias/music/avatars/Tommy Emmanuel-Questions.jpg"}]')
+    });
+});
+</script>
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l12 copy-right"><!--底层文字坐标-->
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022</span>
+            
+            <a href="../../../../about" target="_blank">拓佑豪</a>
+            <!-- |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a> -->
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">40.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "3";
+                        var startDate = "21";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l12 social-link social-statis">
+    <a href="https://github.com/tuoyou-hao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:943663964@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=943663964" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 943663964" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+    
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('../../../../search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="../../../../libs/materialize/materialize.min.js"></script>
+    <script src="../../../../libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="../../../../libs/aos/aos.js"></script>
+    <script src="../../../../libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="../../../../libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="../../../../js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='../../../../libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="../../../../libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="../../../../libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="../../../../libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="../../../../libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="../../../../libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</body>
+
+</html>
