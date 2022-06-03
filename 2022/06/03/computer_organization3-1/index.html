@@ -5,7 +5,7 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="计算机组成,计算机知识">
-    <meta name="description" content="存储器介绍">
+    <meta name="description" content="存储系统补充">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -481,7 +481,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-06-03
+                    2022-06-04
                 </div>
                 
 
@@ -518,14 +518,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="计算机组成原理——2-2-存储系统"><a href="#计算机组成原理——2-2-存储系统" class="headerlink" title="计算机组成原理——2.2 存储系统"></a>计算机组成原理——2.2 存储系统</h1><p>本篇对存储系统进行进一步补充，主要内容有：</p>
-<ul>
-<li>主存存储器与CPU的链接</li>
-<li>外存</li>
-<li>cache</li>
-<li>页式存储器和虚拟存储器</li>
-</ul>
-<h2 id="一、主存存储器与CPU的连接"><a href="#一、主存存储器与CPU的连接" class="headerlink" title="一、主存存储器与CPU的连接"></a>一、主存存储器与CPU的连接</h2><p><img src="https://s2.loli.net/2022/05/18/R41VbvF5dPNT2gX.jpg" alt="MDR和MAR都集成在CPU"></p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="计算机组成原理——2-2-存储系统"><a href="#计算机组成原理——2-2-存储系统" class="headerlink" title="计算机组成原理——2.2 存储系统"></a>计算机组成原理——2.2 存储系统</h1><h2 id="一、主存存储器与CPU的连接"><a href="#一、主存存储器与CPU的连接" class="headerlink" title="一、主存存储器与CPU的连接"></a>一、主存存储器与CPU的连接</h2><p><img src="https://s2.loli.net/2022/05/18/R41VbvF5dPNT2gX.jpg" alt="MDR和MAR都集成在CPU"></p>
 <p>单个存储芯片的容量可能不是很大，往往需要通过存储器芯片拓展技术，把多个芯片集成在一个内存条上，然后由多个内存条+主板上的ROM芯片，组成计算机所需要的主存空间。</p>
 <p>内存条插槽就是存储器总线。内存条通过总线与主板相连，然后链接到CPU。</p>
 <p><img src="https://s2.loli.net/2022/05/14/Ke6lCakUjm5MNB1.png" alt="8x8位存储芯片原理图"></p>
@@ -1333,7 +1326,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            存储器介绍
+                            存储系统补充
                         
                     </div>
                     <div class="publish-info">
@@ -1428,6 +1421,43 @@
 </div>
 
 
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('200')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 拓佑豪的博客<br />'
+            + '文章作者: 拓佑豪<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者拓佑豪"tuoyou-hao.github.io"所有, 任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
 
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="../../../../libs/codeBlock/codeBlockFuction.js"></script>
@@ -1473,7 +1503,7 @@
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5, h6'
         });
 
         // Set scroll toc fixed.
@@ -1641,7 +1671,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">44.4k</span>
+                        class="white-color">44.3k</span>
             
             
             
