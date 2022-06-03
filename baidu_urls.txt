@@ -1,6 +1,7 @@
+http://tuoyou-hao.github.io/2022/06/03/computer_organization3-1/
 http://tuoyou-hao.github.io/2022/05/26/ros-start/
 http://tuoyou-hao.github.io/2022/05/15/computer_organization3/
-http://tuoyou-hao.github.io/2022/05/12/error-linux-Unable-to%20acquire-the-dpkg-frontend-lock/
+http://tuoyou-hao.github.io/2022/05/12/error-linux-Unable-to-acquire-the-dpkg-frontend-lock/
 http://tuoyou-hao.github.io/2022/04/19/computer_organization1/
 http://tuoyou-hao.github.io/2022/04/19/operating_system2-2/
 http://tuoyou-hao.github.io/2022/04/17/numpy-summary/
