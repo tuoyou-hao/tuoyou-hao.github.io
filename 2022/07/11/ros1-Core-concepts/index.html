@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="环境搭建,ROS">
-    <meta name="description" content="本教程教你如何快速搭建ros环境">
+    <meta name="keywords" content="ROS">
+    <meta name="description" content="ros的核心概念">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Linux开发板搭建ros环境 | 拓佑豪的博客</title>
+    <title>ROS 一、核心概念 | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Linux开发板搭建ros环境</h1>
+                    <h1 class="description center-align post-title">ROS 一、核心概念</h1>
                 </div>
             </div>
         </div>
@@ -339,10 +339,104 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="../../../../libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -353,10 +447,6 @@
                         
                             <a href="../../../../tags/Linux/">
                                 <span class="chip bg-color">Linux</span>
-                            </a>
-                        
-                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">环境搭建</span>
                             </a>
                         
                             <a href="../../../../tags/ROS/">
@@ -371,8 +461,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="../../../../categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
-                                环境搭建
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                编程技术
                             </a>
                         
                     </div>
@@ -384,7 +474,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-05-26
+                    2022-07-11
                 </div>
                 
 
@@ -398,14 +488,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    428
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -428,63 +518,186 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>linux开发板配置ros</h1>
-<p>在linux开发板底下，使用官方源即可：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /etc/apt/sources.list.d/
-
-sudo touch ros-latest.list
-
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" &gt; /etc/apt/sources.list.d/ros-latest.list'
-
-sudo apt install curl
-
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-
-sudo apt-get update
-
-sudo apt install ros-melodic-desktop-full
-
-#↑为ros桌面版完整安装，包括了ROS、rqt、rviz、机器人通用库、2D/3D 模拟器和 2D/3D 感知
-
-#设置每次启动新的 shell 时自动将 ROS 环境变量添加到您的 bash 会话中
-
-echo "source /opt/ros/melodic/setup.bash" &gt;&gt; ~/.bashrc
-
-source ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>到目前为止，已经安装了运行核心 ROS 软件包所需的东西。如果要创建和管理自己的 ROS 工作区，有多种工具和要求是分开分发的。例如，rosinstall是一种常用的命令行工具，它使您能够通过一个命令轻松下载许多 ROS 包的源代码树。</p>
-<p>要安装此工具和其他依赖项以构建 ROS 包，就运行以下指令：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>初始化rosdep</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get install python-rosdep
-
-sudo rosdep init
-
-rosdep update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>检查ros运行环境</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">printenv | grep ROS<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://s2.loli.net/2022/05/26/GFPgOWDLtAzqHv7.png" alt=""></p>
-<p>创建catkin工作区</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p ~/catkin_ws/src
-
-cd ~/catkin_ws/
-
-catkin_make
-
-cd build
-
-make -j8 -l8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>为确保工作区被设置脚本正确覆盖，请确保ROS_PACKAGE_PATH环境变量包含所在的目录。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ..
-
-source devel/setup.bash
-
-echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#此为打印输出的结果，如果与如下输出类似，就是配置成功
-/home/HwHiAiUser/catkin_ws/src:/opt/ros/melodic/share<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>##测试步骤</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">roscore<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>在新的终端运行rostopic list，如果看到话题，可以看到以下画面，算是成功安装</p>
-<p><img src="https://s2.loli.net/2022/05/26/duJ42kf1xe8jnvL.png" alt=""></p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>ROS 一：核心概念</h1>
+<p>ros提供了一种松耦合分布式通信框架。这些框架可以抽象成一个节点图。</p>
+<p>每一个功能都可以是一个节点，比如一个图像采集功能为一个节点、图像检测又是一个节点、slam导航功能也放在一个节点。**每一个具体的功能都是一个节点。**我们用一个椭圆形代表一个节点。</p>
+<p>每个节点通过通讯连接，互相传输数据。我们用箭头表示桐乡数据的流向。</p>
+<ul>
+<li>由节点（椭圆形）和通讯的方向（椭圆形上的箭头）构成ros的<strong>计算图</strong>。</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/07/09/XxaCtYVNp2WglAy.png" alt="计算图"></p>
+<p>如下图，每一个node节点就是机器人完成某一个具体功能的进程</p>
+<p><img src="https://s2.loli.net/2022/07/09/kHO5FbGp1zUIr36.png" alt=""></p>
+<p>每一个node的编程语言可以是不一样的。比如可以使用python，c++等。只要有统一的通讯标准就可以完成整个机器人系统的搭建。</p>
+<h2 id="1、节点与节点管理器">1、节点与节点管理器</h2>
+<ul>
+<li>
+<p>节点（node）——执行单元</p>
+<ul>
+<li>是执行具体任务的<strong>进程</strong>，是独立的可执行文件。</li>
+<li>不同节点可以使用不同的编程语言（常用python或c++），可以分布式运行在不同的主机。</li>
+<li>节点在系统中的名称必须是唯一的。</li>
+</ul>
+</li>
+<li>
+<p>节点管理器（ROS Master）——控制中心</p>
+<ul>
+<li>
+<p>为各个节点提供命名、注册服务。</p>
+</li>
+<li>
+<p>跟踪、记录话题或者服务通信，辅助节点相互查找，建立连接，帮助各个节点之间传输数据。</p>
+<p>节点之间互相不知道彼此之间的存在，都需要ROS Master来帮忙建立连接。</p>
+</li>
+<li>
+<p>提供参数服务器，节点使用此服务器来存储、检索运行时的参数。（可以理解为全局的对象字典，会记录一些全局变量，给各个节点提供服务）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、话题通信">2、话题通信</h2>
+<p>以下是ros通信的两种方式：</p>
+<h3 id="2-1-话题（topic）——异步通信机制">2.1 话题（topic）——异步通信机制</h3>
+<ul>
+<li>节点之间用来传输数据的<strong>重要总线</strong>，是传输的<strong>管道</strong>。</li>
+<li>使用<strong>发布/订阅</strong>模型，数据由发布者传输到订阅者，同一个话题的订阅者或发布者可以是不唯一的。</li>
+<li>如下图，发布者（publisher）给订阅者（subscriber）的通讯是<strong>单向的数据传输</strong>。而通讯的通道就是<strong>话题（Topic）</strong>。</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/07/09/kxgYaKVDbf85IhG.png" alt="话题模型（发布/订阅）"></p>
+<ul>
+<li>消息（message）——话题里头的 “数据”
+<ul>
+<li>描述传输数据的详细定义就是消息。</li>
+<li>具有一定的类型和数据结构，包括ROS提供的标准类型和用户自定义的类型</li>
+<li>使用编程语言无关的<code>.msg</code>文件来定义消息，编译过程中会生成对应的代码文件。</li>
+</ul>
+</li>
+<li>区分：
+<ul>
+<li>话题：传输数据的管道。</li>
+<li>消息：传输数据的详细定义。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>eg:</p>
+<p><img src="https://s2.loli.net/2022/07/09/SpJtixCVerRqy5P.png" alt=""></p>
+<p>在上图中，摄像头把获取到的数据给<code>CameraNode</code>，<code>CameraNode</code>把这些画面发布出去。</p>
+<p><code>Image Processing Node</code>要处理图像数据，使用需要订阅<code>CameraNode</code>发布的数据。</p>
+<p>在笔记本电脑（Laptop）区，笔记本电脑想要显示图像，<code>Image Display Node</code>也就需要订阅这个图像数据</p>
+<p>所以在上图模型中：</p>
+<ul>
+<li>有一个图像数据Publisher，两个图像数据Subscriber，一个Topic（Image data Message），传输图像数据消息。</li>
+</ul>
+</blockquote>
+<h3 id="2-2-服务（service）——同步通信机制">2.2 服务（service）——同步通信机制</h3>
+<ul>
+<li>
+<p>使用客户端/服务器（C/S）模型，客户端发送请求数据，服务器完成处理后，返回应答数据。</p>
+<p>是双向的数据传输</p>
+</li>
+<li>
+<p>使用编程语言无关的<code>.srv</code>文件定义请求和应答数据结构，编译过程中生成对应的代码文件。</p>
+</li>
+</ul>
+<img src="https://s2.loli.net/2022/07/09/1p7cytkFEh4RMAw.png" alt="ros-1-4.png" style="zoom:50%;">
+<h3 id="2-3-话题与服务的区别">2.3 话题与服务的区别</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">话题</th>
+<th style="text-align:center">服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同步性</td>
+<td style="text-align:center">异步</td>
+<td style="text-align:center">同步</td>
+</tr>
+<tr>
+<td>通信模型</td>
+<td style="text-align:center">发布/订阅</td>
+<td style="text-align:center">客户端/服务器</td>
+</tr>
+<tr>
+<td>底层协议</td>
+<td style="text-align:center">ROS TCP/ROS UDP</td>
+<td style="text-align:center">ROS TCP/ROS UDP</td>
+</tr>
+<tr>
+<td>反馈机制</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">有</td>
+</tr>
+<tr>
+<td>缓冲区</td>
+<td style="text-align:center">有</td>
+<td style="text-align:center">无</td>
+</tr>
+<tr>
+<td>实时性</td>
+<td style="text-align:center">弱</td>
+<td style="text-align:center">强</td>
+</tr>
+<tr>
+<td>节点关系</td>
+<td style="text-align:center">多对多</td>
+<td style="text-align:center">一对多（一个server）</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td style="text-align:center">数据传输</td>
+<td style="text-align:center">逻辑处理</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3、参数（Parameter）全局共享字典">3、参数（Parameter）全局共享字典</h2>
+<ul>
+<li>ROS Master里面的参数服务器。</li>
+<li>可通过网络访问的共享、多变量<strong>字典</strong>，数据类型不唯一。</li>
+<li>节点使用次服务器来存储&amp;检索运行时的参数。</li>
+<li>适合存储静态、非二进制的配置参数，不适合存储动态配置的数据。</li>
+</ul>
+<blockquote>
+<p>eg:</p>
+<img src="https://s2.loli.net/2022/07/11/9WpPugflbYcUK51.png" style="zoom:67%;">
+<p>如上图，Talker存入<code>setParam</code>了一个参数<code>("foo",1)</code>到ROS Master</p>
+<p>Listener需要调用<code>foo</code>底下的值，就发出一个请求<code>getParam</code></p>
+<p>然后Listener就可以获得ROS Master返回的<code>("foo",1)</code></p>
+<ul>
+<li>观察可以发现，如果Listener只get一次参数，如果参数有变化的话，就没办法及时更新了，就不适合存储动态变化的数据。</li>
+<li>如果需要实时更新参数，就需要用到ROS的高级功能 “动态参数配置”的功能。</li>
+</ul>
+</blockquote>
+<h2 id="4、文件系统">4、文件系统</h2>
+<ul>
+<li>
+<p>功能包（package）</p>
+<p>ROS软件中的基本单元，包含了节点源码、配置文件、数据定义……</p>
+<p>用于完成一些具体的功能，人脸识别、图像识别等等</p>
+</li>
+<li>
+<p>功能包清单（package manifest）</p>
+<p>记录了功能包的基本信息，包含了作者信息、许可信息、依赖选项、变异标志……</p>
+</li>
+<li>
+<p>元功能包（meta package）</p>
+<p>组织多个用于同一个目的的功能包</p>
+<p>比如很多个图像识别的功能包组织成一个大工程，这个大工程就是元功能包。</p>
+</li>
+</ul>
+<pre class="mermaid">graph TB
+A(文件系统) --&gt;B[元功能包]
+B --&gt;C[功能包]
+C --&gt;D1[功能包清单]
+C --&gt;D2[消息类型]
+C --&gt;D3[服务类型]
+C --&gt;D4[代码]
+C --&gt;D5[其他]</pre>
+<p><img src="https://s2.loli.net/2022/07/11/ZRt6jPecizJA37I.png" alt=""></p>
+<p>参考自: 古月居ros教程</p>
 
                 
             </div>
@@ -551,10 +764,6 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
                             
                                 <a href="../../../../tags/Linux/">
                                     <span class="chip bg-color">Linux</span>
-                                </a>
-                            
-                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">环境搭建</span>
                                 </a>
                             
                                 <a href="../../../../tags/ROS/">
@@ -1006,9 +1215,64 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="">
+                    <div class="card-image">
+                        
+                        
+                        <img src="../../../../medias/featureimages/1.jpg" class="responsive-img" alt="ROS 一、核心概念">
+                        
+                        <span class="card-title">ROS 一、核心概念</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            ros的核心概念
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    编程技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="../../../../tags/ROS/">
+                        <span class="chip bg-color">ROS</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="../../../06/03/computer_organization3-1/">
                     <div class="card-image">
@@ -1026,61 +1290,8 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
-                                    计算机知识
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
-                        <span class="chip bg-color">计算机组成</span>
-                    </a>
-                    
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                        <span class="chip bg-color">计算机知识</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="../../15/computer_organization3/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="../../../../medias/featureimages/12.jpg" class="responsive-img" alt="计算机组成概述（2.1存储器）">
-                        
-                        <span class="card-title">计算机组成概述（2.1存储器）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            存储器介绍
-                        
-                    </div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
                             </span>
                         <span class="publish-author">
                             
@@ -1171,6 +1382,87 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
 
 <script type="text/javascript" src="../../../../libs/codeBlock/codeShrink.js"></script>
 
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="../../../../libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4, h5, h6'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
 
