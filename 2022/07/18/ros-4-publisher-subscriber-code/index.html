@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="计算机组成,计算机知识">
-    <meta name="description" content="计算机组成基本概念">
+    <meta name="keywords" content="ROS">
+    <meta name="description" content="发布者与订阅者的代码实现">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>计算机组成概述（1.概述） | 拓佑豪的博客</title>
+    <title>ROS 四、发布者与订阅者 | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">计算机组成概述（1.概述）</h1>
+                    <h1 class="description center-align post-title">ROS 四、发布者与订阅者</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
-                                <span class="chip bg-color">计算机组成</span>
+                            <a href="../../../../tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
-                            <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                                <span class="chip bg-color">计算机知识</span>
+                            <a href="../../../../tags/ROS/">
+                                <span class="chip bg-color">ROS</span>
                             </a>
                         
                     </div>
@@ -461,8 +461,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
-                                计算机知识
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                编程技术
                             </a>
                         
                     </div>
@@ -474,28 +474,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-19
+                    2022-07-18
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-19
+                    2022-07-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    5 分
                 </div>
                 
 
@@ -518,286 +518,214 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="计算机组成原理——第一章"><a href="#计算机组成原理——第一章" class="headerlink" title="计算机组成原理——第一章"></a>计算机组成原理——第一章</h1><h2 id="1-1-计算机与案件的更新换代"><a href="#1-1-计算机与案件的更新换代" class="headerlink" title="1.1 计算机与案件的更新换代"></a>1.1 计算机与案件的更新换代</h2><ol>
-<li><strong>摩尔定律</strong>：当价格不变，集成电路上可容纳的晶体管的数目，约每隔18个月便会增加一倍。也就是说，我们现在和18个月后花同样价钱买到的CPU，后者的性能是前者的2倍。</li>
-<li><strong>半导体存储器的发展</strong>：1970年，仙童半导体公司产出第一个较大容量的半导体存储器。</li>
-<li><strong>微处理机机器字长</strong>：32位和64位指的是机器字长。指<strong>计算机进行一次整数计算所能处理的二进制数据的位数</strong>。</li>
-<li>*硬件发展：逻辑元件从电子管 -&gt; 晶体管 -&gt; 中小规模集成电路 -&gt; 大规模、超大规模集成电路</li>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-四：发布者与订阅者的实现"><a href="#ROS-四：发布者与订阅者的实现" class="headerlink" title="ROS 四：发布者与订阅者的实现"></a>ROS 四：发布者与订阅者的实现</h1><p><img src="https://s2.loli.net/2022/07/17/ibDTIw9KBfJUx84.png" alt="话题模型（发布/订阅）"></p>
+<blockquote>
+<p>程序目标：</p>
+<p>实现一个Publisher，发布速度指令的msg，控制turtlesim运动。</p>
+</blockquote>
+<p>第一步：创建一个功能包</p>
+<p>功能包相关请参考：<a href="https://tuoyou-hao.github.io/2022/07/17/ros-3-workspace-pkg/">https://tuoyou-hao.github.io/2022/07/17/ros-3-workspace-pkg/</a></p>
+<p>进入工作空间的src路径</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">catkin_create_pkg learn_topic rospy roscpp std_msgs geometry_msgs turtlesim<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="一、如何创建一个publisher"><a href="#一、如何创建一个publisher" class="headerlink" title="一、如何创建一个publisher"></a>一、如何创建一个publisher</h2><p>建立一个publisher的基本流程</p>
+<pre class="mermaid">graph TB
+a(初始化节点)
+a --&gt;b(注册节点)
+b --&gt;c(创建消息)
+c --&gt;d(按一定频率发布消息)</pre>
+
+<h2 id="c-代码实现"><a href="#c-代码实现" class="headerlink" title="c++代码实现"></a>c++代码实现</h2><h3 id="一、编写代码"><a href="#一、编写代码" class="headerlink" title="一、编写代码"></a>一、编写代码</h3><p>先创建一个cpp文件<code>touch publisher.cpp</code></p>
+<p>我们将使用代码发布turtle1/cmd_vel话题，消息类型为geometry_msgs::Twist</p>
+<ol>
+<li>首先，导入头文件</li>
 </ol>
-<h2 id="1-2-计算机系统硬件"><a href="#1-2-计算机系统硬件" class="headerlink" title="1.2 计算机系统硬件"></a>1.2 计算机系统硬件</h2><ul>
-<li>系统软件（管理整个计算机系统，如操作系统<strong>OS</strong>、数据库管理系统<strong>DBMS</strong>、标准程序库、网络软件、服务程序）</li>
-<li>应用软件（按任务需要编写的程序）</li>
-<li>硬件是计算机物理基础。决定了计算机的 “天花板” 、“瓶颈”在哪，软件决定了我们可以把硬件性能发挥到什么程度。</li>
-</ul>
-<h3 id="1-2-1-计算机硬件"><a href="#1-2-1-计算机硬件" class="headerlink" title="1.2.1 计算机硬件"></a>1.2.1 计算机硬件</h3><h4 id="1-冯·诺依曼机的基本思想"><a href="#1-冯·诺依曼机的基本思想" class="headerlink" title="1. 冯·诺依曼机的基本思想"></a>1. 冯·诺依曼机的基本思想</h4><p>冯·诺依曼在研究<strong>EDVAC</strong>及时提出了“存储程序”的概念。特点如下：</p>
-<ul>
-<li>采用<strong>存储程序</strong>的结构，将指令以二进制代码的形式，事先输入计算机的主储存器，然后按其在储存器中的首地址执行程序的第一条指令，以后就按该程序的规定顺序执行其他指令，直至程序执行结束。</li>
-<li>计算机硬件由运算器、存储器、控制器、输入设备、输出设备组成</li>
-<li>指令和数据以同等地位存储在存储器中</li>
-</ul>
-<p><img src="https://s2.loli.net/2022/04/14/IOwrRx7jsXD3u29.png" alt="Schematic_diagram_of_von_Neumann_machine"></p>
-<p>图中实线表示数据传输，虚线表示控制线以及反馈线</p>
-<ul>
-<li><p>输入设备：将信息转成及其能识别的形式</p>
-</li>
-<li><p>存储器：存数据和程序。存储器还分为<strong>主存和辅存</strong></p>
-<ul>
-<li>主存：内存</li>
-<li>辅存：机械硬盘、固态硬盘等等。平时应用程勋存在辅存中，需要的时候才读入主存，所以辅存也算是一种I/O设备</li>
-</ul>
-</li>
-<li><p>运算器：alu算数运算和逻辑运算</p>
-</li>
-<li><p>输出设备：将结果转成人们熟悉的形式</p>
-</li>
-<li><p>控制器：解析指令 &amp; 指挥程序运行</p>
-</li>
-<li><p>以上五个设备总和：硬件</p>
-</li>
-<li><p>数据程序：软件</p>
-</li>
-</ul>
-<p>在计算机系统中，软件和硬件在逻辑上是等效的</p>
-<ul>
-<li>eg：乘法运算，可以设计专门的硬件电路去实现，也可以用软件执行多次加法来实现</li>
-</ul>
-<h4 id="2-冯·诺依曼机的特点"><a href="#2-冯·诺依曼机的特点" class="headerlink" title="2. 冯·诺依曼机的特点"></a>2. 冯·诺依曼机的特点</h4><ul>
-<li><p>计算机有五大部件组成（输入输出设备统称<strong>I/O设备（input &amp; output）</strong>）</p>
-</li>
-<li><p>指令和数据，以同等地位存于存储器，可以用地址去寻访</p>
-</li>
-<li><p>指令和数据用二进制表示</p>
-</li>
-<li><p>指令有操作码和地址码组成</p>
-</li>
-<li><p>可以存储程序</p>
-</li>
-<li><p>以运算器为中心（这样会导致各种数据传输效率低下，所以线代计算机以存储器为中心，以下是原理图）</p>
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2022/04/14/4VwFux6RtiYblCj.png" alt="Schematic_diagram_of_modern_computer"></p>
-<p>由于<strong>运算器</strong>和<strong>控制器</strong>之间逻辑关系十分紧密，所以在大规模集成电路工艺出现之后，这两个部件通常是整合在一个芯片上的，也就是我们现在的<strong>CPU</strong>。以下是简化原理图。</p>
-<p><img src="https://s2.loli.net/2022/04/14/R9xEMKVUvYGLz8h.png" alt="Simplified_schematic_d_agram_of_computer"></p>
-<p><strong>在计算机组成原理中，CPU和主存储器统称主机，而且并不是指平时日常生活中的电脑主机</strong></p>
-<pre class="mermaid">graph LR
-A(硬件) --&gt;B(主机)
-B --&gt;B1(CPU)
-B --&gt;B2(主存)
-A --&gt;C(IO设备)
-C --&gt;C1(辅存)
-C --&gt;C2(输入设备)
-C --&gt;C3(输出设备)
-B2 --&gt;D(存储器)
-C1 --&gt;D
-B1 --&gt;E(运算器)
-B1 --&gt;F(控制器)</pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
+#include &lt;geometry_msgs/Twist.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="1-3-硬件各个部件"><a href="#1-3-硬件各个部件" class="headerlink" title="1.3 硬件各个部件"></a>1.3 硬件各个部件</h2><h3 id="1-主存储器"><a href="#1-主存储器" class="headerlink" title="1.主存储器"></a>1.主存储器</h3><p>MAR：地址寄存器</p>
-<p>MDR：数据寄存器</p>
-<p>线代计算机通常把MAR&amp;MDR集成在CPU内</p>
-<pre class="mermaid">graph TB
-subgraph memory
-A[存储体] 
-subgraph register
-    MAR(MAR地址寄存器)
-    MDR(MDR数据寄存器)
-end
-end</pre>
+<p>然后编写我们的主函数：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc, char **argv){}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>在MAR给个地址，MAR去存储器寻找对应的数据，然后存放至MDR。可以类比为下图：</p>
-<pre class="mermaid">graph TB
-subgraph memory
-A[仓库,机器人去找货物] 
-subgraph register
-    MAR(MAR机器人,给机器人地址) 
-    MDR(MDR柜台,机器人给你货物)
-end
-MAR --&gt;A
-A --&gt;MDR
-end</pre>
+<ol start="2">
+<li>主函数里，先初始化节点</li>
+</ol>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// ROS节点初始化,节点名字叫publisher，唯一的名字
+	ros::init(argc, argv, "publisher");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>其中，你要去取这个货物，就好比CPU要去取存储器的数据，从而完成整个数据访问过程。</p>
-<p>如果要存数据，就把要存的数据放在MDR，对应地址给MAR，然后通过总线把数据存进存储体（仓库）。</p>
-<ul>
-<li><p>存储体</p>
-<p>本身会被分为一个个的存储单元，按地址存储。</p>
-<ul>
-<li><p>存储单元：每个存储单元存放一串二进制代码，每个地址对应一个存储单元。</p>
-</li>
-<li><p>存储自（word）：存储单元中二进制代码的组合</p>
-</li>
-<li><p>存储字长：存储单元中二进制代码的位数，通常是8bit的整数倍</p>
-</li>
-<li><p>*存储元：存二进制的电容，每个存1bit</p>
-</li>
-<li><p>MAR位数反映存储单元的个数</p>
-</li>
-</ul>
-</li>
-<li><p>eg：MAR = 8 位 -&gt; 总共有 2的8次方 个存储单元</p>
-<ul>
-<li><p>MAR位数 = 存储字长</p>
-</li>
-<li><p>eg：MDR = 32位 -&gt; 每个存储单元可存放32bit，一个字 = 32 bit</p>
-</li>
-<li><p>字（word）和字节（byte）</p>
-<p>一个字节（byte）= 8 bit</p>
-<p>  1B = 一个字节，1b = 1个bit</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-运算器"><a href="#2-运算器" class="headerlink" title="2. 运算器"></a>2. 运算器</h3><p>用于实现算术运算（加减乘除）和逻辑运算（与或非）</p>
-<p>ACC: 累加器，用来存放操作数 / 运算结果</p>
-<p>MQ: 乘商寄存器，惩处运算用来存放操作数 / 运算结果</p>
-<p>x: 通用的 操作数寄存器，存放操作数</p>
-<p>ALU: 算术逻辑单元，实现算术运算和逻辑运算</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">加</th>
-<th align="center">减</th>
-<th align="center">乘</th>
-<th align="center">除</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ACC</td>
-<td align="center">被加数、和</td>
-<td align="center">被减数、差</td>
-<td align="center">乘积高位</td>
-<td align="center">被除数、余数</td>
-</tr>
-<tr>
-<td align="center">MQ</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">成熟、乘积低位</td>
-<td align="center">商</td>
-</tr>
-<tr>
-<td align="center">X</td>
-<td align="center">加数</td>
-<td align="center">减数</td>
-<td align="center">被乘数</td>
-<td align="center">除数</td>
-</tr>
-</tbody></table>
-<h3 id="3-控制器"><a href="#3-控制器" class="headerlink" title="3. 控制器"></a>3. 控制器</h3><p>CU： 控制单元，分析指令，给出控制信号</p>
-<p>IR：指令寄存器，存放当前执行的指令</p>
-<p>PC：程序计数器，存放吓一跳指令的地址，有自动+1的功能</p>
-<p>完成一条指令的流程：</p>
-<ul>
-<li>取指令：PC</li>
-<li>分析指令：IR</li>
-<li>执行指令：CU</li>
-<li>指令：操作码 +地址码</li>
-<li>OP(IR)：取操作码</li>
-<li>Ad(IR)：取地址码<ul>
-<li>CPU区分指令和数据的依据：指令周期的不同阶段</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2022/04/14/7s1virCB4IFyPWd.png" alt="schematic_diagram"></p>
-<ul>
-<li>运算器的核心部件是ALU，控制器的核心部件是CU。</li>
-</ul>
-<h2 id="1-4-计算机系统层次结构"><a href="#1-4-计算机系统层次结构" class="headerlink" title="1.4 计算机系统层次结构"></a>1.4 计算机系统层次结构</h2><p>代码需要翻译成机器语言，CPU在执行这些机器指令的时候，还需要细分为更细的小步骤来执行，这些小步骤称为<strong>微指令/微操作</strong>。</p>
-<p>用微程序机器的微指令，逐步解析传统机器的每一条机器指令，并执行。</p>
-<p>这样设计程序是很不方便的，所以现在出现了<strong>符号式程序设计语言</strong>，也就是<strong>汇编语言</strong>。识别汇编语言的机器叫<strong>虚拟机器</strong>。（因为虽然程序员看这台机器，好像可以直接识别汇编语言，但其实机器不可能真的识别出汇编语言，汇编语言必须先翻译成机器语言。才叫虚拟机器）</p>
-<pre class="mermaid">graph TB
-    subgraph software
-    M4(M4虚拟机器--高级语言机器)
-    M3(M3虚拟机器--汇编语言机器)
-    M2(M2虚拟机器--操作系统机器)
-    end
-    subgraph hardware
-    M1(M1虚拟机器--机器语言机器)
-    M0(M0虚拟机器--微指令系统)
-    end
-    M4 --&gt;M3
-    M3 --&gt;M2 
-    M2 --&gt;M1
-    M1 --&gt;M0</pre>
+<p>argc, argv是主函数传入的参数</p>
+<p>publisher是节点的名称，注意不能重名</p>
+<ol start="3">
+<li>创建节点句柄</li>
+</ol>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 创建节点句柄,变量名为n
+	ros::NodeHandle n;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>翻译程序有以下三类：</p>
+<p>节点句柄是用来管理ros相关的api资源的。比如创建发布者，或创建一系列api调用，都需要用ros的句柄来调用。</p>
+<ol start="4">
+<li><p>创建publisher来发布消息</p>
+<p>向ROS Master注册节点信息，包括发布的话题名和话题的消息类型。</p>
+</li>
+</ol>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 创建一个Publisher,叫turtle_vel_pub
+// 发布名为/turtle1/cmd_vel的topic
+// 消息类型为geometry_msgs::Twist，队列长度10
+ros::Publisher turtle_vel_pub = n.advertise&lt;geometry_msgs::Twist&gt;("/turtle1/cmd_vel", 10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在n.advertise的尖括号里要放的是数据类型，后面跟随要发布的topic名以及消息队列长度。</p>
 <ul>
-<li><p>汇编程序：汇编器</p>
+<li><p>消息队列长度有一点要注意的是：如果发送频率太高，以太网或底层系统可能来不及快速响应，所以用一个队列，先把消息放在队列里，然后再对外发送数据。</p>
 </li>
-<li><p>解释程序：解释器</p>
-</li>
-<li><p>编译程序：编译器</p>
-</li>
-<li><p>汇编语言是一种 “助记符”，帮助人类记忆用的，本质上和机器语言是一一对应的。</p>
-</li>
-<li><p>高级语言需要先经过汇编，再翻译成机器语言。如果使用其他的库函数，还需要进行链接。使用编译程序</p>
-</li>
-<li><p>有的高级语言不是通过编译程序，而是用解释器，将程序翻译成与之对等的机器语言。很多脚本类的语言都是使用解释器，python、JavaScript，shell等等。</p>
-</li>
-<li><p>编译程序：将高级语言编写的源程序全部语句一次全部翻译成机器语言，而后在执行机器语言程序（只能翻译一次）</p>
-<p>会生成可执行文件，如 <code>*.exe</code>程序等等。</p>
-</li>
-<li><p>解释程序：将源程序的一条语句翻译成对应于机器语言的语句，并立即执行，紧接着再翻译下一句（每次执行都需要翻译）</p>
-</li>
-<li><p>编译型的执行效率更高一些，解释性的执行效率更低一些。</p>
-</li>
-<li><p>编译、汇编、解释程序，可统称为 <strong>翻译程序</strong>。</p>
-</li>
-<li><p>*计算机体系结构学习的是：如何设计硬件与软件之间的接口</p>
-<p>计算机组成原理学习的是：如何用硬件实现所定义的接口</p>
+<li><p>如果这里的队列爆满了，队列会把先进队的数据丢弃，队列会永远保存最晚进队列的数据。所以队列会出现掉帧、掉数据的情况。</p>
 </li>
 </ul>
-<h2 id="1-5-计算机性能指标"><a href="#1-5-计算机性能指标" class="headerlink" title="1.5 计算机性能指标"></a>1.5 计算机性能指标</h2><h3 id="1-主储存器的性能指标"><a href="#1-主储存器的性能指标" class="headerlink" title="1 主储存器的性能指标"></a>1 主储存器的性能指标</h3><ul>
-<li><p><strong>MAR</strong>位数反映<strong>存储单元</strong>，<code>最多</code>支持的个数，可支持 2的MAR次方</p>
+<ol start="5">
+<li>设置循环频率</li>
+</ol>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 设置循环的频率
+	ros::Rate loop_rate(10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ol start="6">
+<li><p>循环发送数据</p>
+<p>先初始化消息，然后让他按照一定频率发布消息。</p>
 </li>
-<li><p><strong>MDR</strong>位数=存储字长=每个存储单元的大小</p>
-</li>
-<li><p><strong>总容量 = 存储单元个数 * 存储字长 bit = 存储单元个数 *存储字长 / 8 Byte</strong>，<code>1 Byte = 8 bit</code></p>
-<p>eg：MAR=32位，MDR=8位，总容量 = 2^32 * 8 bit = 4GB</p>
-</li>
-</ul>
-<p>$$<br>K=2^{10}\\M=2^{20}\\G=2^{30}\\T=2^{40}<br>$$</p>
-<h3 id="2-cpu的性能指标"><a href="#2-cpu的性能指标" class="headerlink" title="2 cpu的性能指标"></a>2 cpu的性能指标</h3><ul>
-<li>cpu的时钟周期：<br>把CPU的每一个脉冲信号的时间周期叫做<strong>cpu的时钟周期</strong>，单位是微秒或纳秒。</li>
-</ul>
-<p>$$<br>CPU主频（时钟频率） = \frac{1}{CPU时钟周期}<br>$$</p>
-<ul>
-<li><p><strong>CPI（Clock cycle Per Instruction）</strong>：执行一条指令所需的时间周期数</p>
-<p>不同的指令，不同的CPI；甚至相同的指令，CPI也可能不同</p>
-</li>
-</ul>
-<p>$$<br>执行一条指令的耗时 = \frac{CPI}{CPU的时钟周期} \\<br>CPU执行时间(整个程序耗时) = \frac{CPU时钟周期}{主频} = \frac{(指令条数*CPI)}{主频}<br>$$</p>
-<ul>
-<li><p><strong>IPS  (Instructions Per Second)</strong> :<code>每秒</code>执行多少条指令</p>
-<ul>
-<li>可细分为<code>KIPS</code>，<code>MIPS</code><br>$$<br>IPS = \frac{主频}{平均CPI}<br>$$</li>
-</ul>
-</li>
-<li><p><strong>FLOPS  (Floating-point Operations Per Second)</strong> 每秒执行多少次<strong>浮点运算</strong></p>
-<ul>
-<li>可细分为<code>KFLOPS</code>，<code>MFLOPS</code>, <code>GFLOPS</code>，<code>TFLOPS</code></li>
-</ul>
-</li>
-<li><p>此处K、M、G、T为数量单位，<strong>要与文件大小的指标区分开</strong><br>$$<br>K=kilo=10^3  \\ M=million=10^6 \\ G=giga=10^9 \\ T=tera=10^{12}<br>$$</p>
-</li>
-</ul>
-<h3 id="3-系统整体的性能指标"><a href="#3-系统整体的性能指标" class="headerlink" title="3 系统整体的性能指标"></a>3 系统整体的性能指标</h3><ul>
-<li><p>数据通路带宽：数据总线一次所能并行传送的信息的位数（各个硬件部件通过数据总线传输数据）</p>
-</li>
-<li><p>吞吐量：指系统在单位时间内处理请求的数量</p>
-</li>
-<li><p>响应时间：指从用户向计算机发送一个请求，到系统对这个请求作出响应，并获得它所需的结果 的等待时间</p>
-</li>
-<li><p>基准程序（跑分软件）：用来测量计算机处理速度的一种程序。</p>
-<p>便于被测量的计算机性能可以与运行相同的程序的其他计算机性能进行比较</p>
-</li>
-</ul>
-<p>思考问题:</p>
-<ul>
-<li>Q：主频高的CPU一般比主频低的CPU快吗？</li>
-<li>A：不一定，需要看CPI，以及不同指令系统<br>(如果指令系统做过优化，即使主频和CPI不占优势，也有可能在某个方面性能更强)</li>
-</ul>
+</ol>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int count = 0;
+while (ros::ok())
+{
+    // 初始化geometry_msgs::Twist类型的消息
+    geometry_msgs::Twist vel_msg;
+    vel_msg.linear.x = 0.5; //线速度
+    vel_msg.angular.z = 0.2; //角速度
+
+    // 发布消息
+    turtle_vel_pub.publish(vel_msg);
+    ROS_INFO("Publish command[%0.2f m/s, %0.2f rad/s]", vel_msg.linear.x, vel_msg.angular.z);
+
+    // 按照循环频率延时
+    loop_rate.sleep();
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="二、代码编译"><a href="#二、代码编译" class="headerlink" title="二、代码编译"></a>二、代码编译</h3><p>在功能包里的CMakeLists里增加两句代码：</p>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">###########
+## Build ##
+###########
+
+#在CMakeList里的build一栏底下补充上：
+
+##add_executable(可执行文件名 要编译的cpp文件)
+add_executable(publisher src/publisher.cpp)
+
+##链接ros的库
+##target_link_libraries(可执行文件 链接的库)
+##这里我们链接catkin_LIBRARIES
+target_link_libraries(publisher ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在终端输入以下指令进行编译：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~/ros_ws
+catkin_make
+source devel/setup.bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>运行代码测试效果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">roscore
+rosrun turtlesim turtlesim_node
+rosrun learn_topic publisher<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p>如果命令行报错显示找不到功能包：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[rospack] Error: package 'learn_topic' not found<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>记得检查<code>ROS_PACKAGE_PATH</code>环境变量，是否运行<code>source devel/setup.bash</code>。</p>
+<h2 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import rospy
+from geometry_msgs.msg import Twist
+
+def publisher():
+	# ROS节点初始化
+    rospy.init_node('publisher', anonymous=True)
+
+	# 创建一个Publisher
+    turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
+
+	# 设置循环的频率
+    rate = rospy.Rate(10) 
+
+    while not rospy.is_shutdown():
+		# 初始化geometry_msgs::Twist类型的消息
+        vel_msg = Twist()
+        vel_msg.linear.x = 0.5
+        vel_msg.angular.z = 0.2
+
+		# 发布消息
+        turtle_vel_pub.publish(vel_msg)
+    	rospy.loginfo("Publsh turtle velocity command[%0.2f m/s, %0.2f rad/s]", 
+				vel_msg.linear.x, vel_msg.angular.z)
+
+		# 按照循环频率延时
+        rate.sleep()
+
+if __name__ == '__main__':
+    try:
+        publisher()
+    except rospy.ROSInterruptException:
+        pass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>编程思想和c++开发的一样。</p>
+<p>在运行roscore和turtlesim的前提下，直接用python指令运行代码即可</p>
+<h2 id="二、如何创建一个订阅者"><a href="#二、如何创建一个订阅者" class="headerlink" title="二、如何创建一个订阅者"></a>二、如何创建一个订阅者</h2><p><img src="https://s2.loli.net/2022/07/18/DHoyuQOtTjk2IPZ.png"></p>
+<p>开发目标：订阅turtlesim的pose信息</p>
+<h2 id="c-代码实现-1"><a href="#c-代码实现-1" class="headerlink" title="c++代码实现"></a>c++代码实现</h2><p>头文件</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
+#include "turtlesim/Pose.h"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>回调函数</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 接收到订阅的消息后，会进入消息回调函数
+void poseCallback(const turtlesim::Pose::ConstPtr&amp; msg)
+{
+    // 将收到的消息打印出来
+    ROS_INFO("Turtle pose: x:%0.6f, y:%0.6f", msg-&gt;x, msg-&gt;y);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>主函数</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc, char **argv)
+{
+    // 初始化ROS节点
+    ros::init(argc, argv, "subscriber");
+
+    // 创建节点句柄
+    ros::NodeHandle n;
+
+    // 创建一个Subscriber，订阅名为/turtle1/pose的topic，注册回调函数poseCallback
+    ros::Subscriber pose_sub = n.subscribe("/turtle1/pose", 10, poseCallback);
+
+    // 循环等待回调函数
+    ros::spin();
+
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>编写完毕后，和上述一样，进行编译，然后rosrun运行</p>
+<h2 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
+import rospy
+from turtlesim.msg import Pose
+
+def poseCallback(msg):
+    rospy.loginfo("Turtle pose: x:%0.6f, y:%0.6f ",msg.x, msg.y)
+
+def subscriber():
+	# ROS节点初始化
+    rospy.init_node('subscriber', anonymous=True)
+
+	# 创建一个Subscriber，订阅名为/turtle1/pose的topic，注册回调函数poseCallback
+    rospy.Subscriber("/turtle1/pose", Pose, poseCallback)
+
+	# 循环等待回调函数
+    rospy.spin()
+
+if __name__ == '__main__':
+    subscriber()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>代码参考自：公众号古月居</p>
 
                 
             </div>
@@ -862,12 +790,12 @@ end</pre>
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
-                                    <span class="chip bg-color">计算机组成</span>
+                                <a href="../../../../tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
-                                <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                                    <span class="chip bg-color">计算机知识</span>
+                                <a href="../../../../tags/ROS/">
+                                    <span class="chip bg-color">ROS</span>
                                 </a>
                             
                         </div>
@@ -1315,46 +1243,52 @@ end</pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="../../../05/12/error-linux-Unable-to-acquire-the-dpkg-frontend-lock/">
+                <a href="">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/4.jpg" class="responsive-img" alt="Linux Apt运行报错排查">
+                        <img src="../../../../medias/featureimages/7.jpg" class="responsive-img" alt="ROS 四、发布者与订阅者">
                         
-                        <span class="card-title">Linux Apt运行报错排查</span>
+                        <span class="card-title">ROS 四、发布者与订阅者</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            解决Unable to acquire the dpkg frontend lock
+                            发布者与订阅者的代码实现
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/" class="post-category">
-                                    报错排查
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    编程技术
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
                     <a href="../../../../tags/Linux/">
                         <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="../../../../tags/ROS/">
+                        <span class="chip bg-color">ROS</span>
                     </a>
                     
                 </div>
@@ -1368,31 +1302,31 @@ end</pre>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="../operating_system2-2/">
+                <a href="../../17/ros-3-workspace-pkg/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/5.jpg" class="responsive-img" alt="操作系统概述(2.2处理机调度)">
+                        <img src="../../../../medias/featureimages/2.jpg" class="responsive-img" alt="ROS 三、工作空间和功能包">
                         
-                        <span class="card-title">操作系统概述(2.2处理机调度)</span>
+                        <span class="card-title">ROS 三、工作空间和功能包</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            操作系统--处理机调度概述
+                            简介工作空间和功能包
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-17
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
-                                    计算机知识
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    编程技术
                                 </a>
                             
                             
@@ -1402,12 +1336,12 @@ end</pre>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                        <span class="chip bg-color">计算机知识</span>
+                    <a href="../../../../tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="../../../../tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
+                    <a href="../../../../tags/ROS/">
+                        <span class="chip bg-color">ROS</span>
                     </a>
                     
                 </div>
@@ -1562,13 +1496,6 @@ end</pre>
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 
