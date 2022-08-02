@@ -708,7 +708,7 @@ $$
 <p>相当于把四元数的三个虚部和空间中的3个轴对应。旋转后点p’可以这样表示乘积：<br>$$<br>p^{‘}=qpq^{-1}<br>$$<br>这里的乘法就是四元数乘法，得到的结果也将是四元数。计算结果的实部为0，所以是纯虚四元数。</p>
 <h3 id="6-3-四元数到其他旋转表示的转换"><a href="#6-3-四元数到其他旋转表示的转换" class="headerlink" title="6.3 四元数到其他旋转表示的转换"></a>6.3 四元数到其他旋转表示的转换</h3><p>设$q=\left [ s,v \right ]^T $，以下来讨论四元数与旋转向量、旋转矩阵的关系。首先，定义如下的符号：<br>$$<br>q^+=<br>\begin{bmatrix}<br> s &amp; -v^T\\<br> v &amp; sI+v^{\wedge }<br>\end{bmatrix},<br>q^{\oplus}=<br>\begin{bmatrix}<br> s &amp; -v^T\\<br> v &amp; sI-v^{\wedge }<br>\end{bmatrix}<br>$$</p>
 <p>这两个符号把四元数映射成一个4x4的矩阵。</p>
-<p>$$<br>q_1^+q_2=<br>\begin{bmatrix}<br> s &amp; -v^T\\<br> v &amp; sI+v^{\wedge }<br>\end{bmatrix}<br>\begin{bmatrix}<br> s_2\<br> v_2<br>\end{bmatrix}=<br>\begin{bmatrix}<br> -v_1^Tv_2 + s_1s_2\\<br> s_1v_2+s_2v_1+v_1^{\wedge}v_2<br>\end{bmatrix}=<br>q_1q_2<br>$$</p>
+<p>$$<br>q_1^+q_2=<br>\begin{bmatrix}<br> s &amp; -v^T\\<br> v &amp; sI+v^{\wedge }<br>\end{bmatrix}<br>\begin{bmatrix}<br> s_2\\<br> v_2<br>\end{bmatrix}=<br>\begin{bmatrix}<br> -v_1^Tv_2 + s_1s_2\\<br> s_1v_2+s_2v_1+v_1^{\wedge}v_2<br>\end{bmatrix}=<br>q_1q_2<br>$$</p>
 <p>同理，我们可以证得：</p>
 <p>$$<br>q_1q_2=q_1^+q_2=q_2^{\oplus}q_1<br>$$</p>
 <p>我们考虑到用四元数对空间点进行旋转的问题。参考前面的说法，我们代入上面式子可得：</p>
