@@ -481,21 +481,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-02
+                    2022-08-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    869
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    8 分
                 </div>
                 
 
@@ -518,7 +518,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-九：坐标管理系统tf简介"><a href="#ROS-九：坐标管理系统tf简介" class="headerlink" title="ROS 九：坐标管理系统tf简介"></a>ROS 九：坐标管理系统tf简介</h1><p>关于机器人学中的坐标变换，原本计划在本篇介绍，奈何整理过后的篇幅过长，还烦请移步<a href="https://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/">三维坐标介绍</a>了解相关的前置知识。</p>
+                <h1 id="ROS-九：坐标管理系统tf简介"><a href="#ROS-九：坐标管理系统tf简介" class="headerlink" title="ROS 九：坐标管理系统tf简介"></a>ROS 九：坐标管理系统tf简介</h1><p>关于机器人学中的坐标变换，原本计划在本篇介绍，奈何整理过后的篇幅过长，还烦请移步<a href="https://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/">三维坐标介绍</a>了解相关的前置知识。</p>
 <h2 id="一、tf简介"><a href="#一、tf简介" class="headerlink" title="一、tf简介"></a>一、tf简介</h2><p>由于机器人上会安装相当多的组件，比如激光雷达、摄像机等等，他们都会组装在机器人外壳上的不同位置，因此他们拥有各自不同的坐标系。</p>
 <p>而当一个机器人设计的很庞大的时候，就会有忒儿多的坐标系要我们管理，需要运算相当多的矩阵。</p>
 <p>tf功能包会帮助我们管理坐标系，把底层的数学计算都封装好了，我们无需再实现数学计算功能。tf会广播和监听坐标变换，这和我们之前了解到的Publisher与Service这两套通讯方式是不一样的。</p>
@@ -575,6 +575,211 @@ rosrun tf tf_echo turtle1 turtle2<span aria-hidden="true" class="line-numbers-ro
 
 <p>然后要在rviz界面左侧的<code>Fixed Frame</code>选项选择<code>world</code>，在左下角<code>add</code>选项打开菜单，滑到最底下勾选<code>tf</code>，就可以看到前demo正在运行的两只小海龟了。可以试着使用<code>turtle_teleop_key</code>控制小海龟，看rviz的实时效果。</p>
 <p>对于两个turtle的坐标关系来说，可以用如下式子计算，是两个4x4矩阵的乘法：<br>$$<br>T_{turtle1-turtle2}=T_{turtle1-world}\times T_{world-turtle2}<br>$$</p>
+<h2 id="三、编程实现"><a href="#三、编程实现" class="headerlink" title="三、编程实现"></a>三、编程实现</h2><h3 id="1、tf广播器-Broadcaster"><a href="#1、tf广播器-Broadcaster" class="headerlink" title="1、tf广播器(Broadcaster)"></a>1、tf广播器(Broadcaster)</h3><h4 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h4><p>头文件和全局变量</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include&lt;ros/ros.h&gt;
+#include&lt;tf/transform_broadcaster.h&gt;
+#include&lt;turtlesim/Pose.h&gt;
+
+std::string turtle_name;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>主函数</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc,char **argv){
+    ros::init(argc,argv,"tf_broadcaster");
+    
+    //检查输入的参数，并保存下来
+    if(argc!=2){
+        ROS_ERROR("Need turtle name as argument!");
+        return -1;
+    }
+    turtle_name = argv[1];
+
+    ros::NodeHandle tf_b_node;
+    //初始化订阅者
+    ros::Subscriber tf_sub = tf_b_node.subscribe(turtle_name+"/pose",10,&amp;TfPoseCallback);
+    ros::spin();
+
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>回调函数：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">void TfPoseCallback(const turtlesim::PoseConstPtr&amp; msg)
+{
+    //创建一个广播器
+    static tf::TransformBroadcaster tf_broadcaster;
+    
+	//设置平移的向量参数
+    tf::Transform transform;
+    //把平移值放到transform里
+    transform.setOrigin(tf::Vector3(msg-&gt;x,msg-&gt;y,0.0));
+    
+    //设置旋转四元数
+    tf::Quaternion q;
+    q.setRPY(0,0,msg-&gt;theta);
+    //把四元数值放到transform里
+    transform.setRotation(q);
+
+   //广播数据，并将数据放在tf tree里
+    //函数：StampedTransform(存的变量，时间戳(now)，坐标系1，坐标系2)
+    tf_broadcaster.sendTransform(tf::StampedTransform
+        (transform,ros::Time::now(),"world",turtle_name));
+
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>cmake</p>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(broadcaster src/broadcaster.cpp)
+target_link_libraries(broadcaster ${catkin_LIBRARIES})
+
+add_executable(listener src/listener.cpp)
+target_link_libraries(listener ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="python"><a href="#python" class="headerlink" title="python"></a>python</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import rospy
+import roslib
+roslib.load_manifest('learn-tf')
+
+import tf
+import turtlesim.msg
+
+def handle_turtle_pose(msg,turtlename):
+    #定义广播器
+    tf_broadcaster = tf.TransformBroadcaster()
+    #广播数据
+    tf_broadcaster.sendTransform((msg.x,msg.y,0),
+        tf.transformations.quaternion_from_euler(0, 0, msg.theta),
+        rospy.Time.now(),
+        turtlename,
+        "world")
+
+if __name__ == '__main__':
+    rospy.init_node('tf_broadcaster_py')
+    #从超参获取海龟名字
+    turtlename = rospy.get_param('~turtle')
+    rospy.Subscriber('/%s/pose'%turtlename,
+        turtlesim.msg.Pose,
+        handle_turtle_pose,
+        turtlename)
+    rospy.spin()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2、监听器"><a href="#2、监听器" class="headerlink" title="2、监听器"></a>2、监听器</h3><h4 id="c-1"><a href="#c-1" class="headerlink" title="c++"></a>c++</h4><p>头文件</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
+#include &lt;tf/transform_listener.h&gt;
+#include &lt;geometry_msgs/Twist.h&gt;
+#include &lt;turtlesim/Spawn.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>主函数</p>
+<p>先请求生成turtle2</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc,argv,"tf_listener");
+ros::NodeHandle tf_l_node;
+
+ros::service::waitForService("/spawn");
+ros::ServiceClient add_turtle = tf_l_node.serviceClient&lt;turtlesim::Spawn&gt;("/spawn");
+turtlesim::Spawn srv;
+add_turtle.call(srv);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>再创建发布控制turtle2的发布者</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::Publisher turtle_vel = tf_l_node.advertise&lt;geometry_msgs::Twist&gt;("/turtle2/cmd_vel",10);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>创建tf的监听器</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">tf::TransformListener listener;
+ros::Rate rate(10.0);
+
+while(tf_l_node.ok()){
+    //获取turtle1与turtle2坐标系之间的tf数据
+    //保存期平移旋转数据
+    tf::StampedTransform transform;
+    try
+    {
+        //等待变换
+        //传入变量(两个坐标系、查询的时间戳(当前的时间)、超时的阈值(这里是3s))
+    	listener.waitForTransform("/turtle2","turtle1",
+			ros::Time(0),ros::Duration(3.0));
+        //查询变换
+        //传入变量(两个坐标、查询的时间戳(当前的时间)、查询结果存放的变量)
+    	listener.lookupTransform("/turtle2","turtle1",
+			ros::Time(0),transform);
+    }
+    catch(tf::TransformException &amp;ex)
+    {
+        ROS_ERROR("%s",ex.what());
+        ros::Duration(1.0).sleep();
+        continue;
+    }
+    
+    //计算欧氏距离，乘以设置的时间系数
+    geometry_msgs::Twist vel_msg;
+    // 希望用0.25秒时间完成转动
+    // (0.25) * y/x的反正切值
+    vel_msg.angular.z = 4.0 * atan2(transform.getOrigin().y(),
+    	transform.getOrigin().x());
+    // 希望用2秒时间完成移动
+    // (1/2) * √x^2+y^2
+    vel_msg.linear.x = 0.5 * sqrt(pow(transform.getOrigin().x(), 2) +
+    	pow(transform.getOrigin().y(), 2));
+    //发布turtle2的控制指令
+    turtle_vel.publish(vel_msg);
+
+    rate.sleep();
+}
+return 0;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="python-1"><a href="#python-1" class="headerlink" title="python"></a>python</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import rospy
+import math
+import tf
+import geometry_msgs.msg
+import turtlesim.srv
+import roslib
+roslib.load_manifest('learn-tf')
+
+def py_listener():
+    rospy.init_node('turtle_tf_listener')
+    listener = tf.TransformListener()
+
+    rospy.wait_for_service('spawn')
+    spawner = rospy.ServiceProxy('spawn',turtlesim.srv.Spawn)
+    spawner(4,2,0,'turtle2')
+
+    turtle_vel = rospy.Publisher('turtle2/cmd_vel',geometry_msgs.msg.Twist,queue_size=1)
+    rate=rospy.Rate(10.0)
+    while not rospy.is_shutdown():
+        try:
+            (trans,rot)=listener.lookupTransform('/turtle2','turtle1',rospy.Time(0))
+        except(tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+            continue
+
+        angular = 4 * math.atan2(trans[1], trans[0])
+        linear = 0.5 * math.sqrt(trans[0] ** 2 + trans[1] ** 2)
+        cmd = geometry_msgs.msg.Twist()
+        cmd.linear.x = linear
+        cmd.angular.z = angular
+        turtle_vel.publish(cmd)
+
+        rate.sleep()
+
+if __name__ == '__main__':
+    py_listener()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3、运行"><a href="#3、运行" class="headerlink" title="3、运行"></a>3、运行</h3><p>在终端运行的方式：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~/ros_ws #进入工作空间根目录
+catkin_make
+source devel/setup.bash
+roscore
+rosrun turtlesim turtlesim_node
+
+#下面rosrun的是自己定义功能包的名称和代码
+#是自己起名的，配置如下，供参考
+#catkin_create_pkg learn-tf roscpp rospy tf turtlesim
+
+# __name的重映射会把我们设置的明智直接取代代码中ros::init设置的节点名
+# rosrun learn-tf broadcaster 重映射机制 输入的参数(海龟的名字)
+rosrun learn-tf broadcaster __name:=turtle1_broadcaster /turtle1
+rosrun learn-tf broadcaster __name:=turtle2_broadcaster /turtle2
+rosrun learn-tf listener
+rosrun turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>因为这里需要开启很多终端、输入很得多指令，实际启动项目的时候不可能如此繁琐地启动这么多指令。所以下一章将介绍如何使用launch文件快速启动本篇中c++和python的代码。</p>
 
                 
             </div>
@@ -1092,30 +1297,29 @@ rosrun tf tf_echo turtle1 turtle2<span aria-hidden="true" class="line-numbers-ro
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="">
+                <a href="../../08/ros-10-launch-flie/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/5.jpg" class="responsive-img" alt="ROS 九、坐标管理系统Tf简介">
+                        <img src="../../../../medias/featureimages/16.jpg" class="responsive-img" alt="ROS 十、Launch入门">
                         
-                        <span class="card-title">ROS 九、坐标管理系统Tf简介</span>
+                        <span class="card-title">ROS 十、Launch入门</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ros坐标管理系统tf的简介
+                            roslaunch入门
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-02
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-08
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1128,7 +1332,6 @@ rosrun tf tf_echo turtle1 turtle2<span aria-hidden="true" class="line-numbers-ro
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1458,7 +1661,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">64.4k</span>
+                        class="white-color">67.3k</span>
             
             
             
