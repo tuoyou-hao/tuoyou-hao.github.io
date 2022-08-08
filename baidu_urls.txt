@@ -1,3 +1,4 @@
+http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/
 http://tuoyou-hao.github.io/2022/08/08/ros-11-namespace/
 http://tuoyou-hao.github.io/2022/08/08/ros-10-launch-flie/
 http://tuoyou-hao.github.io/2022/08/02/ros-9-tf-introduction/
@@ -17,4 +18,3 @@ http://tuoyou-hao.github.io/2022/05/15/computer_organization3/
 http://tuoyou-hao.github.io/2022/05/12/error-linux-Unable-to-acquire-the-dpkg-frontend-lock/
 http://tuoyou-hao.github.io/2022/04/19/computer_organization1/
 http://tuoyou-hao.github.io/2022/04/19/operating_system2-2/
-http://tuoyou-hao.github.io/2022/04/17/numpy-summary/

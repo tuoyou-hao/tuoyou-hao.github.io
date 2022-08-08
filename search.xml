@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Windows设置汇总</title>
+      <link href="/2022/08/08/win1011_setting_summary/"/>
+      <url>/2022/08/08/win1011_setting_summary/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Window-设置汇总"><a href="#Window-设置汇总" class="headerlink" title="Window 设置汇总"></a>Window 设置汇总</h1><p>这里汇总一些Win11（Win10也差不多）的操作小技(fei)巧(hua)，不定期更新<span class="github-emoji"><span>🐶</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f436.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p><h2 id="1、cmd指令补全"><a href="#1、cmd指令补全" class="headerlink" title="1、cmd指令补全"></a>1、cmd指令补全</h2><p><kbd>win</kbd>+<kbd>r</kbd>输入<code>regedit</code></p><p> 进入<code>HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Command Processor</code>，选择CompletionChar </p><p>数值选择9，选择十进制，然后重启电脑即可</p><h2 id="2、菜单栏改成经典菜单"><a href="#2、菜单栏改成经典菜单" class="headerlink" title="2、菜单栏改成经典菜单"></a>2、菜单栏改成经典菜单</h2><p>管理员身份运行<code>cmd</code>，输入：</p><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">reg add "HKCU\SOFTWARE\CLASSES\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="3、桌面路径改到d盘"><a href="#3、桌面路径改到d盘" class="headerlink" title="3、桌面路径改到d盘"></a>3、桌面路径改到d盘</h2><blockquote><p>注意备份文件哦</p></blockquote><p><kbd>win</kbd>+<kbd>r</kbd>输入<code>regedit</code></p><p>进入<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code></p><p>右侧找到<code>Desktop</code>，双击打开</p><p>将里面的值改为<code>D:\Desktop</code>即可</p><h2 id="4、磁盘分配空间"><a href="#4、磁盘分配空间" class="headerlink" title="4、磁盘分配空间"></a>4、磁盘分配空间</h2><p>右键 “此电脑” ，菜单栏选择 “管理” ，选择 “磁盘管理” 即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机知识 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ROS 十一、命名空间</title>
       <link href="/2022/08/08/ros-11-namespace/"/>
       <url>/2022/08/08/ros-11-namespace/</url>
