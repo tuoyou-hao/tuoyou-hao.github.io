@@ -445,10 +445,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
                             <a href="../../../../tags/ROS/">
                                 <span class="chip bg-color">ROS</span>
                             </a>
@@ -481,7 +477,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-08
+                    2022-08-21
                 </div>
                 
 
@@ -518,74 +514,95 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ROS-十：launch文件入门"><a href="#ROS-十：launch文件入门" class="headerlink" title="ROS 十：launch文件入门"></a>ROS 十：launch文件入门</h1><p>launch文件是一种以xml为主要语法的描述文件</p>
+                <h1>ROS 十：launch文件入门</h1>
+<p>launch文件是一种以xml为主要语法的描述文件</p>
 <p><strong>启动launch文件可以自动启动ROS Master。</strong></p>
-<h2 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h2><ul>
+<h2 id="一、基本语法">一、基本语法</h2>
+<ul>
 <li><code>&lt;launch&gt;</code>: launch文件中的更元素使用这个标签阿莱定义</li>
-<li><code>&lt;node&gt;</code>:启动节点<ul>
-<li><p>pkg：节点所在的功能包名称</p>
+<li><code>&lt;node&gt;</code>:启动节点
+<ul>
+<li>
+<p>pkg：节点所在的功能包名称</p>
 </li>
-<li><p>type：节点的可执行文件名称</p>
+<li>
+<p>type：节点的可执行文件名称</p>
 </li>
-<li><p>name：节点运行时的名称</p>
+<li>
+<p>name：节点运行时的名称</p>
 </li>
-<li><p>output：(可选) “log | screen” 。 默认值为“log”。 </p>
+<li>
+<p>output：(可选) “log | screen” 。 默认值为“log”。</p>
 <ul>
 <li>‘screen’，stdout / stderr从节点将被发送到屏幕。</li>
 <li>“log”，stdout / stderr输出将被发送到$ ROS_HOME/ log中的日志文件，stderr将继续发送到屏幕。</li>
 </ul>
 </li>
-<li><p>respawn：(可选)  布尔值</p>
+<li>
+<p>respawn：(可选)  布尔值</p>
 <p>如果节点退出，则自动重新启动节点。</p>
 <p>对于每个节点，设置复位属性为真的时候， respawn=”true”，这样当节点停止的时候，roslaunch会重新启动该节点。</p>
-<p>比如在某个节点因为软件崩溃或硬件故障以及其他原因导致过早退出系统的时候会起到作用。 </p>
+<p>比如在某个节点因为软件崩溃或硬件故障以及其他原因导致过早退出系统的时候会起到作用。</p>
 <ul>
-<li><p>respawn_delay (可选，默认为0)</p>
+<li>
+<p>respawn_delay (可选，默认为0)</p>
 <p>如果respawn为true，roslaunch尝试重新启动之前，检测到节点故障后等待respawn_delay秒</p>
 </li>
 </ul>
 </li>
-<li><p>required：(可选) 布尔值</p>
-<p>当一个required node终止后，所有其他的nodes都会终止，并退出。这种命令有时很有用。比如，当一个很重要的node失败后，整个会话都会被扔掉，那些加上了respawn属性的nodes也会停止。 </p>
+<li>
+<p>required：(可选) 布尔值</p>
+<p>当一个required node终止后，所有其他的nodes都会终止，并退出。这种命令有时很有用。比如，当一个很重要的node失败后，整个会话都会被扔掉，那些加上了respawn属性的nodes也会停止。</p>
 </li>
-<li><p>ns：(可选)节点的命名空间</p>
-<p> 在设置的命名空间中启动节点。前提是节点的代码在创建 发布者 和 订阅者 对象时使用了像 <code>turtle1/pose</code> 这样的相对名称 (而不是<code>/turtle1/pose</code> 这样的全局名称)。</p>
+<li>
+<p>ns：(可选)节点的命名空间</p>
+<p>在设置的命名空间中启动节点。前提是节点的代码在创建 发布者 和 订阅者 对象时使用了像 <code>turtle1/pose</code> 这样的相对名称 (而不是<code>/turtle1/pose</code> 这样的全局名称)。</p>
 <p>同样，启动文件中的节点名称是相对名称。</p>
 </li>
-<li><p>args：(可选)</p>
-<p> args =“arg1 arg2 …… argn”。传递参数到节点。 </p>
+<li>
+<p>args：(可选)</p>
+<p>args =“arg1 arg2 …… argn”。传递参数到节点。</p>
 </li>
-<li><p>machine：(可选)</p>
-<p>在指定机器上启动节点。 </p>
+<li>
+<p>machine：(可选)</p>
+<p>在指定机器上启动节点。</p>
 </li>
-<li><p>clear_params ：(可选)</p>
-<p> 在启动前删除节点的私有命名空间中的所有参数。 </p>
+<li>
+<p>clear_params ：(可选)</p>
+<p>在启动前删除节点的私有命名空间中的所有参数。</p>
 </li>
-<li><p>launch-prefix：(可选)</p>
-<p> 用于预先添加到节点的启动参数的命令/参数。</p>
+<li>
+<p>launch-prefix：(可选)</p>
+<p>用于预先添加到节点的启动参数的命令/参数。</p>
 </li>
 </ul>
 </li>
 </ul>
 <p>可以在<code>&lt;node&gt;</code>标记中使用以下XML 标签：</p>
 <ul>
-<li><p><code>&lt;env&gt;</code>——为节点设置环境变量。</p>
+<li>
+<p><code>&lt;env&gt;</code>——为节点设置环境变量。</p>
 </li>
-<li><p><code>&lt;group&gt;</code>——标签可以对节点分组，具有 ns 属性，可以让节点归属某个命名空间 </p>
+<li>
+<p><code>&lt;group&gt;</code>——标签可以对节点分组，具有 ns 属性，可以让节点归属某个命名空间</p>
 </li>
-<li><p><code>&lt;remap&gt;</code>——为此节点设置重新映射参数。</p>
+<li>
+<p><code>&lt;remap&gt;</code>——为此节点设置重新映射参数。</p>
 <p>重映射是基于替换的思想，每个重映射包含一个原始名称和一个新名称。每当节点使用重映射中的原始名称时，ROS客户端库就会将它默默地替换成其对应的新名称。</p>
 <p>例如，运行一个 turtlesim 的实例， 如果想要把海龟的姿态数据发布到话题/tim 而不是/turtle1/pose，就可以使用如下命令：</p>
 <p><code>rosrun turtlesim turtlesim_node turtle1/pose:=tim</code></p>
 <p>通过启动文件的方式，只需在启动文件内使用重映射（remap）元素即可：</p>
 <p><code>&lt;remap from=”turtle1/pose”to ”tim”/&gt;</code></p>
 </li>
-<li><p><code>&lt;rosparam&gt;</code>——将rosparam文件加载到此节点的 ~/ local命名空间中。</p>
+<li>
+<p><code>&lt;rosparam&gt;</code>——将rosparam文件加载到此节点的 ~/ local命名空间中。</p>
 </li>
-<li><p><code>&lt;param&gt;</code>——在节点的 ~/ local命名空间中设置一个参数。</p>
+<li>
+<p><code>&lt;param&gt;</code>——在节点的 ~/ local命名空间中设置一个参数。</p>
 </li>
 </ul>
-<h2 id="二、demo"><a href="#二、demo" class="headerlink" title="二、demo"></a>二、demo</h2><p>以上一篇小海龟tf案例为例，海龟2会一直跟随海龟1一直运动</p>
+<h2 id="二、demo">二、demo</h2>
+<p>以上一篇小海龟tf案例为例，海龟2会一直跟随海龟1一直运动</p>
 <p>具体案例和代码可参考：<a href="https://tuoyou-hao.github.io/2022/08/02/ros-9-tf-introduction/">tf坐标系简介</a></p>
 <blockquote>
 <p>参考第一部分的介绍，来看以下的demo</p>
@@ -601,7 +618,6 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>learn-tf<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>listener<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>listener<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
 
  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p><strong>python</strong></p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>launch</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>turtlesim<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>turtlesim_node<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sim<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
@@ -617,7 +633,6 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">pkg</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>learn-tf<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>listener.py<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>listener<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span> 
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>launch</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>编写完毕后，直接使用<code>roslaunch &lt;路径/launch文件名&gt;</code>即可直接运行，并无需启动ROS Master。</p>
 
                 
@@ -682,10 +697,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="../../../../tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
                             
                                 <a href="../../../../tags/ROS/">
                                     <span class="chip bg-color">ROS</span>
@@ -1174,10 +1185,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
                     <a href="../../../../tags/ROS/">
                         <span class="chip bg-color">ROS</span>
                     </a>
@@ -1489,7 +1496,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">67.5k</span>
+                        class="white-color">86.3k</span>
             
             
             

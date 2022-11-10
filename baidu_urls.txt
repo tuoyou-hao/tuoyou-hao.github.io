@@ -1,3 +1,10 @@
+http://tuoyou-hao.github.io/2022/11/10/DataBase-1/
+http://tuoyou-hao.github.io/2022/08/27/error-Fix-VMware-drag-and-drop-failure/
+http://tuoyou-hao.github.io/2022/08/18/cuda-2-3-Timing-kernel-function/
+http://tuoyou-hao.github.io/2022/08/15/cuda-2-2-Threads-and-kernel-functions/
+http://tuoyou-hao.github.io/2022/08/13/cuda-2-1-CUDA-model-and-memory-allocation/
+http://tuoyou-hao.github.io/2022/08/11/cuda-1-intro/
+http://tuoyou-hao.github.io/2022/08/09/ros-12-ros2-intro-install/
 http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/
 http://tuoyou-hao.github.io/2022/08/08/ros-11-namespace/
 http://tuoyou-hao.github.io/2022/08/08/ros-10-launch-flie/
@@ -11,10 +18,3 @@ http://tuoyou-hao.github.io/2022/07/18/ros-4-publisher-subscriber-code/
 http://tuoyou-hao.github.io/2022/07/17/ros-3-workspace-pkg/
 http://tuoyou-hao.github.io/2022/07/15/wsl_init_Win11/
 http://tuoyou-hao.github.io/2022/07/13/ros-2-Basic-command-tools/
-http://tuoyou-hao.github.io/2022/07/11/ros-1-Core-concepts/
-http://tuoyou-hao.github.io/2022/06/03/computer_organization3-1/
-http://tuoyou-hao.github.io/2022/05/26/ros-start/
-http://tuoyou-hao.github.io/2022/05/15/computer_organization3/
-http://tuoyou-hao.github.io/2022/05/12/error-linux-Unable-to-acquire-the-dpkg-frontend-lock/
-http://tuoyou-hao.github.io/2022/04/19/computer_organization1/
-http://tuoyou-hao.github.io/2022/04/19/operating_system2-2/

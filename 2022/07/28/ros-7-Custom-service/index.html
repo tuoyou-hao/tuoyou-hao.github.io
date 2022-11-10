@@ -445,10 +445,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
                             <a href="../../../../tags/ROS/">
                                 <span class="chip bg-color">ROS</span>
                             </a>
@@ -481,7 +477,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-28
+                    2022-08-21
                 </div>
                 
 
@@ -518,13 +514,15 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-7-服务数据自定义"><a href="#ROS-7-服务数据自定义" class="headerlink" title="ROS 7: 服务数据自定义"></a>ROS 7: 服务数据自定义</h1><blockquote>
-<p>​    从上一篇文章中，简单介绍了服务端以及客户端的代码实现。这里主要描述自己定义服务的数据类型，并且来使用它。我们仍然使用宝可梦的例子来写代码。</p>
-<p>​    在前面自定义topic中，topic会一直发数据。我们现在改善一下上次的宝可梦例子，让它只有在request的时候才会发数据</p>
-<p>​    在自定义消息的那一章节中，我们使用<code>*.msg</code>的文件来存储，在服务数据自定义中也是类似的，我们使用<code>*.srv</code>文件在自定义数据类型</p>
-<p>​    可以参考自定义消息的笔记: <a href="https://tuoyou-hao.github.io/2022/07/19/ros-5-Customize-message-topics/">ROS5</a></p>
+                <h1>ROS 7: 服务数据自定义</h1>
+<blockquote>
+<p>​	从上一篇文章中，简单介绍了服务端以及客户端的代码实现。这里主要描述自己定义服务的数据类型，并且来使用它。我们仍然使用宝可梦的例子来写代码。</p>
+<p>​	在前面自定义topic中，topic会一直发数据。我们现在改善一下上次的宝可梦例子，让它只有在request的时候才会发数据</p>
+<p>​	在自定义消息的那一章节中，我们使用<code>*.msg</code>的文件来存储，在服务数据自定义中也是类似的，我们使用<code>*.srv</code>文件在自定义数据类型</p>
+<p>​	可以参考自定义消息的笔记: <a href="https://tuoyou-hao.github.io/2022/07/19/ros-5-Customize-message-topics/">ROS5</a></p>
 </blockquote>
-<h2 id="一、定义srv文件-编译头文件"><a href="#一、定义srv文件-编译头文件" class="headerlink" title="一、定义srv文件,编译头文件"></a>一、定义srv文件,编译头文件</h2><p><code>*.msg</code>文件与<code>*.srv</code>文件的区别在于，由于服务数据除了要定义request，还需要定义response。可以参考<a href="https://tuoyou-hao.github.io/2022/07/21/ros-6-client-server-code/">ROS6</a>.定义消息类型的时候，数据定义需要用<code>---</code>三横线区分开来。</p>
+<h2 id="一、定义srv文件-编译头文件">一、定义srv文件,编译头文件</h2>
+<p><code>*.msg</code>文件与<code>*.srv</code>文件的区别在于，由于服务数据除了要定义request，还需要定义response。可以参考<a href="https://tuoyou-hao.github.io/2022/07/21/ros-6-client-server-code/">ROS6</a>.定义消息类型的时候，数据定义需要用<code>---</code>三横线区分开来。</p>
 <p>在功能包里新建一个文件夹<code>srv</code>，touch一个<code>*.srv</code>文件，并输入定义的内容。</p>
 <p>这里在learn_server功能包下新建一个srv文件夹，把Pokemon.srv放在这个目录下</p>
 <pre class="line-numbers language-srv" data-language="srv"><code class="language-srv">string name
@@ -536,7 +534,6 @@ uint8 male    = 1
 uint8 female  = 2
 ---
 string result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>修改CMakeLists.txt，在第十行find_package处修改，主要是最后一行加上<code>message_generation</code>这个功能包依赖</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
@@ -546,11 +543,9 @@ string result<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
   turtlesim
   message_generation
 )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后在CMakeLists.txt再加上以下内容，让编译器知道要根据哪个srv文件产生头文件</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_service_files(FILES Pokemon.srv)
 generate_messages(DEPENDENCIES std_msgs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>然后在CMakeLists.txt加上以下内容，添加编译依赖</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">catkin_package(
 #  INCLUDE_DIRS include
@@ -558,25 +553,28 @@ generate_messages(DEPENDENCIES std_msgs)<span aria-hidden="true" class="line-num
    CATKIN_DEPENDS geometry_msgs roscp rospy std_msgs turtlesim message_runtime
 #  DEPENDS system_lib
 )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>最后再package.xml文件添加以下依赖描述：</p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build_depend</span><span class="token punctuation">&gt;</span></span>message_generation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build_depend</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>exec_depend</span><span class="token punctuation">&gt;</span></span>message_runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>exec_depend</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>在工作空间根目录下，使用<code>catkin_make</code>编译头文件</p>
 <p>编译完成之后，<strong>在工作空间的devel/include/learn_server目录下</strong>，可以看到三个编译完成的头文件：</p>
 <ul>
-<li><p>Pokemon.h：会包含以下两个头文件，加载这一个就足矣。</p>
+<li>
+<p>Pokemon.h：会包含以下两个头文件，加载这一个就足矣。</p>
 </li>
-<li><p>PokemonRequest.h</p>
+<li>
+<p>PokemonRequest.h</p>
 </li>
-<li><p>PokemonResponse.h</p>
+<li>
+<p>PokemonResponse.h</p>
 </li>
 </ul>
-<h2 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h2><h3 id="c-实现"><a href="#c-实现" class="headerlink" title="c++实现"></a>c++实现</h3><h4 id="1、服务端实现"><a href="#1、服务端实现" class="headerlink" title="1、服务端实现"></a>1、服务端实现</h4><p>导入头文件</p>
+<h2 id="二、代码实现">二、代码实现</h2>
+<h3 id="c-实现">c++实现</h3>
+<h4 id="1、服务端实现">1、服务端实现</h4>
+<p>导入头文件</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include "learn_server/Pokemon.h"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>写主函数</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc, char **argv)
 {
@@ -593,7 +591,6 @@ generate_messages(DEPENDENCIES std_msgs)<span aria-hidden="true" class="line-num
 
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后就是写好回调函数</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// service回调函数，输入参数req，输出参数res
 bool Callback(learn_server::Pokemon::Request &amp;req,learn_server::Pokemon::Response &amp;res)
@@ -606,8 +603,8 @@ bool Callback(learn_server::Pokemon::Request &amp;req,learn_server::Pokemon::Res
 
     return true;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="2、客户端实现"><a href="#2、客户端实现" class="headerlink" title="2、客户端实现"></a>2、客户端实现</h4><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
+<h4 id="2、客户端实现">2、客户端实现</h4>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include "learn_server/Pokemon.h"
 
 int main(int argc,char **argv){
@@ -634,8 +631,8 @@ int main(int argc,char **argv){
 
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="3、编译运行"><a href="#3、编译运行" class="headerlink" title="3、编译运行"></a>3、编译运行</h4><p>在CMakeLists中增加以下内容，告知编译器相关编译规则：</p>
+<h4 id="3、编译运行">3、编译运行</h4>
+<p>在CMakeLists中增加以下内容，告知编译器相关编译规则：</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(ser_pokemon src/ser_pokemon.cpp)
 target_link_libraries(ser_pokemon ${catkin_LIBRARIES})
 add_dependencies(ser_pokemon ${PROJECT_NAME}_gencpp)
@@ -643,10 +640,11 @@ add_dependencies(ser_pokemon ${PROJECT_NAME}_gencpp)
 add_executable(cli_pokemon src/cli_pokemon.cpp)
 target_link_libraries(cli_pokemon ${catkin_LIBRARIES})
 add_dependencies(cli_pokemon ${PROJECT_NAME}_gencpp)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后在工作空间使用<code>catkin_make</code>编译即可运行</p>
 <p>在运行代码之前记得<strong>先在待运行的终端</strong>执行<code>source devel/setup.bash</code>指令，修改环境变量，rosrun才能读到功能包下的可执行文件。</p>
-<h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><h4 id="1、服务端实现-1"><a href="#1、服务端实现-1" class="headerlink" title="1、服务端实现"></a>1、服务端实现</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
+<h3 id="python实现">python实现</h3>
+<h4 id="1、服务端实现-2">1、服务端实现</h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
 import rospy
 from learn_server.srv import Pokemon,PokemonResponse
 
@@ -666,8 +664,8 @@ def pokemon_server():
 
 if __name__ == "__main__":
     pokemon_server()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="2、客户端实现-1"><a href="#2、客户端实现-1" class="headerlink" title="2、客户端实现"></a>2、客户端实现</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
+<h4 id="2、客户端实现-2">2、客户端实现</h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
 import sys
 import rospy
 from learn_server.srv import Pokemon, PokemonRequest
@@ -688,7 +686,6 @@ def pokemon_client():
 
 if __name__ == "__main__":
     print "Show person result : %s" %(pokemon_client())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 
                 
             </div>
@@ -752,10 +749,6 @@ if __name__ == "__main__":
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="../../../../tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
                             
                                 <a href="../../../../tags/ROS/">
                                     <span class="chip bg-color">ROS</span>
@@ -1559,7 +1552,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">67.5k</span>
+                        class="white-color">86.3k</span>
             
             
             

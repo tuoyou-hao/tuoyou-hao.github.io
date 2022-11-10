@@ -445,10 +445,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
                             <a href="../../../../tags/ROS/">
                                 <span class="chip bg-color">ROS</span>
                             </a>
@@ -481,14 +477,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-28
+                    2022-08-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    775
+                    781
                 </div>
                 
 
@@ -518,15 +514,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-5-自定义消息话题"><a href="#ROS-5-自定义消息话题" class="headerlink" title="ROS 5: 自定义消息话题"></a>ROS 5: 自定义消息话题</h1><p>实现目标：完成宝可梦信息的话题传输</p>
+                <h1>ROS 5: 自定义消息话题</h1>
+<p>实现目标：完成宝可梦信息的话题传输</p>
 <p>自定义话题的流程：</p>
 <pre class="mermaid">graph TB
 a(定义msg文件)
 a --&gt;b(package.xml中添加依赖)
 b --&gt;c(CMakeLists.txt添加编译选项)
 c --&gt;d(编译生成相关文件)</pre>
-
-<h2 id="一、定义消息"><a href="#一、定义消息" class="headerlink" title="一、定义消息"></a>一、定义消息</h2><p>先定义消息类型，ros使用<code>*.msg</code>格式存储消息。</p>
+<h2 id="一、定义消息">一、定义消息</h2>
+<p>先定义消息类型，ros使用<code>*.msg</code>格式存储消息。</p>
 <p>msg文件不是编程语言，所以在编译的时候，会根据不同的编程语言动态扩展层不同的数据类型。</p>
 <pre class="line-numbers language-msg" data-language="msg"><code class="language-msg">string name		#名字
 string type		#属性
@@ -535,12 +532,12 @@ uint8  gender	#性别
 uint8 unknown = 0
 uint8 male    = 1
 uint8 female  = 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="二、修改package-xml"><a href="#二、修改package-xml" class="headerlink" title="二、修改package.xml"></a>二、修改package.xml</h2><p>在功能包的package.xml里，增加两句话，为其增加依赖包。包名如下：</p>
+<h2 id="二、修改package-xml">二、修改package.xml</h2>
+<p>在功能包的package.xml里，增加两句话，为其增加依赖包。包名如下：</p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build_depend</span><span class="token punctuation">&gt;</span></span>message_generation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build_depend</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>exec_depend</span><span class="token punctuation">&gt;</span></span>message_runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>exec_depend</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="三、调整CMakeLists-txt"><a href="#三、调整CMakeLists-txt" class="headerlink" title="三、调整CMakeLists.txt"></a>三、调整CMakeLists.txt</h2><p>在CMakeLists.txt中<strong>补充</strong>以下内容</p>
+<h2 id="三、调整CMakeLists-txt">三、调整CMakeLists.txt</h2>
+<p>在CMakeLists.txt中<strong>补充</strong>以下内容</p>
 <ul>
 <li>1、在第十行find_package的最后补充上<code>message_generation</code>.</li>
 </ul>
@@ -552,9 +549,10 @@ uint8 female  = 2<span aria-hidden="true" class="line-numbers-rows"><span></span
   turtlesim
   message_generation
 )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li>2、声明ROS消息。在<code>Declare ROS dynamic reconfigure parameters</code>上方，有关于msg编译的指导。<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">## 在“msg”文件夹中生成消息
+<li>2、声明ROS消息。在<code>Declare ROS dynamic reconfigure parameters</code>上方，有关于msg编译的指导。</li>
+</ul>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">## 在“msg”文件夹中生成消息
 # add_message_files(
 #   FILES
 #   Message1.msg
@@ -579,8 +577,7 @@ uint8 female  = 2<span aria-hidden="true" class="line-numbers-rows"><span></span
 # generate_messages(
 #   DEPENDENCIES
 #   geometry_msgs#   std_msgs
-# )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
+# )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们只需写入：</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_message_files(
   FILES
@@ -595,7 +592,6 @@ generate_messages(
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
 ################################################<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>3、在catkin_package增加运行依赖</li>
 </ul>
@@ -606,9 +602,11 @@ generate_messages(
 catkin_package(
   CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs turtlesim message_runtime
   )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>完成上述修改后，<strong>在工作空间</strong>使用<code>catkin_make</code>编译，然后在<strong>工作空间的devel中</strong>就可以<strong>找到这个功能包的文件夹</strong>，里面就含有一个<code>Pokemon.h</code>头文件。</p>
-<h2 id="四，编写代码"><a href="#四，编写代码" class="headerlink" title="四，编写代码"></a>四，编写代码</h2><h3 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h3><h4 id="publisher"><a href="#publisher" class="headerlink" title="publisher"></a>publisher</h4><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
+<h2 id="四，编写代码">四，编写代码</h2>
+<h3 id="c">c++</h3>
+<h4 id="publisher">publisher</h4>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include "learn_topic/Pokemon.h"
 
 int main(int argc,char **argv){
@@ -631,8 +629,8 @@ int main(int argc,char **argv){
     }
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="subscriber"><a href="#subscriber" class="headerlink" title="subscriber"></a>subscriber</h4><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
+<h4 id="subscriber">subscriber</h4>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include "learn_topic/Pokemon.h"
 
 void pokemonInfoCallback(const learn_topic::Pokemon::ConstPtr&amp; msg)
@@ -648,16 +646,17 @@ int main(int argc,char **argv){
     ros::spin();
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="cmake"><a href="#cmake" class="headerlink" title="cmake"></a>cmake</h4><pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(pub_pokemon src/pub_pokemon.cpp)
+<h4 id="cmake">cmake</h4>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(pub_pokemon src/pub_pokemon.cpp)
 target_link_libraries(pub_pokemon ${catkin_LIBRARIES})
 add_dependencies(pub_pokemon ${PROJECT_NAME}_generate_messages_cpp)
 
 add_executable(sub_pokemon src/sub_pokemon.cpp)
 target_link_libraries(sub_pokemon ${catkin_LIBRARIES})
 add_dependencies(sub_pokemon ${PROJECT_NAME}_generate_messages_cpp)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><h4 id="publisher-1"><a href="#publisher-1" class="headerlink" title="publisher"></a>publisher</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">import rospy
+<h3 id="python">python</h3>
+<h4 id="publisher-2">publisher</h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import rospy
 from learn_topic.msg import Pokemon
 def pub_pokemon():
     rospy.init_node('py_pokemon_pub_topic', anonymous=True)
@@ -682,8 +681,8 @@ if __name__ == '__main__':
         pub_pokemon()
     except rospy.ROSInterruptException:
         pass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="subscriber-1"><a href="#subscriber-1" class="headerlink" title="subscriber"></a>subscriber</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">import rospy
+<h4 id="subscriber-2">subscriber</h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import rospy
 from learn_topic.msg import Pokemon
 
 def pokemonInfoCallback(msg):
@@ -697,9 +696,6 @@ def sub_pokemon():
 
 if __name__ == '__main__':
     sub_pokemon()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
 <p>补充：ROS Master是负责给节点建立连接。如果多个节点链接完毕后，即使ROS Master断开也不影响节点之间的通讯，就是无法建立新的链接而已。</p>
 
                 
@@ -764,10 +760,6 @@ if __name__ == '__main__':
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="../../../../tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
                             
                                 <a href="../../../../tags/ROS/">
                                     <span class="chip bg-color">ROS</span>
@@ -1571,7 +1563,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">67.5k</span>
+                        class="white-color">86.3k</span>
             
             
             

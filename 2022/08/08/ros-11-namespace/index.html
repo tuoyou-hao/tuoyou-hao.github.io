@@ -445,10 +445,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
                             <a href="../../../../tags/ROS/">
                                 <span class="chip bg-color">ROS</span>
                             </a>
@@ -481,14 +477,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-08
+                    2022-08-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    905
+                    906
                 </div>
                 
 
@@ -518,10 +514,11 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ROS-十一-命名空间"><a href="#ROS-十一-命名空间" class="headerlink" title="ROS 十一: 命名空间"></a>ROS 十一: 命名空间</h1><p>如果你熟悉c++代码，一定对这句话很熟悉</p>
+                <h1>ROS 十一: 命名空间</h1>
+<p>如果你熟悉c++代码，一定对这句话很熟悉</p>
 <p><code>using namespace std;</code></p>
 <p>这一句话表示的是，使用std这个命名空间，此时就可以直接使用<code>cout</code>，而不用完整写上<code>std::cout</code>。</p>
-<p> 在ROS中，命名空间的概念是相似的，同样也是为了区分名称，这个名称包括<u>节点名称、话题名称、参数名称</u>等等</p>
+<p>在ROS中，命名空间的概念是相似的，同样也是为了区分名称，这个名称包括<u>节点名称、话题名称、参数名称</u>等等</p>
 <p>比如查询topic列表时：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ rostopic list
 /rosout
@@ -534,48 +531,52 @@
 /turtle2/cmd_vel
 /turtle2/color_sensor
 /turtle2/pose<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到同时有两个叫pose的topic，但是因为在pose前面添加了一层命名空间，使其避免了冲突，这样就可以很方便地使用同一份代码在多个节点上运行了，实现的节点的复用。 </p>
-<h2 id="1、计算图源"><a href="#1、计算图源" class="headerlink" title="1、计算图源"></a>1、计算图源</h2><p>根据前面的学习，在ROS系统中这些节点、话题、服务和参数等概念，在ROS系统统称为计算图源。 </p>
+<p>可以看到同时有两个叫pose的topic，但是因为在pose前面添加了一层命名空间，使其避免了冲突，这样就可以很方便地使用同一份代码在多个节点上运行了，实现的节点的复用。</p>
+<h2 id="1、计算图源">1、计算图源</h2>
+<p>根据前面的学习，在ROS系统中这些节点、话题、服务和参数等概念，在ROS系统统称为计算图源。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "pokemon_server"); 
 ros::NodeHandle ser_pokemon_node; 
 Callback ros::ServiceServer pokemon_server = ser_pokemon_node.advertiseService("/pokemon_show", Callback);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>参考上面的代码，其中第三行的<code>/pokemon_show</code>就是一种命名空间名称的方式 </p>
-<h2 id="2、计算图源名称的命名规则"><a href="#2、计算图源名称的命名规则" class="headerlink" title="2、计算图源名称的命名规则"></a>2、计算图源名称的命名规则</h2><p>在ROS系统中无论是节点还是话题都有自己的名称，如C++语言中的标识符一样，在ROS中命名也有自己的规则：<br>1）首字符必须是字母（A-Z|a-z）、波浪线（~）或者左斜杆（/）<br>2）后续字符可以是字母和数字、下划线或者左斜杠 </p>
-<h2 id="3、计算图源名称的分类"><a href="#3、计算图源名称的分类" class="headerlink" title="3、计算图源名称的分类"></a>3、计算图源名称的分类</h2><h3 id="1）全局名称：-x2F-global-x2F-name：即在任何地方（包括代码、命令行工具、图形界面工具等的任何地方）都可以使用"><a href="#1）全局名称：-x2F-global-x2F-name：即在任何地方（包括代码、命令行工具、图形界面工具等的任何地方）都可以使用" class="headerlink" title="1）全局名称：/global/name：即在任何地方（包括代码、命令行工具、图形界面工具等的任何地方）都可以使用"></a>1）全局名称：/global/name：即在任何地方（包括代码、命令行工具、图形界面工具等的任何地方）都可以使用</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
+<p>参考上面的代码，其中第三行的<code>/pokemon_show</code>就是一种命名空间名称的方式</p>
+<h2 id="2、计算图源名称的命名规则">2、计算图源名称的命名规则</h2>
+<p>在ROS系统中无论是节点还是话题都有自己的名称，如C++语言中的标识符一样，在ROS中命名也有自己的规则：<br>
+1）首字符必须是字母（A-Z|a-z）、波浪线（~）或者左斜杆（/）<br>
+2）后续字符可以是字母和数字、下划线或者左斜杠</p>
+<h2 id="3、计算图源名称的分类">3、计算图源名称的分类</h2>
+<h3 id="1）全局名称：-global-name：即在任何地方（包括代码、命令行工具、图形界面工具等的任何地方）都可以使用">1）全局名称：/global/name：即在任何地方（包括代码、命令行工具、图形界面工具等的任何地方）都可以使用</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
 ros::NodeHandle nh;
 ros::Publisher sub_pub = nh.advertise&lt;std_msgs::string&gt;("/A/chatterA",1000);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li>以“/”开头的名称是<strong>全局名称</strong>——它们被认为是完全解析的。 ros系统的根命名空间是”/“</li>
+<li>以“/”开头的名称是<strong>全局名称</strong>——它们被认为是完全解析的。 ros系统的根命名空间是"/"</li>
 </ul>
-<h3 id="2）相对名称：relative-x2F-name；"><a href="#2）相对名称：relative-x2F-name；" class="headerlink" title="2）相对名称：relative/name；"></a>2）相对名称：relative/name；</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
+<h3 id="2）相对名称：relative-name；">2）相对名称：relative/name；</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
 ros::NodeHandle nh;
 ros::Publisher sub_pub = nh.advertise&lt;std_msgs::string&gt;("A/chatterA",1000);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li><strong>相对名称</strong>则是在创建的时候没有左斜杠（/）的计算图源名称，ROS在解析相对名称的时候需要将其转化为全局名称，而转换的方式就是将其默认的命名空间的名称加在相对名称之前。</li>
-<li>确定默认命名空间有三种方式：<ul>
+<li>确定默认命名空间有三种方式：
+<ul>
 <li>1）通过命令参数设置：调用ros::init()的ROS的ROS程序会接收名为<code>_ns</code>命令行参数，赋值的方式为： <code>_ns:=name</code></li>
 <li>2）在launch文件中设置</li>
 <li>3） 使用环境变量设置</li>
 </ul>
 </li>
 </ul>
-<h3 id="3）私有名称：-private-x2F-name；"><a href="#3）私有名称：-private-x2F-name；" class="headerlink" title="3）私有名称：~private/name；"></a>3）私有名称：~private/name；</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
+<h3 id="3）私有名称：-private-name；">3）私有名称：~private/name；</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
 ros::NodeHandle nh("~");
 ros::Publisher sub_pub = nh.advertise&lt;std_msgs::string&gt;("chatterA",1000);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>以“~”开头的名称是<strong>私有名称</strong>。他们将节点的名称转换为命名空间。例如，命名空间<code>/wg</code> 中的<code>node1</code>具有私有命名空间<code>/wg/node1</code>。私有名称在<strong>通过参数服务器将参数传递给特定节点</strong>很有用。</li>
 <li>私有名称是一个节点的内部私有的资源名称，只会在节点内部使用。</li>
 <li>默认情况下，解析是相对于节点的命名空间完成的。例如，节点<code>/wg/node1</code>具有命名空间<code>/wg</code>，因此名称<code>node2</code>将解析为<code>/wg/node2</code>。</li>
 </ul>
-<h3 id="4）基础名称：base"><a href="#4）基础名称：base" class="headerlink" title="4）基础名称：base"></a>4）基础名称：base</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
+<h3 id="4）基础名称：base">4）基础名称：base</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::init(argc, argv, "publish_node_A");
 ros::NodeHandle nh;
 ros::Publisher sub_pub = nh.advertise&lt;std_msgs::string&gt;("chatterA",1000);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>没有命名空间限定符的名称是<strong>基本名称</strong>。基本名称实际上是相对名称的子类，并且具有相同的解析规则。基本名称最常用于初始化节点名称。</li>
 </ul>
@@ -642,10 +643,6 @@ ros::Publisher sub_pub = nh.advertise&lt;std_msgs::string&gt;("chatterA",1000);<
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="../../../../tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
                             
                                 <a href="../../../../tags/ROS/">
                                     <span class="chip bg-color">ROS</span>
@@ -1183,10 +1180,6 @@ ros::Publisher sub_pub = nh.advertise&lt;std_msgs::string&gt;("chatterA",1000);<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
                     <a href="../../../../tags/ROS/">
                         <span class="chip bg-color">ROS</span>
                     </a>
@@ -1445,7 +1438,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">67.5k</span>
+                        class="white-color">86.3k</span>
             
             
             
