@@ -445,10 +445,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
                             <a href="../../../../tags/ROS/">
                                 <span class="chip bg-color">ROS</span>
                             </a>
@@ -481,7 +477,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-28
+                    2022-12-03
                 </div>
                 
 
@@ -518,7 +514,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-6：服务端客户端实现"><a href="#ROS-6：服务端客户端实现" class="headerlink" title="ROS 6：服务端客户端实现"></a>ROS 6：服务端客户端实现</h1><h2 id="一、客户端实现"><a href="#一、客户端实现" class="headerlink" title="一、客户端实现"></a>一、客户端实现</h2><p>实现目标：使用客户端发送一个请求，请求turtlesim的spawn服务来新建一直小海龟，并给定其初始化的坐标位置。发送requext的代码是阻塞式的，需要等到response才会继续执行后续的语句。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>ROS 6：服务端客户端实现</h1>
+<h2 id="一、客户端实现">一、客户端实现</h2>
+<p>实现目标：使用客户端发送一个请求，请求turtlesim的spawn服务来新建一直小海龟，并给定其初始化的坐标位置。发送requext的代码是阻塞式的，需要等到response才会继续执行后续的语句。</p>
 <p><img src="https://s2.loli.net/2022/07/20/3PT6pkbJuSFADVx.png" alt="服务模型"></p>
 <p>创建一个客户端的流程大体为：</p>
 <pre class="mermaid">graph TB
@@ -526,13 +524,13 @@ a(初始化节点)
 a --&gt;b(创建client实例)
 b --&gt;c(发布服务请求数据)
 c --&gt;d(等待server处理之后的应答结果)</pre>
-
 <p>首先，按照惯例，我们创建一个功能包：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~/ros_ws/src
 catkin_create_pkg learn_server roscp rospy std_msgs geometry_msgs turtlesim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>在功能包的src底下创建第一个cpp文件</p>
-<h3 id="c-实现"><a href="#c-实现" class="headerlink" title="c++实现"></a>c++实现</h3><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>一、导入头文件，初始化节点并创建句柄。</p>
+<h3 id="c-实现">c++实现</h3>
+<h4 id="代码实现">代码实现</h4>
+<p>一、导入头文件，初始化节点并创建句柄。</p>
 <p>由于本次需要使用turtlesim的spawn服务，所以需要导入对应的头文件：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include &lt;turtlesim/Spawn.h&gt;
@@ -541,21 +539,18 @@ int main(int argc, char** argv)
 {
 	ros::init(argc, argv, "turtle_spawn");
 	ros::NodeHandle node;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>二、然后就是需要客户端查询是否存在spawn服务，如果没有就会阻塞在这一句代码一直等待。</p>
 <p>如果spawn服务出现了，就创建一个客户端，用来给spawn服务发送请求的，请求的数据类型是<code>turtlesim::spawn</code>。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 发现/spawn服务后，创建一个服务客户端，连接名为/spawn的service
 ros::service::waitForService("/spawn");
 ros::ServiceClient add_turtle = node.serviceClient&lt;turtlesim::Spawn&gt;("/spawn");
 //尖括号存放数据类型，后面跟上请求服务的名字<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>三、封装好请求数据。/spawn里需要存储以下类型的数据，初始化好预设值。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 初始化turtlesim::Spawn的请求数据
 turtlesim::Spawn srv;
 srv.request.x = 2.0;
 srv.request.y = 2.0;
 srv.request.name = "turtle2";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>四、发送请求数据。使用call方法，将封装好的请求数据发送出去。</p>
 <p>call也是阻塞性的函数，在数据发布出去之后，会一直等待服务器的反馈数据。获取到服务器的反馈之后1，才会去执行下一句代码。</p>
 <p>由于在turtlesim成功调用服务之后，会返回这只turtle的名字，所以我们需要获取返回的turtle名。（可见<a href="https://tuoyou-hao.github.io/2022/07/13/ros-2-Basic-command-tools/#1%E3%80%81rosservice-call-%E5%8F%91%E5%B8%83%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82">ROS二：基本命令行工具</a>）</p>
@@ -568,19 +563,18 @@ add_turtle.call(srv);
 ROS_INFO("Spwan turtle successfully [name:%s]", srv.response.name.c_str());
 
 return 0;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="配置编译文件"><a href="#配置编译文件" class="headerlink" title="配置编译文件"></a>配置编译文件</h4><p>在CMakeLists.txt输入以下文本，添家要编译的文件以及链接库。</p>
+<h4 id="配置编译文件">配置编译文件</h4>
+<p>在CMakeLists.txt输入以下文本，添家要编译的文件以及链接库。</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(turtle_client src/turtle_client.cpp)
 target_link_libraries(turtle_client ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[ INFO] [1658379402.461341999]: Call service to spwan turtle[x:2.000000, y:2.000000, theta:2.000000,name:turtle2]
+<h4 id="运行结果">运行结果</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[ INFO] [1658379402.461341999]: Call service to spwan turtle[x:2.000000, y:2.000000, theta:2.000000,name:turtle2]
 [ INFO] [1658379402.512673909]: Spwan turtle successfully [name:turtle2]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>可以在turtlesim_node界面看到新建海龟成功的日志信息</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[ INFO] [1658379402.512145247]: Spawning turtle [turtle2] at x=[2.000000], y=[2.000000], theta=[2.000000]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>以及在图形界面看到新生成的海龟。</p>
-<h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
+<h3 id="python实现">python实现</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
 import rospy
 import sys
 from turtlesim.srv import Spawn
@@ -604,9 +598,9 @@ def turtle_client():
 
 if __name__ == "__main__":
     print "Spwan turtle successfully [name:%s]" %(turtle_client())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="二、服务端实现"><a href="#二、服务端实现" class="headerlink" title="二、服务端实现"></a>二、服务端实现</h2><p>实现目标：给海龟发速度指令。服务端通过获取客户端的指令控制海龟的运动与否。</p>
-<p><img src="https://s2.loli.net/2022/07/21/cqzGZ3KCMitS5ax.png"></p>
+<h2 id="二、服务端实现">二、服务端实现</h2>
+<p>实现目标：给海龟发速度指令。服务端通过获取客户端的指令控制海龟的运动与否。</p>
+<p><img src="https://s2.loli.net/2022/07/21/cqzGZ3KCMitS5ax.png" alt=""></p>
 <p>服务端实现的大致流程为：</p>
 <pre class="mermaid">graph TB
 a(初始化节点)
@@ -614,26 +608,22 @@ a --&gt;b(创建server)
 b --&gt;c(循环等待服务请求)
 c --&gt;d(获取到请求 进入回调函数)
 d --&gt;e(在回调函数中完成服务功能 并反馈应答数据)</pre>
-
-
-
-<h3 id="c-实现-1"><a href="#c-实现-1" class="headerlink" title="c++实现"></a>c++实现</h3><p>我们如果想要知道Trigger里面包含什么类型，可以用<code>rossrv show</code>指令查看。</p>
+<h3 id="c-实现-2">c++实现</h3>
+<p>我们如果想要知道Trigger里面包含什么类型，可以用<code>rossrv show</code>指令查看。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rossrv show std_srvs/Trigger 
 ---
 bool success
 string message<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>由于service包含有request和response两个部分，三横线 “—“以上是request的结构内容，以下是response的内容。</p>
+<p>由于service包含有request和response两个部分，三横线 "—"以上是request的结构内容，以下是response的内容。</p>
 <p>可以看到Trigger的response结构里包含有一个布尔的flag，以及字符串类型的消息。</p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><p>导入头文件</p>
+<h4 id="代码实现-2">代码实现</h4>
+<p>导入头文件</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include &lt;geometry_msgs/Twist.h&gt;    //topic数据类型
 #include &lt;std_srvs/Trigger.h&gt;       //service数据类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>声明publisher等一些全局变量：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::Publisher turtle_pub;          //创建全局的publisher
 bool pub_turtle_sport_flag = false; //turtle是否运动的flag标记<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>主函数</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc,char **argv){
     ros::init(argc,argv,"turtle_server");
@@ -648,7 +638,6 @@ bool pub_turtle_sport_flag = false; //turtle是否运动的flag标记<span aria-
     // 设置循环的频率
     ROS_INFO("Waiting to receive command");
     ros::Rate loop_rate(10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后写循环，判断标志符并根据标志发布指令</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">while(ros::ok){
 
@@ -667,7 +656,6 @@ bool pub_turtle_sport_flag = false; //turtle是否运动的flag标记<span aria-
     //按照循环频率延时
     loop_rate.sleep();
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主函数写完，写回调函数。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// service回调函数，输入参数req，输出参数res
 bool CommandCallBack(std_srvs::Trigger::Request &amp;req, std_srvs::Trigger::Response &amp;res)
@@ -683,15 +671,15 @@ bool CommandCallBack(std_srvs::Trigger::Request &amp;req, std_srvs::Trigger::Res
 
     return true;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="配置编译文件-1"><a href="#配置编译文件-1" class="headerlink" title="配置编译文件"></a>配置编译文件</h4><pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(turtle_server src/turtle_server.cpp)
+<h4 id="配置编译文件-2">配置编译文件</h4>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(turtle_server src/turtle_server.cpp)
 target_link_libraries(turtle_server ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h4 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h4><p>首先，按照惯例，运行<code>roscore</code>，<code>rosrun turtlesim turtlesim_node</code>，并使用<code>rosrun &lt;功能包名&gt; &lt;可执行文件名&gt;</code>运行自己的代码，然后新建终端，运行以下指令，给自己的service发送空消息</p>
+<h4 id="运行结果-2">运行结果</h4>
+<p>首先，按照惯例，运行<code>roscore</code>，<code>rosrun turtlesim turtlesim_node</code>，并使用<code>rosrun &lt;功能包名&gt; &lt;可执行文件名&gt;</code>运行自己的代码，然后新建终端，运行以下指令，给自己的service发送空消息</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosservice call /turtle_command "{}"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>每运行一次上述指令，布尔值的flag：<code>pub_turtle_sport_flag</code>会自己取反，控制小乌龟是否按照topic运行。</p>
-<h3 id="python实现-1"><a href="#python实现-1" class="headerlink" title="python实现"></a>python实现</h3><p>由于python中并没有上述c++代码中<code>ros::spinOnce();</code>的机制，只有不断循环的<code>rospy.spin()</code>，所以在开发商存在一定的区别。</p>
+<h3 id="python实现-2">python实现</h3>
+<p>由于python中并没有上述c++代码中<code>ros::spinOnce();</code>的机制，只有不断循环的<code>rospy.spin()</code>，所以在开发商存在一定的区别。</p>
 <p>所以我们需要使用<strong>多线程</strong>机制进行开发。</p>
 <p>载入头文件，并初始化全局变量：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
@@ -702,11 +690,9 @@ from std_srvs.srv import Trigger, TriggerResponse
 
 pubCommand = False;
 turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>从主函数开始介绍</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">if __name__ == "__main__":
     turtle_server()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>首先是建立第一个函数，初始化节点以及创建server。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def turtle_server():
     rospy.init_node('turtle_server_node')
@@ -721,7 +707,6 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
     # 由于我们不需要传参，后面的括号无需填写
     thread.start_new_thread(turtle_thread, ())
     rospy.spin()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>众所周知，线程所在的起始位置是在某个函数的开头，所以为其封装个函数</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def turtle_thread():
     while True:
@@ -731,7 +716,6 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
             vel_msg.angular.z = 0.5
             turtle_vel_pub.publish(vel_msg)
         time.sleep(0.1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>当全局变量flag获取到反馈的时候，就需要调用回调函数。所以我们为其封装个回调函数</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def CommandCallback(req):
     global pub_Command
@@ -742,7 +726,6 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
 
     # 反馈数据
     return TriggerResponse(True, "Change turtle command state!")<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>虽然实现的效果和c++是一样的，但是注意实现方式是很有区别的，一个是封装了<code>ros::spinOnce();</code>，一个是使用多线程</p>
 
                 
@@ -807,10 +790,6 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="../../../../tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
                             
                                 <a href="../../../../tags/ROS/">
                                     <span class="chip bg-color">ROS</span>
