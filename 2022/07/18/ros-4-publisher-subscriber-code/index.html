@@ -445,10 +445,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
-                            </a>
-                        
                             <a href="../../../../tags/ROS/">
                                 <span class="chip bg-color">ROS</span>
                             </a>
@@ -481,7 +477,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-18
+                    2022-12-03
                 </div>
                 
 
@@ -518,7 +514,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-四：发布者与订阅者的实现"><a href="#ROS-四：发布者与订阅者的实现" class="headerlink" title="ROS 四：发布者与订阅者的实现"></a>ROS 四：发布者与订阅者的实现</h1><p><img src="https://s2.loli.net/2022/07/17/ibDTIw9KBfJUx84.png" alt="话题模型（发布/订阅）"></p>
+                <h1>ROS 四：发布者与订阅者的实现</h1>
+<p><img src="https://s2.loli.net/2022/07/17/ibDTIw9KBfJUx84.png" alt="话题模型（发布/订阅）"></p>
 <blockquote>
 <p>程序目标：</p>
 <p>实现一个Publisher，发布速度指令的msg，控制turtlesim运动。</p>
@@ -527,31 +524,29 @@
 <p>功能包相关请参考：<a href="https://tuoyou-hao.github.io/2022/07/17/ros-3-workspace-pkg/">https://tuoyou-hao.github.io/2022/07/17/ros-3-workspace-pkg/</a></p>
 <p>进入工作空间的src路径</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">catkin_create_pkg learn_topic rospy roscpp std_msgs geometry_msgs turtlesim<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="一、如何创建一个publisher"><a href="#一、如何创建一个publisher" class="headerlink" title="一、如何创建一个publisher"></a>一、如何创建一个publisher</h2><p>建立一个publisher的基本流程</p>
+<h2 id="一、如何创建一个publisher">一、如何创建一个publisher</h2>
+<p>建立一个publisher的基本流程</p>
 <pre class="mermaid">graph TB
 a(初始化节点)
 a --&gt;b(注册节点)
 b --&gt;c(创建消息)
 c --&gt;d(按一定频率发布消息)</pre>
-
-<h2 id="c-代码实现"><a href="#c-代码实现" class="headerlink" title="c++代码实现"></a>c++代码实现</h2><h3 id="一、编写代码"><a href="#一、编写代码" class="headerlink" title="一、编写代码"></a>一、编写代码</h3><p>先创建一个cpp文件<code>touch publisher.cpp</code></p>
+<h2 id="c-代码实现">c++代码实现</h2>
+<h3 id="一、编写代码">一、编写代码</h3>
+<p>先创建一个cpp文件<code>touch publisher.cpp</code></p>
 <p>我们将使用代码发布turtle1/cmd_vel话题，消息类型为geometry_msgs::Twist</p>
 <ol>
 <li>首先，导入头文件</li>
 </ol>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include &lt;geometry_msgs/Twist.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>然后编写我们的主函数：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc, char **argv){}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ol start="2">
 <li>主函数里，先初始化节点</li>
 </ol>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// ROS节点初始化,节点名字叫publisher，唯一的名字
 	ros::init(argc, argv, "publisher");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>argc, argv是主函数传入的参数</p>
 <p>publisher是节点的名称，注意不能重名</p>
 <ol start="3">
@@ -559,10 +554,10 @@ c --&gt;d(按一定频率发布消息)</pre>
 </ol>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 创建节点句柄,变量名为n
 	ros::NodeHandle n;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>节点句柄是用来管理ros相关的api资源的。比如创建发布者，或创建一系列api调用，都需要用ros的句柄来调用。</p>
 <ol start="4">
-<li><p>创建publisher来发布消息</p>
+<li>
+<p>创建publisher来发布消息</p>
 <p>向ROS Master注册节点信息，包括发布的话题名和话题的消息类型。</p>
 </li>
 </ol>
@@ -570,12 +565,13 @@ c --&gt;d(按一定频率发布消息)</pre>
 // 发布名为/turtle1/cmd_vel的topic
 // 消息类型为geometry_msgs::Twist，队列长度10
 ros::Publisher turtle_vel_pub = n.advertise&lt;geometry_msgs::Twist&gt;("/turtle1/cmd_vel", 10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>在n.advertise的尖括号里要放的是数据类型，后面跟随要发布的topic名以及消息队列长度。</p>
 <ul>
-<li><p>消息队列长度有一点要注意的是：如果发送频率太高，以太网或底层系统可能来不及快速响应，所以用一个队列，先把消息放在队列里，然后再对外发送数据。</p>
+<li>
+<p>消息队列长度有一点要注意的是：如果发送频率太高，以太网或底层系统可能来不及快速响应，所以用一个队列，先把消息放在队列里，然后再对外发送数据。</p>
 </li>
-<li><p>如果这里的队列爆满了，队列会把先进队的数据丢弃，队列会永远保存最晚进队列的数据。所以队列会出现掉帧、掉数据的情况。</p>
+<li>
+<p>如果这里的队列爆满了，队列会把先进队的数据丢弃，队列会永远保存最晚进队列的数据。所以队列会出现掉帧、掉数据的情况。</p>
 </li>
 </ul>
 <ol start="5">
@@ -583,9 +579,9 @@ ros::Publisher turtle_vel_pub = n.advertise&lt;geometry_msgs::Twist&gt;("/turtle
 </ol>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 设置循环的频率
 	ros::Rate loop_rate(10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <ol start="6">
-<li><p>循环发送数据</p>
+<li>
+<p>循环发送数据</p>
 <p>先初始化消息，然后让他按照一定频率发布消息。</p>
 </li>
 </ol>
@@ -604,8 +600,8 @@ while (ros::ok())
     // 按照循环频率延时
     loop_rate.sleep();
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="二、代码编译"><a href="#二、代码编译" class="headerlink" title="二、代码编译"></a>二、代码编译</h3><p>在功能包里的CMakeLists里增加两句代码：</p>
+<h3 id="二、代码编译">二、代码编译</h3>
+<p>在功能包里的CMakeLists里增加两句代码：</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">###########
 ## Build ##
 ###########
@@ -619,23 +615,20 @@ add_executable(publisher src/publisher.cpp)
 ##target_link_libraries(可执行文件 链接的库)
 ##这里我们链接catkin_LIBRARIES
 target_link_libraries(publisher ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>在终端输入以下指令进行编译：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~/ros_ws
 catkin_make
 source devel/setup.bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>运行代码测试效果：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">roscore
 rosrun turtlesim turtlesim_node
 rosrun learn_topic publisher<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <hr>
 <p>如果命令行报错显示找不到功能包：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[rospack] Error: package 'learn_topic' not found<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>记得检查<code>ROS_PACKAGE_PATH</code>环境变量，是否运行<code>source devel/setup.bash</code>。</p>
-<h2 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">#!/usr/bin/env python
+<h2 id="python代码实现">python代码实现</h2>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import rospy
 from geometry_msgs.msg import Twist
@@ -669,15 +662,15 @@ if __name__ == '__main__':
         publisher()
     except rospy.ROSInterruptException:
         pass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>编程思想和c++开发的一样。</p>
 <p>在运行roscore和turtlesim的前提下，直接用python指令运行代码即可</p>
-<h2 id="二、如何创建一个订阅者"><a href="#二、如何创建一个订阅者" class="headerlink" title="二、如何创建一个订阅者"></a>二、如何创建一个订阅者</h2><p><img src="https://s2.loli.net/2022/07/18/DHoyuQOtTjk2IPZ.png"></p>
+<h2 id="二、如何创建一个订阅者">二、如何创建一个订阅者</h2>
+<p><img src="https://s2.loli.net/2022/07/18/DHoyuQOtTjk2IPZ.png" alt=""></p>
 <p>开发目标：订阅turtlesim的pose信息</p>
-<h2 id="c-代码实现-1"><a href="#c-代码实现-1" class="headerlink" title="c++代码实现"></a>c++代码实现</h2><p>头文件</p>
+<h2 id="c-代码实现-2">c++代码实现</h2>
+<p>头文件</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include "turtlesim/Pose.h"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>回调函数</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 接收到订阅的消息后，会进入消息回调函数
 void poseCallback(const turtlesim::Pose::ConstPtr&amp; msg)
@@ -685,7 +678,6 @@ void poseCallback(const turtlesim::Pose::ConstPtr&amp; msg)
     // 将收到的消息打印出来
     ROS_INFO("Turtle pose: x:%0.6f, y:%0.6f", msg-&gt;x, msg-&gt;y);
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主函数</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc, char **argv)
 {
@@ -703,9 +695,9 @@ void poseCallback(const turtlesim::Pose::ConstPtr&amp; msg)
 
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>编写完毕后，和上述一样，进行编译，然后rosrun运行</p>
-<h2 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
+<h2 id="python实现">python实现</h2>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
 import rospy
 from turtlesim.msg import Pose
 
@@ -724,7 +716,6 @@ def subscriber():
 
 if __name__ == '__main__':
     subscriber()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>代码参考自：公众号古月居</p>
 
                 
@@ -789,10 +780,6 @@ if __name__ == '__main__':
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="../../../../tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
-                                </a>
                             
                                 <a href="../../../../tags/ROS/">
                                     <span class="chip bg-color">ROS</span>
