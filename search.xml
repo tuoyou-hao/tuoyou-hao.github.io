@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>Dpkg Error Code 1</title>
+      <link href="/2023/01/10/error-linux-sub-process-dpkg/"/>
+      <url>/2023/01/10/error-linux-sub-process-dpkg/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>Sub-process /usr/bin/dpkg returned an error code (1)解决办法</h1><p>安装一些用apt-get下载的程序的时候，我出现过以下问题：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Do you want to continue? [Y/n] Setting up sysstat (11.6.1-1ubuntu0.2) ...dpkg: error processing package sysstat (--configure): installed sysstat package post-installation script subprocess returned error exit status 10Errors were encountered while processing: sysstatE: Sub-process /usr/bin/dpkg returned an error code (1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>网上找到了靠谱的解决方法：</p><p>将info文件夹改名：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>新建一个info文件夹</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mkdir /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>安装修复</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get updatesudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>操作后，info文件夹下会有一些文件，移动一下：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>删掉这个新的info文件夹</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo rm -rf /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>恢复原有的info文件夹名称</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info.bk /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>到这里，问题已经可以解决了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 报错排查 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2022年度总结</title>
+      <link href="/2023/01/01/Newyear_Summary_2022/"/>
+      <url>/2023/01/01/Newyear_Summary_2022/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>2022 年度总结</h1><h2 id="博客篇">博客篇</h2><p>自3月这个博客建立以来，站点总字数达到了91.2k。其中写了两篇新手向的文章，完成了整个ROS1的入门系列，然后……其他系列……都只开了个头<span class="github-emoji"><span>😖</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f616.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p><p><img src="https://s2.loli.net/2022/12/03/EmtRe27DchAIrSa.png" alt="截止2022年发的文章统计"></p><p>并且，诸如计算机组成、操作系统等CS的文章，大概或许要很久都不更新了。首先这些是我本科期间的一些考试科目，大部分内容都很多最后都来不及写完，有的甚至类似SQL等课程因为疫情缘故，把考试变成了课程论文，所以我就更写不完了。（数据库的论文有两个大方向：数据库与知识图谱、数据库优化，诸位有什么想法么？）</p><p>但sql语句第三篇我还是写了4k多字的，等假期我有空了或许啊，会再补发上来，感觉不发有点太可惜了。但后续文章大概率也是不会再写了，除非我后续有时间有机会接触到openGauss，或许还会写一点。</p><hr><p>不过呢，在SLAM方向、CUDA系列我是会继续写的，陆陆续续地写，以及我想开几个新的专栏，大概包括机器学习、深度学习、数字图像处理、计算机视觉、自然语言处理几个方向，都会从入门学习级别开始，不过鉴于机器学习和数字图像处理都是我今年的课，（考虑到内卷的效率，）或许这两个栏目更新的会慢一丢丢丢丢丢丢…… 主要是搞好深度学习对我现阶段来说比较重要一些。</p><p>我会把学习过程中的疑问也好、难点也好、都尽我所能以最精炼的方式、最好搞懂的方式记录下来。不过他们的性质其实只是学习笔记，难免会有疏漏的地方，我也一定会把查到的相关专业链接写在博客里面，供参考。</p><p>这个时候我就在想，要是我的评论功能也能用就好了，可以一起讨论技术内容。可惜vercel服务在大陆由DNS污染的问题。这就意味着其他地区还是能用这个评论功能的，dddd，但被污染过的地区就不行，用不了评论功能。要嘛我就得租个服务器中转一下，要嘛就要等vercel像smms图床一样弄个在中国备案好的域名。我现阶段是不打算租服务器，因为服务器弄来弄去好麻烦，而且我也没时间、没打算专门弄这么个东西，主要是现阶段我研究的内容也不需要高度依赖我的服务器，等有刚需的时候再申请一个。所以，索性就先这样吧（摆烂），我隔三差五去看看有没有新的评论就好了。评论数据库啊什么的目前看来一切工作是正常的。</p><h2 id="规划篇">规划篇</h2><p>接下来，我会发布关于深度学习、SLAM方向的文章，对于2023年的期望，首先是我想沉下心来好好地、系统地学学那些我还没掌握的技术，练点真功夫。以及希望新的一年能够多多发一些高质量的博客，希望能够有实力去发一些顶级论文的介绍解说文章。</p><h2 id="题外话">题外话</h2><p>原本我还写了很多其他的总结，总结了2022的一些负能量以及一些成果收获。转念一想，该翻页的内容就该翻页啦，2022年大家是过的挺累的，但是咬咬牙也终于挺过来了。不管好的坏的，也无需过多沉浸在往事中。寒假我就给自己好好放个假，然后新的一年继续加油<span class="github-emoji"><span>🎉</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 闲聊 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 闲聊 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SQL 2：关系数据库</title>
       <link href="/2022/11/18/DataBase-2/"/>
       <url>/2022/11/18/DataBase-2/</url>
@@ -943,56 +993,6 @@
       <url>/2022/03/21/first/</url>
       
         <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="建站以来第一篇博客"><a href="#建站以来第一篇博客" class="headerlink" title="建站以来第一篇博客"></a>建站以来第一篇博客</h1><p>大家好，这里是拓佑豪的博客网站，也是我的第一篇博客。<br>这篇博客没什么营养，留个纪念，也是为了代码调试的时候，可以看看效果<br>就，在这里聊聊几句，简单立个flag。后续会在这个博客网站发布一些技术类文章</p><h1 id="Why？为什么会想起来写博客？"><a href="#Why？为什么会想起来写博客？" class="headerlink" title="Why？为什么会想起来写博客？"></a>Why？为什么会想起来写博客？</h1><p>几年前就有设计自己博客的想法。奈何当时我接触到这方面资讯太少，我就在<code>华为云博客</code>上发了几篇关于OpenCV和Atlas 200DK的文章。但发现对文章归类和修改等等方面我用着不是很习惯（主要也是因为我没坐下来好好整理资料写博客），遂停更了好长一段时间。直到前段时间对静态网站有了大致的了解，就计划从现在开始积累自己的博客，把文章分门别类整理好，来维护好这个博客网站。</p><h1 id="When？什么时候开始写的？"><a href="#When？什么时候开始写的？" class="headerlink" title="When？什么时候开始写的？"></a>When？什么时候开始写的？</h1><p>也没多久，2021年才开始。不过写博客这个计划我会持续坚持下去</p><h1 id="What？都写一些什么主题的博客？"><a href="#What？都写一些什么主题的博客？" class="headerlink" title="What？都写一些什么主题的博客？"></a>What？都写一些什么主题的博客？</h1><p>本博客主要整理和计算机相关的博客，内容会慢慢偏向于人工智能方面，细分下来各种类别的文章可能多多少少都会有点。</p><h1 id="Who？写出来的博客都是给谁看的？"><a href="#Who？写出来的博客都是给谁看的？" class="headerlink" title="Who？写出来的博客都是给谁看的？"></a>Who？写出来的博客都是给谁看的？</h1><p>我会从简单的技术内容开始写起，包括重新整理以前写过的OpenCV类博客，把一些我认为讲的不够清晰的内容再梳理一遍。主要内容还是面向人工智能领域。</p><h1 id="How-much？要花多少时间和金钱来运营维护？"><a href="#How-much？要花多少时间和金钱来运营维护？" class="headerlink" title="How much？要花多少时间和金钱来运营维护？"></a>How much？要花多少时间和金钱来运营维护？</h1><p>写博客其实还蛮花时间的，尤其是在任务量多起来的时候。金钱的话就没有开销了，托管在GitHub上，你看我是不是连个域名都没买(Ｔ▽Ｔ)。等博客有了一定的时间、积累一定量比较拿得出手的文章，或许那个时候我会买个域名。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 闲聊 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 闲聊 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Dpkg Error Code 1</title>
-      <link href="/2022/01/10/error-linux-sub-process-dpkg/"/>
-      <url>/2022/01/10/error-linux-sub-process-dpkg/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>Sub-process /usr/bin/dpkg returned an error code (1)解决办法</h1><p>安装一些用apt-get下载的程序的时候，我出现过以下问题：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Do you want to continue? [Y/n] Setting up sysstat (11.6.1-1ubuntu0.2) ...dpkg: error processing package sysstat (--configure): installed sysstat package post-installation script subprocess returned error exit status 10Errors were encountered while processing: sysstatE: Sub-process /usr/bin/dpkg returned an error code (1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>网上找到了靠谱的解决方法：</p><p>将info文件夹改名：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>新建一个info文件夹</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mkdir /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>安装修复</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get updatesudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>操作后，info文件夹下会有一些文件，移动一下：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>删掉这个新的info文件夹</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo rm -rf /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>恢复原有的info文件夹名称</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info.bk /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>到这里，问题已经可以解决了</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 报错排查 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>2022年终总结</title>
-      <link href="/2022/01/01/Newyear_Summary_2022/"/>
-      <url>/2022/01/01/Newyear_Summary_2022/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>2022 年度总结</h1><h2 id="博客篇">博客篇</h2><p>自3月这个博客建立以来，站点总字数达到了91.2k。其中写了两篇新手向的文章，完成了整个ROS1的入门系列，然后……其他系列……都只开了个头<span class="github-emoji"><span>😖</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f616.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p><p><img src="https://s2.loli.net/2022/12/03/EmtRe27DchAIrSa.png" alt="截止2022年发的文章统计"></p><p>并且，诸如计算机组成、操作系统等CS的文章，大概或许要很久都不更新了。首先这些是我本科期间的一些考试科目，大部分内容都很多最后都来不及写完，有的甚至类似SQL等课程因为疫情缘故，把考试变成了课程论文，所以我就更写不完了。（数据库的论文有两个大方向：数据库与知识图谱、数据库优化，诸位有什么想法么？）</p><p>但sql语句第三篇我还是写了4k多字的，等假期我有空了或许啊，会再补发上来，感觉不发有点太可惜了。但后续文章大概率也是不会再写了，除非我后续有时间有机会接触到openGauss，或许还会写一点。</p><hr><p>不过呢，在SLAM方向、CUDA系列我是会继续写的，陆陆续续地写，以及我想开几个新的专栏，大概包括机器学习、深度学习、数字图像处理、计算机视觉、自然语言处理几个方向，都会从入门学习级别开始，不过鉴于机器学习和数字图像处理都是我今年的课，（考虑到内卷的效率，）或许这两个栏目更新的会慢一丢丢丢丢丢丢…… 主要是搞好深度学习对我现阶段来说比较重要一些。</p><p>我会把学习过程中的疑问也好、难点也好、都尽我所能以最精炼的方式、最好搞懂的方式记录下来。不过他们的性质其实只是学习笔记，难免会有疏漏的地方，我也一定会把查到的相关专业链接写在博客里面，供参考。</p><p>这个时候我就在想，要是我的评论功能也能用就好了，可以一起讨论技术内容。可惜vercel服务在大陆由DNS污染的问题。这就意味着其他地区还是能用这个评论功能的，dddd，但被污染过的地区就不行，用不了评论功能。要嘛我就得租个服务器中转一下，要嘛就要等vercel像smms图床一样弄个在中国备案好的域名。我现阶段是不打算租服务器，因为服务器弄来弄去好麻烦，而且我也没时间、没打算专门弄这么个东西，主要是现阶段我研究的内容也不需要高度依赖我的服务器，等有刚需的时候再申请一个。所以，索性就先这样吧（摆烂），我隔三差五去看看有没有新的评论就好了。评论数据库啊什么的目前看来一切工作是正常的。</p><h2 id="规划篇">规划篇</h2><p>接下来，我会发布关于深度学习、SLAM方向的文章，对于2023年的期望，首先是我想沉下心来好好地、系统地学学那些我还没掌握的技术，练点真功夫。以及希望新的一年能够多多发一些高质量的博客，希望能够有实力去发一些顶级论文的介绍解说文章。</p><h2 id="题外话">题外话</h2><p>原本我还写了很多其他的总结，总结了2022的一些负能量以及一些成果收获。转念一想，该翻页的内容就该翻页啦，2022年大家是过的挺累的，但是咬咬牙也终于挺过来了。不管好的坏的，也无需过多沉浸在往事中。寒假我就给自己好好放个假，然后新的一年继续加油<span class="github-emoji"><span>🎉</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p>]]></content>
       
       
       <categories>
