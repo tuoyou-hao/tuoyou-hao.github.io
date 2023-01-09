@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="环境搭建,ROS">
-    <meta name="description" content="认识ROS2并搭建ROS2">
+    <meta name="keywords" content="Dpkg Error Code 1, JNU CV 拓佑 拓佑豪 tuoyou-hao 江元豪 yuanhao 元豪 拓佑豪的博客">
+    <meta name="description" content="解决Sub-process问题">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>ROS 十二、认识并安装ROS2 | 拓佑豪的博客</title>
+    <title>Dpkg Error Code 1 | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ROS 十二、认识并安装ROS2</h1>
+                    <h1 class="description center-align post-title">Dpkg Error Code 1</h1>
                 </div>
             </div>
         </div>
@@ -445,12 +445,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">环境搭建</span>
-                            </a>
-                        
-                            <a href="../../../../tags/ROS/">
-                                <span class="chip bg-color">ROS</span>
+                            <a href="../../../../tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -461,8 +457,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="../../../../categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
-                                环境搭建
+                            <a href="../../../../categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/" class="post-category">
+                                报错排查
                             </a>
                         
                     </div>
@@ -474,28 +470,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-09
+                    2022-01-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-21
+                    2023-01-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    657
+                    224
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -518,116 +514,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>ROS 12：引入ROS2</h1>
-<h2 id="一、认识ROS2">一、认识ROS2</h2>
-<p>ROS在需求量增加之后，需要实现：</p>
-<ul>
-<li>多机器人系统</li>
-<li>跨平台</li>
-<li>实时性</li>
-<li>网络连接</li>
-<li>产品化</li>
-<li>项目管理</li>
-</ul>
-<p>ROS2因此出现了。</p>
-<p>ROS2有以下几个特点：</p>
-<blockquote>
-<ul>
-<li>
-<p>ROS1 只支持Linux和MacOS，而 ROS2 支持Linux/Windows/MacOS/RTOS</p>
-</li>
-<li>
-<p>架构的颠覆：</p>
-<p>ROS1的通讯基于TCPROS/UDPROS，所有节点都要经过ROS Master</p>
-<p>ROS2使用基于DDS的Discovery机制，自发现后建立稳定的链接，实现真正的分布式架构</p>
-<ul>
-<li>ROS DDS由ROS Middleware中间件定义接口，使用不同厂商的DDS时，只需安装另一个DDS，代码无需再修改</li>
-</ul>
-</li>
-<li>
-<p>节点模型不同</p>
-<p>ROS1：publish/subscribe</p>
-<p>ROS2：discovery</p>
-</li>
-<li>
-<p>进程模型不同</p>
-<p>ROS1：Nodelet</p>
-<p>ROS2：Intra-process</p>
-</li>
-<li>
-<p>编译系统升级</p>
-<p>ROS1使用rosbuild，catkin管理项目</p>
-<p>ROS2使用升级版的ament，colcon</p>
-</li>
-<li>
-<p>ROS2 支持实时控制</p>
-</li>
-<li>
-<p>ROS2 广泛使用C++11，和Python3.5以上</p>
-</li>
-<li>
-<p>在 ROS2 上通过ros_bridge和 ROS1 进行通信</p>
-</li>
-<li>
-<p>ROS2 使用托管启动：用户可以指定节点启动顺序</p>
-</li>
-<li>
-<p>ROS2 取消了 nodelet 的概念，支持多节点初始化</p>
-</li>
-<li>
-<p>ROS2 launch文件使用 python 编写，相比于 xml 拓展了功能性</p>
-</li>
-<li>
-<p>……</p>
-</li>
-</ul>
-</blockquote>
-<p><img src="https://s2.loli.net/2022/08/09/J5U6qIusKpZQbWe.png" alt=""></p>
-<h2 id="二、安装">二、安装</h2>
-<blockquote>
-<p>以下是按照Ubuntu22.04版本安装</p>
-<p>ROS2在Ubuntu只支持22.04与20.04，其中20.04需要源码安装</p>
-</blockquote>
-<p>设置编码</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt update &amp;&amp; sudo apt install locales
-sudo locale-gen en_US en_US.UTF-8
-sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 
-export LANG=en_US.UTF-8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>添加源</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt update &amp;&amp; sudo apt install curl gnupg lsb-release 
-
-sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>如果添加源出现<code>Failed to connect to raw.githubusercontent.com</code>的报错，按照以下步骤即可：</p>
-<p>登录网站：<a target="_blank" rel="noopener" href="https://www.ipaddress.com/">https://www.ipaddress.com</a></p>
-<p>在打开的网站中将“<a target="_blank" rel="noopener" href="http://raw.githubusercontent.com">raw.githubusercontent.com</a>”复制到查询栏中进行搜索，可以看到域名对应的IP地址信息</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo chmod 777 /etc/hosts <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>用编辑器打开这个文件，<strong>在文末添加你查询到的结果</strong>，比如：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">151.101.84.133 raw.githubusercontent.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>保存退出，改回权限：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo chmod 644 /etc/hosts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>即可正常使用</p>
-</blockquote>
-<p>安装</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt update
-sudo apt upgrade
-sudo apt install ros-humble-desktop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>环境变量</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">source /opt/ros/humble/setup.bash
-echo " source /opt/ros/humble/setup.bash" &gt;&gt; ~/.bashrc <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>测试：</p>
-<h3 id="测试1">测试1</h3>
-<p>创建一个发布者：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ros2 run demo_nodes_cpp talker<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>再创建一个监听者：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ros2 run demo_nodes_py listener<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>看到两个中断可以正常打印数据即可</p>
-<h3 id="测试2">测试2</h3>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ros2 run turtlesim turtlesim_node
-ros2 run turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>观察到可以正常运行即可</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>Sub-process /usr/bin/dpkg returned an error code (1)解决办法</h1>
+<p>安装一些用apt-get下载的程序的时候，我出现过以下问题：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Do you want to continue? [Y/n] 
+Setting up sysstat (11.6.1-1ubuntu0.2) ...
+dpkg: error processing package sysstat (--configure):
+ installed sysstat package post-installation script subprocess returned error exit status 10
+Errors were encountered while processing:
+ sysstat
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>网上找到了靠谱的解决方法：</p>
+<p>将info文件夹改名：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>新建一个info文件夹</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mkdir /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>安装修复</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get update
+sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>操作后，info文件夹下会有一些文件，移动一下：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>删掉这个新的info文件夹</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo rm -rf /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>恢复原有的info文件夹名称</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info.bk /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>到这里，问题已经可以解决了</p>
 
                 
             </div>
@@ -692,12 +603,8 @@ ros2 run turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">环境搭建</span>
-                                </a>
-                            
-                                <a href="../../../../tags/ROS/">
-                                    <span class="chip bg-color">ROS</span>
+                                <a href="../../../../tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -1149,31 +1056,31 @@ ros2 run turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="../../11/cuda-1-intro/">
+                <a href="../../../03/21/first/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/7.jpg" class="responsive-img" alt="CUDA 1：并行基础概念">
+                        <img src="../../../../medias/featureimages/2.jpg" class="responsive-img" alt="建站的第一篇博客">
                         
-                        <span class="card-title">CUDA 1：并行基础概念</span>
+                        <span class="card-title">建站的第一篇博客</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍CUDA基本概念
+                            纪念建站第一篇博客
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-11
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-21
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    编程技术
+                            <a href="../../../../categories/%E9%97%B2%E8%81%8A/" class="post-category">
+                                    闲聊
                                 </a>
                             
                             
@@ -1183,8 +1090,8 @@ ros2 run turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/CUDA/">
-                        <span class="chip bg-color">CUDA</span>
+                    <a href="../../../../tags/%E9%97%B2%E8%81%8A/">
+                        <span class="chip bg-color">闲聊</span>
                     </a>
                     
                 </div>
@@ -1198,31 +1105,31 @@ ros2 run turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="../../08/win1011_setting_summary/">
+                <a href="../../01/Newyear_Summary_2022/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/15.jpg" class="responsive-img" alt="Windows设置汇总">
+                        <img src="../../../../medias/featureimages/14.jpg" class="responsive-img" alt="2022年终总结">
                         
-                        <span class="card-title">Windows设置汇总</span>
+                        <span class="card-title">2022年终总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            汇总较常用的Window(10/11)设置
+                            2022年终总结
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
-                                    计算机知识
+                            <a href="../../../../categories/%E9%97%B2%E8%81%8A/" class="post-category">
+                                    闲聊
                                 </a>
                             
                             
@@ -1232,8 +1139,8 @@ ros2 run turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/Windows/">
-                        <span class="chip bg-color">Windows</span>
+                    <a href="../../../../tags/%E9%97%B2%E8%81%8A/">
+                        <span class="chip bg-color">闲聊</span>
                     </a>
                     
                 </div>
