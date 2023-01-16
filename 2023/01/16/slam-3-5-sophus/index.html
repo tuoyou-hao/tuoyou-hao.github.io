@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="ROS">
-    <meta name="description" content="服务端与客户端的基本代码实现">
+    <meta name="keywords" content="SLAM">
+    <meta name="description" content="对上一篇李群李代数的代码部分补充">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>ROS 六、服务端与客户端 | 拓佑豪的博客</title>
+    <title>SLAM 3.5：Sophus基础 | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -324,12 +324,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ROS 六、服务端与客户端</h1>
+                    <h1 class="description center-align post-title">SLAM 3.5：Sophus基础</h1>
                 </div>
             </div>
         </div>
@@ -445,8 +445,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/ROS/">
-                                <span class="chip bg-color">ROS</span>
+                            <a href="../../../../tags/SLAM/">
+                                <span class="chip bg-color">SLAM</span>
                             </a>
                         
                     </div>
@@ -470,28 +470,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-07-21
+                    2023-01-16
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-12-03
+                    2023-01-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    2.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    12 分
                 </div>
                 
 
@@ -514,219 +514,316 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>ROS 6：服务端客户端实现</h1>
-<h2 id="一、客户端实现">一、客户端实现</h2>
-<p>实现目标：使用客户端发送一个请求，请求turtlesim的spawn服务来新建一直小海龟，并给定其初始化的坐标位置。发送requext的代码是阻塞式的，需要等到response才会继续执行后续的语句。</p>
-<p><img src="https://s2.loli.net/2022/07/20/3PT6pkbJuSFADVx.png" alt="服务模型"></p>
-<p>创建一个客户端的流程大体为：</p>
-<pre class="mermaid">graph TB
-a(初始化节点)
-a --&gt;b(创建client实例)
-b --&gt;c(发布服务请求数据)
-c --&gt;d(等待server处理之后的应答结果)</pre>
-<p>首先，按照惯例，我们创建一个功能包：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~/ros_ws/src
-catkin_create_pkg learn_server roscp rospy std_msgs geometry_msgs turtlesim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>在功能包的src底下创建第一个cpp文件</p>
-<h3 id="c-实现">c++实现</h3>
-<h4 id="代码实现">代码实现</h4>
-<p>一、导入头文件，初始化节点并创建句柄。</p>
-<p>由于本次需要使用turtlesim的spawn服务，所以需要导入对应的头文件：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
-#include &lt;turtlesim/Spawn.h&gt;
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="SLAM-3-5-Sophus实践"><a href="#SLAM-3-5-Sophus实践" class="headerlink" title="SLAM 3.5 Sophus实践"></a>SLAM 3.5 Sophus实践</h1><p>前面理论讲述了很多，这里针对李群李代数部分做一个代码开发的补充</p>
+<h2 id="一、Sophus基础"><a href="#一、Sophus基础" class="headerlink" title="一、Sophus基础"></a>一、Sophus基础</h2><p>前面配置环境的时候，我们就有安装一个Sophus库。李代数最早提出的是Sophus Lie，所以这个库就叫做Sophus了。</p>
+<p>由于Eigen提供了很不错的几何模块，但没有提供李群李代数的支持，而这个Sophus库就支持。他是直接基于Eigen库开发的，所以不需要额外的依赖库了。</p>
+<p>以下案例的头文件使用如下：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include &lt;Eigen/Core&gt;
+#include &lt;Eigen/Geometry&gt;
+#include "sophus/se3.hpp"
 
-int main(int argc, char** argv)
-{
-	ros::init(argc, argv, "turtle_spawn");
-	ros::NodeHandle node;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>二、然后就是需要客户端查询是否存在spawn服务，如果没有就会阻塞在这一句代码一直等待。</p>
-<p>如果spawn服务出现了，就创建一个客户端，用来给spawn服务发送请求的，请求的数据类型是<code>turtlesim::spawn</code>。</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 发现/spawn服务后，创建一个服务客户端，连接名为/spawn的service
-ros::service::waitForService("/spawn");
-ros::ServiceClient add_turtle = node.serviceClient&lt;turtlesim::Spawn&gt;("/spawn");
-//尖括号存放数据类型，后面跟上请求服务的名字<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>三、封装好请求数据。/spawn里需要存储以下类型的数据，初始化好预设值。</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 初始化turtlesim::Spawn的请求数据
-turtlesim::Spawn srv;
-srv.request.x = 2.0;
-srv.request.y = 2.0;
-srv.request.name = "turtle2";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>四、发送请求数据。使用call方法，将封装好的请求数据发送出去。</p>
-<p>call也是阻塞性的函数，在数据发布出去之后，会一直等待服务器的反馈数据。获取到服务器的反馈之后1，才会去执行下一句代码。</p>
-<p>由于在turtlesim成功调用服务之后，会返回这只turtle的名字，所以我们需要获取返回的turtle名。（可见<a href="https://tuoyou-hao.github.io/2022/07/13/ros-2-Basic-command-tools/#1%E3%80%81rosservice-call-%E5%8F%91%E5%B8%83%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82">ROS二：基本命令行工具</a>）</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 请求服务调用
-ROS_INFO("Call service to spwan turtle[x:%0.6f, y:%0.6f, name:%s]", srv.request.x, srv.request.y, srv.request.name.c_str());
+using namespace std;
+using namespace Eigen;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-add_turtle.call(srv);
+<ul>
+<li>声明一个旋转向量，并展示其旋转后的结果：</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 沿Z轴转90度的旋转矩阵
+// 三维旋转向量可以用角轴来表示，利用Eigen库的AngleAxisd()角轴（旋转向量）函数
+// 绕着单位方向向量\alpha = z轴（0，0，1）旋转模长为\theta = 90° = pi/2，
+// 则\phi = \theta \alpha 再调用toRotationMatrix()函数从角轴表示的旋转向量转换为旋转矩阵
+Matrix3d R = AngleAxisd(M_PI / 2, Vector3d(0, 0, 1)).toRotationMatrix();
+// 或者四元数
+Quaterniond q(R);
+Sophus::SO3d SO3_R(R);              // Sophus::SO3d可以直接从旋转矩阵构造
+Sophus::SO3d SO3_q(q);              // 也可以通过四元数构造
+// 二者是等价的
+cout &lt;&lt; "SO(3) from matrix:\n" &lt;&lt; SO3_R.matrix() &lt;&lt; endl;
+cout &lt;&lt; "SO(3) from quaternion:\n" &lt;&lt; SO3_q.matrix() &lt;&lt; endl;
+cout &lt;&lt; "they are equal" &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-// 显示服务调用结果
-ROS_INFO("Spwan turtle successfully [name:%s]", srv.response.name.c_str());
+<blockquote>
+<p>输出效果</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SO(3) from matrix:
+2.22045e-16          -1           0
+          1 2.22045e-16           0
+          0           0           1
+SO(3) from quaternion:
+2.22045e-16          -1           0
+          1 2.22045e-16           0
+          0           0           1
+they are equal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<ul>
+<li>使用对数映射获得李代数</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 使用对数映射获得它的李代数
+Vector3d so3 = SO3_R.log();
+cout &lt;&lt; "so3 = " &lt;&lt; so3.transpose() &lt;&lt; endl;
+// hat 为向量到反对称矩阵
+cout &lt;&lt; "so3 hat=\n" &lt;&lt; Sophus::SO3d::hat(so3) &lt;&lt; endl;
+// 相对的，vee为反对称到向量
+cout &lt;&lt; "so3 hat vee= " &lt;&lt; Sophus::SO3d::vee(Sophus::SO3d::hat(so3)).transpose() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-return 0;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="配置编译文件">配置编译文件</h4>
-<p>在CMakeLists.txt输入以下文本，添家要编译的文件以及链接库。</p>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(turtle_client src/turtle_client.cpp)
-target_link_libraries(turtle_client ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="运行结果">运行结果</h4>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[ INFO] [1658379402.461341999]: Call service to spwan turtle[x:2.000000, y:2.000000, theta:2.000000,name:turtle2]
-[ INFO] [1658379402.512673909]: Spwan turtle successfully [name:turtle2]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>可以在turtlesim_node界面看到新建海龟成功的日志信息</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[ INFO] [1658379402.512145247]: Spawning turtle [turtle2] at x=[2.000000], y=[2.000000], theta=[2.000000]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>以及在图形界面看到新生成的海龟。</p>
-<h3 id="python实现">python实现</h3>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
-import rospy
-import sys
-from turtlesim.srv import Spawn
+<blockquote>
+<p>输出结果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">so3 =      0      0 1.5708
+so3 hat=
+      0 -1.5708       0
+ 1.5708       0      -0
+     -0       0       0
+so3 hat vee=      0      0 1.5708<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<ul>
+<li>增量扰动模型的更新</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 增量扰动模型的更新
+Vector3d update_so3(1e-4, 0, 0); //假设更新量为这么多
+Sophus::SO3d SO3_updated = Sophus::SO3d::exp(update_so3) * SO3_R;
+cout &lt;&lt; "SO3 updated = \n" &lt;&lt; SO3_updated.matrix() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-def turtle_client():
-    rospy.init_node('turtle_client')
+<blockquote>
+<p>输出结果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SO3 updated = 
+          0          -1           0
+          1           0     -0.0001
+     0.0001 2.03288e-20           1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<ul>
+<li>对SE(3)操作是类似的</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 对SE(3)操作大同小异
+Vector3d t(1, 0, 0);           // 沿X轴平移1
+Sophus::SE3d SE3_Rt(R, t);           // 从R,t构造SE(3)
+Sophus::SE3d SE3_qt(q, t);            // 从q,t构造SE(3)
+cout &lt;&lt; "SE3 from R,t= \n" &lt;&lt; SE3_Rt.matrix() &lt;&lt; endl;
+cout &lt;&lt; "SE3 from q,t= \n" &lt;&lt; SE3_qt.matrix() &lt;&lt; endl;
 
-    # 发现/spawn服务后，创建一个客户端，连接名为/spawn的service
-    rospy.wait_for_service('/spawn')
-    try:
-        # 创建客户端
-        add_turtle = rospy.ServiceProxy('/spawn', Spawn) 
+// 李代数se(3) 是一个六维向量，方便起见先typedef一下
+typedef Eigen::Matrix&lt;double, 6, 1&gt; Vector6d;
+Vector6d se3 = SE3_Rt.log();
+cout &lt;&lt; "se3 = " &lt;&lt; se3.transpose() &lt;&lt; endl;
 
-        # 请求服务调用，输入请求数据
-        # 请求数据，类似cpp的call方法。response获取返回的turtle名字
-        response = add_turtle(2.0, 2.0, 2.0, "turtle2") 
-        return response.name
-    except rospy.ServiceException, e:
-        print "Service call failed: %s"%e
-        return 0
+// 观察输出，会发现在Sophus中，se(3)的平移在前，旋转在后.
 
-if __name__ == "__main__":
-    print "Spwan turtle successfully [name:%s]" %(turtle_client())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="二、服务端实现">二、服务端实现</h2>
-<p>实现目标：给海龟发速度指令。服务端通过获取客户端的指令控制海龟的运动与否。</p>
-<p><img src="https://s2.loli.net/2022/07/21/cqzGZ3KCMitS5ax.png" alt=""></p>
-<p>服务端实现的大致流程为：</p>
-<pre class="mermaid">graph TB
-a(初始化节点)
-a --&gt;b(创建server)
-b --&gt;c(循环等待服务请求)
-c --&gt;d(获取到请求 进入回调函数)
-d --&gt;e(在回调函数中完成服务功能 并反馈应答数据)</pre>
-<h3 id="c-实现-2">c++实现</h3>
-<p>我们如果想要知道Trigger里面包含什么类型，可以用<code>rossrv show</code>指令查看。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rossrv show std_srvs/Trigger 
----
-bool success
-string message<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>由于service包含有request和response两个部分，三横线 "—"以上是request的结构内容，以下是response的内容。</p>
-<p>可以看到Trigger的response结构里包含有一个布尔的flag，以及字符串类型的消息。</p>
-<h4 id="代码实现-2">代码实现</h4>
-<p>导入头文件</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
-#include &lt;geometry_msgs/Twist.h&gt;    //topic数据类型
-#include &lt;std_srvs/Trigger.h&gt;       //service数据类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>声明publisher等一些全局变量：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::Publisher turtle_pub;          //创建全局的publisher
-bool pub_turtle_sport_flag = false; //turtle是否运动的flag标记<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>主函数</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc,char **argv){
-    ros::init(argc,argv,"turtle_server");
-    ros::NodeHandle node;
+// 同样的，有hat和vee两个算符
+cout &lt;&lt; "se3 hat = \n" &lt;&lt; Sophus::SE3d::hat(se3) &lt;&lt; endl;
+cout &lt;&lt; "se3 hat vee = " &lt;&lt; Sophus::SE3d::vee(Sophus::SE3d::hat(se3)).transpose() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    // 自己起一个名为/turtle_command的server，注册回调函数CommandCallBack
-    ros::ServiceServer command_service = node.advertiseService("/turtle_command",CommandCallBack);
+<blockquote>
+<p>输出效果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SE3 from R,t= 
+2.22045e-16          -1           0           1
+          1 2.22045e-16           0           0
+          0           0           1           0
+          0           0           0           1
+SE3 from q,t= 
+2.22045e-16          -1           0           1
+          1 2.22045e-16           0           0
+          0           0           1           0
+          0           0           0           1
+se3 =  0.785398 -0.785398         0         0         0    1.5708
+se3 hat = 
+        0   -1.5708         0  0.785398
+   1.5708         0        -0 -0.785398
+       -0         0         0         0
+        0         0         0         0
+se3 hat vee =  0.785398 -0.785398         0         0         0    1.5708<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<ul>
+<li>更新</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 最后，演示一下更新
+Vector6d update_se3; //更新量
+update_se3.setZero();
+update_se3(0, 0) = 1e-4;
+Sophus::SE3d SE3_updated = Sophus::SE3d::exp(update_se3) * SE3_Rt;
+cout &lt;&lt; "SE3 updated = " &lt;&lt; endl &lt;&lt; SE3_updated.matrix() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    // 创建一个Publisher，发布名为/turtle1/cmd_vel的topic，消息类型为geometry_msgs::Twist，队列长度10
-    turtle_pub = node.advertise&lt;geometry_msgs::Twist&gt;("/turtle1/cmd_vel",10);
+<blockquote>
+<p>输出效果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SE3 updated = 
+2.22045e-16          -1           0      1.0001
+          1 2.22045e-16           0           0
+          0           0           1           0
+          0           0           0           1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<h2 id="二、使用Sophus评估轨迹误差"><a href="#二、使用Sophus评估轨迹误差" class="headerlink" title="二、使用Sophus评估轨迹误差"></a>二、使用Sophus评估轨迹误差</h2><p>实际工程中，需要评估一个算法的<strong>估计轨迹与真实轨迹的差异</strong>来评价算法的精度。</p>
+<p><strong>真实轨迹</strong>Ground Truth往往是通过某些更高精度的系统获得<strong>，</strong></p>
+<p><strong>估计轨迹</strong>是通过待评价算法的计算得到。</p>
+<p>如何计算两条轨迹的误差？</p>
+<hr>
+<p>考虑一条估计轨迹$T_{esti,i}$和$T_{gt,i}$，其中i=1, … , N。那我们可以定义一些误差指标来描述它们之间的差别。</p>
+<p>误差指标有很多种。</p>
+<ol>
+<li>常见的<strong>绝对轨迹误差（Absolute Trajectory Error，ATE）</strong></li>
+</ol>
+<p>$$<br>\mathbf{ATE}_{all}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\| \log(T_{gt,i}^{-1}T_{esti,i}) \right\|_2^2}<br>$$</p>
+<p>实际上是计算<strong>每个位姿李代数的均方根误差（Root-Mean-Squared Error，RMSE）</strong>，可以刻画两条估计的旋转和平移误差。</p>
+<ol start="2">
+<li><strong>考虑平移误差</strong>的，定义<strong>绝对平移误差（Absolute Translational Error）</strong></li>
+</ol>
+<p>$$<br>\mathbf{ATE}_{trans}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\| trans(T_{gt,i}^{-1}T_{esti,i}) \right\|_2^2}<br>$$</p>
+<p>式子中tran 函数表示取括号中元素的平移部分。从整条轨迹上看，</p>
+<ol start="3">
+<li>还可以定义相对误差，仅考虑i时刻到i+△t时刻的运动，那么<strong>相对位姿误差（Relative Pose Error，RPE）</strong>可以定义为</li>
+</ol>
+<p>$$<br>\mathbf{RPE}_{all}=\sqrt{\frac{1}{N-\Delta t}\sum_{i=1}^{N-\Delta t}\left\| \log\left( (T_{gt,i}^{-1}T_{gt,i+\Delta t})^{-1}(T_{esti,i}^{-1}T_{esti,i+\Delta t})\right)^\vee \right\|_2^2}<br>$$</p>
+<ol start="4">
+<li>同样的，也可以只取平移部分：</li>
+</ol>
+<p>$$<br>\mathbf{RPE}_{trans}=\sqrt{\frac{1}{N-\Delta t}\sum_{i=1}^{N-\Delta t}\left\| trans\left( (T_{gt,i}^{-1}T_{gt,i+\Delta t})^{-1}(T_{esti,i}^{-1}T_{esti,i+\Delta t})\right)^\vee \right\|_2^2}<br>$$</p>
+<p>使用Sophus李代数库可以实现这部分轨迹误差的评估。首先需要准备数据，这里使用SLAM十四讲源码中已经给出了真实轨迹 groundtruth.txt 和 估计轨迹 estimate.txt，下面读取两条轨迹数据后，通过Sophus计算轨迹间误差，然后显示在Pangolin窗口中。 </p>
+<p>所需前置定义的一些内容：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pangolin/pangolin.h&gt;
+#include &lt;sophus/se3.hpp&gt;
 
-    // 设置循环的频率
-    ROS_INFO("Waiting to receive command");
-    ros::Rate loop_rate(10);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后写循环，判断标志符并根据标志发布指令</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">while(ros::ok){
+using namespace Sophus;
+using namespace std;
+//真实轨迹路径
+string groundtruth_file = "./example/groundtruth.txt";
+//估计轨迹路径
+string estimated_file = "./example/estimated.txt";
 
-    // 查看一次回调函数队列,看是否有服务数据传进来
-    ros::spinOnce();
+void DrawTrajectory(const TrajectoryType &amp;gt, const TrajectoryType &amp;esti);
+TrajectoryType ReadTrajectory(const string &amp;path);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    // 如果标志为true，则发布速度指令
-    if(pub_turtle_sport_flag)
-    {
-        geometry_msgs::Twist vel_msg;
-        vel_msg.linear.x = 0.5;
-        vel_msg.angular.z = 0.2;
-        turtle_pub.publish(vel_msg);
+<p>初始化SE(3)</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">TrajectoryType ReadTrajectory(const string &amp;path) {
+  ifstream fin(path);//打开轨迹数据文件
+  TrajectoryType trajectory;
+  if (!fin) {
+    cerr &lt;&lt; "trajectory " &lt;&lt; path &lt;&lt; " not found." &lt;&lt; endl;
+    return trajectory;
+  }
+  while (!fin.eof()) {
+    // 轨迹数据txt文件中每一行表示由时间戳、平移向量、旋转四元数构成的一个相机wi位姿
+    double time, tx, ty, tz, qx, qy, qz, qw;
+    fin &gt;&gt; time &gt;&gt; tx &gt;&gt; ty &gt;&gt; tz &gt;&gt; qx &gt;&gt; qy &gt;&gt; qz &gt;&gt; qw;
+    // 使用轨迹数据中的旋转四元数和平移向量来初始化一个特殊欧式群SE(3)
+    Sophus::SE3d p1(Eigen::Quaterniond(qw, qx, qy, qz), Eigen::Vector3d(tx, ty, tz));
+    // 将使用李群表示的当前相机位姿存入轨迹变量中
+    trajectory.push_back(p1);
+  }
+  return trajectory;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>计算</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">//定义一个特殊欧式群SE(3)的vector容器，并取个别名
+typedef vector&lt;Sophus::SE3d, Eigen::aligned_allocator&lt;Sophus::SE3d&gt;&gt; TrajectoryType;
+
+int main(int argc, char **argv) {
+  // 获取轨迹数据
+  TrajectoryType groundtruth = ReadTrajectory(groundtruth_file);
+  TrajectoryType estimated = ReadTrajectory(estimated_file);
+
+  // 检测读取的轨迹数据是否正常
+  assert(!groundtruth.empty() &amp;&amp; !estimated.empty());
+  assert(groundtruth.size() == estimated.size());
+
+  // 算每个位姿李代数的均方根误差 RMSE (Root Mean Squared Error)
+  // 也就是绝对轨迹误差 ATE (Absolute Trajectory Error)
+  double rmse = 0;
+  for (size_t i = 0; i &lt; estimated.size(); i++) {
+    // 获取轨迹中每个相机当前的估计位姿和真实位姿数据
+    Sophus::SE3d p1 = estimated[i], p2 = groundtruth[i];
+
+    // 根据每个真实数据和估计数据之间的位姿李代数的均方根误差公式RMSE（也就是绝对轨迹误差计算公式ATE）
+    // 真实位姿的变换矩阵T的逆与估计位姿的变换矩阵相乘，取对数映射计算位姿李代数并归一化
+    double error = (p2.inverse() * p1).log().norm();
+    // 累加轨迹中每个相机位姿李代数误差的平方
+    rmse += error * error;
+  }
+  // 平均值
+  rmse = rmse / double(estimated.size());
+  // 根号
+  rmse = sqrt(rmse);
+  cout &lt;&lt; "RMSE = " &lt;&lt; rmse &lt;&lt; endl;
+
+  DrawTrajectory(groundtruth, estimated);
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>绘制Pangolin</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">void DrawTrajectory(const TrajectoryType &amp;gt, const TrajectoryType &amp;esti) {
+  // 创建一个名为Trajectory Viewer的3D可视化窗口，大小为1024 x 768
+  pangolin::CreateWindowAndBind("Trajectory Viewer", 1024, 768);
+  // 开启更新深度缓冲区的功能，显示3D效果的时候需要打开，根据目标的远近自动隐藏被遮挡的模型
+  glEnable(GL_DEPTH_TEST);
+  // 开启颜色混合模式，让物体显示具有半透明效果
+  glEnable(GL_BLEND);
+  // 设置颜色RGBA混合因子，第一个参数为源因子，第二个参数为目标因子
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  // 创建相机视图
+  pangolin::OpenGlRenderState s_cam(
+      //设置相机内参（相机分辨率、焦距、相机光心）以及最近最远距离
+      pangolin::ProjectionMatrix(1024, 768, 500, 500, 512, 389, 0.1, 1000),
+      // 设置视角，在世界坐标(0, -0.1, -1.8)处观察坐标原点(0, 0, 0)
+      // 并设置Y轴朝上(0, -1, 0)
+      pangolin::ModelViewLookAt(0, -0.1, -1.8, 0, 0, 0, 0.0, -1.0, 0.0)
+  );
+  // 创建交互视图
+  pangolin::View &amp;d_cam = pangolin::CreateDisplay()
+      .SetBounds(0.0, 1.0, pangolin::Attach::Pix(175), 1.0, -1024.0f / 768.0f)
+      .SetHandler(new pangolin::Handler3D(s_cam));
+
+  while (pangolin::ShouldQuit() == false) {
+    // 清空颜色和深度缓存，为默认值
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // 激活相机视图
+    d_cam.Activate(s_cam);
+    // 设置背景颜色为白色
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    // 设置线条宽度为2
+    glLineWidth(2);
+    for (size_t i = 0; i &lt; gt.size() - 1; i++) {
+      //设置真实轨迹的线段颜色为蓝色
+      glColor3f(0.0f, 0.0f, 1.0f); 
+      //开始画线
+      glBegin(GL_LINES);
+      //获取真实轨迹中第 i 时刻和第 i+1 时刻用李群SE(3)表示的位姿
+      auto p1 = gt[i], p2 = gt[i + 1];
+      //取出第 i 时刻位姿的平移向量，作为该线段起点的顶点坐标
+      glVertex3d(p1.translation()[0], p1.translation()[1], p1.translation()[2]);
+      //取出第 i+1 时刻位姿的平移向量，作为该线段终点的顶点坐标
+      glVertex3d(p2.translation()[0], p2.translation()[1], p2.translation()[2]);
+      //画线结束
+      glEnd();
     }
 
-    //按照循环频率延时
-    loop_rate.sleep();
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>主函数写完，写回调函数。</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// service回调函数，输入参数req，输出参数res
-bool CommandCallBack(std_srvs::Trigger::Request &amp;req, std_srvs::Trigger::Response &amp;res)
-{
-    pub_turtle_sport_flag = !pub_turtle_sport_flag;
+    //遍历估计轨迹中的所有位姿数据
+    for (size_t i = 0; i &lt; esti.size() - 1; i++) {
+      //设置估计的轨迹线段为红色
+      glColor3f(1.0f, 0.0f, 0.0f); 
+      //开始画线
+      glBegin(GL_LINES);
+      //获取估计轨迹中第 i 时刻和第 i+1 时刻用李群SE(3)表示的位姿
+      auto p1 = esti[i], p2 = esti[i + 1];
+      //取出第 i 时刻位姿的平移向量，作为该线段起点的顶点坐标
+      glVertex3d(p1.translation()[0], p1.translation()[1], p1.translation()[2]);
+      //取出第 i+1 时刻位姿的平移向量，作为该线段终点的顶点坐标
+      glVertex3d(p2.translation()[0], p2.translation()[1], p2.translation()[2]);
+      //画线结束
+      glEnd();
+    }
+    //交换帧和处理事件
+    pangolin::FinishFrame();
+    //睡眠5毫秒
+    usleep(5000);
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    // 显示请求数据
-    ROS_INFO("Publish command [%s]", pub_turtle_sport_flag==true?"Yes":"No");
-
-    // 设置反馈数据
-    res.success = true;
-    res.message = "Change turtle command state!";
-
-    return true;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="配置编译文件-2">配置编译文件</h4>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(turtle_server src/turtle_server.cpp)
-target_link_libraries(turtle_server ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="运行结果-2">运行结果</h4>
-<p>首先，按照惯例，运行<code>roscore</code>，<code>rosrun turtlesim turtlesim_node</code>，并使用<code>rosrun &lt;功能包名&gt; &lt;可执行文件名&gt;</code>运行自己的代码，然后新建终端，运行以下指令，给自己的service发送空消息</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosservice call /turtle_command "{}"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>每运行一次上述指令，布尔值的flag：<code>pub_turtle_sport_flag</code>会自己取反，控制小乌龟是否按照topic运行。</p>
-<h3 id="python实现-2">python实现</h3>
-<p>由于python中并没有上述c++代码中<code>ros::spinOnce();</code>的机制，只有不断循环的<code>rospy.spin()</code>，所以在开发商存在一定的区别。</p>
-<p>所以我们需要使用<strong>多线程</strong>机制进行开发。</p>
-<p>载入头文件，并初始化全局变量：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
-import rospy
-import thread,time
-from geometry_msgs.msg import Twist
-from std_srvs.srv import Trigger, TriggerResponse
-
-pubCommand = False;
-turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>从主函数开始介绍</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">if __name__ == "__main__":
-    turtle_server()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>首先是建立第一个函数，初始化节点以及创建server。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def turtle_server():
-    rospy.init_node('turtle_server_node')
-
-    # 创建一个名为/turtle_command的server，注册回调函数CommandCallback
-    ser_turtle = rospy.Service('/turtle_command', Trigger, CommandCallback)
-
-    # 循环等待回调函数
-    print "Ready to receive turtle command."
-
-    # 创建线程。第一个是线程函数，第二个是传给这个函数的参数。
-    # 由于我们不需要传参，后面的括号无需填写
-    thread.start_new_thread(turtle_thread, ())
-    rospy.spin()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>众所周知，线程所在的起始位置是在某个函数的开头，所以为其封装个函数</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def turtle_thread():
-    while True:
-        if pub_Command:
-            vel_msg = Twist()
-            vel_msg.linear.x = 0.8
-            vel_msg.angular.z = 0.5
-            turtle_vel_pub.publish(vel_msg)
-        time.sleep(0.1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>当全局变量flag获取到反馈的时候，就需要调用回调函数。所以我们为其封装个回调函数</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def CommandCallback(req):
-    global pub_Command
-    pub_Command = bool(1-pub_Command)
-
-    # 显示请求
-    rospy.loginfo("Publish turtle command![%d]", pub_Command)
-
-    # 反馈数据
-    return TriggerResponse(True, "Change turtle command state!")<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>虽然实现的效果和c++是一样的，但是注意实现方式是很有区别的，一个是封装了<code>ros::spinOnce();</code>，一个是使用多线程</p>
+<p>效果：</p>
+<p><img src="https://s2.loli.net/2023/01/16/6u5cFt2ITHRaB7h.png"></p>
+</li>
+</ul>
 
                 
             </div>
@@ -791,8 +888,8 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/ROS/">
-                                    <span class="chip bg-color">ROS</span>
+                                <a href="../../../../tags/SLAM/">
+                                    <span class="chip bg-color">SLAM</span>
                                 </a>
                             
                         </div>
@@ -1240,77 +1337,29 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="../../28/ros-7-Custom-service/">
+                <a href="">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/7.jpg" class="responsive-img" alt="ROS 七、服务数据的自定义">
+                        <img src="../../../../medias/featureimages/3.jpg" class="responsive-img" alt="SLAM 3.5：Sophus基础">
                         
-                        <span class="card-title">ROS 七、服务数据的自定义</span>
+                        <span class="card-title">SLAM 3.5：Sophus基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            自定义服务数据的代码实现
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-28
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    编程技术
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="../../../../tags/ROS/">
-                        <span class="chip bg-color">ROS</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="../../19/ros-5-Customize-message-topics/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="../../../../medias/featureimages/2.jpg" class="responsive-img" alt="ROS 五、话题消息的自定义">
-                        
-                        <span class="card-title">ROS 五、话题消息的自定义</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            自定义话题消息的代码实现
+                            对上一篇李群李代数的代码部分补充
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-16
                             </span>
                         <span class="publish-author">
                             
@@ -1324,11 +1373,61 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/ROS/">
-                        <span class="chip bg-color">ROS</span>
+                    <a href="../../../../tags/SLAM/">
+                        <span class="chip bg-color">SLAM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="../slam-3-Lie-group-Lie-algebra/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="../../../../medias/featureimages/11.jpg" class="responsive-img" alt="SLAM 3：李群李代数">
+                        
+                        <span class="card-title">SLAM 3：李群李代数</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            简介李群李代数
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/%E6%95%B0%E5%AD%A6/" class="post-category">
+                                    数学
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/SLAM/">
+                        <span class="chip bg-color">SLAM</span>
                     </a>
                     
                 </div>
@@ -1483,6 +1582,13 @@ turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)<span 
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 
