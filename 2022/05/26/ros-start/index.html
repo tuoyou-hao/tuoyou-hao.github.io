@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -394,7 +395,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    428
+                    427
                 </div>
                 
 
@@ -424,8 +425,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>linux开发板配置ros</h1>
-<p>在linux开发板底下，使用官方源即可：</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="linux开发板配置ros"><a href="#linux开发板配置ros" class="headerlink" title="linux开发板配置ros"></a>linux开发板配置ros</h1><p>在linux开发板底下，使用官方源即可：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /etc/apt/sources.list.d/
 
 sudo touch ros-latest.list
@@ -447,6 +447,7 @@ sudo apt install ros-melodic-desktop-full
 echo "source /opt/ros/melodic/setup.bash" &gt;&gt; ~/.bashrc
 
 source ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>到目前为止，已经安装了运行核心 ROS 软件包所需的东西。如果要创建和管理自己的 ROS 工作区，有多种工具和要求是分开分发的。例如，rosinstall是一种常用的命令行工具，它使您能够通过一个命令轻松下载许多 ROS 包的源代码树。</p>
 <p>要安装此工具和其他依赖项以构建 ROS 包，就运行以下指令：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -458,7 +459,7 @@ sudo rosdep init
 rosdep update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>检查ros运行环境</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">printenv | grep ROS<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://s2.loli.net/2022/05/26/GFPgOWDLtAzqHv7.png" alt=""></p>
+<p><img src="https://s2.loli.net/2022/05/26/GFPgOWDLtAzqHv7.png"> </p>
 <p>创建catkin工作区</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p ~/catkin_ws/src
 
@@ -479,8 +480,9 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
 /home/HwHiAiUser/catkin_ws/src:/opt/ros/melodic/share<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>##测试步骤</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">roscore<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>在新的终端运行rostopic list，如果看到话题，可以看到以下画面，算是成功安装</p>
-<p><img src="https://s2.loli.net/2022/05/26/duJ42kf1xe8jnvL.png" alt=""></p>
+<p><img src="https://s2.loli.net/2022/05/26/duJ42kf1xe8jnvL.png"> </p>
 
                 
             </div>
@@ -1002,59 +1004,6 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="../../../06/03/computer_organization3-1/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="../../../../medias/featureimages/9.jpg" class="responsive-img" alt="计算机组成概述（2.2存储系统）">
-                        
-                        <span class="card-title">计算机组成概述（2.2存储系统）</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            存储系统补充
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
-                                    计算机知识
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
-                        <span class="chip bg-color">计算机组成</span>
-                    </a>
-                    
-                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
-                        <span class="chip bg-color">计算机知识</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
                 <a href="../ros-0-start/">
                     <div class="card-image">
                         
@@ -1071,9 +1020,9 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-26
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1095,6 +1044,59 @@ echo $ROS_PACKAGE_PATH<span aria-hidden="true" class="line-numbers-rows"><span><
                     
                     <a href="../../../../tags/ROS/">
                         <span class="chip bg-color">ROS</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="../../15/computer_organization3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="../../../../medias/featureimages/12.jpg" class="responsive-img" alt="计算机组成概述（2.1存储器）">
+                        
+                        <span class="card-title">计算机组成概述（2.1存储器）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            存储器介绍
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="../../../../categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="post-category">
+                                    计算机知识
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">
+                        <span class="chip bg-color">计算机组成</span>
+                    </a>
+                    
+                    <a href="../../../../tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/">
+                        <span class="chip bg-color">计算机知识</span>
                     </a>
                     
                 </div>

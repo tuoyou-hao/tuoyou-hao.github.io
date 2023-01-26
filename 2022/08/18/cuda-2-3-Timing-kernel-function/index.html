@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -514,46 +515,46 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>CUDA 2.3 给核函数计时</h1>
-<p>在内核的性能转换过程中，了解核函数的执行需要多长时间是很有帮助并且十分关键的。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CUDA-2-3-给核函数计时"><a href="#CUDA-2-3-给核函数计时" class="headerlink" title="CUDA 2.3 给核函数计时"></a>CUDA 2.3 给核函数计时</h1><p>在内核的性能转换过程中，了解核函数的执行需要多长时间是很有帮助并且十分关键的。</p>
 <p>衡量核函数性能的方法有很多。最简单的方法是在主机端使用一个CPU或GPU计时器来计算内核的执行时间。</p>
 <p>本节我们从计时器入手，了解如何在CPU或GPU获取代码的运行时长，并了解性能调优的基本概念</p>
-<h2 id="一、用CPU计时器计时">一、用CPU计时器计时</h2>
-<p>C语言中，平时大家最常用的是<code>time.h</code>的头文件来计时：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">clock_t start,end;
-start = clock();
-//要被计算的函数
-end = clock();
-duration = (double)(end - start) / CLOCKS_PER_SEC;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其中，clock函数测出来的时间为进程运行时间，单位为滴答数(ticks)</p>
+<h2 id="一、用CPU计时器计时"><a href="#一、用CPU计时器计时" class="headerlink" title="一、用CPU计时器计时"></a>一、用CPU计时器计时</h2><p>C语言中，平时大家最常用的是<code>time.h</code>的头文件来计时：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">clock_t</span> start<span class="token punctuation">,</span>end<span class="token punctuation">;</span>
+start <span class="token operator">=</span> <span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//要被计算的函数</span>
+end <span class="token operator">=</span> <span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+duration <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span><span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span> <span class="token operator">/</span> CLOCKS_PER_SEC<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其中，clock函数测出来的时间为进程运行时间，单位为滴答数(ticks) </p>
 <p>我们还可以使用<code>gettimeofday</code>系统调用来创建一个CPU计时器获取系统的时钟时间，它将返回从<strong>1970年1月1日零点</strong>开始到现在的秒数。</p>
 <p>因为<code>gettimeofday</code>是linux下的一个库函数，程序中需要添加<code>sys/time.h</code>头文件</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;sys/time.h&gt;
-double cpuSecond()
-{
-  struct timeval tp;
-  gettimeofday(&amp;tp,NULL);
-  return((double)tp.tv_sec+(double)tp.tv_usec*1e-6);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/time.h&gt;</span></span>
+<span class="token keyword">double</span> <span class="token function">cpuSecond</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">timeval</span> tp<span class="token punctuation">;</span>
+  <span class="token function">gettimeofday</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>tp<span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span>tp<span class="token punctuation">.</span>tv_sec<span class="token operator">+</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span>tp<span class="token punctuation">.</span>tv_usec<span class="token operator">*</span><span class="token number">1e-6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后这个函数就可以用来计时了。我们可以用来给核函数计时，看看他运行了多长时间：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">double iStart,iElaps;
-iStart=cpuSecond();
-sumArraysGPU&lt;&lt;&lt;grid,block&gt;&gt;&gt;(a_d,b_d,res_d,nElem);
-cudaDeviceSynchronize();
-iElaps=cpuSecond()-iStart;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">double</span> iStart<span class="token punctuation">,</span>iElaps<span class="token punctuation">;</span>
+iStart<span class="token operator">=</span><span class="token function">cpuSecond</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+sumArraysGPU<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span>grid<span class="token punctuation">,</span>block<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>a_d<span class="token punctuation">,</span>b_d<span class="token punctuation">,</span>res_d<span class="token punctuation">,</span>nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cudaDeviceSynchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+iElaps<span class="token operator">=</span><span class="token function">cpuSecond</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>iStart<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>变量iElaps表示程序运行的时间，就像用手表记录的核函数的执行时间（用秒计算）。</p>
 </blockquote>
 <p>由于核函数调用与主机端程序是异步的，就需要用<code>cudaDeviceSynchronize</code>函数来等待所有的GPU线程运行结束。</p>
 <ul>
-<li>
-<p>如果不加这个同步函数，那么计时的时间是从调用核函数，到核函数返回给主机线程的时间段，而不是核函数的执行时间</p>
+<li><p>如果不加这个同步函数，那么计时的时间是从调用核函数，到核函数返回给主机线程的时间段，而不是核函数的执行时间 </p>
 </li>
-<li>
-<p>用<code>cudaDeviceSynchronize</code>函数后，计时是从调用核函数开始，到核函数执行完并返回给主机的时间段</p>
+<li><p>用<code>cudaDeviceSynchronize</code>函数后，计时是从调用核函数开始，到核函数执行完并返回给主机的时间段</p>
 </li>
 </ul>
 <img src="https://s2.loli.net/2022/08/18/HBVYMKIEAQolNsu.png" alt="cuda-2-6.png" style="zoom:67%;">
+
 <p>我们可以从上图大概分析下核函数启动到结束的过程：</p>
 <ol>
 <li>主机线程启动核函数</li>
@@ -563,292 +564,300 @@ iElaps=cpuSecond()-iStart;<span aria-hidden="true" class="line-numbers-rows"><sp
 <li>主机同步函数侦测到核函数执行完成</li>
 </ol>
 <p>我们要测试的是2~4的时间，但是用CPU计时方法，只能测试1~5的时间，所以测试得到的时间偏长。</p>
-<h2 id="二、代码实现-2">二、代码实现</h2>
-<p>现在，通过设置数据集大小来对一个有16M个元素的大向量进行测试，直接用左移比特位来设置：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">int nElem = 1 &lt;&lt; 24;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>我们编写核函数的时候，由于GPU的可扩展性，使得我们需要借助块和线程的索引来计算一个按行优先的数组索引<code> i</code>，并对核函数进行修改。</p>
-<p>需要添加限定条件**（i＜N）**来检验索引值是否越界</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">__global__ void sumArraysOnGPU(float *A, float *B, float *C, const int N)
-{
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
+<h2 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h2><p>现在，通过设置数据集大小来对一个有16M个元素的大向量进行测试，直接用左移比特位来设置： </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> nElem <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">24</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-    if (i &lt; N) C[i] = A[i] + B[i];
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们编写核函数的时候，由于GPU的可扩展性，使得我们需要借助块和线程的索引来计算一个按行优先的数组索引<code> i</code>，并对核函数进行修改。</p>
+<p>需要添加限定条件<strong>（i＜N）</strong>来检验索引值是否越界</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">__global__ <span class="token keyword">void</span> <span class="token function">sumArraysOnGPU</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> blockIdx<span class="token punctuation">.</span>x <span class="token operator">*</span> blockDim<span class="token punctuation">.</span>x <span class="token operator">+</span> threadIdx<span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">)</span> C<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>为了解决创建的线程总数大于向量元素总数的情况，我们还需要限制内核不能非法访问全局内存，也就是<code>向量元素总数＜线程总数</code></p>
 <p>我们除了上面这个核函数我们需要调整以外，只需要写主函数了，这里只介绍主函数编写。</p>
 <p>同时我们把这个排错用的函数定义放在头文件里了，加载头文件后直接<code>CHECK()</code>调用即可：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#define CHECK(call)                                                            \
-{                                                                              \
-    const cudaError_t error = call;                                            \
-    if (error != cudaSuccess)                                                  \
-    {                                                                          \
-        fprintf(stderr, "Error: %s:%d, ", __FILE__, __LINE__);                 \
-        fprintf(stderr, "code: %d, reason: %s\n", error,                       \
-                cudaGetErrorString(error));                                    \
-        exit(1);                                                               \
-    }                                                                          \
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">CHECK</span><span class="token expression"><span class="token punctuation">(</span>call<span class="token punctuation">)</span>                                                            </span><span class="token punctuation">\</span>
+<span class="token expression"><span class="token punctuation">{</span>                                                                              </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token keyword">const</span> <span class="token class-name">cudaError_t</span> error <span class="token operator">=</span> call<span class="token punctuation">;</span>                                            </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token keyword">if</span> <span class="token punctuation">(</span>error <span class="token operator">!=</span> cudaSuccess<span class="token punctuation">)</span>                                                  </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token punctuation">{</span>                                                                          </span><span class="token punctuation">\</span>
+        <span class="token expression"><span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> </span><span class="token string">"Error: %s:%d, "</span><span class="token expression"><span class="token punctuation">,</span> <span class="token constant">__FILE__</span><span class="token punctuation">,</span> <span class="token constant">__LINE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                 </span><span class="token punctuation">\</span>
+        <span class="token expression"><span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> </span><span class="token string">"code: %d, reason: %s\n"</span><span class="token expression"><span class="token punctuation">,</span> error<span class="token punctuation">,</span>                       </span><span class="token punctuation">\</span>
+                <span class="token expression"><span class="token function">cudaGetErrorString</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                    </span><span class="token punctuation">\</span>
+        <span class="token expression"><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                                               </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token punctuation">}</span>                                                                          </span><span class="token punctuation">\</span>
+<span class="token expression"><span class="token punctuation">}</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>初始化数据</p>
 <ul>
 <li>设置GPU设备</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">int dev = 0;
-cudaDeviceProp deviceProp;
-CHECK(cudaGetDeviceProperties(&amp;deviceProp, dev));
-printf("Using Device %d: %s\n", dev, deviceProp.name);
-CHECK(cudaSetDevice(dev));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> dev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+cudaDeviceProp deviceProp<span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaGetDeviceProperties</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>deviceProp<span class="token punctuation">,</span> dev<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Using Device %d: %s\n"</span><span class="token punctuation">,</span> dev<span class="token punctuation">,</span> deviceProp<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaSetDevice</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>设置向量的大小</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">int nElem = 1 &lt;&lt; 24;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-1-CPU端的执行方式">2.1 CPU端的执行方式</h3>
-<ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> nElem <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">24</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="2-1-CPU端的执行方式"><a href="#2-1-CPU端的执行方式" class="headerlink" title="2.1 CPU端的执行方式"></a>2.1 CPU端的执行方式</h3><ul>
 <li>申请内存空间</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">float *h_A, *h_B, *hostRef, *gpuRef;
-h_A     = (float *)malloc(nBytes);
-h_B     = (float *)malloc(nBytes);
-hostRef = (float *)malloc(nBytes);
-gpuRef  = (float *)malloc(nBytes);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">float</span> <span class="token operator">*</span>h_A<span class="token punctuation">,</span> <span class="token operator">*</span>h_B<span class="token punctuation">,</span> <span class="token operator">*</span>hostRef<span class="token punctuation">,</span> <span class="token operator">*</span>gpuRef<span class="token punctuation">;</span>
+h_A     <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+h_B     <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+hostRef <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+gpuRef  <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>初始化CPU端的数据</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">double iStart, iElaps;
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">double</span> iStart<span class="token punctuation">,</span> iElaps<span class="token punctuation">;</span>
 
-iStart = seconds();
-initialData(h_A, nElem);
-initialData(h_B, nElem);
-iElaps = seconds() - iStart;
-printf("initialData Time elapsed %f sec\n", iElaps);
-memset(hostRef, 0, nBytes);
-memset(gpuRef,  0, nBytes);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+iStart <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">initialData</span><span class="token punctuation">(</span>h_A<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">initialData</span><span class="token punctuation">(</span>h_B<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+iElaps <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> iStart<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"initialData Time elapsed %f sec\n"</span><span class="token punctuation">,</span> iElaps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">memset</span><span class="token punctuation">(</span>hostRef<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">memset</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>计算CPU端运行相加花费的时间。</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">iStart = seconds();
-sumArraysOnHost(h_A, h_B, hostRef, nElem);
-iElaps = seconds() - iStart;
-printf("sumArraysOnHost Time elapsed %f sec\n", iElaps);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="2-2-GPU端的执行方式">2.2 GPU端的执行方式</h3>
-<ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">iStart <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">sumArraysOnHost</span><span class="token punctuation">(</span>h_A<span class="token punctuation">,</span> h_B<span class="token punctuation">,</span> hostRef<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+iElaps <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> iStart<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sumArraysOnHost Time elapsed %f sec\n"</span><span class="token punctuation">,</span> iElaps<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-GPU端的执行方式"><a href="#2-2-GPU端的执行方式" class="headerlink" title="2.2 GPU端的执行方式"></a>2.2 GPU端的执行方式</h3><ul>
 <li>申请内存</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">float *d_A, *d_B, *d_C;
-CHECK(cudaMalloc((float**)&amp;d_A, nBytes));
-CHECK(cudaMalloc((float**)&amp;d_B, nBytes));
-CHECK(cudaMalloc((float**)&amp;d_C, nBytes));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">float</span> <span class="token operator">*</span>d_A<span class="token punctuation">,</span> <span class="token operator">*</span>d_B<span class="token punctuation">,</span> <span class="token operator">*</span>d_C<span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_A<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_B<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_C<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>赋值传数据</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">CHECK(cudaMemcpy(d_A, h_A, nBytes, cudaMemcpyHostToDevice));
-CHECK(cudaMemcpy(d_B, h_B, nBytes, cudaMemcpyHostToDevice));
-CHECK(cudaMemcpy(d_C, gpuRef, nBytes, cudaMemcpyHostToDevice));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_A<span class="token punctuation">,</span> h_A<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_B<span class="token punctuation">,</span> h_B<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_C<span class="token punctuation">,</span> gpuRef<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <ul>
-<li>
-<p>定义网络和块</p>
-<p>这里的配置设置为一个包含32768个块的一维网格，每个块包含512个线程。</p>
+<li><p>定义网络和块</p>
+<p>这里的配置设置为一个包含32768个块的一维网格，每个块包含512个线程。 </p>
 <p>可以自行调整这里的iLen值，试试看1024个线程和512个线程之间性能会提升多少（1.19倍）</p>
 </li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">int iLen = 512;
-dim3 block (iLen);
-dim3 grid  ((nElem + block.x - 1) / block.x);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> iLen <span class="token operator">=</span> <span class="token number">512</span><span class="token punctuation">;</span>
+dim3 <span class="token function">block</span> <span class="token punctuation">(</span>iLen<span class="token punctuation">)</span><span class="token punctuation">;</span>
+dim3 <span class="token function">grid</span>  <span class="token punctuation">(</span><span class="token punctuation">(</span>nElem <span class="token operator">+</span> block<span class="token punctuation">.</span>x <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> block<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>计算GPU运行函数所花费的时间：</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">iStart = seconds();
-sumArraysOnGPU&lt;&lt;&lt;grid, block&gt;&gt;&gt;(d_A, d_B, d_C, nElem);
-CHECK(cudaDeviceSynchronize());
-iElaps = seconds() - iStart;
-printf("sumArraysOnGPU&lt;&lt;&lt;%d, %d&gt;&gt;&gt; Time elapsed %f sec\n", 
-       grid.x,block.x, iElaps);
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">iStart <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+sumArraysOnGPU<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span>grid<span class="token punctuation">,</span> block<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>d_A<span class="token punctuation">,</span> d_B<span class="token punctuation">,</span> d_C<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaDeviceSynchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+iElaps <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> iStart<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sumArraysOnGPU&lt;&lt;&lt;%d, %d&gt;&gt;&gt; Time elapsed %f sec\n"</span><span class="token punctuation">,</span> 
+       grid<span class="token punctuation">.</span>x<span class="token punctuation">,</span>block<span class="token punctuation">.</span>x<span class="token punctuation">,</span> iElaps<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li>收尾工作，拷贝计算结果并释放内存空间</li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">CHECK(cudaGetLastError()) ;
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaGetLastError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
 
-CHECK(cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost));
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">,</span> d_C<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyDeviceToHost<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-checkResult(hostRef, gpuRef, nElem);
+<span class="token function">checkResult</span><span class="token punctuation">(</span>hostRef<span class="token punctuation">,</span> gpuRef<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-CHECK(cudaFree(d_A));
-CHECK(cudaFree(d_B));
-CHECK(cudaFree(d_C));
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaFree</span><span class="token punctuation">(</span>d_A<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaFree</span><span class="token punctuation">(</span>d_B<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaFree</span><span class="token punctuation">(</span>d_C<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-free(h_A);
-free(h_B);
-free(hostRef);
-free(gpuRef);
+<span class="token function">free</span><span class="token punctuation">(</span>h_A<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">free</span><span class="token punctuation">(</span>h_B<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">free</span><span class="token punctuation">(</span>hostRef<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">free</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-return(0);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里在调整执行配置时需要了解的一个关键点是对网格和块维度的限制。线程层次结构中每个层级的最大尺寸取决于设备。</p>
+<span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里在调整执行配置时需要了解的一个关键点是对网格和块维度的限制。线程层次结构中每个层级的最大尺寸取决于设备。 </p>
 <p>总代码放在文末</p>
-<h2 id="三、用nvprof工具计时">三、用nvprof工具计时</h2>
-<p>自CUDA 5.0以来，NVIDIA提供了一个名为nvprof的命令行分析工具，可以帮助从应用程序的CPU和GPU活动情况中获取时间线信息，其包括内核执行、内存传输以及CUDA API的调用。其用法如下。</p>
+<h2 id="三、用nvprof工具计时"><a href="#三、用nvprof工具计时" class="headerlink" title="三、用nvprof工具计时"></a>三、用nvprof工具计时</h2><p>自CUDA 5.0以来，NVIDIA提供了一个名为nvprof的命令行分析工具，可以帮助从应用程序的CPU和GPU活动情况中获取时间线信息，其包括内核执行、内存传输以及CUDA API的调用。其用法如下。 </p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nvprof [nvporp_args] &lt;application&gt; [application_args]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>可以用这个命令测试内核：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nvprof ./test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <blockquote>
 <p>不过吧，计算能力为8.0及以上的设备不支持nvprof。使用<code>sudo apt install nvidia-nsight</code>下载nsight工具。如果下载出现NO_PUBKEY错误，用下列语句解决：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo gpg --keyserver keyserver.ubuntu.com --recv-keys 467B942D3A79BD29<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 </blockquote>
 <p>使用工具nvprof的计算结果更为精确，因为CPU计时器测量的时间中包含了来自nvprof附加的时间。 工具不仅给出了kernel执行的时间，比例，还有其他cuda函数的执行时间。由nvprof得到的计数器可以帮助我们获取应用程序的指令和内存吞吐量。</p>
 <p>主机和设备之间的数据传输需要的时间比内核执行的时间要多。对于HPC工作负载，理解程序中通信比的计算是非常重要的。</p>
 <p>如果应用程序用于计算的时间大于数据传输所用的时间，那么或许可以压缩这些操作，并完全隐藏与传输数据有关的延迟。如果应用程序用于计算的时间少于数据传输所用的时间，那么需要尽量减少主机和设备之间的传输。</p>
-<h2 id="四、理论界限最大化">四、理论界限最大化</h2>
-<p>在进行程序优化时，如何将应用程序和理论界限进行比较是很重要的。</p>
+<h2 id="四、理论界限最大化"><a href="#四、理论界限最大化" class="headerlink" title="四、理论界限最大化"></a>四、理论界限最大化</h2><p>在进行程序优化时，如何将应用程序和理论界限进行比较是很重要的。</p>
 <p>如果将应用程序的测量值与理论峰值进行比较，可以判定你的应用程序的性能是受限于算法还是受限于内存带宽的。</p>
-<p>我们得到了实际操作值之后，就需要知道能优化的极限值是多少，也就是机器的理论计算极限。这个极限我们永远也达不到，但是我们必须明确的是，比如理论极限是2秒，我们已经从10秒优化到2.01秒了，基本就没有必要再继续优化速度了，而应该考虑买更多的机器或者更新的设备。</p>
-<p>我们以Tesla K10为例，可以得到理论上的比率：</p>
+<p>我们得到了实际操作值之后，就需要知道能优化的极限值是多少，也就是机器的理论计算极限。这个极限我们永远也达不到，但是我们必须明确的是，比如理论极限是2秒，我们已经从10秒优化到2.01秒了，基本就没有必要再继续优化速度了，而应该考虑买更多的机器或者更新的设备。 </p>
+<p>我们以Tesla K10为例，可以得到理论上的比率： </p>
 <ul>
-<li>
-<p>Tesla K10单精度峰值浮点运算次数</p>
-<p>745 MHz核心频率*2 GPU/芯片*（8个多处理器*192个浮点单元*32核心/多处理器）*2</p>
-<p>OPS/周期＝4.58 TFLOPS（FLOPS表示每秒浮点运算次数）</p>
+<li><p>Tesla K10单精度峰值浮点运算次数 </p>
+<p>745 MHz核心频率*2 GPU/芯片*（8个多处理器*192个浮点单元*32核心/多处理器）*2 </p>
+<p>OPS/周期＝4.58 TFLOPS（FLOPS表示每秒浮点运算次数） </p>
 </li>
-<li>
-<p>Tesla K10内存带宽峰值2 GPU/芯片*256位*2500 MHz内存时钟*2 DDR/8位/字节＝320 GB/s</p>
+<li><p>Tesla K10内存带宽峰值2 GPU/芯片*256位*2500 MHz内存时钟*2 DDR/8位/字节＝320 GB/s </p>
 </li>
-<li>
-<p>指令比∶字节</p>
+<li><p>指令比∶字节 </p>
 <p>4.58 TFLOPS/320 GB/s，也就是13.6个指令：1个字节</p>
 </li>
 </ul>
 <p>对于Tesla K10而言，如果你的应用程序每访问一个字节所产生的指令数多于13.6，那么应用程序受算法性能限制。大多数HPC工作负载受内存带宽的限制。</p>
 <hr>
 <p>完整代码：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include "../common.h" //CHECK所在头文件
-#include &lt;cuda_runtime.h&gt;
-#include &lt;stdio.h&gt;
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"../common.h"</span> <span class="token comment">//CHECK所在头文件</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cuda_runtime.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-void checkResult(float *hostRef, float *gpuRef, const int N)
-{
-    double epsilon = 1.0E-8;
-    bool match = 1;
+<span class="token keyword">void</span> <span class="token function">checkResult</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>hostRef<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>gpuRef<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">double</span> epsilon <span class="token operator">=</span> <span class="token number">1.0E-8</span><span class="token punctuation">;</span>
+    bool match <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
-    for (int i = 0; i &lt; N; i++)
-    {
-        //检测到误差过大，就指出错误对应的维度
-        //并把flag置为false
-        if (abs(hostRef[i] - gpuRef[i]) &gt; epsilon)
-        {
-            match = 0;
-            printf("Arrays do not match!\n");
-            printf("host %5.2f gpu %5.2f at current %d\n", hostRef[i],
-                   gpuRef[i], i);
-            break;
-        }
-    }
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">//检测到误差过大，就指出错误对应的维度</span>
+        <span class="token comment">//并把flag置为false</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>hostRef<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> gpuRef<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> epsilon<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            match <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Arrays do not match!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"host %5.2f gpu %5.2f at current %d\n"</span><span class="token punctuation">,</span> hostRef<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   gpuRef<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    if (match) printf("Arrays match.\n\n");
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>match<span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Arrays match.\n\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    return;
-}
-
-
-void initialData(float *ip, int size)
-{
-    // 为随机数生成不同的种子
-    time_t t;
-    srand((unsigned) time(&amp;t));
-
-    for (int i = 0; i &lt; size; i++)
-    {
-        ip[i] = (float)(rand() &amp; 0xFF) / 10.0f;
-    }
-
-    return;
-}
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
 
-void sumArraysOnHost(float *A, float *B, float *C, const int N)
-{
-    //主机用for循环计算结果
-    for (int idx = 0; idx &lt; N; idx++)
-        C[idx] = A[idx] + B[idx];
-}
+<span class="token keyword">void</span> <span class="token function">initialData</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>ip<span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// 为随机数生成不同的种子</span>
+    <span class="token class-name">time_t</span> t<span class="token punctuation">;</span>
+    <span class="token function">srand</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span><span class="token punctuation">)</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-__global__ void sumArraysOnGPU(float *A, float *B, float *C, const int N)
-{
-    //cuda核函数计算向量相加
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        ip<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">10.0f</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    if (i &lt; N) C[i] = A[i] + B[i];
-}
-int main(int argc, char **argv)
-{
-    printf("%s Starting...\n", argv[0]);
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-    int dev = 0;
-    cudaDeviceProp deviceProp;
-    CHECK(cudaGetDeviceProperties(&amp;deviceProp, dev));
-    printf("Using Device %d: %s\n", dev, deviceProp.name);
-    CHECK(cudaSetDevice(dev));
 
-    int nElem = 1 &lt;&lt; 24;
-    printf("Vector size %d\n", nElem);
+<span class="token keyword">void</span> <span class="token function">sumArraysOnHost</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">//主机用for循环计算结果</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> idx <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> idx<span class="token operator">++</span><span class="token punctuation">)</span>
+        C<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-    size_t nBytes = nElem * sizeof(float);
+__global__ <span class="token keyword">void</span> <span class="token function">sumArraysOnGPU</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">//cuda核函数计算向量相加</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> blockIdx<span class="token punctuation">.</span>x <span class="token operator">*</span> blockDim<span class="token punctuation">.</span>x <span class="token operator">+</span> threadIdx<span class="token punctuation">.</span>x<span class="token punctuation">;</span>
 
-    float *h_A, *h_B, *hostRef, *gpuRef;
-    h_A     = (float *)malloc(nBytes);
-    h_B     = (float *)malloc(nBytes);
-    hostRef = (float *)malloc(nBytes);
-    gpuRef  = (float *)malloc(nBytes);
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">)</span> C<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s Starting...\n"</span><span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    double iStart, iElaps;
+    <span class="token keyword">int</span> dev <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    cudaDeviceProp deviceProp<span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaGetDeviceProperties</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>deviceProp<span class="token punctuation">,</span> dev<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Using Device %d: %s\n"</span><span class="token punctuation">,</span> dev<span class="token punctuation">,</span> deviceProp<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaSetDevice</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    iStart = seconds();
-    initialData(h_A, nElem);
-    initialData(h_B, nElem);
-    iElaps = seconds() - iStart;
-    printf("initialData Time elapsed %f sec\n", iElaps);
+    <span class="token keyword">int</span> nElem <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">24</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Vector size %d\n"</span><span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">size_t</span> nBytes <span class="token operator">=</span> nElem <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">float</span> <span class="token operator">*</span>h_A<span class="token punctuation">,</span> <span class="token operator">*</span>h_B<span class="token punctuation">,</span> <span class="token operator">*</span>hostRef<span class="token punctuation">,</span> <span class="token operator">*</span>gpuRef<span class="token punctuation">;</span>
+    h_A     <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    h_B     <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    hostRef <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    gpuRef  <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">double</span> iStart<span class="token punctuation">,</span> iElaps<span class="token punctuation">;</span>
+
+    iStart <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">initialData</span><span class="token punctuation">(</span>h_A<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">initialData</span><span class="token punctuation">(</span>h_B<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    iElaps <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> iStart<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"initialData Time elapsed %f sec\n"</span><span class="token punctuation">,</span> iElaps<span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    memset(hostRef, 0, nBytes);
-    memset(gpuRef,  0, nBytes);
+    <span class="token function">memset</span><span class="token punctuation">(</span>hostRef<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">memset</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    iStart = seconds();
-    sumArraysOnHost(h_A, h_B, hostRef, nElem);
-    iElaps = seconds() - iStart;
-    printf("sumArraysOnHost Time elapsed %f sec\n", iElaps);
+    iStart <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sumArraysOnHost</span><span class="token punctuation">(</span>h_A<span class="token punctuation">,</span> h_B<span class="token punctuation">,</span> hostRef<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    iElaps <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> iStart<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sumArraysOnHost Time elapsed %f sec\n"</span><span class="token punctuation">,</span> iElaps<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    float *d_A, *d_B, *d_C;
-    CHECK(cudaMalloc((float**)&amp;d_A, nBytes));
-    CHECK(cudaMalloc((float**)&amp;d_B, nBytes));
-    CHECK(cudaMalloc((float**)&amp;d_C, nBytes));
+    <span class="token keyword">float</span> <span class="token operator">*</span>d_A<span class="token punctuation">,</span> <span class="token operator">*</span>d_B<span class="token punctuation">,</span> <span class="token operator">*</span>d_C<span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_A<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_B<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_C<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    CHECK(cudaMemcpy(d_A, h_A, nBytes, cudaMemcpyHostToDevice));
-    CHECK(cudaMemcpy(d_B, h_B, nBytes, cudaMemcpyHostToDevice));
-    CHECK(cudaMemcpy(d_C, gpuRef, nBytes, cudaMemcpyHostToDevice));
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_A<span class="token punctuation">,</span> h_A<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_B<span class="token punctuation">,</span> h_B<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_C<span class="token punctuation">,</span> gpuRef<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    int iLen = 512;
-    dim3 block (iLen);
-    dim3 grid  ((nElem + block.x - 1) / block.x);
+    <span class="token keyword">int</span> iLen <span class="token operator">=</span> <span class="token number">512</span><span class="token punctuation">;</span>
+    dim3 <span class="token function">block</span> <span class="token punctuation">(</span>iLen<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    dim3 <span class="token function">grid</span>  <span class="token punctuation">(</span><span class="token punctuation">(</span>nElem <span class="token operator">+</span> block<span class="token punctuation">.</span>x <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> block<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    iStart = seconds();
-    sumArraysOnGPU&lt;&lt;&lt;grid, block&gt;&gt;&gt;(d_A, d_B, d_C, nElem);
-    CHECK(cudaDeviceSynchronize());
-    iElaps = seconds() - iStart;
-    printf("sumArraysOnGPU&lt;&lt;&lt;%d, %d&gt;&gt;&gt; Time elapsed %f sec\n", 
-           grid.x,block.x, iElaps);
+    iStart <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sumArraysOnGPU<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span>grid<span class="token punctuation">,</span> block<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>d_A<span class="token punctuation">,</span> d_B<span class="token punctuation">,</span> d_C<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaDeviceSynchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    iElaps <span class="token operator">=</span> <span class="token function">seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> iStart<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sumArraysOnGPU&lt;&lt;&lt;%d, %d&gt;&gt;&gt; Time elapsed %f sec\n"</span><span class="token punctuation">,</span> 
+           grid<span class="token punctuation">.</span>x<span class="token punctuation">,</span>block<span class="token punctuation">.</span>x<span class="token punctuation">,</span> iElaps<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    CHECK(cudaGetLastError()) ;
-    CHECK(cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost));
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaGetLastError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">,</span> d_C<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyDeviceToHost<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    checkResult(hostRef, gpuRef, nElem);
+    <span class="token function">checkResult</span><span class="token punctuation">(</span>hostRef<span class="token punctuation">,</span> gpuRef<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    CHECK(cudaFree(d_A));
-    CHECK(cudaFree(d_B));
-    CHECK(cudaFree(d_C));
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaFree</span><span class="token punctuation">(</span>d_A<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaFree</span><span class="token punctuation">(</span>d_B<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaFree</span><span class="token punctuation">(</span>d_C<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    free(h_A);
-    free(h_B);
-    free(hostRef);
-    free(gpuRef);
+    <span class="token function">free</span><span class="token punctuation">(</span>h_A<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>h_B<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>hostRef<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    return(0);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>

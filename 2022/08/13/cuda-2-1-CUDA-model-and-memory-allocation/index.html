@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -514,42 +515,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>CUDA 2.1：CUDA模型与内存分配</h1>
-<p>CUDA编程模型为应用和硬件设备之间的桥梁，所以要知道，CUDA C是编译型语言，不是解释型语言。 下面的结构图片能形象的表现程序和编程模型实现之间的抽象结构的重要。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CUDA-2-1：CUDA模型与内存分配"><a href="#CUDA-2-1：CUDA模型与内存分配" class="headerlink" title="CUDA 2.1：CUDA模型与内存分配"></a>CUDA 2.1：CUDA模型与内存分配</h1><p>CUDA编程模型为应用和硬件设备之间的桥梁，所以要知道，CUDA C是编译型语言，不是解释型语言。 下面的结构图片能形象的表现程序和编程模型实现之间的抽象结构的重要。</p>
 <blockquote>
-<p>通信抽象，是编程模型和编译器，库函数之间的分界线。</p>
-<p>我们要用到的语法，内存结构，线程结构等这些我们写程序时我们自己控制的部分，控制了异构计算设备的工作模式，都是属于编程模型。</p>
+<p>通信抽象，是编程模型和编译器，库函数之间的分界线。 </p>
+<p>我们要用到的语法，内存结构，线程结构等这些我们写程序时我们自己控制的部分，控制了异构计算设备的工作模式，都是属于编程模型。 </p>
 <p>它通过<strong>专业的硬件原语</strong>和<strong>操作系统的编译器</strong>或<strong>库</strong>来实现。</p>
 <p>利用编程模型所编写的程序指定了程序的各组成部分是如何共享信息及相互协作的。编程模型从逻辑上提供了一个特定的计算机架构，通常它体现在编程语言或编程环境中。</p>
 </blockquote>
-<p><img src="https://s2.loli.net/2022/08/12/fVNzPAktewZ9JaH.png" alt=""></p>
+<p><img src="https://s2.loli.net/2022/08/12/fVNzPAktewZ9JaH.png"></p>
 <blockquote>
 <p>GPU中大致可以分为：</p>
 <ol>
-<li>
-<p>核函数</p>
+<li><p>核函数</p>
 </li>
-<li>
-<p>内存管理</p>
+<li><p>内存管理</p>
 </li>
-<li>
-<p>线程管理</p>
+<li><p>线程管理</p>
 </li>
-<li>
-<p>流</p>
+<li><p>流</p>
 </li>
 </ol>
-<p>等几个关键部分。</p>
+<p>等几个关键部分。 </p>
 </blockquote>
 <p>以上这些理论同时也适用于其他非CPU+GPU异构的组合。</p>
 <blockquote>
 <p>GPU架构下有几个特有的功能：</p>
 <ul>
-<li>
-<p>通过组织层次结构在GPU上组织<strong>线程</strong>的方法</p>
+<li><p>通过组织层次结构在GPU上组织<strong>线程</strong>的方法</p>
 </li>
-<li>
-<p>通过组织层次结构在GPU上组织<strong>内存</strong>的方法</p>
+<li><p>通过组织层次结构在GPU上组织<strong>内存</strong>的方法</p>
 </li>
 </ul>
 </blockquote>
@@ -560,76 +554,72 @@
 <li>硬件层</li>
 </ol>
 <ul>
-<li>
-<p>在第一步、编程与算法设计的过程中，我们最关心的是<strong>在领域层如何解析数据和函数</strong>，以便在并行环境中正确、高效地解决问题。</p>
+<li><p>在第一步、编程与算法设计的过程中，我们最关心的是<strong>在领域层如何解析数据和函数</strong>，以便在并行环境中正确、高效地解决问题。</p>
 </li>
-<li>
-<p>编程阶段中，我们的关注点应转向<strong>如何组织并发线程</strong>。 这个阶段要从<strong>逻辑层面</strong>思考。</p>
+<li><p>编程阶段中，我们的关注点应转向<strong>如何组织并发线程</strong>。 这个阶段要从<strong>逻辑层面</strong>思考。</p>
 </li>
 </ul>
 <p>在C语言并行编程中，需要使用<code>pthreads</code>或<code>OpenMP</code>技术来显式地管理线程。CUDA提出了一个线程层次结构抽象的概念，以允许控制线程行为。</p>
 <p>这个抽象为并行变成提供了良好的可扩展性（一个CUDA程序可以在不同的GPU机器上运行，即使计算能力不同）。</p>
-<p>所以说，理解在硬件层上，<strong>线程是如何映射到机器上</strong>就很重要了。这能帮助我们提高性能。</p>
-<h2 id="1、CUDA编程结构">1、CUDA编程结构</h2>
-<p>一个异构环境，通常有<strong>多个CPU</strong>&amp;<strong>多个GPU</strong>。他们都通过PCIe总线相互通信，也是通过PCIe总线分隔开的。所以我们要区分一下两种设备的内存：</p>
+<p>所以说，理解在硬件层上，<strong>线程是如何映射到机器上</strong>就很重要了。这能帮助我们提高性能。 </p>
+<h2 id="1、CUDA编程结构"><a href="#1、CUDA编程结构" class="headerlink" title="1、CUDA编程结构"></a>1、CUDA编程结构</h2><p>一个异构环境，通常有<strong>多个CPU</strong>&amp;<strong>多个GPU</strong>。他们都通过PCIe总线相互通信，也是通过PCIe总线分隔开的。所以我们要区分一下两种设备的内存：</p>
 <ul>
 <li>主机(Host)：CPU及其内存</li>
 <li>设备(Device)：GPU及其内存</li>
 </ul>
 <p><strong>这两个内存从硬件到软件都是隔离的</strong>（CUDA6.0 以后支持统一寻址，可使用单个指针访问CPU和GPU内存）</p>
-<p>我们暂时先把统一寻址放一边，先用内存来回拷贝的方法来编写调试程序，以巩固对两个内存隔离这个事实的理解。</p>
+<p>我们暂时先把统一寻址放一边，先用内存来回拷贝的方法来编写调试程序，以巩固对两个内存隔离这个事实的理解。 </p>
 <hr>
 <p>内核（kernel）是CUDA编程模型的一个重要组成部分，其代码在GPU上运行。</p>
 <p>多数情况下，主机可以独立地对设备进行操作。内核一旦被启动，管理权立刻返回给主机，释放CPU来执行<strong>由设备上运行的并行代码实现的</strong>额外的任务。</p>
 <p>CUDA编程模型主要是异步的，因此在GPU上进行的运算可以与主机-设备通信重叠。一个典型的CUDA程序包括由并行代码互补的串行代码。</p>
 <p>如下图，串行代码（及任务并行代码）在主机CPU上执行，而并行代码在GPU上执行。主机代码按照ANSI C标准进行编写，而设备代码使用CUDA C进行编写。</p>
 <p>一个典型的CUDA程序实现流程遵循以下模式，参考下图：</p>
-<p>1.把数据从CPU内存拷贝到GPU内存。</p>
-<p>2.调用核函数对存储在GPU内存中的数据进行操作。</p>
-<p>3.将数据从GPU内存传送回到CPU内存。</p>
-<p><img src="https://s2.loli.net/2022/08/12/vSRwoEmJOIQG6Dc.png" alt=""></p>
-<h2 id="2、内存管理">2、内存管理</h2>
-<p>内存管理在传统串行程序是很常见的。寄存器空间，栈空间内的内存由机器自己管理，堆空间由用户控制分配和释放。</p>
+<p>1.把数据从CPU内存拷贝到GPU内存。 </p>
+<p>2.调用核函数对存储在GPU内存中的数据进行操作。 </p>
+<p>3.将数据从GPU内存传送回到CPU内存。 </p>
+<p><img src="https://s2.loli.net/2022/08/12/vSRwoEmJOIQG6Dc.png"></p>
+<h2 id="2、内存管理"><a href="#2、内存管理" class="headerlink" title="2、内存管理"></a>2、内存管理</h2><p>内存管理在传统串行程序是很常见的。寄存器空间，栈空间内的内存由机器自己管理，堆空间由用户控制分配和释放。</p>
 <p>CUDA程序同样，只是CUDA提供的API<strong>可以分配管理<code>设备</code>上的内存，也可以用CUDA管理<code>主机</code>上的内存。</strong></p>
 <p>用于GPU内存分配的是<code>cudaMalloc</code>函数，其函数原型为：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">cudaError_t cudaMalloc (void** devPtr, size_t size)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">cudaError_t</span> <span class="token function">cudaMalloc</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token operator">*</span> devPtr<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>该函数负责向设备分配一定字节的线性内存，并以<code>devPtr</code>的形式返回指向所分配内存<strong>的指针</strong>。</p>
 <p><code>cudaMalloc</code>与标准C语言中的<code>malloc</code>函数基本是一样的，只是这个函数在GPU的内存里分配内存。</p>
 <p>通过充分保持与标准C语言运行库中的接口一致性，可以实现CUDA应用程序的轻松接入。</p>
-<p>下面表格有一些主机API和CUDA C的API的对比：</p>
+<p>下面表格有一些主机API和CUDA C的API的对比： </p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">标准C函数</th>
-<th style="text-align:center">CUDA C 函数</th>
-<th style="text-align:center">说明</th>
+<th align="center">标准C函数</th>
+<th align="center">CUDA C 函数</th>
+<th align="center">说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">malloc</td>
-<td style="text-align:center">cudaMalloc</td>
-<td style="text-align:center">内存分配</td>
+<tbody><tr>
+<td align="center">malloc</td>
+<td align="center">cudaMalloc</td>
+<td align="center">内存分配</td>
 </tr>
 <tr>
-<td style="text-align:center">memcpy</td>
-<td style="text-align:center">cudaMemcpy</td>
-<td style="text-align:center">内存复制</td>
+<td align="center">memcpy</td>
+<td align="center">cudaMemcpy</td>
+<td align="center">内存复制</td>
 </tr>
 <tr>
-<td style="text-align:center">memset</td>
-<td style="text-align:center">cudaMemset</td>
-<td style="text-align:center">内存设置</td>
+<td align="center">memset</td>
+<td align="center">cudaMemset</td>
+<td align="center">内存设置</td>
 </tr>
 <tr>
-<td style="text-align:center">free</td>
-<td style="text-align:center">cudaFree</td>
-<td style="text-align:center">释放内存</td>
+<td align="center">free</td>
+<td align="center">cudaFree</td>
+<td align="center">释放内存</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>我们来研究这个表格里最关键的一步，这一步要走总线的。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">cudaError_t cudaMemcpy(void * dst,const void * src,size_t count,  cudaMemcpyKind kind)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">cudaError_t</span> <span class="token function">cudaMemcpy</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span> dst<span class="token punctuation">,</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span> src<span class="token punctuation">,</span><span class="token class-name">size_t</span> count<span class="token punctuation">,</span>  cudaMemcpyKind kind<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>这个函数是内存拷贝过程，可以完成以下几种过程（cudaMemcpyKind kind）</p>
 <ul>
 <li>cudaMemcpyHostToHost</li>
@@ -639,111 +629,120 @@
 </ul>
 <p>这四个过程的方向可以清楚的从字面上看出来了</p>
 <p>这个函数以同步方式执行，因为在<code>cudaMemcpy</code>函数返回以及传输操作完成之前，主机应用程序是阻塞的。除了内核启动之外的CUDA调用都会返回一个错误的枚举类型<code>cudaError_t</code>。</p>
-<p>如果GPU内存分配执行成功，则会返回 cudaSuccess ；否则返回 cudaErrorMemoryAllocation</p>
-<p>可以使用以下CUDA运行时函数将错误代码转化为可读的错误消息：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">char* cudaGetErrorString(cudaError_t error)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="3、内存层次结构">3、内存层次结构</h2>
-<p>CUDA编程模型最显著的一个特点就是揭示了内存层次结构。每一个GPU设备都有用于不同用途的存储类型。</p>
+<p>如果GPU内存分配执行成功，则会返回 cudaSuccess ；否则返回 cudaErrorMemoryAllocation </p>
+<p>可以使用以下CUDA运行时函数将错误代码转化为可读的错误消息： </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">cudaGetErrorString</span><span class="token punctuation">(</span><span class="token class-name">cudaError_t</span> error<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="3、内存层次结构"><a href="#3、内存层次结构" class="headerlink" title="3、内存层次结构"></a>3、内存层次结构</h2><p>CUDA编程模型最显著的一个特点就是揭示了内存层次结构。每一个GPU设备都有用于不同用途的存储类型。</p>
 <p>在GPU内存层次结构中，最主要的两种内存是<strong>全局内存</strong>和<strong>共享内存</strong>。</p>
 <ul>
 <li><strong>全局</strong>内存类似于CPU的<strong>系统内存</strong></li>
 <li><strong>共享</strong>内存类似于CPU的<strong>缓存</strong>。</li>
 </ul>
 <p>然而GPU的共享内存可以由CUDA C的内核直接控制。</p>
-<p><img src="https://s2.loli.net/2022/08/12/KGO98S3lsnvbj54.png" alt=""></p>
+<p><img src="https://s2.loli.net/2022/08/12/KGO98S3lsnvbj54.png"></p>
 <p>我们通过一个两个数组相加的例子来学习如何在主机和设备之间进行数据传输，以及如何用CUDA C编程。</p>
-<h2 id="4、代码">4、代码</h2>
-<p>看了这么久的理论，看一下代码放松一下吧<span class="github-emoji"><span>🐶</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f436.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p>
+<h2 id="4、代码"><a href="#4、代码" class="headerlink" title="4、代码"></a>4、代码</h2><p>看了这么久的理论，看一下代码放松一下吧<span class="github-emoji"><span>🐶</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f436.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p>
 <blockquote>
 <p>实现目标：两个数组的相加</p>
-<p>数组a的第一个元素与数组b的第一个元素相加，得到的结果作为数组c的第一个元素，重复这个过程直到数组中的所有元素都进行了一次运算。</p>
+<p>数组a的第一个元素与数组b的第一个元素相加，得到的结果作为数组c的第一个元素，重复这个过程直到数组中的所有元素都进行了一次运算。 </p>
 </blockquote>
 <p>1、编写主函数。</p>
 <p>我们先把各个变量初始化一下：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdlib.h&gt;
-#include &lt;time.h&gt;
-int main(int argc, char **argv)
-{
-    // 初始化数组大小
-    int nElem = 1024;
-    size_t nBytes = nElem * sizeof(float);
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// 初始化数组大小</span>
+    <span class="token keyword">int</span> nElem <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">;</span>
+    <span class="token class-name">size_t</span> nBytes <span class="token operator">=</span> nElem <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 分配三个同样大小的空间
-    float *h_A, *h_B, *h_C;
-    h_A = (float *)malloc(nBytes);
-    h_B = (float *)malloc(nBytes);
-    h_C = (float *)malloc(nBytes);
+    <span class="token comment">// 分配三个同样大小的空间</span>
+    <span class="token keyword">float</span> <span class="token operator">*</span>h_A<span class="token punctuation">,</span> <span class="token operator">*</span>h_B<span class="token punctuation">,</span> <span class="token operator">*</span>h_C<span class="token punctuation">;</span>
+    h_A <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    h_B <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    h_C <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 生成随机数
-    initialData(h_A, nElem); 
-    initialData(h_B, nElem);
+    <span class="token comment">// 生成随机数</span>
+    <span class="token function">initialData</span><span class="token punctuation">(</span>h_A<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token function">initialData</span><span class="token punctuation">(</span>h_B<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 相加
-    sumArraysOnHost(h_A, h_B, h_C, nElem); 
+    <span class="token comment">// 相加</span>
+    <span class="token function">sumArraysOnHost</span><span class="token punctuation">(</span>h_A<span class="token punctuation">,</span> h_B<span class="token punctuation">,</span> h_C<span class="token punctuation">,</span> nElem<span class="token punctuation">)</span><span class="token punctuation">;</span> 
 
-    // 释放空间
-    free(h_A);
-    free(h_B);
-    free(h_C);
+    <span class="token comment">// 释放空间</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>h_A<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>h_B<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">free</span><span class="token punctuation">(</span>h_C<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    return(0);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>其中随机数的函数定义如下：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">void initialData(float *ip, int size)
-{
-    //随机种子
-    time_t t;
-    srand((unsigned) time(&amp;t));
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">initialData</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>ip<span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">//随机种子</span>
+    <span class="token class-name">time_t</span> t<span class="token punctuation">;</span>
+    <span class="token function">srand</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span><span class="token punctuation">)</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    for (int i = 0; i &lt; size; i++)
-    {
-        ip[i] = (float)(rand() &amp; 0xFF) / 10.0f;
-    }
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        ip<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">10.0f</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    return;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>最后是相加函数：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">void sumArraysOnHost(float *A, float *B, float *C, const int N)
-{
-    for (int idx = 0; idx &lt; N; idx++)
-    {
-        C[idx] = A[idx] + B[idx];
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">sumArraysOnHost</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> idx <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> idx<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        C<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>我们可以用gcc之类的C语言编译，也可以使用前一篇介绍的nvcc编译方式编译：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nvcc -Xcompiler -std=c99 sum.c -o sum
 ./sum<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <blockquote>
-<p>-Xcompiler用于指定命令行选项是指向C编译器还是预处理器。</p>
+<p>-Xcompiler用于指定命令行选项是指向C编译器还是预处理器。 </p>
 <p>这里的例子中，将-std=c99传递给编译器，因为这里的C程序是按照C99标准编写的。</p>
 <p>可以在这个网站找到编译器选项：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html">cuda c</a></p>
 </blockquote>
 <p><strong>改成CUDA代码！</strong></p>
 <p>现在，聪明的你可以在GPU上修改代码来进行数组加法运算，用我们刚刚了解到的<code>cudaMalloc</code>在GPU上申请内存。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">float *d_A, *d_B, *d_C;
-cudaMalloc((float**)&amp;d_A, nBytes);
-cudaMalloc((float**)&amp;d_B, nBytes);
-cudaMalloc((float**)&amp;d_C, nBytes);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后，可以使用cudaMemcpy函数把数据从主机内存拷贝到GPU的全局内存中，参数<code>cudaMemcpyHostToDevice</code>指定了数据拷贝方向。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">cudaMemcpy(d_A, h_A, nBytes, cudaMemcpyHostToDevice);
-cudaMemcpy(d_B, h_B, nBytes, cudaMemcpyHostToDevice);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">float</span> <span class="token operator">*</span>d_A<span class="token punctuation">,</span> <span class="token operator">*</span>d_B<span class="token punctuation">,</span> <span class="token operator">*</span>d_C<span class="token punctuation">;</span>
+<span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_A<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_B<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cudaMalloc</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>d_C<span class="token punctuation">,</span> nBytes<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后，可以使用cudaMemcpy函数把数据从主机内存拷贝到GPU的全局内存中，参数<code>cudaMemcpyHostToDevice</code>指定了数据拷贝方向。 </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_A<span class="token punctuation">,</span> h_A<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_B<span class="token punctuation">,</span> h_B<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>当数据被转移到GPU的全局内存后，主机端调用核函数在GPU上进行数组求和。</p>
-<p>一旦内核被调用，控制权立刻被传回主机，这样的话，当核函数在GPU上运行时，主机可以执行其他函数。因此，内核与主机是异步的。</p>
-<p>当内核在GPU上完成了对所有数组元素的处理后，其结果将以数组d_C的形式存储在GPU的全局内存中，然后用cudaMemcpy函数把结果从GPU复制回到主机的数组gpuRef中。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>一旦内核被调用，控制权立刻被传回主机，这样的话，当核函数在GPU上运行时，主机可以执行其他函数。因此，内核与主机是异步的。 </p>
+<p>当内核在GPU上完成了对所有数组元素的处理后，其结果将以数组d_C的形式存储在GPU的全局内存中，然后用cudaMemcpy函数把结果从GPU复制回到主机的数组gpuRef中。 </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">,</span> d_C<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyDeviceToHost<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>cudaMemcpy的调用会导致主机运行阻塞。cudaMemcpyDeviceToHost的作用就是将存储在GPU上的数组d_c中的结果复制到gpuRef中。最后，调用cudaFree释放GPU的内存。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">cudaFree(d_A);
-cudaFree(d_B);
-cudaFree(d_C);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">cudaFree</span><span class="token punctuation">(</span>d_A<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cudaFree</span><span class="token punctuation">(</span>d_B<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cudaFree</span><span class="token punctuation">(</span>d_C<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
-<p>在这补充一点：CUDA C编程一个经常会发生的错误就是：混用设备和主机的内存地址</p>
-<p>如果你执行了错误的内存分配，如：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">gpuRef = d_C<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p> 在这补充一点：CUDA C编程一个经常会发生的错误就是：混用设备和主机的内存地址</p>
+<p>如果你执行了错误的内存分配，如： </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">gpuRef <span class="token operator">=</span> d_C<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>而不是正确的方式：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>gpuRef<span class="token punctuation">,</span> d_C<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyDeviceToHost<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>应用程序就会崩溃</p>
-<p>为了区分设备和主机端内存，我们可以给变量加后缀或者前缀<code>h_</code>表示host，<code>d_</code>表示device</p>
-<p>并且为了避免这类错误，CUDA 6.0提出了统一寻址，使用一个指针来访问CPU和GPU的内</p>
+<p>为了区分设备和主机端内存，我们可以给变量加后缀或者前缀<code>h_</code>表示host，<code>d_</code>表示device </p>
+<p>并且为了避免这类错误，CUDA 6.0提出了统一寻址，使用一个指针来访问CPU和GPU的内 </p>
 <p>存。（当然是以后再介绍了）</p>
 </blockquote>
 <p>很明显，现在我们只是入门了基本的内存处理，要想完善这个demo，我们还需要学习很多。下一篇我们会接着介绍CUDA线程管理</p>

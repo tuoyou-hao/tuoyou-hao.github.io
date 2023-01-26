@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -420,8 +421,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在使用vmware linux时，有时候会出现如下情况：</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在使用vmware linux时，有时候会出现如下情况：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">open-vm-tools Error when getting information for file "//tmp/VMwareDnD/3jTONh/:xxx: No such file or directory<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>会导致无法复制文件，拖拽也不行的情况。</p>
 <p>参考VMware的<a target="_blank" rel="noopener" href="https://kb.vmware.com/s/article/74671">文章</a>，在文件拖拽和复制、粘贴，需要挂载一个特殊的文件系统：<code>vmblock-fuse</code>，先查看这个文件系统挂载服务的情况，如果有类似这样的输出：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl status run-vmblock\\x2dfuse.mount
@@ -431,16 +433,19 @@
       Where: /run/vmblock-fuse
        What: vmware-vmblock-fuse
        Docs: https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>这个服务处于<code>inactive</code>状态并且是<code>disabled</code>状态，就是该服务没有启动，并且重启后也不会自启。</p>
 <p>解决方法：</p>
 <ol>
 <li>开机自启</li>
 </ol>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl enable run-vmblock\\x2dfuse.mount   <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <ol start="2">
 <li>启动服务</li>
 </ol>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl start run-vmblock\\x2dfuse.mount<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>现在来查看服务状态，会有如下输出。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl status run-vmblock\\x2dfuse.mount
 ● run-vmblock\x2dfuse.mount - /run/vmblock-fuse
@@ -448,8 +453,10 @@
    Active: active (mounted) since Sat 2022-08-27 12:04:26 CST; 12min ago
     Where: /run/vmblock-fuse
      What: vmware-vmblock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>但是此时仍然无法复制粘贴，还需要再重启vmware-tools服务</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl restart vmware-tools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>至此，VMware可以随意复制粘贴文件了。</p>
 
                 

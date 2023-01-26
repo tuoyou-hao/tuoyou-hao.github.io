@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>拓佑豪的博客</title>
+  
+  <subtitle>拓佑豪的博客</subtitle>
+  <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://tuoyou-hao.github.io/"/>
+  <updated>2023-01-16T09:39:56.058Z</updated>
+  <id>http://tuoyou-hao.github.io/</id>
+  
+  <author>
+    <name>拓佑豪</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SLAM 3.5：Sophus基础</title>
+    <link href="http://tuoyou-hao.github.io/2023/01/16/slam-3-5-sophus/"/>
+    <id>http://tuoyou-hao.github.io/2023/01/16/slam-3-5-sophus/</id>
+    <published>2023-01-16T09:36:03.000Z</published>
+    <updated>2023-01-16T09:39:56.058Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-3-5-Sophus实践&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="SLAM" scheme="http://tuoyou-hao.github.io/tags/SLAM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SLAM 3：李群李代数</title>
+    <link href="http://tuoyou-hao.github.io/2023/01/16/slam-3-Lie-group-Lie-algebra/"/>
+    <id>http://tuoyou-hao.github.io/2023/01/16/slam-3-Lie-group-Lie-algebra/</id>
+    <published>2023-01-16T03:40:03.000Z</published>
+    <updated>2023-01-16T03:40:18.042Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-3：李群李代数&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="数学" scheme="http://tuoyou-hao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+    
+    <category term="SLAM" scheme="http://tuoyou-hao.github.io/tags/SLAM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SLAM 2：代码基础</title>
+    <link href="http://tuoyou-hao.github.io/2023/01/11/slam-2-code-base/"/>
+    <id>http://tuoyou-hao.github.io/2023/01/11/slam-2-code-base/</id>
+    <published>2023-01-11T14:56:03.000Z</published>
+    <updated>2023-01-16T04:19:47.313Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-2、代码基础&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="环境搭建" scheme="http://tuoyou-hao.github.io/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+    <category term="SLAM" scheme="http://tuoyou-hao.github.io/tags/SLAM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dpkg Error Code 1</title>
+    <link href="http://tuoyou-hao.github.io/2023/01/10/error-linux-sub-process-dpkg/"/>
+    <id>http://tuoyou-hao.github.io/2023/01/10/error-linux-sub-process-dpkg/</id>
+    <published>2023-01-09T16:00:11.000Z</published>
+    <updated>2023-01-09T16:17:05.144Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="报错排查" scheme="http://tuoyou-hao.github.io/categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/"/>
+    
+    
+    <category term="Linux" scheme="http://tuoyou-hao.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2022年度总结</title>
+    <link href="http://tuoyou-hao.github.io/2023/01/01/Newyear_Summary_2022/"/>
+    <id>http://tuoyou-hao.github.io/2023/01/01/Newyear_Summary_2022/</id>
+    <published>2023-01-01T05:12:11.000Z</published>
+    <updated>2023-01-09T16:17:02.904Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;2022-年度总结&quot;&gt;&lt;a href=&quot;#2022-年度总结&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="闲聊" scheme="http://tuoyou-hao.github.io/categories/%E9%97%B2%E8%81%8A/"/>
+    
+    
+    <category term="闲聊" scheme="http://tuoyou-hao.github.io/tags/%E9%97%B2%E8%81%8A/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQL 2：关系数据库</title>
+    <link href="http://tuoyou-hao.github.io/2022/11/18/DataBase-2/"/>
+    <id>http://tuoyou-hao.github.io/2022/11/18/DataBase-2/</id>
+    <published>2022-11-18T03:52:11.000Z</published>
+    <updated>2022-11-18T07:35:20.223Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;数据库2、关系数据库&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="SQL" scheme="http://tuoyou-hao.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQL 1：概念</title>
+    <link href="http://tuoyou-hao.github.io/2022/11/10/DataBase-1/"/>
+    <id>http://tuoyou-hao.github.io/2022/11/10/DataBase-1/</id>
+    <published>2022-11-10T06:46:11.000Z</published>
+    <updated>2022-11-18T07:35:16.187Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;数据库-1、基础&quot;&gt;&lt;a href=&quot;#数据库-1、基础&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="SQL" scheme="http://tuoyou-hao.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VMware文件拖拽报错</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/27/error-Fix-VMware-drag-and-drop-failure/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/27/error-Fix-VMware-drag-and-drop-failure/</id>
+    <published>2022-08-27T06:01:11.000Z</published>
+    <updated>2022-08-27T06:17:58.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;在使用vmware linux时，有时候会出现如下情况：&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="报错排查" scheme="http://tuoyou-hao.github.io/categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/"/>
+    
+    
+    <category term="Linux" scheme="http://tuoyou-hao.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CUDA 2.3：核函数计时</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/18/cuda-2-3-Timing-kernel-function/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/18/cuda-2-3-Timing-kernel-function/</id>
+    <published>2022-08-18T06:29:11.000Z</published>
+    <updated>2022-08-18T06:33:08.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-3-给核函数计时&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CUDA 2.2：编程模型概述(二)</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/15/cuda-2-2-Threads-and-kernel-functions/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/15/cuda-2-2-Threads-and-kernel-functions/</id>
+    <published>2022-08-15T07:10:11.000Z</published>
+    <updated>2022-08-15T07:13:04.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-2：线程与核函数&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CUDA 2.1：编程模型概述(一)</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/13/cuda-2-1-CUDA-model-and-memory-allocation/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/13/cuda-2-1-CUDA-model-and-memory-allocation/</id>
+    <published>2022-08-13T10:00:11.000Z</published>
+    <updated>2022-08-15T07:12:54.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-1：CUDA模型与内存分配&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CUDA 1：并行基础概念</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/11/cuda-1-intro/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/11/cuda-1-intro/</id>
+    <published>2022-08-10T16:17:11.000Z</published>
+    <updated>2022-08-10T16:19:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-1：并行基础概念&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 十二、认识并安装ROS2</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/09/ros-12-ros2-intro-install/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/09/ros-12-ros2-intro-install/</id>
+    <published>2022-08-09T09:30:03.000Z</published>
+    <updated>2022-08-21T08:51:50.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-12：引入ROS2&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="环境搭建" scheme="http://tuoyou-hao.github.io/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+    <category term="环境搭建" scheme="http://tuoyou-hao.github.io/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows设置汇总</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/</id>
+    <published>2022-08-08T15:56:10.000Z</published>
+    <updated>2022-08-08T16:00:08.311Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;Window-设置汇总&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="计算机知识" scheme="http://tuoyou-hao.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/"/>
+    
+    
+    <category term="Windows" scheme="http://tuoyou-hao.github.io/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 十一、命名空间</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/08/ros-11-namespace/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/08/ros-11-namespace/</id>
+    <published>2022-08-08T07:32:02.000Z</published>
+    <updated>2022-08-21T08:51:46.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-十一-命名空间&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 十、Launch入门</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/08/ros-10-launch-flie/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/08/ros-10-launch-flie/</id>
+    <published>2022-08-08T07:30:02.000Z</published>
+    <updated>2022-08-21T08:51:40.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-十：launch文件入门&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 九、坐标管理系统Tf简介</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/02/ros-9-tf-introduction/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/02/ros-9-tf-introduction/</id>
+    <published>2022-08-02T10:28:02.000Z</published>
+    <updated>2022-12-03T04:20:01.938Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-九：坐标管理系统tf简介&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SLAM：三维空间数学基础</title>
+    <link href="http://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/"/>
+    <id>http://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/</id>
+    <published>2022-08-02T07:25:03.000Z</published>
+    <updated>2022-12-03T04:26:16.809Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数学" scheme="http://tuoyou-hao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+    <category term="SLAM" scheme="http://tuoyou-hao.github.io/tags/SLAM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 八、参数的使用</title>
+    <link href="http://tuoyou-hao.github.io/2022/07/31/ros-8-rosparam/"/>
+    <id>http://tuoyou-hao.github.io/2022/07/31/ros-8-rosparam/</id>
+    <published>2022-07-30T16:23:03.000Z</published>
+    <updated>2022-12-03T04:19:58.665Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-8-参数的使用与编程&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 七、服务数据的自定义</title>
+    <link href="http://tuoyou-hao.github.io/2022/07/28/ros-7-Custom-service/"/>
+    <id>http://tuoyou-hao.github.io/2022/07/28/ros-7-Custom-service/</id>
+    <published>2022-07-28T08:13:03.000Z</published>
+    <updated>2022-08-21T08:51:28.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-7-服务数据自定义&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+  </entry>
+  
+</feed>

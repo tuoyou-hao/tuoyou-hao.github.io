@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -514,15 +515,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>ROS 7: 服务数据自定义</h1>
-<blockquote>
-<p>​	从上一篇文章中，简单介绍了服务端以及客户端的代码实现。这里主要描述自己定义服务的数据类型，并且来使用它。我们仍然使用宝可梦的例子来写代码。</p>
-<p>​	在前面自定义topic中，topic会一直发数据。我们现在改善一下上次的宝可梦例子，让它只有在request的时候才会发数据</p>
-<p>​	在自定义消息的那一章节中，我们使用<code>*.msg</code>的文件来存储，在服务数据自定义中也是类似的，我们使用<code>*.srv</code>文件在自定义数据类型</p>
-<p>​	可以参考自定义消息的笔记: <a href="https://tuoyou-hao.github.io/2022/07/19/ros-5-Customize-message-topics/">ROS5</a></p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-7-服务数据自定义"><a href="#ROS-7-服务数据自定义" class="headerlink" title="ROS 7: 服务数据自定义"></a>ROS 7: 服务数据自定义</h1><blockquote>
+<p>​    从上一篇文章中，简单介绍了服务端以及客户端的代码实现。这里主要描述自己定义服务的数据类型，并且来使用它。我们仍然使用宝可梦的例子来写代码。</p>
+<p>​    在前面自定义topic中，topic会一直发数据。我们现在改善一下上次的宝可梦例子，让它只有在request的时候才会发数据</p>
+<p>​    在自定义消息的那一章节中，我们使用<code>*.msg</code>的文件来存储，在服务数据自定义中也是类似的，我们使用<code>*.srv</code>文件在自定义数据类型</p>
+<p>​    可以参考自定义消息的笔记: <a href="https://tuoyou-hao.github.io/2022/07/19/ros-5-Customize-message-topics/">ROS5</a></p>
 </blockquote>
-<h2 id="一、定义srv文件-编译头文件">一、定义srv文件,编译头文件</h2>
-<p><code>*.msg</code>文件与<code>*.srv</code>文件的区别在于，由于服务数据除了要定义request，还需要定义response。可以参考<a href="https://tuoyou-hao.github.io/2022/07/21/ros-6-client-server-code/">ROS6</a>.定义消息类型的时候，数据定义需要用<code>---</code>三横线区分开来。</p>
+<h2 id="一、定义srv文件-编译头文件"><a href="#一、定义srv文件-编译头文件" class="headerlink" title="一、定义srv文件,编译头文件"></a>一、定义srv文件,编译头文件</h2><p><code>*.msg</code>文件与<code>*.srv</code>文件的区别在于，由于服务数据除了要定义request，还需要定义response。可以参考<a href="https://tuoyou-hao.github.io/2022/07/21/ros-6-client-server-code/">ROS6</a>.定义消息类型的时候，数据定义需要用<code>---</code>三横线区分开来。</p>
 <p>在功能包里新建一个文件夹<code>srv</code>，touch一个<code>*.srv</code>文件，并输入定义的内容。</p>
 <p>这里在learn_server功能包下新建一个srv文件夹，把Pokemon.srv放在这个目录下</p>
 <pre class="line-numbers language-srv" data-language="srv"><code class="language-srv">string name
@@ -534,158 +533,159 @@ uint8 male    = 1
 uint8 female  = 2
 ---
 string result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>修改CMakeLists.txt，在第十行find_package处修改，主要是最后一行加上<code>message_generation</code>这个功能包依赖</p>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">find_package(catkin REQUIRED COMPONENTS
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">find_package</span><span class="token punctuation">(</span>catkin REQUIRED COMPONENTS
   geometry_msgs
   roscpp
   rospy
   std_msgs
   turtlesim
   message_generation
-)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后在CMakeLists.txt再加上以下内容，让编译器知道要根据哪个srv文件产生头文件</p>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_service_files(FILES Pokemon.srv)
-generate_messages(DEPENDENCIES std_msgs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">add_service_files</span><span class="token punctuation">(</span>FILES Pokemon.srv<span class="token punctuation">)</span>
+<span class="token function">generate_messages</span><span class="token punctuation">(</span>DEPENDENCIES std_msgs<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>然后在CMakeLists.txt加上以下内容，添加编译依赖</p>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES learn_server
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token function">catkin_package</span><span class="token punctuation">(</span>
+<span class="token comment">#  INCLUDE_DIRS include</span>
+<span class="token comment">#  LIBRARIES learn_server</span>
    CATKIN_DEPENDS geometry_msgs roscp rospy std_msgs turtlesim message_runtime
-#  DEPENDS system_lib
-)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">#  DEPENDS system_lib</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>最后再package.xml文件添加以下依赖描述：</p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build_depend</span><span class="token punctuation">&gt;</span></span>message_generation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build_depend</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>exec_depend</span><span class="token punctuation">&gt;</span></span>message_runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>exec_depend</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>在工作空间根目录下，使用<code>catkin_make</code>编译头文件</p>
 <p>编译完成之后，<strong>在工作空间的devel/include/learn_server目录下</strong>，可以看到三个编译完成的头文件：</p>
 <ul>
-<li>
-<p>Pokemon.h：会包含以下两个头文件，加载这一个就足矣。</p>
+<li><p>Pokemon.h：会包含以下两个头文件，加载这一个就足矣。</p>
 </li>
-<li>
-<p>PokemonRequest.h</p>
+<li><p>PokemonRequest.h</p>
 </li>
-<li>
-<p>PokemonResponse.h</p>
+<li><p>PokemonResponse.h</p>
 </li>
 </ul>
-<h2 id="二、代码实现">二、代码实现</h2>
-<h3 id="c-实现">c++实现</h3>
-<h4 id="1、服务端实现">1、服务端实现</h4>
-<p>导入头文件</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
-#include "learn_server/Pokemon.h"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h2><h3 id="c-实现"><a href="#c-实现" class="headerlink" title="c++实现"></a>c++实现</h3><h4 id="1、服务端实现"><a href="#1、服务端实现" class="headerlink" title="1、服务端实现"></a>1、服务端实现</h4><p>导入头文件</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ros/ros.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"learn_server/Pokemon.h"</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>写主函数</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc, char **argv)
-{
-    // ROS节点初始化
-    ros::init(argc, argv, "pokemon_server");
-    ros::NodeHandle ser_pokemon_node;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// ROS节点初始化</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">,</span> <span class="token string">"pokemon_server"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle ser_pokemon_node<span class="token punctuation">;</span>
 
-    // 创建一个叫做/pokemon_show的server，注册回调函数Callback
-    ros::ServiceServer pokemon_server = ser_pokemon_node.advertiseService("/pokemon_show", Callback);
+    <span class="token comment">// 创建一个叫做/pokemon_show的server，注册回调函数Callback</span>
+    ros<span class="token double-colon punctuation">::</span>ServiceServer pokemon_server <span class="token operator">=</span> ser_pokemon_node<span class="token punctuation">.</span><span class="token function">advertiseService</span><span class="token punctuation">(</span><span class="token string">"/pokemon_show"</span><span class="token punctuation">,</span> Callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 循环等待回调函数
-    ROS_INFO("Ready to show pokemon infomation");
-    ros::spin();
+    <span class="token comment">// 循环等待回调函数</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">"Ready to show pokemon infomation"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">spin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后就是写好回调函数</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// service回调函数，输入参数req，输出参数res
-bool Callback(learn_server::Pokemon::Request &amp;req,learn_server::Pokemon::Response &amp;res)
-{
-    // 显示请求数据
-    ROS_INFO("Pokemon: name:%s type:%s gender:%d", req.name.c_str(), req.type.c_str(), req.gender);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// service回调函数，输入参数req，输出参数res</span>
+<span class="token keyword">bool</span> <span class="token function">Callback</span><span class="token punctuation">(</span>learn_server<span class="token double-colon punctuation">::</span>Pokemon<span class="token double-colon punctuation">::</span>Request <span class="token operator">&amp;</span>req<span class="token punctuation">,</span>learn_server<span class="token double-colon punctuation">::</span>Pokemon<span class="token double-colon punctuation">::</span>Response <span class="token operator">&amp;</span>res<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// 显示请求数据</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">"Pokemon: name:%s type:%s gender:%d"</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>type<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>gender<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 设置反馈数据
-    res.result = "Pokemon response. Done";
+    <span class="token comment">// 设置反馈数据</span>
+    res<span class="token punctuation">.</span>result <span class="token operator">=</span> <span class="token string">"Pokemon response. Done"</span><span class="token punctuation">;</span>
 
-    return true;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2、客户端实现">2、客户端实现</h4>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
-#include "learn_server/Pokemon.h"
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-int main(int argc,char **argv){
-    ros::init(argc,argv,"pokemon_client");
-    ros::NodeHandle cli_pokemon_node;
+<h4 id="2、客户端实现"><a href="#2、客户端实现" class="headerlink" title="2、客户端实现"></a>2、客户端实现</h4><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ros/ros.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"learn_server/Pokemon.h"</span></span>
 
-    // 发现/pokemon_show服务后，创建一个服务客户端，连接名为/pokemon_show的service
-    ros::service::waitForService("/pokemon_show");
-    ros::ServiceClient pokemon_client = cli_pokemon_node.serviceClient&lt;learn_server::Pokemon&gt;("/pokemon_show");
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span>argv<span class="token punctuation">,</span><span class="token string">"pokemon_client"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle cli_pokemon_node<span class="token punctuation">;</span>
 
-    // 初始化learn_server::Pokemon的请求数据
-    learn_server::Pokemon srv;
-    srv.request.name = "Pikachu";
-    srv.request.type = "electric";
-    srv.request.gender  = learn_server::Pokemon::Request::male;
+    <span class="token comment">// 发现/pokemon_show服务后，创建一个服务客户端，连接名为/pokemon_show的service</span>
+    ros<span class="token double-colon punctuation">::</span>service<span class="token double-colon punctuation">::</span><span class="token function">waitForService</span><span class="token punctuation">(</span><span class="token string">"/pokemon_show"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>ServiceClient pokemon_client <span class="token operator">=</span> cli_pokemon_node<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>learn_server<span class="token double-colon punctuation">::</span>Pokemon<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">"/pokemon_show"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 请求服务调用
-    ROS_INFO("Call service [name:%s, age:%s, sex:%d]", 
-                srv.request.name.c_str(), srv.request.type.c_str(), srv.request.gender);
-    pokemon_client.call(srv);
+    <span class="token comment">// 初始化learn_server::Pokemon的请求数据</span>
+    learn_server<span class="token double-colon punctuation">::</span>Pokemon srv<span class="token punctuation">;</span>
+    srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Pikachu"</span><span class="token punctuation">;</span>
+    srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>type <span class="token operator">=</span> <span class="token string">"electric"</span><span class="token punctuation">;</span>
+    srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>gender  <span class="token operator">=</span> learn_server<span class="token double-colon punctuation">::</span>Pokemon<span class="token double-colon punctuation">::</span>Request<span class="token double-colon punctuation">::</span>male<span class="token punctuation">;</span>
 
-    // 显示服务调用结果
-    ROS_INFO("Result : %s", srv.response.result.c_str());
+    <span class="token comment">// 请求服务调用</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">"Call service [name:%s, age:%s, sex:%d]"</span><span class="token punctuation">,</span> 
+                srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>type<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> srv<span class="token punctuation">.</span>request<span class="token punctuation">.</span>gender<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pokemon_client<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>srv<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="3、编译运行">3、编译运行</h4>
-<p>在CMakeLists中增加以下内容，告知编译器相关编译规则：</p>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(ser_pokemon src/ser_pokemon.cpp)
-target_link_libraries(ser_pokemon ${catkin_LIBRARIES})
-add_dependencies(ser_pokemon ${PROJECT_NAME}_gencpp)
+    <span class="token comment">// 显示服务调用结果</span>
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">"Result : %s"</span><span class="token punctuation">,</span> srv<span class="token punctuation">.</span>response<span class="token punctuation">.</span>result<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-add_executable(cli_pokemon src/cli_pokemon.cpp)
-target_link_libraries(cli_pokemon ${catkin_LIBRARIES})
-add_dependencies(cli_pokemon ${PROJECT_NAME}_gencpp)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="3、编译运行"><a href="#3、编译运行" class="headerlink" title="3、编译运行"></a>3、编译运行</h4><p>在CMakeLists中增加以下内容，告知编译器相关编译规则：</p>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">add_executable</span><span class="token punctuation">(</span>ser_pokemon src/ser_pokemon.cpp<span class="token punctuation">)</span>
+<span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>ser_pokemon <span class="token punctuation">${</span>catkin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">add_dependencies</span><span class="token punctuation">(</span>ser_pokemon <span class="token punctuation">${</span><span class="token variable">PROJECT_NAME</span><span class="token punctuation">}</span>_gencpp<span class="token punctuation">)</span>
+
+<span class="token keyword">add_executable</span><span class="token punctuation">(</span>cli_pokemon src/cli_pokemon.cpp<span class="token punctuation">)</span>
+<span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>cli_pokemon <span class="token punctuation">${</span>catkin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">add_dependencies</span><span class="token punctuation">(</span>cli_pokemon <span class="token punctuation">${</span><span class="token variable">PROJECT_NAME</span><span class="token punctuation">}</span>_gencpp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后在工作空间使用<code>catkin_make</code>编译即可运行</p>
 <p>在运行代码之前记得<strong>先在待运行的终端</strong>执行<code>source devel/setup.bash</code>指令，修改环境变量，rosrun才能读到功能包下的可执行文件。</p>
-<h3 id="python实现">python实现</h3>
-<h4 id="1、服务端实现-2">1、服务端实现</h4>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
-import rospy
-from learn_server.srv import Pokemon,PokemonResponse
+<h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><h4 id="1、服务端实现-1"><a href="#1、服务端实现-1" class="headerlink" title="1、服务端实现"></a>1、服务端实现</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding: utf-8 -*-</span>
+<span class="token keyword">import</span> rospy
+<span class="token keyword">from</span> learn_server<span class="token punctuation">.</span>srv <span class="token keyword">import</span> Pokemon<span class="token punctuation">,</span>PokemonResponse
 
-def Callback(req):
-    rospy.loginfo("Pokemon: name:%s type:%s gender:%d", req.name, req.type, req.gender)
-    return PokemonResponse("Pokemon response. Done")
+<span class="token keyword">def</span> <span class="token function">Callback</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    rospy<span class="token punctuation">.</span>loginfo<span class="token punctuation">(</span><span class="token string">"Pokemon: name:%s type:%s gender:%d"</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>name<span class="token punctuation">,</span> req<span class="token punctuation">.</span><span class="token builtin">type</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>gender<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> PokemonResponse<span class="token punctuation">(</span><span class="token string">"Pokemon response. Done"</span><span class="token punctuation">)</span>
 
-def pokemon_server():
-    rospy.init_node('poekmon_server_py')
+<span class="token keyword">def</span> <span class="token function">pokemon_server</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    rospy<span class="token punctuation">.</span>init_node<span class="token punctuation">(</span><span class="token string">'poekmon_server_py'</span><span class="token punctuation">)</span>
 
-	# 创建一个名为/pokemon_show的server，注册回调函数Callback
-    s = rospy.Service('/pokemon_show', Pokemon, Callback)
+	<span class="token comment"># 创建一个名为/pokemon_show的server，注册回调函数Callback</span>
+    s <span class="token operator">=</span> rospy<span class="token punctuation">.</span>Service<span class="token punctuation">(</span><span class="token string">'/pokemon_show'</span><span class="token punctuation">,</span> Pokemon<span class="token punctuation">,</span> Callback<span class="token punctuation">)</span>
 
-	# 循环等待回调函数
-    print "Ready to show pokemon information."
-    rospy.spin()
+	<span class="token comment"># 循环等待回调函数</span>
+    <span class="token keyword">print</span> <span class="token string">"Ready to show pokemon information."</span>
+    rospy<span class="token punctuation">.</span>spin<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-if __name__ == "__main__":
-    pokemon_server()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2、客户端实现-2">2、客户端实现</h4>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
-import sys
-import rospy
-from learn_server.srv import Pokemon, PokemonRequest
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    pokemon_server<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-def pokemon_client():
-    rospy.init_node('poekmon_client_py')
+<h4 id="2、客户端实现-1"><a href="#2、客户端实现-1" class="headerlink" title="2、客户端实现"></a>2、客户端实现</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding: utf-8 -*-</span>
+<span class="token keyword">import</span> sys
+<span class="token keyword">import</span> rospy
+<span class="token keyword">from</span> learn_server<span class="token punctuation">.</span>srv <span class="token keyword">import</span> Pokemon<span class="token punctuation">,</span> PokemonRequest
 
-	# 发现/pokemon_show服务后，创建一个服务客户端，连接名为/pokemon_show的service
-    rospy.wait_for_service('/pokemon_show')
-    try:
-        poekmon_client_py = rospy.ServiceProxy('/pokemon_show', Pokemon)
+<span class="token keyword">def</span> <span class="token function">pokemon_client</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    rospy<span class="token punctuation">.</span>init_node<span class="token punctuation">(</span><span class="token string">'poekmon_client_py'</span><span class="token punctuation">)</span>
 
-		# 请求服务调用，输入请求数据
-        response = poekmon_client_py("Psyduck", "water", PokemonRequest.male)
-        return response.result
-    except rospy.ServiceException, e:
-        print "Service call failed: %s"%e
+	<span class="token comment"># 发现/pokemon_show服务后，创建一个服务客户端，连接名为/pokemon_show的service</span>
+    rospy<span class="token punctuation">.</span>wait_for_service<span class="token punctuation">(</span><span class="token string">'/pokemon_show'</span><span class="token punctuation">)</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        poekmon_client_py <span class="token operator">=</span> rospy<span class="token punctuation">.</span>ServiceProxy<span class="token punctuation">(</span><span class="token string">'/pokemon_show'</span><span class="token punctuation">,</span> Pokemon<span class="token punctuation">)</span>
 
-if __name__ == "__main__":
-    print "Show person result : %s" %(pokemon_client())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+		<span class="token comment"># 请求服务调用，输入请求数据</span>
+        response <span class="token operator">=</span> poekmon_client_py<span class="token punctuation">(</span><span class="token string">"Psyduck"</span><span class="token punctuation">,</span> <span class="token string">"water"</span><span class="token punctuation">,</span> PokemonRequest<span class="token punctuation">.</span>male<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> response<span class="token punctuation">.</span>result
+    <span class="token keyword">except</span> rospy<span class="token punctuation">.</span>ServiceException<span class="token punctuation">,</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">print</span> <span class="token string">"Service call failed: %s"</span><span class="token operator">%</span>e
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"Show person result : %s"</span> <span class="token operator">%</span><span class="token punctuation">(</span>pokemon_client<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>

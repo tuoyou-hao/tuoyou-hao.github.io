@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -536,22 +537,22 @@
 </li>
 </ul>
 <h2 id="3、Makefile编写"><a href="#3、Makefile编写" class="headerlink" title="3、Makefile编写"></a>3、Makefile编写</h2><h3 id="3-1-来写一个最简单的Makefile"><a href="#3-1-来写一个最简单的Makefile" class="headerlink" title="3.1 来写一个最简单的Makefile"></a>3.1 来写一个最简单的Makefile</h3><p>我们来看这一段代码<code>a.c</code></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-void main(){
-	printf("Hello World\n");
-}//a.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello World\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token comment">//a.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>非常简单。加入我们要在Linux下编译运行，应该要怎么做</p>
 <p>是的，在shell中使用gcc编译，生成一个可执行的二进制文件。直接执行这个文件就会显示“Hello Worrld”</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gcc a.c -o a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>如果我要在Makefile里面编译这个a.c的代码，应该怎么写？</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">a:a.c
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">a</span><span class="token punctuation">:</span>a.c
 	gcc a.c -o a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>如果你查阅过和Makefile相关的资料，你可能会看到这段文字</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">target ... : prerequisites ...  
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">target ...</span> <span class="token punctuation">:</span> prerequisites ...  
             command  
             ...  
             ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
@@ -575,10 +576,10 @@ void main(){
 <p>比如下面这段Makefile，如果我们需要先把 *.c 文件先编译成 *.o 文件，而不是一步到位的编译成可执行文件，可以将上面<code>gcc a.c -o a</code>的步骤拆分成以下两句：</p>
 </li>
 </ol>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">a:a.o
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">a</span><span class="token punctuation">:</span>a.o
 	gcc a.o -o a
 
-a.o:a.c
+<span class="token target symbol">a.o</span><span class="token punctuation">:</span>a.c
 	gcc -c a.c -o a.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>​        Makefile会先找到 “a” 这个目标，并把这个文件作为最终的目标文件。其余的各项依赖文件得写在后面，也就是我们的要介绍的：</p>
@@ -592,44 +593,44 @@ a.o:a.c
 </ol>
 <p>并且和上一次的单个语句编译不同，我们同时还能获得 a.o 的文件</p>
 <h3 id="3-3-多个文件编译"><a href="#3-3-多个文件编译" class="headerlink" title="3.3 多个文件编译"></a>3.3 多个文件编译</h3><p>你现在有一个大工程代码的main代码，是一个计算器，假设你是这样编写的：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-int add(int, int);
-int sub(int, int);
-int mul(int, int);
+<span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">sub</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">mul</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-int main(){
-	int a = 2, b = 1;
-	printf("%d+%d=%d\n", a, b, add(a, b));
-	printf("%d-%d=%d\n", a, b, sub(a, b));
-	printf("%d*%d=%d\n", a, b, mul(a, b));
-	return 0;
-}//main.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d+%d=%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d-%d=%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token function">sub</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d*%d=%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token function">mul</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token comment">//main.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>其中，加法，减法，乘法的函数写在其他的文件里面：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">int add(int a, int b){
-	return a + b;
-}//add.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token comment">//add.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">int sub(int a, int b){
-	return a - b;
-}//sub.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">sub</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">return</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token comment">//sub.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">int mul(int a, int b){
-	return a*b
-}//mul.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">mul</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">return</span> a<span class="token operator">*</span>b
+<span class="token punctuation">}</span><span class="token comment">//mul.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>此时我们Makefile就可以这么写：</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">cal:main.o add.o sub.o mul.o
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">cal</span><span class="token punctuation">:</span>main.o add.o sub.o mul.o
 	gcc main.o add.o sub.o mul.o -o cal
 
-main.o:main.c
+<span class="token target symbol">main.o</span><span class="token punctuation">:</span>main.c
 	gcc -c main.c -o main.o
-add.o:add.c
+<span class="token target symbol">add.o</span><span class="token punctuation">:</span>add.c
 	gcc -c add.c -o add.o
-sub.o:sub.c
+<span class="token target symbol">sub.o</span><span class="token punctuation">:</span>sub.c
 	gcc -c sub.c -o sub.o
-mul.o:mul.c
+<span class="token target symbol">mul.o</span><span class="token punctuation">:</span>mul.c
 	gcc -c mul.c -o mul.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
@@ -638,18 +639,18 @@ mul.o:mul.c
 <p>比如我们还可以写成这种形式，便于统一管理：</p>
 </li>
 </ul>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">ALL:cal
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">ALL</span><span class="token punctuation">:</span>cal
 
-main.o:main.c
+<span class="token target symbol">main.o</span><span class="token punctuation">:</span>main.c
 	gcc -c main.c -o main.o
-add.o:add.c
+<span class="token target symbol">add.o</span><span class="token punctuation">:</span>add.c
 	gcc -c add.c -o add.o
-sub.o:sub.c
+<span class="token target symbol">sub.o</span><span class="token punctuation">:</span>sub.c
 	gcc -c sub.c -o sub.o
-mul.o:mul.c
+<span class="token target symbol">mul.o</span><span class="token punctuation">:</span>mul.c
 	gcc -c mul.c -o mul.o
 
-cal:main.o add.o sub.o mul.o
+<span class="token target symbol">cal</span><span class="token punctuation">:</span>main.o add.o sub.o mul.o
 	gcc main.o add.o sub.o mul.o -o cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>但是如果后续我需要加入一个除法功能，或者还要加入其他计算功能，就需要不断地重写Makefile，岂不是很麻烦，于是我们引入：</p>
@@ -672,29 +673,29 @@ cal:$(objects)
 	gcc main.o add.o sub.o mul.o -o cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>如上面这个例子，我们把<code>main.o add.o sub.o mul.o</code>全部放在<code>objects</code>变量底下，使用的时候就可以用<code>$(objects)</code>把里面存的各种变量拿来编译了。变量是可以嵌套使用的，比如：</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">x = y 
-y = z 
-a := $($(x))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">x <span class="token operator">=</span> y 
+y <span class="token operator">=</span> z 
+a <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>这里 := 是赋值的意思，另一种用变量来定义变量的方法，和 = 的区别就是，前面的变量不能使用后面的变量，只能使用前面已定义好了的变量。这里的 a 里头存的就是 z 。</p>
 <p>有了变量这个好东西，我们就可以使用：</p>
 <h3 id="3-5-通配符"><a href="#3-5-通配符" class="headerlink" title="3.5 通配符"></a>3.5 通配符</h3><p>我们为了让Makefile自己找被我们更新过的代码，我们可以写成如下形式：</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src = $(wildcard *.c)
-obj = $(patsubst %.c, %.o, $(src))
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
+obj <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.c, %.o, <span class="token variable">$</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-ALL:cal
+<span class="token target symbol">ALL</span><span class="token punctuation">:</span>cal
 
-main.o:main.c
+<span class="token target symbol">main.o</span><span class="token punctuation">:</span>main.c
 	gcc -c main.c -o main.o
-add.o:add.c
+<span class="token target symbol">add.o</span><span class="token punctuation">:</span>add.c
 	gcc -c add.c -o add.o
-sub.o:sub.c
+<span class="token target symbol">sub.o</span><span class="token punctuation">:</span>sub.c
 	gcc -c sub.c -o sub.o
-mul.o:mul.c
+<span class="token target symbol">mul.o</span><span class="token punctuation">:</span>mul.c
 	gcc -c mul.c -o mul.o
 
-cal:$(obj)
-	gcc $(obj) -o cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token target symbol">cal</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+	gcc <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> -o cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><code>wildcard</code>，纸牌游戏中的 “百搭牌” ，计算机里称为 “通配符” 。会在当前目录自己搜索所有匹配 <code>*.c</code>的文件。（如果你需要使用到路径，碍于篇幅，需要自行了解notdir参数，用法为<code>file=$(notdir $(src))</code>）</li>
@@ -705,25 +706,25 @@ cal:$(obj)
 </li>
 </ul>
 <h3 id="3-6-更多便捷的书写方式"><a href="#3-6-更多便捷的书写方式" class="headerlink" title="3.6 更多便捷的书写方式"></a>3.6 更多便捷的书写方式</h3><p>如果我还想更改代码的名称，就需要自己重写makefile，未免有点太麻烦了。如果可以自己去寻找这些文件就好了。所以我们对上面的代码更新了一下，引入自动化变量，功能不变，写成如下形式：</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src = $(wildcard *.c)
-obj = $(patsubst %.c, %.o, $(src))
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
+obj <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.c, %.o, <span class="token variable">$</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-ALL:cal
+<span class="token target symbol">ALL</span><span class="token punctuation">:</span>cal
 
-main.o:main.c
-	gcc -c $&lt; -o $@
-add.o:add.c
-	gcc -c $&lt; -o $@
-sub.o:sub.c
-	gcc -c $&lt; -o $@
-mul.o:mul.c
-	gcc -c $&lt; -o $@
+<span class="token target symbol">main.o</span><span class="token punctuation">:</span>main.c
+	gcc -c <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span>
+<span class="token target symbol">add.o</span><span class="token punctuation">:</span>add.c
+	gcc -c <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span>
+<span class="token target symbol">sub.o</span><span class="token punctuation">:</span>sub.c
+	gcc -c <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span>
+<span class="token target symbol">mul.o</span><span class="token punctuation">:</span>mul.c
+	gcc -c <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span>
 
-cal:$(obj)
-	gcc $^ -o $@
+<span class="token target symbol">cal</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+	gcc <span class="token variable">$^</span> -o <span class="token variable">$@</span>
 
-clean:
-	-rm -rf $(obj) cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token target symbol">clean</span><span class="token punctuation">:</span>
+	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <table>
 <thead>
@@ -751,43 +752,43 @@ clean:
 </tbody></table>
 <p>还有很多其他的自动化变量，如$+,$*,$?等等，不在本篇博客详细解释，感兴趣的话可以自行查阅相关资料</p>
 <p>上面这段代码还可以进一步简化。</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src = $(wildcard *.c)
-obj = $(patsubst %.c, %.o, $(src))
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
+obj <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.c, %.o, <span class="token variable">$</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-ALL:cal
+<span class="token target symbol">ALL</span><span class="token punctuation">:</span>cal
 
-$(obj):%.o:%.c
-	gcc -c $&lt; -o $@
+<span class="token target symbol"><span class="token variable">$</span>(obj)</span><span class="token punctuation">:</span>%.o<span class="token punctuation">:</span>%.c
+	gcc -c <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span>
 
-cal:$(obj)
-	gcc $^ -o $@
+<span class="token target symbol">cal</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+	gcc <span class="token variable">$^</span> -o <span class="token variable">$@</span>
 
-clean:
-	-rm -rf $(obj) cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token target symbol">clean</span><span class="token punctuation">:</span>
+	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>细心的小伙伴会发现这两段代码多出来一个目标<code>clean</code>，如果你希望重新make一遍工程，那就需要先把生成的各项文件删除。用<code>make clean</code>指令就可以自己声明清理函数</p>
 <p>如果你在想，我们又不打算生成clean目标文件，有没有别的书写方案？答案是有的，就需要用到标签中的 “伪目标“ <code>.PHONY</code>。</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">.PHONY : clean 
-clean : 
-	-rm -rf $(obj) cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token builtin-target builtin">.PHONY</span> <span class="token punctuation">:</span> clean 
+<span class="token target symbol">clean</span> <span class="token punctuation">:</span> 
+	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>(rm 命令前面加了一个小减号的意思就是，也许某些文件出现问题，但不要管，继续做后面的事。)</p>
 <p>当然，我们并不生成“clean”这个文件。“伪目标”并不是一个文件，只是一个标签，由于“伪目标”不是文件，所以 make 无法生成它的依赖关系和决定它是否要执行。我们只有通过显示地指明这个“目标”才能让其生效。当然，“伪目标”的取名不能和文件名重名，不然其就失去了“伪目标”的意义了。 </p>
 <p>当然，为了避免和文件重名的这种情况，我们可以使用一个特殊的标记“.PHONY”来显示地指明一个目标是“伪目标”，向 make 说明，不管是否有这个文件，这个目标就是“伪目标”。</p>
 <h3 id="3-7-引用文件"><a href="#3-7-引用文件" class="headerlink" title="3.7 引用文件"></a>3.7 引用文件</h3><p>如果我们整个工程的头文件全都在别的文件夹，比如说在<code>./inc</code>目录底下，我们有<code>add.h  mul.h  sub.h</code>三个头文件，应该怎么引用进来呢？</p>
-<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src = $(wildcard *.c)
-obj = $(patsubst %.c, %.o, $(src))
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
+obj <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.c, %.o, <span class="token variable">$</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-ALL:cal
+<span class="token target symbol">ALL</span><span class="token punctuation">:</span>cal
 
-$(obj):%.o:%.c
-	gcc -c $&lt; -o $@ -I inc
+<span class="token target symbol"><span class="token variable">$</span>(obj)</span><span class="token punctuation">:</span>%.o<span class="token punctuation">:</span>%.c
+	gcc -c <span class="token variable">$&lt;</span> -o <span class="token variable">$@</span> -I inc
 
-cal:$(obj)
-	gcc $^ -o $@ -I inc
+<span class="token target symbol">cal</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+	gcc <span class="token variable">$^</span> -o <span class="token variable">$@</span> -I inc
 
-clean:
-	-rm -rf $(obj) cal
+<span class="token target symbol">clean</span><span class="token punctuation">:</span>
+	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>如上代码，我们使用<code>-I/</code>或者<code>--include-dir</code>参数，就可以指定头文件所在位置了</p>

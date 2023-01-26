@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -843,23 +844,23 @@ ping baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 
 <p>然后你就会发现，atlas可以通过usb线联网。</p>
 <h2 id="四、路由器连Atlas"><a href="#四、路由器连Atlas" class="headerlink" title="四、路由器连Atlas"></a>四、路由器连Atlas</h2><p>在开发板root账户下，输入<code>vim /etc/netplan/01-netcfg.yaml</code></p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    eth0:
-      dhcp4: no #改为yes，保存退出
-      addresses: [192.168.0.2/24]
-      gateway4: 192.168.0.1
-      nameservers:
-            addresses: [114.114.114.114]
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">network</span><span class="token punctuation">:</span>
+  <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token number">2</span>
+  <span class="token key atrule">renderer</span><span class="token punctuation">:</span> networkd
+  <span class="token key atrule">ethernets</span><span class="token punctuation">:</span>
+    <span class="token key atrule">eth0</span><span class="token punctuation">:</span>
+      <span class="token key atrule">dhcp4</span><span class="token punctuation">:</span> no <span class="token comment">#改为yes，保存退出</span>
+      <span class="token key atrule">addresses</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>192.168.0.2/24<span class="token punctuation">]</span>
+      <span class="token key atrule">gateway4</span><span class="token punctuation">:</span> 192.168.0.1
+      <span class="token key atrule">nameservers</span><span class="token punctuation">:</span>
+            <span class="token key atrule">addresses</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>114.114.114.114<span class="token punctuation">]</span>
 
-    usb0:
-      dhcp4: no
-      addresses: [192.168.1.2/24]
-      #gateway4: 192.168.1.1
-      nameservers:
-            addresses: [114.114.114.114]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token key atrule">usb0</span><span class="token punctuation">:</span>
+      <span class="token key atrule">dhcp4</span><span class="token punctuation">:</span> no
+      <span class="token key atrule">addresses</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>192.168.1.2/24<span class="token punctuation">]</span>
+      <span class="token comment">#gateway4: 192.168.1.1</span>
+      <span class="token key atrule">nameservers</span><span class="token punctuation">:</span>
+            <span class="token key atrule">addresses</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>114.114.114.114<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>用网线连接开发板到一个可以上网的路由器当中，这个路由器需要开启DHCP。</p>
 <p>输入<code>netplan apply</code></p>

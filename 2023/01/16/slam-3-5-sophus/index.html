@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -518,31 +519,31 @@
 <h2 id="一、Sophus基础"><a href="#一、Sophus基础" class="headerlink" title="一、Sophus基础"></a>一、Sophus基础</h2><p>前面配置环境的时候，我们就有安装一个Sophus库。李代数最早提出的是Sophus Lie，所以这个库就叫做Sophus了。</p>
 <p>由于Eigen提供了很不错的几何模块，但没有提供李群李代数的支持，而这个Sophus库就支持。他是直接基于Eigen库开发的，所以不需要额外的依赖库了。</p>
 <p>以下案例的头文件使用如下：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;cmath&gt;
-#include &lt;Eigen/Core&gt;
-#include &lt;Eigen/Geometry&gt;
-#include "sophus/se3.hpp"
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cmath&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Eigen/Core&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Eigen/Geometry&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"sophus/se3.hpp"</span></span>
 
-using namespace std;
-using namespace Eigen;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> Eigen<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>声明一个旋转向量，并展示其旋转后的结果：</li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 沿Z轴转90度的旋转矩阵
-// 三维旋转向量可以用角轴来表示，利用Eigen库的AngleAxisd()角轴（旋转向量）函数
-// 绕着单位方向向量\alpha = z轴（0，0，1）旋转模长为\theta = 90° = pi/2，
-// 则\phi = \theta \alpha 再调用toRotationMatrix()函数从角轴表示的旋转向量转换为旋转矩阵
-Matrix3d R = AngleAxisd(M_PI / 2, Vector3d(0, 0, 1)).toRotationMatrix();
-// 或者四元数
-Quaterniond q(R);
-Sophus::SO3d SO3_R(R);              // Sophus::SO3d可以直接从旋转矩阵构造
-Sophus::SO3d SO3_q(q);              // 也可以通过四元数构造
-// 二者是等价的
-cout &lt;&lt; "SO(3) from matrix:\n" &lt;&lt; SO3_R.matrix() &lt;&lt; endl;
-cout &lt;&lt; "SO(3) from quaternion:\n" &lt;&lt; SO3_q.matrix() &lt;&lt; endl;
-cout &lt;&lt; "they are equal" &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 沿Z轴转90度的旋转矩阵</span>
+<span class="token comment">// 三维旋转向量可以用角轴来表示，利用Eigen库的AngleAxisd()角轴（旋转向量）函数</span>
+<span class="token comment">// 绕着单位方向向量\alpha = z轴（0，0，1）旋转模长为\theta = 90° = pi/2，</span>
+<span class="token comment">// 则\phi = \theta \alpha 再调用toRotationMatrix()函数从角轴表示的旋转向量转换为旋转矩阵</span>
+Matrix3d R <span class="token operator">=</span> <span class="token function">AngleAxisd</span><span class="token punctuation">(</span>M_PI <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token function">Vector3d</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toRotationMatrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 或者四元数</span>
+Quaterniond <span class="token function">q</span><span class="token punctuation">(</span>R<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Sophus<span class="token double-colon punctuation">::</span>SO3d <span class="token function">SO3_R</span><span class="token punctuation">(</span>R<span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment">// Sophus::SO3d可以直接从旋转矩阵构造</span>
+Sophus<span class="token double-colon punctuation">::</span>SO3d <span class="token function">SO3_q</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment">// 也可以通过四元数构造</span>
+<span class="token comment">// 二者是等价的</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SO(3) from matrix:\n"</span> <span class="token operator">&lt;&lt;</span> SO3_R<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SO(3) from quaternion:\n"</span> <span class="token operator">&lt;&lt;</span> SO3_q<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"they are equal"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>输出效果</p>
@@ -559,13 +560,13 @@ they are equal<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <ul>
 <li>使用对数映射获得李代数</li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 使用对数映射获得它的李代数
-Vector3d so3 = SO3_R.log();
-cout &lt;&lt; "so3 = " &lt;&lt; so3.transpose() &lt;&lt; endl;
-// hat 为向量到反对称矩阵
-cout &lt;&lt; "so3 hat=\n" &lt;&lt; Sophus::SO3d::hat(so3) &lt;&lt; endl;
-// 相对的，vee为反对称到向量
-cout &lt;&lt; "so3 hat vee= " &lt;&lt; Sophus::SO3d::vee(Sophus::SO3d::hat(so3)).transpose() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 使用对数映射获得它的李代数</span>
+Vector3d so3 <span class="token operator">=</span> SO3_R<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"so3 = "</span> <span class="token operator">&lt;&lt;</span> so3<span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+<span class="token comment">// hat 为向量到反对称矩阵</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"so3 hat=\n"</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>so3<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+<span class="token comment">// 相对的，vee为反对称到向量</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"so3 hat vee= "</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">vee</span><span class="token punctuation">(</span>Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>so3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>输出结果：</p>
@@ -579,10 +580,10 @@ so3 hat vee=      0      0 1.5708<span aria-hidden="true" class="line-numbers-ro
 <ul>
 <li>增量扰动模型的更新</li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 增量扰动模型的更新
-Vector3d update_so3(1e-4, 0, 0); //假设更新量为这么多
-Sophus::SO3d SO3_updated = Sophus::SO3d::exp(update_so3) * SO3_R;
-cout &lt;&lt; "SO3 updated = \n" &lt;&lt; SO3_updated.matrix() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 增量扰动模型的更新</span>
+Vector3d <span class="token function">update_so3</span><span class="token punctuation">(</span><span class="token number">1e-4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//假设更新量为这么多</span>
+Sophus<span class="token double-colon punctuation">::</span>SO3d SO3_updated <span class="token operator">=</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">exp</span><span class="token punctuation">(</span>update_so3<span class="token punctuation">)</span> <span class="token operator">*</span> SO3_R<span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SO3 updated = \n"</span> <span class="token operator">&lt;&lt;</span> SO3_updated<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>输出结果：</p>
@@ -594,23 +595,23 @@ cout &lt;&lt; "SO3 updated = \n" &lt;&lt; SO3_updated.matrix() &lt;&lt; endl;<sp
 <ul>
 <li>对SE(3)操作是类似的</li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 对SE(3)操作大同小异
-Vector3d t(1, 0, 0);           // 沿X轴平移1
-Sophus::SE3d SE3_Rt(R, t);           // 从R,t构造SE(3)
-Sophus::SE3d SE3_qt(q, t);            // 从q,t构造SE(3)
-cout &lt;&lt; "SE3 from R,t= \n" &lt;&lt; SE3_Rt.matrix() &lt;&lt; endl;
-cout &lt;&lt; "SE3 from q,t= \n" &lt;&lt; SE3_qt.matrix() &lt;&lt; endl;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 对SE(3)操作大同小异</span>
+Vector3d <span class="token function">t</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">// 沿X轴平移1</span>
+Sophus<span class="token double-colon punctuation">::</span>SE3d <span class="token function">SE3_Rt</span><span class="token punctuation">(</span>R<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">// 从R,t构造SE(3)</span>
+Sophus<span class="token double-colon punctuation">::</span>SE3d <span class="token function">SE3_qt</span><span class="token punctuation">(</span>q<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">// 从q,t构造SE(3)</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SE3 from R,t= \n"</span> <span class="token operator">&lt;&lt;</span> SE3_Rt<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SE3 from q,t= \n"</span> <span class="token operator">&lt;&lt;</span> SE3_qt<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 
-// 李代数se(3) 是一个六维向量，方便起见先typedef一下
-typedef Eigen::Matrix&lt;double, 6, 1&gt; Vector6d;
-Vector6d se3 = SE3_Rt.log();
-cout &lt;&lt; "se3 = " &lt;&lt; se3.transpose() &lt;&lt; endl;
+<span class="token comment">// 李代数se(3) 是一个六维向量，方便起见先typedef一下</span>
+<span class="token keyword">typedef</span> Eigen<span class="token double-colon punctuation">::</span>Matrix<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token operator">&gt;</span> Vector6d<span class="token punctuation">;</span>
+Vector6d se3 <span class="token operator">=</span> SE3_Rt<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"se3 = "</span> <span class="token operator">&lt;&lt;</span> se3<span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 
-// 观察输出，会发现在Sophus中，se(3)的平移在前，旋转在后.
+<span class="token comment">// 观察输出，会发现在Sophus中，se(3)的平移在前，旋转在后.</span>
 
-// 同样的，有hat和vee两个算符
-cout &lt;&lt; "se3 hat = \n" &lt;&lt; Sophus::SE3d::hat(se3) &lt;&lt; endl;
-cout &lt;&lt; "se3 hat vee = " &lt;&lt; Sophus::SE3d::vee(Sophus::SE3d::hat(se3)).transpose() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">// 同样的，有hat和vee两个算符</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"se3 hat = \n"</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>se3<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"se3 hat vee = "</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">vee</span><span class="token punctuation">(</span>Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>se3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>输出效果：</p>
@@ -635,12 +636,12 @@ se3 hat vee =  0.785398 -0.785398         0         0         0    1.5708<span a
 <ul>
 <li>更新</li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// 最后，演示一下更新
-Vector6d update_se3; //更新量
-update_se3.setZero();
-update_se3(0, 0) = 1e-4;
-Sophus::SE3d SE3_updated = Sophus::SE3d::exp(update_se3) * SE3_Rt;
-cout &lt;&lt; "SE3 updated = " &lt;&lt; endl &lt;&lt; SE3_updated.matrix() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 最后，演示一下更新</span>
+Vector6d update_se3<span class="token punctuation">;</span> <span class="token comment">//更新量</span>
+update_se3<span class="token punctuation">.</span><span class="token function">setZero</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">update_se3</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">1e-4</span><span class="token punctuation">;</span>
+Sophus<span class="token double-colon punctuation">::</span>SE3d SE3_updated <span class="token operator">=</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">exp</span><span class="token punctuation">(</span>update_se3<span class="token punctuation">)</span> <span class="token operator">*</span> SE3_Rt<span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SE3 updated = "</span> <span class="token operator">&lt;&lt;</span> endl <span class="token operator">&lt;&lt;</span> SE3_updated<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>输出效果：</p>
@@ -677,148 +678,148 @@ cout &lt;&lt; "SE3 updated = " &lt;&lt; endl &lt;&lt; SE3_updated.matrix() &lt;&
 <p>$$<br>\mathbf{RPE}_{trans}=\sqrt{\frac{1}{N-\Delta t}\sum_{i=1}^{N-\Delta t}\left\| trans\left( (T_{gt,i}^{-1}T_{gt,i+\Delta t})^{-1}(T_{esti,i}^{-1}T_{esti,i+\Delta t})\right)^\vee \right\|_2^2}<br>$$</p>
 <p>使用Sophus李代数库可以实现这部分轨迹误差的评估。首先需要准备数据，这里使用SLAM十四讲源码中已经给出了真实轨迹 groundtruth.txt 和 估计轨迹 estimate.txt，下面读取两条轨迹数据后，通过Sophus计算轨迹间误差，然后显示在Pangolin窗口中。 </p>
 <p>所需前置定义的一些内容：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-#include &lt;unistd.h&gt;
-#include &lt;pangolin/pangolin.h&gt;
-#include &lt;sophus/se3.hpp&gt;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fstream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pangolin/pangolin.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sophus/se3.hpp&gt;</span></span>
 
-using namespace Sophus;
-using namespace std;
-//真实轨迹路径
-string groundtruth_file = "./example/groundtruth.txt";
-//估计轨迹路径
-string estimated_file = "./example/estimated.txt";
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> Sophus<span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token comment">//真实轨迹路径</span>
+string groundtruth_file <span class="token operator">=</span> <span class="token string">"./example/groundtruth.txt"</span><span class="token punctuation">;</span>
+<span class="token comment">//估计轨迹路径</span>
+string estimated_file <span class="token operator">=</span> <span class="token string">"./example/estimated.txt"</span><span class="token punctuation">;</span>
 
-void DrawTrajectory(const TrajectoryType &amp;gt, const TrajectoryType &amp;esti);
-TrajectoryType ReadTrajectory(const string &amp;path);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">void</span> <span class="token function">DrawTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>gt<span class="token punctuation">,</span> <span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>esti<span class="token punctuation">)</span><span class="token punctuation">;</span>
+TrajectoryType <span class="token function">ReadTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>初始化SE(3)</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">TrajectoryType ReadTrajectory(const string &amp;path) {
-  ifstream fin(path);//打开轨迹数据文件
-  TrajectoryType trajectory;
-  if (!fin) {
-    cerr &lt;&lt; "trajectory " &lt;&lt; path &lt;&lt; " not found." &lt;&lt; endl;
-    return trajectory;
-  }
-  while (!fin.eof()) {
-    // 轨迹数据txt文件中每一行表示由时间戳、平移向量、旋转四元数构成的一个相机wi位姿
-    double time, tx, ty, tz, qx, qy, qz, qw;
-    fin &gt;&gt; time &gt;&gt; tx &gt;&gt; ty &gt;&gt; tz &gt;&gt; qx &gt;&gt; qy &gt;&gt; qz &gt;&gt; qw;
-    // 使用轨迹数据中的旋转四元数和平移向量来初始化一个特殊欧式群SE(3)
-    Sophus::SE3d p1(Eigen::Quaterniond(qw, qx, qy, qz), Eigen::Vector3d(tx, ty, tz));
-    // 将使用李群表示的当前相机位姿存入轨迹变量中
-    trajectory.push_back(p1);
-  }
-  return trajectory;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">TrajectoryType <span class="token function">ReadTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  ifstream <span class="token function">fin</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//打开轨迹数据文件</span>
+  TrajectoryType trajectory<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>fin<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    cerr <span class="token operator">&lt;&lt;</span> <span class="token string">"trajectory "</span> <span class="token operator">&lt;&lt;</span> path <span class="token operator">&lt;&lt;</span> <span class="token string">" not found."</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> trajectory<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>fin<span class="token punctuation">.</span><span class="token function">eof</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 轨迹数据txt文件中每一行表示由时间戳、平移向量、旋转四元数构成的一个相机wi位姿</span>
+    <span class="token keyword">double</span> time<span class="token punctuation">,</span> tx<span class="token punctuation">,</span> ty<span class="token punctuation">,</span> tz<span class="token punctuation">,</span> qx<span class="token punctuation">,</span> qy<span class="token punctuation">,</span> qz<span class="token punctuation">,</span> qw<span class="token punctuation">;</span>
+    fin <span class="token operator">&gt;&gt;</span> time <span class="token operator">&gt;&gt;</span> tx <span class="token operator">&gt;&gt;</span> ty <span class="token operator">&gt;&gt;</span> tz <span class="token operator">&gt;&gt;</span> qx <span class="token operator">&gt;&gt;</span> qy <span class="token operator">&gt;&gt;</span> qz <span class="token operator">&gt;&gt;</span> qw<span class="token punctuation">;</span>
+    <span class="token comment">// 使用轨迹数据中的旋转四元数和平移向量来初始化一个特殊欧式群SE(3)</span>
+    Sophus<span class="token double-colon punctuation">::</span>SE3d <span class="token function">p1</span><span class="token punctuation">(</span><span class="token class-name">Eigen</span><span class="token double-colon punctuation">::</span><span class="token function">Quaterniond</span><span class="token punctuation">(</span>qw<span class="token punctuation">,</span> qx<span class="token punctuation">,</span> qy<span class="token punctuation">,</span> qz<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">Eigen</span><span class="token double-colon punctuation">::</span><span class="token function">Vector3d</span><span class="token punctuation">(</span>tx<span class="token punctuation">,</span> ty<span class="token punctuation">,</span> tz<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 将使用李群表示的当前相机位姿存入轨迹变量中</span>
+    trajectory<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>p1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> trajectory<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>计算</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">//定义一个特殊欧式群SE(3)的vector容器，并取个别名
-typedef vector&lt;Sophus::SE3d, Eigen::aligned_allocator&lt;Sophus::SE3d&gt;&gt; TrajectoryType;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//定义一个特殊欧式群SE(3)的vector容器，并取个别名</span>
+<span class="token keyword">typedef</span> vector<span class="token operator">&lt;</span>Sophus<span class="token double-colon punctuation">::</span>SE3d<span class="token punctuation">,</span> Eigen<span class="token double-colon punctuation">::</span>aligned_allocator<span class="token operator">&lt;</span>Sophus<span class="token double-colon punctuation">::</span>SE3d<span class="token operator">&gt;&gt;</span> TrajectoryType<span class="token punctuation">;</span>
 
-int main(int argc, char **argv) {
-  // 获取轨迹数据
-  TrajectoryType groundtruth = ReadTrajectory(groundtruth_file);
-  TrajectoryType estimated = ReadTrajectory(estimated_file);
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 获取轨迹数据</span>
+  TrajectoryType groundtruth <span class="token operator">=</span> <span class="token function">ReadTrajectory</span><span class="token punctuation">(</span>groundtruth_file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  TrajectoryType estimated <span class="token operator">=</span> <span class="token function">ReadTrajectory</span><span class="token punctuation">(</span>estimated_file<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // 检测读取的轨迹数据是否正常
-  assert(!groundtruth.empty() &amp;&amp; !estimated.empty());
-  assert(groundtruth.size() == estimated.size());
+  <span class="token comment">// 检测读取的轨迹数据是否正常</span>
+  <span class="token function">assert</span><span class="token punctuation">(</span><span class="token operator">!</span>groundtruth<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>estimated<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">assert</span><span class="token punctuation">(</span>groundtruth<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> estimated<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // 算每个位姿李代数的均方根误差 RMSE (Root Mean Squared Error)
-  // 也就是绝对轨迹误差 ATE (Absolute Trajectory Error)
-  double rmse = 0;
-  for (size_t i = 0; i &lt; estimated.size(); i++) {
-    // 获取轨迹中每个相机当前的估计位姿和真实位姿数据
-    Sophus::SE3d p1 = estimated[i], p2 = groundtruth[i];
+  <span class="token comment">// 算每个位姿李代数的均方根误差 RMSE (Root Mean Squared Error)</span>
+  <span class="token comment">// 也就是绝对轨迹误差 ATE (Absolute Trajectory Error)</span>
+  <span class="token keyword">double</span> rmse <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>size_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> estimated<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 获取轨迹中每个相机当前的估计位姿和真实位姿数据</span>
+    Sophus<span class="token double-colon punctuation">::</span>SE3d p1 <span class="token operator">=</span> estimated<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> p2 <span class="token operator">=</span> groundtruth<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    // 根据每个真实数据和估计数据之间的位姿李代数的均方根误差公式RMSE（也就是绝对轨迹误差计算公式ATE）
-    // 真实位姿的变换矩阵T的逆与估计位姿的变换矩阵相乘，取对数映射计算位姿李代数并归一化
-    double error = (p2.inverse() * p1).log().norm();
-    // 累加轨迹中每个相机位姿李代数误差的平方
-    rmse += error * error;
-  }
-  // 平均值
-  rmse = rmse / double(estimated.size());
-  // 根号
-  rmse = sqrt(rmse);
-  cout &lt;&lt; "RMSE = " &lt;&lt; rmse &lt;&lt; endl;
+    <span class="token comment">// 根据每个真实数据和估计数据之间的位姿李代数的均方根误差公式RMSE（也就是绝对轨迹误差计算公式ATE）</span>
+    <span class="token comment">// 真实位姿的变换矩阵T的逆与估计位姿的变换矩阵相乘，取对数映射计算位姿李代数并归一化</span>
+    <span class="token keyword">double</span> error <span class="token operator">=</span> <span class="token punctuation">(</span>p2<span class="token punctuation">.</span><span class="token function">inverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> p1<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">norm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 累加轨迹中每个相机位姿李代数误差的平方</span>
+    rmse <span class="token operator">+=</span> error <span class="token operator">*</span> error<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 平均值</span>
+  rmse <span class="token operator">=</span> rmse <span class="token operator">/</span> <span class="token keyword">double</span><span class="token punctuation">(</span>estimated<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 根号</span>
+  rmse <span class="token operator">=</span> <span class="token function">sqrt</span><span class="token punctuation">(</span>rmse<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> <span class="token string">"RMSE = "</span> <span class="token operator">&lt;&lt;</span> rmse <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 
-  DrawTrajectory(groundtruth, estimated);
-  return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token function">DrawTrajectory</span><span class="token punctuation">(</span>groundtruth<span class="token punctuation">,</span> estimated<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>绘制Pangolin</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">void DrawTrajectory(const TrajectoryType &amp;gt, const TrajectoryType &amp;esti) {
-  // 创建一个名为Trajectory Viewer的3D可视化窗口，大小为1024 x 768
-  pangolin::CreateWindowAndBind("Trajectory Viewer", 1024, 768);
-  // 开启更新深度缓冲区的功能，显示3D效果的时候需要打开，根据目标的远近自动隐藏被遮挡的模型
-  glEnable(GL_DEPTH_TEST);
-  // 开启颜色混合模式，让物体显示具有半透明效果
-  glEnable(GL_BLEND);
-  // 设置颜色RGBA混合因子，第一个参数为源因子，第二个参数为目标因子
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">DrawTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>gt<span class="token punctuation">,</span> <span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>esti<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 创建一个名为Trajectory Viewer的3D可视化窗口，大小为1024 x 768</span>
+  pangolin<span class="token double-colon punctuation">::</span><span class="token function">CreateWindowAndBind</span><span class="token punctuation">(</span><span class="token string">"Trajectory Viewer"</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">768</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 开启更新深度缓冲区的功能，显示3D效果的时候需要打开，根据目标的远近自动隐藏被遮挡的模型</span>
+  <span class="token function">glEnable</span><span class="token punctuation">(</span>GL_DEPTH_TEST<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 开启颜色混合模式，让物体显示具有半透明效果</span>
+  <span class="token function">glEnable</span><span class="token punctuation">(</span>GL_BLEND<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 设置颜色RGBA混合因子，第一个参数为源因子，第二个参数为目标因子</span>
+  <span class="token function">glBlendFunc</span><span class="token punctuation">(</span>GL_SRC_ALPHA<span class="token punctuation">,</span> GL_ONE_MINUS_SRC_ALPHA<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // 创建相机视图
-  pangolin::OpenGlRenderState s_cam(
-      //设置相机内参（相机分辨率、焦距、相机光心）以及最近最远距离
-      pangolin::ProjectionMatrix(1024, 768, 500, 500, 512, 389, 0.1, 1000),
-      // 设置视角，在世界坐标(0, -0.1, -1.8)处观察坐标原点(0, 0, 0)
-      // 并设置Y轴朝上(0, -1, 0)
-      pangolin::ModelViewLookAt(0, -0.1, -1.8, 0, 0, 0, 0.0, -1.0, 0.0)
-  );
-  // 创建交互视图
-  pangolin::View &amp;d_cam = pangolin::CreateDisplay()
-      .SetBounds(0.0, 1.0, pangolin::Attach::Pix(175), 1.0, -1024.0f / 768.0f)
-      .SetHandler(new pangolin::Handler3D(s_cam));
+  <span class="token comment">// 创建相机视图</span>
+  pangolin<span class="token double-colon punctuation">::</span>OpenGlRenderState <span class="token function">s_cam</span><span class="token punctuation">(</span>
+      <span class="token comment">//设置相机内参（相机分辨率、焦距、相机光心）以及最近最远距离</span>
+      pangolin<span class="token double-colon punctuation">::</span><span class="token function">ProjectionMatrix</span><span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">768</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">512</span><span class="token punctuation">,</span> <span class="token number">389</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token comment">// 设置视角，在世界坐标(0, -0.1, -1.8)处观察坐标原点(0, 0, 0)</span>
+      <span class="token comment">// 并设置Y轴朝上(0, -1, 0)</span>
+      pangolin<span class="token double-colon punctuation">::</span><span class="token function">ModelViewLookAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1.8</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 创建交互视图</span>
+  pangolin<span class="token double-colon punctuation">::</span>View <span class="token operator">&amp;</span>d_cam <span class="token operator">=</span> pangolin<span class="token double-colon punctuation">::</span><span class="token function">CreateDisplay</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">SetBounds</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> pangolin<span class="token double-colon punctuation">::</span><span class="token class-name">Attach</span><span class="token double-colon punctuation">::</span><span class="token function">Pix</span><span class="token punctuation">(</span><span class="token number">175</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1024.0f</span> <span class="token operator">/</span> <span class="token number">768.0f</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">SetHandler</span><span class="token punctuation">(</span><span class="token keyword">new</span> pangolin<span class="token double-colon punctuation">::</span><span class="token function">Handler3D</span><span class="token punctuation">(</span>s_cam<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  while (pangolin::ShouldQuit() == false) {
-    // 清空颜色和深度缓存，为默认值
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // 激活相机视图
-    d_cam.Activate(s_cam);
-    // 设置背景颜色为白色
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    // 设置线条宽度为2
-    glLineWidth(2);
-    for (size_t i = 0; i &lt; gt.size() - 1; i++) {
-      //设置真实轨迹的线段颜色为蓝色
-      glColor3f(0.0f, 0.0f, 1.0f); 
-      //开始画线
-      glBegin(GL_LINES);
-      //获取真实轨迹中第 i 时刻和第 i+1 时刻用李群SE(3)表示的位姿
-      auto p1 = gt[i], p2 = gt[i + 1];
-      //取出第 i 时刻位姿的平移向量，作为该线段起点的顶点坐标
-      glVertex3d(p1.translation()[0], p1.translation()[1], p1.translation()[2]);
-      //取出第 i+1 时刻位姿的平移向量，作为该线段终点的顶点坐标
-      glVertex3d(p2.translation()[0], p2.translation()[1], p2.translation()[2]);
-      //画线结束
-      glEnd();
-    }
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>pangolin<span class="token double-colon punctuation">::</span><span class="token function">ShouldQuit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 清空颜色和深度缓存，为默认值</span>
+    <span class="token function">glClear</span><span class="token punctuation">(</span>GL_COLOR_BUFFER_BIT <span class="token operator">|</span> GL_DEPTH_BUFFER_BIT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 激活相机视图</span>
+    d_cam<span class="token punctuation">.</span><span class="token function">Activate</span><span class="token punctuation">(</span>s_cam<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 设置背景颜色为白色</span>
+    <span class="token function">glClearColor</span><span class="token punctuation">(</span><span class="token number">1.0f</span><span class="token punctuation">,</span> <span class="token number">1.0f</span><span class="token punctuation">,</span> <span class="token number">1.0f</span><span class="token punctuation">,</span> <span class="token number">1.0f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 设置线条宽度为2</span>
+    <span class="token function">glLineWidth</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>size_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> gt<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">//设置真实轨迹的线段颜色为蓝色</span>
+      <span class="token function">glColor3f</span><span class="token punctuation">(</span><span class="token number">0.0f</span><span class="token punctuation">,</span> <span class="token number">0.0f</span><span class="token punctuation">,</span> <span class="token number">1.0f</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+      <span class="token comment">//开始画线</span>
+      <span class="token function">glBegin</span><span class="token punctuation">(</span>GL_LINES<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//获取真实轨迹中第 i 时刻和第 i+1 时刻用李群SE(3)表示的位姿</span>
+      <span class="token keyword">auto</span> p1 <span class="token operator">=</span> gt<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> p2 <span class="token operator">=</span> gt<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token comment">//取出第 i 时刻位姿的平移向量，作为该线段起点的顶点坐标</span>
+      <span class="token function">glVertex3d</span><span class="token punctuation">(</span>p1<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p1<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p1<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//取出第 i+1 时刻位姿的平移向量，作为该线段终点的顶点坐标</span>
+      <span class="token function">glVertex3d</span><span class="token punctuation">(</span>p2<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p2<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p2<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//画线结束</span>
+      <span class="token function">glEnd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    //遍历估计轨迹中的所有位姿数据
-    for (size_t i = 0; i &lt; esti.size() - 1; i++) {
-      //设置估计的轨迹线段为红色
-      glColor3f(1.0f, 0.0f, 0.0f); 
-      //开始画线
-      glBegin(GL_LINES);
-      //获取估计轨迹中第 i 时刻和第 i+1 时刻用李群SE(3)表示的位姿
-      auto p1 = esti[i], p2 = esti[i + 1];
-      //取出第 i 时刻位姿的平移向量，作为该线段起点的顶点坐标
-      glVertex3d(p1.translation()[0], p1.translation()[1], p1.translation()[2]);
-      //取出第 i+1 时刻位姿的平移向量，作为该线段终点的顶点坐标
-      glVertex3d(p2.translation()[0], p2.translation()[1], p2.translation()[2]);
-      //画线结束
-      glEnd();
-    }
-    //交换帧和处理事件
-    pangolin::FinishFrame();
-    //睡眠5毫秒
-    usleep(5000);
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token comment">//遍历估计轨迹中的所有位姿数据</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>size_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> esti<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">//设置估计的轨迹线段为红色</span>
+      <span class="token function">glColor3f</span><span class="token punctuation">(</span><span class="token number">1.0f</span><span class="token punctuation">,</span> <span class="token number">0.0f</span><span class="token punctuation">,</span> <span class="token number">0.0f</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+      <span class="token comment">//开始画线</span>
+      <span class="token function">glBegin</span><span class="token punctuation">(</span>GL_LINES<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//获取估计轨迹中第 i 时刻和第 i+1 时刻用李群SE(3)表示的位姿</span>
+      <span class="token keyword">auto</span> p1 <span class="token operator">=</span> esti<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> p2 <span class="token operator">=</span> esti<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token comment">//取出第 i 时刻位姿的平移向量，作为该线段起点的顶点坐标</span>
+      <span class="token function">glVertex3d</span><span class="token punctuation">(</span>p1<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p1<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p1<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//取出第 i+1 时刻位姿的平移向量，作为该线段终点的顶点坐标</span>
+      <span class="token function">glVertex3d</span><span class="token punctuation">(</span>p2<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p2<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p2<span class="token punctuation">.</span><span class="token function">translation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//画线结束</span>
+      <span class="token function">glEnd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">//交换帧和处理事件</span>
+    pangolin<span class="token double-colon punctuation">::</span><span class="token function">FinishFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//睡眠5毫秒</span>
+    <span class="token function">usleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>效果：</p>
 <p><img src="https://s2.loli.net/2023/01/16/6u5cFt2ITHRaB7h.png"></p>

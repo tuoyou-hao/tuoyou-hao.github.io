@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -514,14 +515,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>ROS 8: 参数的使用与编程</h1>
-<p>在ROS Master中有一个<strong>参数服务器</strong>，它是一个<strong>全局字典</strong>，用来保存各个节点的配置参数的，这些参数是各个节点<strong>都可以全局访问的</strong>。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-8-参数的使用与编程"><a href="#ROS-8-参数的使用与编程" class="headerlink" title="ROS 8: 参数的使用与编程"></a>ROS 8: 参数的使用与编程</h1><p>在ROS Master中有一个<strong>参数服务器</strong>，它是一个<strong>全局字典</strong>，用来保存各个节点的配置参数的，这些参数是各个节点<strong>都可以全局访问的</strong>。</p>
 <blockquote>
 <p>可以简单理解为，这是一个用来存放<strong>全局变量</strong>的空间</p>
 </blockquote>
 <p>有关参数的使用，有如下命令行工具</p>
-<h2 id="一、参数的命令行工具">一、参数的命令行工具</h2>
-<p>我们在命令行会使用<code>rosparam</code>，用于从ROS参数服务器获取、设置和删除参数。</p>
+<h2 id="一、参数的命令行工具"><a href="#一、参数的命令行工具" class="headerlink" title="一、参数的命令行工具"></a>一、参数的命令行工具</h2><p>我们在命令行会使用<code>rosparam</code>，用于从ROS参数服务器获取、设置和删除参数。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosparam is a command-line tool for getting, setting, and deleting parameters from the ROS Parameter Server.
 
 Commands:
@@ -531,11 +530,11 @@ Commands:
         rosparam dump   dump parameters to file
         rosparam delete delete parameter
         rosparam list   list parameter names<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>如果参数比较多的时候，我们会用<code>*.yaml</code>文件来存参数。</p>
 <p>以下是rosparam在命令行的工具使用介绍</p>
 <ul>
-<li>
-<p>列出参数<code>rosparam list</code></p>
+<li><p>列出参数<code>rosparam list</code></p>
 <blockquote>
 <ul>
 <li>如果此时你运行turtlesim，你可以使用<code>rosparam list</code>看到参数名：</li>
@@ -546,221 +545,221 @@ Commands:
 /turtlesim/background_g
 /turtlesim/background_r<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>
-<p>如果你设置了命名空间，还需要在后面加上命名空间的名字，如：<code>rosparam list /namespace</code></p>
+<li><p>如果你设置了命名空间，还需要在后面加上命名空间的名字，如：<code>rosparam list /namespace</code></p>
 <p>这里的命名空间可以类比为c++中的<code>using namespace xxx</code>中的<code>xxx</code></p>
 <p><strong>具体内容放在第三Part介绍</strong></p>
 </li>
 </ul>
 </blockquote>
 </li>
-<li>
-<p>显示某个参数值<code>rosparam get &lt;param_key&gt;</code></p>
+<li><p>显示某个参数值<code>rosparam get &lt;param_key&gt;</code></p>
 </li>
-<li>
-<p>设置某个参数值<code>rosparam set &lt;param_key&gt; &lt;param_value&gt;</code></p>
+<li><p>设置某个参数值<code>rosparam set &lt;param_key&gt; &lt;param_value&gt;</code></p>
 <blockquote>
 <p>比如要修改turtlesim的background对应的RGB值，输入：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosparam set /turtlesim/background_g 255<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>然后turtlesim需要收到一次<code>/clear</code>请求，才会重新读取背景值</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosservice call /clear "{}"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>如果此时你正在运行上述代码，你就可以看到，海龟仿真器的背景颜色已经修改了。</p>
 <p>-v：显示详细输出。</p>
-<p>-t &lt;text_file&gt;, --textfile &lt;text_file&gt; ：将参数设置为文本文件的内容。</p>
-<p>-b &lt;binary_file&gt;, --binfile &lt;binary_file&gt; ：将参数设置为二进制文件的内容。参数服务器将值存储为XML-RPC二进制类型（基64编码）。</p>
+<p>-t <text_file>, –textfile <text_file> ：将参数设置为文本文件的内容。</text_file></text_file></p>
+<p>-b <binary_file>, –binfile <binary_file> ：将参数设置为二进制文件的内容。参数服务器将值存储为XML-RPC二进制类型（基64编码）。</binary_file></binary_file></p>
 </blockquote>
 </li>
-<li>
-<p>保存参数到文件<code>rosparam dump &lt;file_name&gt;</code></p>
+<li><p>保存参数到文件<code>rosparam dump &lt;file_name&gt;</code></p>
 </li>
-<li>
-<p>从文件读取参数<code>rosparam load &lt;file_name&gt;</code></p>
+<li><p>从文件读取参数<code>rosparam load &lt;file_name&gt;</code></p>
 <blockquote>
 <p>此时，在工作空间使用<code>rosparam dump param.yaml</code>指令，ros就会把当前的参数配置保存到该yaml文件中。</p>
 <p>使用<code>rosparam load param.yaml</code>就可以加载以前保存好的参数</p>
 <p>yaml文件会存储类似于以下的内容，</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">rosdistro: 'melodic
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">rosdistro</span><span class="token punctuation">:</span> 'melodic
 
   '
-roslaunch:
-  uris:
-    xxx: http://xxx:44429/
-rosversion: '1.14.10
+<span class="token key atrule">roslaunch</span><span class="token punctuation">:</span>
+  <span class="token key atrule">uris</span><span class="token punctuation">:</span>
+    <span class="token key atrule">xxx</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//xxx<span class="token punctuation">:</span>44429/
+<span class="token key atrule">rosversion</span><span class="token punctuation">:</span> '1.14.10
 
   '
-run_id: 80cf1b56-0e4b-11ed-9d12-000c29d50405
-turtlesim:
-  background_b: 255
-  background_g: 255
-  background_r: 255<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token key atrule">run_id</span><span class="token punctuation">:</span> 80cf1b56<span class="token punctuation">-</span>0e4b<span class="token punctuation">-</span>11ed<span class="token punctuation">-</span>9d12<span class="token punctuation">-</span>000c29d50405
+<span class="token key atrule">turtlesim</span><span class="token punctuation">:</span>
+  <span class="token key atrule">background_b</span><span class="token punctuation">:</span> <span class="token number">255</span>
+  <span class="token key atrule">background_g</span><span class="token punctuation">:</span> <span class="token number">255</span>
+  <span class="token key atrule">background_r</span><span class="token punctuation">:</span> <span class="token number">255</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 </li>
-<li>
-<p>删除参数<code>rosparam delete &lt;param_key&gt;</code></p>
+<li><p>删除参数<code>rosparam delete &lt;param_key&gt;</code></p>
 <blockquote>
 <p>删除当前系统载入的参数。</p>
 </blockquote>
 </li>
 </ul>
-<h2 id="二、参数在编程上的使用">二、参数在编程上的使用</h2>
-<h3 id="c-代码实现-3">c++代码实现</h3>
-<h4 id="1、设置参数">1、设置参数</h4>
-<p><code>ros::NodeHandle::setParam() </code></p>
+<h2 id="二、参数在编程上的使用"><a href="#二、参数在编程上的使用" class="headerlink" title="二、参数在编程上的使用"></a>二、参数在编程上的使用</h2><h3 id="c-代码实现"><a href="#c-代码实现" class="headerlink" title="c++代码实现"></a>c++代码实现</h3><h4 id="1、设置参数"><a href="#1、设置参数" class="headerlink" title="1、设置参数"></a>1、设置参数</h4><p><code>ros::NodeHandle::setParam() </code></p>
 <p><code>ros::param::set()</code></p>
 <p><strong>在c++中</strong>，在代码中获取参数时，除了上述代码使用的<code>ros::param::get</code>方法之外，还可以使用句柄来获取参数：<code>ros::NodeHandle::getParam() </code>。需要的参数是一样的：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">//ros::NodeHandle::setParam()
-ros::NodeHandle nh;
-nh.setParam("/global_param", 5);
-nh.setParam("relative_param", "my_string");
-nh.setParam("bool_param", false);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//ros::NodeHandle::setParam()</span>
+ros<span class="token double-colon punctuation">::</span>NodeHandle nh<span class="token punctuation">;</span>
+nh<span class="token punctuation">.</span><span class="token function">setParam</span><span class="token punctuation">(</span><span class="token string">"/global_param"</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+nh<span class="token punctuation">.</span><span class="token function">setParam</span><span class="token punctuation">(</span><span class="token string">"relative_param"</span><span class="token punctuation">,</span> <span class="token string">"my_string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+nh<span class="token punctuation">.</span><span class="token function">setParam</span><span class="token punctuation">(</span><span class="token string">"bool_param"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>都是需要输入参数名和存放的变量名</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">//ros::param::set()
-ros::param::set("/global_param", 5);
-ros::param::set("relative_param", "my_string");
-ros::param::set("bool_param", false);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//ros::param::set()</span>
+ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"/global_param"</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"relative_param"</span><span class="token punctuation">,</span> <span class="token string">"my_string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"bool_param"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>需要注意的是，如果使用NodeHandle，还需要注意他对应的命名空间。</p>
 <p>对于命名空间来说，节点名前面直接加个<code>/</code>号，代表着这个节点是放在全局的，比如<code>/turltesim</code>。如果需要使用对应命名空间里的节点，需要写上空间名，如：<code>/my/turtlesim</code></p>
-<h4 id="2、检查参数是否存在">2、检查参数是否存在</h4>
-<ul>
+<h4 id="2、检查参数是否存在"><a href="#2、检查参数是否存在" class="headerlink" title="2、检查参数是否存在"></a>2、检查参数是否存在</h4><ul>
 <li><code>ros::NodeHandle::hasParam()</code></li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::NodeHandle nh;
-if (nh.hasParam("my_param")){...}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros<span class="token double-colon punctuation">::</span>NodeHandle nh<span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>nh<span class="token punctuation">.</span><span class="token function">hasParam</span><span class="token punctuation">(</span><span class="token string">"my_param"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <ul>
 <li><code>ros::param::has()</code></li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">if (ros::param::has("my_param")){...}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="3、删除参数">3、删除参数</h4>
-<ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span>ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">has</span><span class="token punctuation">(</span><span class="token string">"my_param"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3、删除参数"><a href="#3、删除参数" class="headerlink" title="3、删除参数"></a>3、删除参数</h4><ul>
 <li><code>ros::NodeHandle::deleteParam()</code></li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::NodeHandle nh;
-nh.deleteParam("my_param");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros<span class="token double-colon punctuation">::</span>NodeHandle nh<span class="token punctuation">;</span>
+nh<span class="token punctuation">.</span><span class="token function">deleteParam</span><span class="token punctuation">(</span><span class="token string">"my_param"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <ul>
 <li><code>ros::param::del()</code></li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::param::del("my_param");<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="4、访问私有参数">4、访问私有参数</h4>
-<p>根据使用的是“句柄”接口还是“裸”接口，访问私有参数的方式是不一样的。在句柄接口中，您必须创建一个新的<code>ros::NodeHandle</code>以私有命名空间作为其命名空间:</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros::NodeHandle nh("~");
-std::string param;
-nh.getParam("private_name", param);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">del</span><span class="token punctuation">(</span><span class="token string">"my_param"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4、访问私有参数"><a href="#4、访问私有参数" class="headerlink" title="4、访问私有参数"></a>4、访问私有参数</h4><p>根据使用的是“句柄”接口还是“裸”接口，访问私有参数的方式是不一样的。在句柄接口中，您必须创建一个新的<code>ros::NodeHandle</code>以私有命名空间作为其命名空间:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros<span class="token double-colon punctuation">::</span>NodeHandle <span class="token function">nh</span><span class="token punctuation">(</span><span class="token string">"~"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+std<span class="token double-colon punctuation">::</span>string param<span class="token punctuation">;</span>
+nh<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span><span class="token string">"private_name"</span><span class="token punctuation">,</span> param<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p>在裸界面中，可以使用描述私有参数的相同符号来访问它们，例如:</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std::string param;
-ros::param::get("~private_name", param);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="5、搜索参数键">5、搜索参数键</h4>
-<ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std<span class="token double-colon punctuation">::</span>string param<span class="token punctuation">;</span>
+ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"~private_name"</span><span class="token punctuation">,</span> param<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="5、搜索参数键"><a href="#5、搜索参数键" class="headerlink" title="5、搜索参数键"></a>5、搜索参数键</h4><ul>
 <li><code>ros::NodeHandle::searchParam()</code></li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std::string key;
-if (nh.searchParam("bar", key))
-{
-  std::string val;
-  nh.getParam(key, val);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std<span class="token double-colon punctuation">::</span>string key<span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>nh<span class="token punctuation">.</span><span class="token function">searchParam</span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  std<span class="token double-colon punctuation">::</span>string val<span class="token punctuation">;</span>
+  nh<span class="token punctuation">.</span><span class="token function">getParam</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
 <li><code>ros::param::search()</code></li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std::string key;
-if (ros::param::search("bar", key))
-{
-  std::string val;
-  ros::param::get(key, val);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="6、demo">6、demo</h4>
-<p>模仿本案例开头的修改turtlesim背景案例，我们所需要的头文件有：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">#include &lt;ros/ros.h&gt;
-#include &lt;string&gt;
-#include &lt;std_srvs/Empty.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">std<span class="token double-colon punctuation">::</span>string key<span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">search</span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  std<span class="token double-colon punctuation">::</span>string val<span class="token punctuation">;</span>
+  ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="6、demo"><a href="#6、demo" class="headerlink" title="6、demo"></a>6、demo</h4><p>模仿本案例开头的修改turtlesim背景案例，我们所需要的头文件有：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ros/ros.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;std_srvs/Empty.h&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p>主函数：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">int main(int argc,char **argv){
-    // 初始化ros
-    ros::init(argc,argv,"param_code");
-    ros::NodeHandle param_node;
-    int red,green,blue;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// 初始化ros</span>
+    ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span>argv<span class="token punctuation">,</span><span class="token string">"param_code"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>NodeHandle param_node<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> red<span class="token punctuation">,</span>green<span class="token punctuation">,</span>blue<span class="token punctuation">;</span>
 
-    //参数获取，类比命令行rosparam的get
-    ros::param::get("/turtlesim/background_r",red);
-    ros::param::get("/turtlesim/background_g",green);
-    ros::param::get("/turtlesim/background_b",blue);
+    <span class="token comment">//参数获取，类比命令行rosparam的get</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_r"</span><span class="token punctuation">,</span>red<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_g"</span><span class="token punctuation">,</span>green<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_b"</span><span class="token punctuation">,</span>blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ROS_INFO("Get Backgroud Color[%d, %d, %d]", red, green, blue);
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">"Get Backgroud Color[%d, %d, %d]"</span><span class="token punctuation">,</span> red<span class="token punctuation">,</span> green<span class="token punctuation">,</span> blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    //参数设置，类比命令行rosparam的set
-    ros::param::set("/turtlesim/background_r",255);
-    ros::param::set("/turtlesim/background_g",255);
-    ros::param::set("/turtlesim/background_b",255);
+    <span class="token comment">//参数设置，类比命令行rosparam的set</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_r"</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_g"</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_b"</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ROS_INFO("Set Backgroud Color[255, 255, 255]");
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">"Set Backgroud Color[255, 255, 255]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    //参数获取，类比命令行rosparam的get
-    ros::param::get("/turtlesim/background_r",red);
-    ros::param::get("/turtlesim/background_g",green);
-    ros::param::get("/turtlesim/background_b",blue);
+    <span class="token comment">//参数获取，类比命令行rosparam的get</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_r"</span><span class="token punctuation">,</span>red<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_g"</span><span class="token punctuation">,</span>green<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>param<span class="token double-colon punctuation">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/turtlesim/background_b"</span><span class="token punctuation">,</span>blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ROS_INFO("Get Backgroud Color[%d, %d, %d]", red, green, blue);
+    <span class="token function">ROS_INFO</span><span class="token punctuation">(</span><span class="token string">"Get Backgroud Color[%d, %d, %d]"</span><span class="token punctuation">,</span> red<span class="token punctuation">,</span> green<span class="token punctuation">,</span> blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // 参考我们上面讨论的参数使用方法，我们知道turtlesim需要接受/clear请求才会更新turtlesim的参数。
-    //调用/clear服务，用来刷新背景颜色
-    ros::service::waitForService("/clear");
-    ros::ServiceClient clear_background = param_node.serviceClient&lt;std_srvs::Empty&gt;("/clear");
-    std_srvs::Empty srv;
-    clear_background.call(srv);
+    <span class="token comment">// 参考我们上面讨论的参数使用方法，我们知道turtlesim需要接受/clear请求才会更新turtlesim的参数。</span>
+    <span class="token comment">//调用/clear服务，用来刷新背景颜色</span>
+    ros<span class="token double-colon punctuation">::</span>service<span class="token double-colon punctuation">::</span><span class="token function">waitForService</span><span class="token punctuation">(</span><span class="token string">"/clear"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ros<span class="token double-colon punctuation">::</span>ServiceClient clear_background <span class="token operator">=</span> param_node<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>std_srvs<span class="token double-colon punctuation">::</span>Empty<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">"/clear"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std_srvs<span class="token double-colon punctuation">::</span>Empty srv<span class="token punctuation">;</span>
+    clear_background<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>srv<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    sleep(1);
+    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>程序编译：</p>
 <p>打开功能包的CMakeLists，使用如下语句即可使用catkin_make</p>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">add_executable(learn_param src/learn_param.cpp)
-target_link_libraries(learn_param ${catkin_LIBRARIES})<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="python代码实现-2">python代码实现</h3>
-<h4 id="1、获取参数">1、获取参数</h4>
-<p><code>rospy.get_param(参数名称) </code></p>
-<p>如果使用<code>get_param()</code>来获取名称空间，则会返回一个字典，其中的键等于该名称空间中的参数值。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">global_name = rospy.get_param("/global_name")
-relative_name = rospy.get_param("relative_name")
-private_param = rospy.get_param('~private_name')
-default_param = rospy.get_param('default_param', 'default_value')
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">add_executable</span><span class="token punctuation">(</span>learn_param src/learn_param.cpp<span class="token punctuation">)</span>
+<span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>learn_param <span class="token punctuation">${</span>catkin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-# fetch a group (dictionary) of parameters
-gains = rospy.get_param('gains')
-p, i, d = gains['p'], gains['i'], gains['d']<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2、设置参数">2、设置参数</h4>
-<p><code>rospy.set_param(参数名称，参数值)</code></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 使用rospy和原始python对象
-rospy.set_param('a_string', 'baz')
-rospy.set_param('~private_int', 2)
-rospy.set_param('list_of_floats', [1., 2., 3., 4.])
-rospy.set_param('bool_True', True)
-rospy.set_param('gains', {'p': 1, 'i': 2, 'd': 3})
+<h3 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h3><h4 id="1、获取参数"><a href="#1、获取参数" class="headerlink" title="1、获取参数"></a>1、获取参数</h4><p> <code>rospy.get_param(参数名称) </code></p>
+<p> 如果使用<code>get_param()</code>来获取名称空间，则会返回一个字典，其中的键等于该名称空间中的参数值。 </p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">global_name <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">"/global_name"</span><span class="token punctuation">)</span>
+relative_name <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">"relative_name"</span><span class="token punctuation">)</span>
+private_param <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'~private_name'</span><span class="token punctuation">)</span>
+default_param <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'default_param'</span><span class="token punctuation">,</span> <span class="token string">'default_value'</span><span class="token punctuation">)</span>
 
-# 使用rosparam和yaml字符串
-rosparam.set_param('a_string', 'baz')
-rosparam.set_param('~private_int', '2')
-rosparam.set_param('list_of_floats', "[1., 2., 3., 4.]")
-rosparam.set_param('bool_True', "true")
-rosparam.set_param('gains', "{'p': 1, 'i': 2, 'd': 3}")
+<span class="token comment"># fetch a group (dictionary) of parameters</span>
+gains <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'gains'</span><span class="token punctuation">)</span>
+p<span class="token punctuation">,</span> i<span class="token punctuation">,</span> d <span class="token operator">=</span> gains<span class="token punctuation">[</span><span class="token string">'p'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> gains<span class="token punctuation">[</span><span class="token string">'i'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> gains<span class="token punctuation">[</span><span class="token string">'d'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-rospy.get_param('gains/p') #should return 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="3、参数存在">3、参数存在</h4>
-<p><code>rospy.has_param(param_name)</code></p>
+<h4 id="2、设置参数"><a href="#2、设置参数" class="headerlink" title="2、设置参数"></a>2、设置参数</h4><p><code>rospy.set_param(参数名称，参数值)</code></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 使用rospy和原始python对象</span>
+rospy<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'a_string'</span><span class="token punctuation">,</span> <span class="token string">'baz'</span><span class="token punctuation">)</span>
+rospy<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'~private_int'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+rospy<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'list_of_floats'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1.</span><span class="token punctuation">,</span> <span class="token number">2.</span><span class="token punctuation">,</span> <span class="token number">3.</span><span class="token punctuation">,</span> <span class="token number">4.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+rospy<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'bool_True'</span><span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+rospy<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'gains'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'p'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'i'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 使用rosparam和yaml字符串</span>
+rosparam<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'a_string'</span><span class="token punctuation">,</span> <span class="token string">'baz'</span><span class="token punctuation">)</span>
+rosparam<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'~private_int'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">)</span>
+rosparam<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'list_of_floats'</span><span class="token punctuation">,</span> <span class="token string">"[1., 2., 3., 4.]"</span><span class="token punctuation">)</span>
+rosparam<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'bool_True'</span><span class="token punctuation">,</span> <span class="token string">"true"</span><span class="token punctuation">)</span>
+rosparam<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'gains'</span><span class="token punctuation">,</span> <span class="token string">"{'p': 1, 'i': 2, 'd': 3}"</span><span class="token punctuation">)</span>
+
+rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'gains/p'</span><span class="token punctuation">)</span> <span class="token comment">#should return 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="3、参数存在"><a href="#3、参数存在" class="headerlink" title="3、参数存在"></a>3、参数存在</h4><p><code>rospy.has_param(param_name)</code></p>
 <p>如果存在该参数，返回True，否则False。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">if rospy.has_param('to_delete'):
-	rospy.delete_param('to_delete')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="4、删除参数">4、删除参数</h4>
-<p><code>rospy.delete_param(参数名称)</code></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> rospy<span class="token punctuation">.</span>has_param<span class="token punctuation">(</span><span class="token string">'to_delete'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+	rospy<span class="token punctuation">.</span>delete_param<span class="token punctuation">(</span><span class="token string">'to_delete'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="4、删除参数"><a href="#4、删除参数" class="headerlink" title="4、删除参数"></a>4、删除参数</h4><p><code>rospy.delete_param(参数名称)</code></p>
 <p>其实就是从参数服务器删除参数</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">try:
-	rospy.delete_param('to_delete')
-except KeyError:
-	print("value not set")<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="5、搜索参数键-2">5、搜索参数键</h4>
-<p><code>rospy.search_param(参数名称)</code></p>
-<p>查找最接近的参数名，从私有名称空间开始，向上一直搜索到全局名称空间。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">param_name = rospy.search_param('global_example')
-v = rospy.get_param(param_name)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">try</span><span class="token punctuation">:</span>
+	rospy<span class="token punctuation">.</span>delete_param<span class="token punctuation">(</span><span class="token string">'to_delete'</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> KeyError<span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"value not set"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="5、搜索参数键-1"><a href="#5、搜索参数键-1" class="headerlink" title="5、搜索参数键"></a>5、搜索参数键</h4><p><code>rospy.search_param(参数名称)</code></p>
+<p> 查找最接近的参数名，从私有名称空间开始，向上一直搜索到全局名称空间。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">param_name <span class="token operator">=</span> rospy<span class="token punctuation">.</span>search_param<span class="token punctuation">(</span><span class="token string">'global_example'</span><span class="token punctuation">)</span>
+v <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span>param_name<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>如果上面的代码出现在/foo/bar节点中， <code>rospy.search_param</code>会试着按照以下顺序找到参数</p>
 <ol>
@@ -769,51 +768,52 @@ v = rospy.get_param(param_name)<span aria-hidden="true" class="line-numbers-rows
 <li><code>/global _example</code></li>
 </ol>
 </blockquote>
-<h4 id="6、获取参数名">6、获取参数名</h4>
-<p><code>rospy.get_param_names()</code></p>
-<h4 id="7、demo">7、demo</h4>
-<p>以下demo和c++的功能完全一样。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
-import rospy
-from std_srvs.srv import Empty
-import sys
+<h4 id="6、获取参数名"><a href="#6、获取参数名" class="headerlink" title="6、获取参数名"></a>6、获取参数名</h4><p><code>rospy.get_param_names()</code></p>
+<h4 id="7、demo"><a href="#7、demo" class="headerlink" title="7、demo"></a>7、demo</h4><p>以下demo和c++的功能完全一样。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding: utf-8 -*-</span>
+<span class="token keyword">import</span> rospy
+<span class="token keyword">from</span> std_srvs<span class="token punctuation">.</span>srv <span class="token keyword">import</span> Empty
+<span class="token keyword">import</span> sys
 
-def param_set():
-    rospy.init_node('param_py')
-    # 读取背景颜色参数
-    red   = rospy.get_param('/background_r')
-    green = rospy.get_param('/background_g')
-    blue  = rospy.get_param('/background_b')
+<span class="token keyword">def</span> <span class="token function">param_set</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    rospy<span class="token punctuation">.</span>init_node<span class="token punctuation">(</span><span class="token string">'param_py'</span><span class="token punctuation">)</span>
+    <span class="token comment"># 读取背景颜色参数</span>
+    red   <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'/background_r'</span><span class="token punctuation">)</span>
+    green <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'/background_g'</span><span class="token punctuation">)</span>
+    blue  <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'/background_b'</span><span class="token punctuation">)</span>
 
-    rospy.loginfo("Get Backgroud Color[%d, %d, %d]", red, green, blue)
+    rospy<span class="token punctuation">.</span>loginfo<span class="token punctuation">(</span><span class="token string">"Get Backgroud Color[%d, %d, %d]"</span><span class="token punctuation">,</span> red<span class="token punctuation">,</span> green<span class="token punctuation">,</span> blue<span class="token punctuation">)</span>
 
-    # 设置背景颜色参数
-    ros.set_param('/background_r',100)
-    ros.set_param('/background_g',100)
-    ros.set_param('/background_b',100)
+    <span class="token comment"># 设置背景颜色参数</span>
+    ros<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'/background_r'</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span>
+    ros<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'/background_g'</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span>
+    ros<span class="token punctuation">.</span>set_param<span class="token punctuation">(</span><span class="token string">'/background_b'</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span>
 
-    rospy.loginfo("Set Backgroud Color[100, 100, 100]")
+    rospy<span class="token punctuation">.</span>loginfo<span class="token punctuation">(</span><span class="token string">"Set Backgroud Color[100, 100, 100]"</span><span class="token punctuation">)</span>
 
-    # 读取背景颜色参数
-    red   = rospy.get_param('/background_r')
-    green = rospy.get_param('/background_g')
-    blue  = rospy.get_param('/background_b')
+    <span class="token comment"># 读取背景颜色参数</span>
+    red   <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'/background_r'</span><span class="token punctuation">)</span>
+    green <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'/background_g'</span><span class="token punctuation">)</span>
+    blue  <span class="token operator">=</span> rospy<span class="token punctuation">.</span>get_param<span class="token punctuation">(</span><span class="token string">'/background_b'</span><span class="token punctuation">)</span>
 
-    rospy.loginfo("Get Backgroud Color[%d, %d, %d]", red, green, blue)
+    rospy<span class="token punctuation">.</span>loginfo<span class="token punctuation">(</span><span class="token string">"Get Backgroud Color[%d, %d, %d]"</span><span class="token punctuation">,</span> red<span class="token punctuation">,</span> green<span class="token punctuation">,</span> blue<span class="token punctuation">)</span>
 
-    rospy.wait_for_service('/clear')
-    try:
-        clear_background = rospy.ServiceProxy('/clear', Empty)
+    rospy<span class="token punctuation">.</span>wait_for_service<span class="token punctuation">(</span><span class="token string">'/clear'</span><span class="token punctuation">)</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        clear_background <span class="token operator">=</span> rospy<span class="token punctuation">.</span>ServiceProxy<span class="token punctuation">(</span><span class="token string">'/clear'</span><span class="token punctuation">,</span> Empty<span class="token punctuation">)</span>
 
-        # 请求服务调用，输入请求数据
-        response = clear_background()
-        return response
-    except rospy.ServiceException, e:
-        print "Service call failed: %s"%e
+        <span class="token comment"># 请求服务调用，输入请求数据</span>
+        response <span class="token operator">=</span> clear_background<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> response
+    <span class="token keyword">except</span> rospy<span class="token punctuation">.</span>ServiceException<span class="token punctuation">,</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">print</span> <span class="token string">"Service call failed: %s"</span><span class="token operator">%</span>e
 
 
-if __name__ == '__main__':
-    param_set()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    param_set<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 
                 
             </div>

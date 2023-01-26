@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -514,70 +515,59 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>ROS 一：核心概念</h1>
-<p>ros提供了一种松耦合分布式通信框架。这些框架可以抽象成一个节点图。</p>
-<p>每一个功能都可以是一个节点，比如一个图像采集功能为一个节点、图像检测又是一个节点、slam导航功能也放在一个节点。**每一个具体的功能都是一个节点。**我们用一个椭圆形代表一个节点。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-一：核心概念"><a href="#ROS-一：核心概念" class="headerlink" title="ROS 一：核心概念"></a>ROS 一：核心概念</h1><p>ros提供了一种松耦合分布式通信框架。这些框架可以抽象成一个节点图。</p>
+<p>每一个功能都可以是一个节点，比如一个图像采集功能为一个节点、图像检测又是一个节点、slam导航功能也放在一个节点。<strong>每一个具体的功能都是一个节点。</strong>我们用一个椭圆形代表一个节点。</p>
 <p>每个节点通过通讯连接，互相传输数据。我们用箭头表示桐乡数据的流向。</p>
 <ul>
 <li>由节点（椭圆形）和通讯的方向（椭圆形上的箭头）构成ros的<strong>计算图</strong>。</li>
 </ul>
 <p><img src="https://s2.loli.net/2022/07/09/XxaCtYVNp2WglAy.png" alt="计算图"></p>
 <p>如下图，每一个node节点就是机器人完成某一个具体功能的进程</p>
-<p><img src="https://s2.loli.net/2022/07/09/kHO5FbGp1zUIr36.png" alt=""></p>
+<p><img src="https://s2.loli.net/2022/07/09/kHO5FbGp1zUIr36.png"></p>
 <p>每一个node的编程语言可以是不一样的。比如可以使用python，c++等。只要有统一的通讯标准就可以完成整个机器人系统的搭建。</p>
-<h2 id="1、节点与节点管理器">1、节点与节点管理器</h2>
-<ul>
-<li>
-<p>节点（node）——执行单元</p>
+<h2 id="1、节点与节点管理器"><a href="#1、节点与节点管理器" class="headerlink" title="1、节点与节点管理器"></a>1、节点与节点管理器</h2><ul>
+<li><p>节点（node）——执行单元</p>
 <ul>
 <li>是执行具体任务的<strong>进程</strong>，是独立的可执行文件。</li>
 <li>不同节点可以使用不同的编程语言（常用python或c++），可以分布式运行在不同的主机。</li>
 <li>节点在系统中的名称必须是唯一的。</li>
 </ul>
 </li>
-<li>
-<p>节点管理器（ROS Master）——控制中心</p>
+<li><p>节点管理器（ROS Master）——控制中心</p>
 <ul>
-<li>
-<p>为各个节点提供命名、注册服务。</p>
+<li><p>为各个节点提供命名、注册服务。</p>
 </li>
-<li>
-<p>跟踪、记录话题或者服务通信，辅助节点相互查找，建立连接，帮助各个节点之间传输数据。</p>
+<li><p>跟踪、记录话题或者服务通信，辅助节点相互查找，建立连接，帮助各个节点之间传输数据。</p>
 <p>节点之间互相不知道彼此之间的存在，都需要ROS Master来帮忙建立连接。</p>
 </li>
-<li>
-<p>提供参数服务器，节点使用此服务器来存储、检索运行时的参数。（可以理解为全局的对象字典，会记录一些全局变量，给各个节点提供服务）</p>
+<li><p>提供参数服务器，节点使用此服务器来存储、检索运行时的参数。（可以理解为全局的对象字典，会记录一些全局变量，给各个节点提供服务）</p>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="2、话题通信">2、话题通信</h2>
-<p>以下是ros通信的两种方式：</p>
-<h3 id="2-1-话题（topic）——异步通信机制">2.1 话题（topic）——异步通信机制</h3>
-<ul>
+<h2 id="2、话题通信"><a href="#2、话题通信" class="headerlink" title="2、话题通信"></a>2、话题通信</h2><p>以下是ros通信的两种方式：</p>
+<h3 id="2-1-话题（topic）——异步通信机制"><a href="#2-1-话题（topic）——异步通信机制" class="headerlink" title="2.1 话题（topic）——异步通信机制"></a>2.1 话题（topic）——异步通信机制</h3><ul>
 <li>节点之间用来传输数据的<strong>重要总线</strong>，是传输的<strong>管道</strong>。</li>
 <li>使用<strong>发布/订阅</strong>模型，数据由发布者传输到订阅者，同一个话题的订阅者或发布者可以是不唯一的。</li>
 <li>如下图，发布者（publisher）给订阅者（subscriber）的通讯是<strong>单向的数据传输</strong>。而通讯的通道就是<strong>话题（Topic）</strong>。</li>
 </ul>
 <p><img src="https://s2.loli.net/2022/07/09/kxgYaKVDbf85IhG.png" alt="话题模型（发布/订阅）"></p>
 <ul>
-<li>消息（message）——话题里头的 “数据”
-<ul>
+<li>消息（message）——话题里头的 “数据”<ul>
 <li>描述传输数据的详细定义就是消息。</li>
 <li>具有一定的类型和数据结构，包括ROS提供的标准类型和用户自定义的类型</li>
 <li>使用编程语言无关的<code>.msg</code>文件来定义消息，编译过程中会生成对应的代码文件。</li>
 </ul>
 </li>
-<li>区分：
-<ul>
+<li>区分：<ul>
 <li>话题：传输数据的管道。</li>
 <li>消息：传输数据的详细定义。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<p>eg:</p>
-<p><img src="https://s2.loli.net/2022/07/09/SpJtixCVerRqy5P.png" alt=""></p>
+<p>eg: </p>
+<p><img src="https://s2.loli.net/2022/07/09/SpJtixCVerRqy5P.png"></p>
 <p>在上图中，摄像头把获取到的数据给<code>CameraNode</code>，<code>CameraNode</code>把这些画面发布出去。</p>
 <p><code>Image Processing Node</code>要处理图像数据，使用需要订阅<code>CameraNode</code>发布的数据。</p>
 <p>在笔记本电脑（Laptop）区，笔记本电脑想要显示图像，<code>Image Display Node</code>也就需要订阅这个图像数据</p>
@@ -586,79 +576,74 @@
 <li>有一个图像数据Publisher，两个图像数据Subscriber，一个Topic（Image data Message），传输图像数据消息。</li>
 </ul>
 </blockquote>
-<h3 id="2-2-服务（service）——同步通信机制">2.2 服务（service）——同步通信机制</h3>
-<ul>
-<li>
-<p>使用客户端/服务器（C/S）模型，客户端发送请求数据，服务器完成处理后，返回应答数据。</p>
+<h3 id="2-2-服务（service）——同步通信机制"><a href="#2-2-服务（service）——同步通信机制" class="headerlink" title="2.2 服务（service）——同步通信机制"></a>2.2 服务（service）——同步通信机制</h3><ul>
+<li><p>使用客户端/服务器（C/S）模型，客户端发送请求数据，服务器完成处理后，返回应答数据。</p>
 <p>是双向的数据传输</p>
 </li>
-<li>
-<p>使用编程语言无关的<code>.srv</code>文件定义请求和应答数据结构，编译过程中生成对应的代码文件。</p>
+<li><p>使用编程语言无关的<code>.srv</code>文件定义请求和应答数据结构，编译过程中生成对应的代码文件。</p>
 </li>
 </ul>
 <img src="https://s2.loli.net/2022/07/09/1p7cytkFEh4RMAw.png" alt="ros-1-4.png" style="zoom:50%;">
-<h3 id="2-3-话题与服务的区别">2.3 话题与服务的区别</h3>
-<table>
+
+<h3 id="2-3-话题与服务的区别"><a href="#2-3-话题与服务的区别" class="headerlink" title="2.3 话题与服务的区别"></a>2.3 话题与服务的区别</h3><table>
 <thead>
 <tr>
 <th></th>
-<th style="text-align:center">话题</th>
-<th style="text-align:center">服务</th>
+<th align="center">话题</th>
+<th align="center">服务</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>同步性</td>
-<td style="text-align:center">异步</td>
-<td style="text-align:center">同步</td>
+<td align="center">异步</td>
+<td align="center">同步</td>
 </tr>
 <tr>
 <td>通信模型</td>
-<td style="text-align:center">发布/订阅</td>
-<td style="text-align:center">客户端/服务器</td>
+<td align="center">发布/订阅</td>
+<td align="center">客户端/服务器</td>
 </tr>
 <tr>
 <td>底层协议</td>
-<td style="text-align:center">ROS TCP/ROS UDP</td>
-<td style="text-align:center">ROS TCP/ROS UDP</td>
+<td align="center">ROS TCP/ROS UDP</td>
+<td align="center">ROS TCP/ROS UDP</td>
 </tr>
 <tr>
 <td>反馈机制</td>
-<td style="text-align:center">无</td>
-<td style="text-align:center">有</td>
+<td align="center">无</td>
+<td align="center">有</td>
 </tr>
 <tr>
 <td>缓冲区</td>
-<td style="text-align:center">有</td>
-<td style="text-align:center">无</td>
+<td align="center">有</td>
+<td align="center">无</td>
 </tr>
 <tr>
 <td>实时性</td>
-<td style="text-align:center">弱</td>
-<td style="text-align:center">强</td>
+<td align="center">弱</td>
+<td align="center">强</td>
 </tr>
 <tr>
 <td>节点关系</td>
-<td style="text-align:center">多对多</td>
-<td style="text-align:center">一对多（一个server）</td>
+<td align="center">多对多</td>
+<td align="center">一对多（一个server）</td>
 </tr>
 <tr>
 <td>适用场景</td>
-<td style="text-align:center">数据传输</td>
-<td style="text-align:center">逻辑处理</td>
+<td align="center">数据传输</td>
+<td align="center">逻辑处理</td>
 </tr>
-</tbody>
-</table>
-<h2 id="3、参数（Parameter）全局共享字典">3、参数（Parameter）全局共享字典</h2>
-<ul>
+</tbody></table>
+<h2 id="3、参数（Parameter）全局共享字典"><a href="#3、参数（Parameter）全局共享字典" class="headerlink" title="3、参数（Parameter）全局共享字典"></a>3、参数（Parameter）全局共享字典</h2><ul>
 <li>ROS Master里面的参数服务器。</li>
 <li>可通过网络访问的共享、多变量<strong>字典</strong>，数据类型不唯一。</li>
 <li>节点使用次服务器来存储&amp;检索运行时的参数。</li>
 <li>适合存储静态、非二进制的配置参数，不适合存储动态配置的数据。</li>
 </ul>
 <blockquote>
-<p>eg:</p>
+<p>eg: </p>
 <img src="https://s2.loli.net/2022/07/11/9WpPugflbYcUK51.png" style="zoom:67%;">
+
 <p>如上图，Talker存入<code>setParam</code>了一个参数<code>("foo",1)</code>到ROS Master</p>
 <p>Listener需要调用<code>foo</code>底下的值，就发出一个请求<code>getParam</code></p>
 <p>然后Listener就可以获得ROS Master返回的<code>("foo",1)</code></p>
@@ -667,19 +652,15 @@
 <li>如果需要实时更新参数，就需要用到ROS的高级功能 “动态参数配置”的功能。</li>
 </ul>
 </blockquote>
-<h2 id="4、文件系统">4、文件系统</h2>
-<ul>
-<li>
-<p>功能包（package）</p>
+<h2 id="4、文件系统"><a href="#4、文件系统" class="headerlink" title="4、文件系统"></a>4、文件系统</h2><ul>
+<li><p>功能包（package）</p>
 <p>ROS软件中的基本单元，包含了节点源码、配置文件、数据定义……</p>
 <p>用于完成一些具体的功能，人脸识别、图像识别等等</p>
 </li>
-<li>
-<p>功能包清单（package manifest）</p>
+<li><p>功能包清单（package manifest）</p>
 <p>记录了功能包的基本信息，包含了作者信息、许可信息、依赖选项、变异标志……</p>
 </li>
-<li>
-<p>元功能包（meta package）</p>
+<li><p>元功能包（meta package）</p>
 <p>组织多个用于同一个目的的功能包</p>
 <p>比如很多个图像识别的功能包组织成一个大工程，这个大工程就是元功能包。</p>
 </li>
@@ -692,7 +673,8 @@ C --&gt;D2[消息类型]
 C --&gt;D3[服务类型]
 C --&gt;D4[代码]
 C --&gt;D5[其他]</pre>
-<p><img src="https://s2.loli.net/2022/07/11/ZRt6jPecizJA37I.png" alt=""></p>
+
+<p><img src="https://s2.loli.net/2022/07/11/ZRt6jPecizJA37I.png"></p>
 <p>参考自: 古月居ros教程</p>
 
                 

@@ -31,7 +31,8 @@
     <script src="../../../../libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 6.1.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="atom.xml" title="拓佑豪的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -514,8 +515,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>Sub-process /usr/bin/dpkg returned an error code (1)解决办法</h1>
-<p>安装一些用apt-get下载的程序的时候，我出现过以下问题：</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Sub-process-x2F-usr-x2F-bin-x2F-dpkg-returned-an-error-code-1-解决办法"><a href="#Sub-process-x2F-usr-x2F-bin-x2F-dpkg-returned-an-error-code-1-解决办法" class="headerlink" title="Sub-process /usr/bin/dpkg returned an error code (1)解决办法"></a>Sub-process /usr/bin/dpkg returned an error code (1)解决办法</h1><p>安装一些用apt-get下载的程序的时候，我出现过以下问题：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Do you want to continue? [Y/n] 
 Setting up sysstat (11.6.1-1ubuntu0.2) ...
 dpkg: error processing package sysstat (--configure):
@@ -524,20 +524,27 @@ Errors were encountered while processing:
  sysstat
 E: Sub-process /usr/bin/dpkg returned an error code (1)
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>网上找到了靠谱的解决方法：</p>
 <p>将info文件夹改名：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>新建一个info文件夹</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mkdir /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>安装修复</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get update
 sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>操作后，info文件夹下会有一些文件，移动一下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>删掉这个新的info文件夹</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo rm -rf /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>恢复原有的info文件夹名称</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info.bk /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>到这里，问题已经可以解决了</p>
 
                 
