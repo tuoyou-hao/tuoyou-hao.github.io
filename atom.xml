@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2023-01-16T09:39:56.058Z</updated>
+  <updated>2023-02-01T15:20:54.377Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ML 朴素贝叶斯</title>
+    <link href="http://tuoyou-hao.github.io/2023/02/01/ML-1-Bayes/"/>
+    <id>http://tuoyou-hao.github.io/2023/02/01/ML-1-Bayes/</id>
+    <published>2023-02-01T15:15:03.000Z</published>
+    <updated>2023-02-01T15:20:54.377Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;朴素贝叶斯&quot;&gt;&lt;a href=&quot;#朴素贝叶斯&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数学" scheme="http://tuoyou-hao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+    
+    <category term="ML" scheme="http://tuoyou-hao.github.io/tags/ML/"/>
+    
+  </entry>
   
   <entry>
     <title>SLAM 3.5：Sophus基础</title>
@@ -484,31 +509,6 @@
         
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-8-参数的使用与编程&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROS 七、服务数据的自定义</title>
-    <link href="http://tuoyou-hao.github.io/2022/07/28/ros-7-Custom-service/"/>
-    <id>http://tuoyou-hao.github.io/2022/07/28/ros-7-Custom-service/</id>
-    <published>2022-07-28T08:13:03.000Z</published>
-    <updated>2022-08-21T08:51:28.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-7-服务数据自定义&quot;&gt;&lt;a</summary>
         
       
     
