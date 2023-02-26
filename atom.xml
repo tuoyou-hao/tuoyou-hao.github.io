@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2023-02-01T15:20:54.377Z</updated>
+  <updated>2023-02-26T14:52:28.062Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>环境配置：OpenCV(c++)</title>
+    <link href="http://tuoyou-hao.github.io/2023/02/26/env_build_win_cv_cpp_vscode/"/>
+    <id>http://tuoyou-hao.github.io/2023/02/26/env_build_win_cv_cpp_vscode/</id>
+    <published>2023-02-26T14:52:03.000Z</published>
+    <updated>2023-02-26T14:52:28.062Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="环境搭建" scheme="http://tuoyou-hao.github.io/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+    <category term="环境搭建" scheme="http://tuoyou-hao.github.io/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    <category term="OpenCV" scheme="http://tuoyou-hao.github.io/tags/OpenCV/"/>
+    
+  </entry>
   
   <entry>
     <title>ML 朴素贝叶斯</title>
@@ -493,31 +520,6 @@
     <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
     
     <category term="SLAM" scheme="http://tuoyou-hao.github.io/tags/SLAM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROS 八、参数的使用</title>
-    <link href="http://tuoyou-hao.github.io/2022/07/31/ros-8-rosparam/"/>
-    <id>http://tuoyou-hao.github.io/2022/07/31/ros-8-rosparam/</id>
-    <published>2022-07-30T16:23:03.000Z</published>
-    <updated>2022-12-03T04:19:58.665Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-8-参数的使用与编程&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
     
   </entry>
   
