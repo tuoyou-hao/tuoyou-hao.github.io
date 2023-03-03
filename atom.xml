@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2023-02-26T14:52:28.062Z</updated>
+  <updated>2023-03-03T07:30:26.154Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SLAM 4：相机与图像</title>
+    <link href="http://tuoyou-hao.github.io/2023/03/03/slam-4-camera-image/"/>
+    <id>http://tuoyou-hao.github.io/2023/03/03/slam-4-camera-image/</id>
+    <published>2023-03-03T07:19:03.000Z</published>
+    <updated>2023-03-03T07:30:26.154Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-4、相机与图像&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="数学" scheme="http://tuoyou-hao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+    
+    <category term="SLAM" scheme="http://tuoyou-hao.github.io/tags/SLAM/"/>
+    
+  </entry>
   
   <entry>
     <title>环境配置：OpenCV(c++)</title>
@@ -493,33 +518,6 @@
     
     
     <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SLAM：三维空间数学基础</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/</id>
-    <published>2022-08-02T07:25:03.000Z</published>
-    <updated>2022-12-03T04:26:16.809Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="数学" scheme="http://tuoyou-hao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-    
-    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
-    
-    <category term="SLAM" scheme="http://tuoyou-hao.github.io/tags/SLAM/"/>
     
   </entry>
   
