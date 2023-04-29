@@ -515,20 +515,24 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CUDA-2-2：线程与核函数"><a href="#CUDA-2-2：线程与核函数" class="headerlink" title="CUDA 2.2：线程与核函数"></a>CUDA 2.2：线程与核函数</h1><blockquote>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>CUDA 2.2：线程与核函数</h1>
+<blockquote>
 <p>本篇承接上一篇文章：<a href="https://tuoyou-hao.github.io/2022/08/13/cuda-2-1-CUDA-model-and-memory-allocation/#4%E3%80%81%E4%BB%A3%E7%A0%81">CUDA 2.1 CUDA模型与内存分配</a></p>
 </blockquote>
-<h2 id="一、线程管理"><a href="#一、线程管理" class="headerlink" title="一、线程管理"></a>一、线程管理</h2><p>当核函数在主机端启动时，它的执行会移动到设备上，此时设备中会产生大量的线程 ，并且每个线程都执行由核函数指定的语句。CUDA明确了线程层次抽象的概念，以便于我们组织线程。</p>
+<h2 id="一、线程管理">一、线程管理</h2>
+<p>当核函数在主机端启动时，它的执行会移动到设备上，此时设备中会产生大量的线程 ，并且每个线程都执行由核函数指定的语句。CUDA明确了线程层次抽象的概念，以便于我们组织线程。</p>
 <p>这是一个两层的线程层次结构，由线程块和线程块网格构成。</p>
 <ul>
-<li><p>由一个内核启动所产生的所有线程统称为一个网格。</p>
+<li>
+<p>由一个内核启动所产生的所有线程统称为一个网格。</p>
 <p>同一网格中的所有线程共享相同的全局内存空间。</p>
 </li>
-<li><p>一个网格由多个线程块构成</p>
+<li>
+<p>一个网格由多个线程块构成</p>
 <p>一个线程块包含一组线程。</p>
 </li>
 </ul>
-<p>同一线程块block内的线程协作可以通过以下方式来实现。 </p>
+<p>同一线程块block内的线程协作可以通过以下方式来实现。</p>
 <ul>
 <li>同步</li>
 <li>共享内存</li>
@@ -537,41 +541,44 @@
 <p>不同块内线程不能相互影响，他们是物理隔离的！</p>
 </blockquote>
 <p>我们必须明确，一个核函数只能有一个<strong>网络（grid）</strong>，一个网络可以有很多个<strong>块（block）</strong>，每个块可以有很多的线程。</p>
-<p><img src="https://s2.loli.net/2022/08/13/V7xz6Q5dEmB2gNt.png"></p>
-<p>线程依靠以下两个坐标变量来区分彼此。这里的<code>Idx</code>是<code>index</code>的缩写 </p>
+<p><img src="https://s2.loli.net/2022/08/13/V7xz6Q5dEmB2gNt.png" alt=""></p>
+<p>线程依靠以下两个坐标变量来区分彼此。这里的<code>Idx</code>是<code>index</code>的缩写</p>
 <ul>
-<li><p>blockIdx（线程块在线程格内的索引） </p>
+<li>
+<p>blockIdx（线程块在线程格内的索引）</p>
 </li>
-<li><p>threadIdx（块内的线程索引）</p>
+<li>
+<p>threadIdx（块内的线程索引）</p>
 </li>
 </ul>
 <p>这些变量是核函数中需要预初始化的内置变量。当执行一个核函数时，CUDA运行时为每个线程分配坐标变量<code>blockIdx</code>和<code>threadIdx</code>。基于坐标，可以将部分数据分配给不同的线程。</p>
-<p>该坐标变量基于<code>uint3</code>定义的、CUDA内置的向量类型。是一个包含3个无符号整数的结构，可以通过x、y、z三个字段来指定。 </p>
+<p>该坐标变量基于<code>uint3</code>定义的、CUDA内置的向量类型。是一个包含3个无符号整数的结构，可以通过x、y、z三个字段来指定。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">blockIdx<span class="token punctuation">.</span>x
 blockIdx<span class="token punctuation">.</span>y
 blockIdx<span class="token punctuation">.</span>z
 threadIdx<span class="token punctuation">.</span>x
 threadIdx<span class="token punctuation">.</span>y
 threadIdx<span class="token punctuation">.</span>z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>网格和块的维度一般是二维和三维的，也就是说一个网格通常被分成二维的块，而每个块常被分成三维的线程。 </p>
+<p>网格和块的维度一般是二维和三维的，也就是说一个网格通常被分成二维的块，而每个块常被分成三维的线程。</p>
 <p>CUDA可以组织三维的网格和块。如上图，是一个包含二维块的二维网格。</p>
-<p>网格和块的维度由下列两个内置变量指定： </p>
+<p>网格和块的维度由下列两个内置变量指定：</p>
 <ul>
-<li><p>blockDim（线程块的维度，用每个线程块中的线程数来表示） </p>
+<li>
+<p>blockDim（线程块的维度，用每个线程块中的线程数来表示）</p>
 </li>
-<li><p>gridDim（线程格的维度，用每个线程格中的线程数来表示）</p>
+<li>
+<p>gridDim（线程格的维度，用每个线程格中的线程数来表示）</p>
 </li>
 </ul>
 <p>它们是<code>dim3</code>类型的变量，是基于<code>uint3</code>定义的整数型向量，用来表示维度。当定义一个<code>dim3</code>类型的变量时，所有未指定的元素都被初始化为1。<code>dim3</code>类型变量中的每个组件可以通过它的x、y、z字段获得。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">blockDim<span class="token punctuation">.</span>x
 blockDim<span class="token punctuation">.</span>y
 blockDim<span class="token punctuation">.</span>z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
-<p>dim3是手工定义的，主机端可见。uint3是设备端在执行的时候可见的，不可以在核函数运行时修改，初始化完成后uint3值就不变了。他们是有区别的！这一点必须要注意。 </p>
+<p>dim3是手工定义的，主机端可见。uint3是设备端在执行的时候可见的，不可以在核函数运行时修改，初始化完成后uint3值就不变了。他们是有区别的！这一点必须要注意。</p>
 </blockquote>
-<h3 id="1、网格和线程块的维度"><a href="#1、网格和线程块的维度" class="headerlink" title="1、网格和线程块的维度"></a>1、网格和线程块的维度</h3><p>通常，一个线程格会被组织成线程块的二维数组形式，一个线程块会被组织成线程的三维数组形式。</p>
+<h3 id="1、网格和线程块的维度">1、网格和线程块的维度</h3>
+<p>通常，一个线程格会被组织成线程块的二维数组形式，一个线程块会被组织成线程的三维数组形式。</p>
 <p>线程格和线程块均使用3个<code>dim3</code>类型的无符号整型字段，而未使用的字段将被初始化为1且忽略不计。</p>
 <p>我们可以通过以下demo进一步了解块的索引和维度。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cuda_runtime.h&gt;</span></span>
@@ -602,7 +609,6 @@ __global__ <span class="token keyword">void</span> <span class="token function">
     <span class="token function">cudaDeviceReset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>编译输出后：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">grid.x 2 grid.y 1 grid.z 1
 block.x 3 block.y 1 block.z 1
@@ -612,18 +618,22 @@ threadIdx:(2,0,0) blockIdx:(0,0,0) blockDim:(3,1,1)    gridDim(2,1,1)
 threadIdx:(0,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)
 threadIdx:(1,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)
 threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以看到，每个线程都有自己的坐标，所有的线程都有相同的块维度和网格维度。 </p>
-<h3 id="2、主机端和设备端访问-网格-x2F-块-变量"><a href="#2、主机端和设备端访问-网格-x2F-块-变量" class="headerlink" title="2、主机端和设备端访问(网格/块)变量"></a>2、主机端和设备端访问(网格/块)变量</h3><p>区分主机端和设备端的网格和块变量的访问是很重要的</p>
-<p>对于一个给定的数据大小，确定网格和块尺寸的一般步骤为： </p>
+<p>可以看到，每个线程都有自己的坐标，所有的线程都有相同的块维度和网格维度。</p>
+<h3 id="2、主机端和设备端访问-网格-块-变量">2、主机端和设备端访问(网格/块)变量</h3>
+<p>区分主机端和设备端的网格和块变量的访问是很重要的</p>
+<p>对于一个给定的数据大小，确定网格和块尺寸的一般步骤为：</p>
 <ul>
-<li><p>确定块的大小 </p>
+<li>
+<p>确定块的大小</p>
 </li>
-<li><p>在已知数据大小和块大小的基础上计算网格维度要确定块尺寸，通常需要考虑： </p>
+<li>
+<p>在已知数据大小和块大小的基础上计算网格维度要确定块尺寸，通常需要考虑：</p>
 </li>
-<li><p>内核的性能特性 </p>
+<li>
+<p>内核的性能特性</p>
 </li>
-<li><p>GPU资源的限制</p>
+<li>
+<p>GPU资源的限制</p>
 </li>
 </ul>
 <p>以下demo介绍如何在主机上定义网格和块的大小</p>
@@ -657,70 +667,67 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
 
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>由于应用程序中的数据大小是固定的，因此当块的大小发生改变时，相应的网格尺寸也会发生改变。</p>
 <blockquote>
-<p>CUDA的特点之一就是通过编程模型揭示了一个两层的线程层次结构。由于一个内核启动的网格和块的维数会影响性能，所以我们在优化程序的时候要考虑到这一途径。 </p>
+<p>CUDA的特点之一就是通过编程模型揭示了一个两层的线程层次结构。由于一个内核启动的网格和块的维数会影响性能，所以我们在优化程序的时候要考虑到这一途径。</p>
 <p>网格和块从逻辑上表示了一个核函数的线程层次结构。在CUDA执行模型部分中，你就会发现这种线程组织方式能够在不同的设备上执行相同的程序代码，且每一个线程组织具有不同数量的计算和内存资源。</p>
 </blockquote>
-<h2 id="二、核函数概念"><a href="#二、核函数概念" class="headerlink" title="二、核函数概念"></a>二、核函数概念</h2><p>在C语言中调用函数是使用如下方式：</p>
+<h2 id="二、核函数概念">二、核函数概念</h2>
+<p>在C语言中调用函数是使用如下方式：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">function_name</span><span class="token punctuation">(</span>argument list<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>CUDA核函数调用外加了三个尖括号，<code>&lt;&lt;&lt;&gt;&gt;&gt;</code>运算符内是核函数的执行配置。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">kernel_name<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span>grid<span class="token punctuation">,</span>block<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>argument list<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>执行配置的第一个值是网格维度，也就是启动块的数目。第二个值是块维度，也就是每个块中线程的数目。</p>
 <p>通过指定网格和块的维度，你可以进行以下配置：</p>
 <ul>
-<li><p>内核中线程的数目 </p>
+<li>
+<p>内核中线程的数目</p>
 </li>
-<li><p>内核中使用的线程布局</p>
+<li>
+<p>内核中使用的线程布局</p>
 </li>
 </ul>
 <p>同一个块中的线程之间可以相互协作，不同块内的线程不能协作。</p>
 <p>对于一个给定的问题，可以使用不同的网格和块布局来组织你的线程。</p>
 <p>例如，假设你有32个数据元素用于计算，每8个元素一个块，需要启动4个块：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">kernel_name<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>argument list<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <blockquote>
-<p>在这里，我们可以使用int类型的变量，或者常量直接初始化。 </p>
+<p>在这里，我们可以使用int类型的变量，或者常量直接初始化。</p>
 </blockquote>
 <p>上述代码的线程布局如下：</p>
-<p><img src="https://s2.loli.net/2022/08/14/H9fWA7S5ZEBDYnw.png"></p>
+<p><img src="https://s2.loli.net/2022/08/14/H9fWA7S5ZEBDYnw.png" alt=""></p>
 <p>核函数是同时复制到多个线程执行的，为了让多线程按照我们的意愿对应到不同的数据，就要给线程一个唯一的标识。</p>
 <p>由于数据在全局内存中是线性存储的，我们可以用变量<code>blockIdx.x</code>和<code>threadId.x</code>来进行以下操作</p>
 <ul>
-<li><p>在网格中标识一个唯一的线程 </p>
+<li>
+<p>在网格中标识一个唯一的线程</p>
 </li>
-<li><p>建立线程和数据元素之间的映射关系</p>
+<li>
+<p>建立线程和数据元素之间的映射关系</p>
 </li>
 </ul>
 <blockquote>
-<p>补充：如果把所有32个元素放到一个块里，那么只会得到<strong>一个块</strong>： </p>
+<p>补充：如果把所有32个元素放到一个块里，那么只会得到<strong>一个块</strong>：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">kernel_name<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>argument list<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>如果每个块只含有一个元素，那么会有<strong>32个块</strong>： </p>
+<p>如果每个块只含有一个元素，那么会有<strong>32个块</strong>：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">kernel_name<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span><span class="token number">32</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>argument list<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>上述代码如果没有特殊结构在核函数中，执行结果应该一致，但是有些效率会一直比较低。 </p>
+<p>上述代码如果没有特殊结构在核函数中，执行结果应该一致，但是有些效率会一直比较低。</p>
 </blockquote>
-<p>上面这些是启动部分，核函数的调用与主机线程是异步的。核函数调用结束后，控制权立刻返回给主机端。 也就是说，当主机启动了核函数，控制权马上回到主机，而不是主机等待设备完成核函数的运行 </p>
-<p>想要主机等待设备端执行可以用下面这个函数，来强制主机端程序等待所有的核函数执行结束： </p>
+<p>上面这些是启动部分，核函数的调用与主机线程是异步的。核函数调用结束后，控制权立刻返回给主机端。 也就是说，当主机启动了核函数，控制权马上回到主机，而不是主机等待设备完成核函数的运行</p>
+<p>想要主机等待设备端执行可以用下面这个函数，来强制主机端程序等待所有的核函数执行结束：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">cudaError_t</span> <span class="token function">cudaDeviceSynchronize</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>这是一个显示的方法，对应的也就有隐式方法。</p>
-<p>隐式方法就是不明确说明主机要等待设备端，而是设备端不执行完，主机没办法进行，比如内存拷贝函数： </p>
+<p>隐式方法就是不明确说明主机要等待设备端，而是设备端不执行完，主机没办法进行，比如内存拷贝函数：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">cudaError_t</span> <span class="token function">cudaMemcpy</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> dst<span class="token punctuation">,</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span> src<span class="token punctuation">,</span>
   <span class="token class-name">size_t</span> count<span class="token punctuation">,</span>cudaMemcpyKind kind<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>这个函数在上文有介绍过，当核函数启动后的下一条指令就是从设备复制数据回主机端，那么主机端必须要等待设备端计算完成。 </p>
+<p>这个函数在上文有介绍过，当核函数启动后的下一条指令就是从设备复制数据回主机端，那么主机端必须要等待设备端计算完成。</p>
 <blockquote>
 <p>这里再做一次强调：不同于C语言的函数调用，所有的CUDA核函数的启动都是异步的。CUDA内核调用完成后，控制权立刻返回给CPU。</p>
 </blockquote>
-<h2 id="三、编写核函数"><a href="#三、编写核函数" class="headerlink" title="三、编写核函数"></a>三、编写核函数</h2><p>我们会启动核函数了，接下来就是自己定义属于自己的核函数了。</p>
-<p>核函数也是一个函数，但是声明核函数有一个比较模板化的方法： </p>
+<h2 id="三、编写核函数">三、编写核函数</h2>
+<p>我们会启动核函数了，接下来就是自己定义属于自己的核函数了。</p>
+<p>核函数也是一个函数，但是声明核函数有一个比较模板化的方法：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">__global__ <span class="token keyword">void</span> <span class="token function">kernel_name</span><span class="token punctuation">(</span>argument list<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <blockquote>
 <p>注意：声明和定义是不同的，这点CUDA与C语言是一致的</p>
 </blockquote>
@@ -728,64 +735,69 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
 <table>
 <thead>
 <tr>
-<th align="center">限定符</th>
-<th align="center">执行</th>
-<th align="center">调用</th>
-<th align="center">备注</th>
+<th style="text-align:center">限定符</th>
+<th style="text-align:center">执行</th>
+<th style="text-align:center">调用</th>
+<th style="text-align:center">备注</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><strong>global</strong></td>
-<td align="center">设备端执行</td>
-<td align="center">可以从主机调用也可以从计算能力3以上的设备调用</td>
-<td align="center">必须有一个void的返回类型</td>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>global</strong></td>
+<td style="text-align:center">设备端执行</td>
+<td style="text-align:center">可以从主机调用也可以从计算能力3以上的设备调用</td>
+<td style="text-align:center">必须有一个void的返回类型</td>
 </tr>
 <tr>
-<td align="center"><strong>device</strong></td>
-<td align="center">设备端执行</td>
-<td align="center">设备端调用</td>
-<td align="center"></td>
+<td style="text-align:center"><strong>device</strong></td>
+<td style="text-align:center">设备端执行</td>
+<td style="text-align:center">设备端调用</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
-<td align="center"><strong>host</strong></td>
-<td align="center">主机端执行</td>
-<td align="center">主机调用</td>
-<td align="center">可以省略</td>
+<td style="text-align:center"><strong>host</strong></td>
+<td style="text-align:center">主机端执行</td>
+<td style="text-align:center">主机调用</td>
+<td style="text-align:center">可以省略</td>
 </tr>
-</tbody></table>
-<p>其中，<code>__device__</code>和<code>__host__</code>限定符可以一起使用，这样函数可以同时在主机和设备端进行编译。 </p>
-<p>CUDA  Kernel核函数有以下几个限制，适用于所有核函数： </p>
+</tbody>
+</table>
+<p>其中，<code>__device__</code>和<code>__host__</code>限定符可以一起使用，这样函数可以同时在主机和设备端进行编译。</p>
+<p>CUDA  Kernel核函数有以下几个限制，适用于所有核函数：</p>
 <ul>
-<li><p>只能访问设备内存 </p>
+<li>
+<p>只能访问设备内存</p>
 </li>
-<li><p>必须具有void返回类型 </p>
+<li>
+<p>必须具有void返回类型</p>
 </li>
-<li><p>不支持可变数量的参数</p>
+<li>
+<p>不支持可变数量的参数</p>
 </li>
-<li><p>不支持静态变量 </p>
+<li>
+<p>不支持静态变量</p>
 </li>
-<li><p>显示异步行为</p>
+<li>
+<p>显示异步行为</p>
 </li>
 </ul>
-<p>介绍完规则，我们来看一下并行程序经常出现的一种优化现象：把串行代码并行化时对串行代码块for的操作，也就是把for并行化。 </p>
+<p>介绍完规则，我们来看一下并行程序经常出现的一种优化现象：把串行代码并行化时对串行代码块for的操作，也就是把for并行化。</p>
 <p>例如在串行条件下，我们会这么写循环：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">sumArraysOnHost</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     C<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>在并行情况，我们可以这么写：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">__global__ <span class="token keyword">void</span> <span class="token function">sumArraysOnGPU</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
     <span class="token keyword">int</span> i <span class="token operator">=</span> threadIdx<span class="token punctuation">.</span>x<span class="token punctuation">;</span>  
     C<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>你可能已经注意到循环体已经消失了，内置的线程坐标变量替换了数组索引，由于N是被隐式定义用来启动N个线程的，所以N就没有什么参考价值了。</p>
 <p>假设有一个长度为32个元素的向量，你可以按以下方法用32个线程来调用核函数：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">sumArraysOnGPU<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="四、处理错误"><a href="#四、处理错误" class="headerlink" title="四、处理错误"></a>四、处理错误</h2><p>由于许多CUDA调用是异步的，所以有时会很难确定某个错误是由哪一步程序引起的。</p>
-<p>我们可以定义一个错误处理宏封装所有的CUDA API调用，简化了错误检查过程： </p>
+<h2 id="四、处理错误">四、处理错误</h2>
+<p>由于许多CUDA调用是异步的，所以有时会很难确定某个错误是由哪一步程序引起的。</p>
+<p>我们可以定义一个错误处理宏封装所有的CUDA API调用，简化了错误检查过程：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">CHECK</span><span class="token expression"><span class="token punctuation">(</span>call<span class="token punctuation">)</span>                                                            </span><span class="token punctuation">\</span>
 <span class="token expression"><span class="token punctuation">{</span>                                                                              </span><span class="token punctuation">\</span>
     <span class="token expression"><span class="token keyword">const</span> <span class="token class-name">cudaError_t</span> error <span class="token operator">=</span> call<span class="token punctuation">;</span>                                            </span><span class="token punctuation">\</span>
@@ -797,18 +809,16 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
         <span class="token expression"><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                                               </span><span class="token punctuation">\</span>
     <span class="token expression"><span class="token punctuation">}</span>                                                                          </span><span class="token punctuation">\</span>
 <span class="token expression"><span class="token punctuation">}</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>例如，可以在以下代码中使用宏： </p>
+<p>例如，可以在以下代码中使用宏：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaMemcpy</span><span class="token punctuation">(</span>d_C<span class="token punctuation">,</span> gpuRef<span class="token punctuation">,</span> nBytes<span class="token punctuation">,</span> cudaMemcpyHostToDevice<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>如果内存拷贝或之前的异步操作产生了错误，这个宏会帮我们报告错误代码，并输出一个可读信息。</p>
-<p>也可以用下述方法，在核函数调用后检查核函数错误： </p>
+<p>也可以用下述方法，在核函数调用后检查核函数错误：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">kernel_function<span class="token operator">&lt;&lt;</span><span class="token operator">&lt;</span>grid<span class="token punctuation">,</span>block<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>argument list<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaDeviceSynchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p><code>CHECK(cudaDeviceSynchronize())</code>会阻塞主机端线程的运行，直到设备端所有的请求任务都结束，并保证最后核函数的启动部分不会出错。</p>
 <p><strong>以上仅是以调试为目的的</strong>，因为在核函数启动后添加这个检查点会阻塞主机端线程，使该检查点成为全局屏障。</p>
-<h2 id="五、完善demo"><a href="#五、完善demo" class="headerlink" title="五、完善demo"></a>五、完善demo</h2><p>在上一篇文章中，我们用普通C语言实现一个demo，并尝试换用一部分cuda内存分配的api。</p>
+<h2 id="五、完善demo">五、完善demo</h2>
+<p>在上一篇文章中，我们用普通C语言实现一个demo，并尝试换用一部分cuda内存分配的api。</p>
 <blockquote>
 <p>实现目标：两个数组的相加</p>
 <p>数组a的第一个元素与数组b的第一个元素相加，得到的结果作为数组c的第一个元素，重复这个过程直到数组中的所有元素都进行了一次运算。</p>
@@ -829,7 +839,6 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
 
     <span class="token keyword">return</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主函数</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"../common/common.h"</span> <span class="token comment">//CHECK所在头文件</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cuda_runtime.h&gt;</span></span>
@@ -904,7 +913,6 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
     <span class="token function">CHECK</span><span class="token punctuation">(</span><span class="token function">cudaDeviceReset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>定义主机计算向量的函数，用来当正确答案用：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">sumArraysOnHost</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -912,7 +920,6 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> idx <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> idx<span class="token operator">++</span><span class="token punctuation">)</span>
         C<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>idx<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>idx<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>编写核函数的向量计算：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">__global__ <span class="token keyword">void</span> <span class="token function">sumArraysOnGPU</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>A<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>B<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>C<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -921,7 +928,6 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
 
     <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">)</span> C<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> A<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> B<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>最后封装一下检验答案的函数：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">checkResult</span><span class="token punctuation">(</span><span class="token keyword">float</span> <span class="token operator">*</span>hostRef<span class="token punctuation">,</span> <span class="token keyword">float</span> <span class="token operator">*</span>gpuRef<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">int</span> N<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -951,7 +957,6 @@ threadIdx:(2,0,0) blockIdx:(1,0,0) blockDim:(3,1,1)    gridDim(2,1,1)<span aria-
 
     <span class="token keyword">return</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>本篇CUDA编程模型的概述就到这里结束。下一篇开始会具体介绍CUDA编程模型中的核函数计时，并行线程，设备管理等内容。</p>
 
                 
@@ -1811,7 +1816,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

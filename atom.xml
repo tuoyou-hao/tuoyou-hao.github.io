@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2023-03-03T07:30:26.154Z</updated>
+  <updated>2023-04-29T09:13:48.373Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>计算机视觉 Harris角点检测</title>
+    <link href="http://tuoyou-hao.github.io/2023/04/29/Computer-vision-1-Harris-detector/"/>
+    <id>http://tuoyou-hao.github.io/2023/04/29/Computer-vision-1-Harris-detector/</id>
+    <published>2023-04-29T09:13:03.000Z</published>
+    <updated>2023-04-29T09:13:48.373Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;计算机视觉 Harris角点检测&lt;/h1&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="OpenCV" scheme="http://tuoyou-hao.github.io/tags/OpenCV/"/>
+    
+  </entry>
   
   <entry>
     <title>SLAM 4：相机与图像</title>
@@ -28,7 +54,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-4、相机与图像&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;SLAM 4、相机与图像&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -53,7 +80,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;配置cpp opencv 的 Windows</summary>
         
       
     
@@ -80,7 +107,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;朴素贝叶斯&quot;&gt;&lt;a href=&quot;#朴素贝叶斯&quot;</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;朴素贝叶斯&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -105,7 +133,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-3-5-Sophus实践&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;SLAM 3.5</summary>
         
       
     
@@ -130,7 +158,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-3：李群李代数&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;SLAM 3：李群李代数&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -155,7 +184,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;SLAM-2、代码基础&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;SLAM</summary>
         
       
     
@@ -173,14 +202,14 @@
     <link href="http://tuoyou-hao.github.io/2023/01/10/error-linux-sub-process-dpkg/"/>
     <id>http://tuoyou-hao.github.io/2023/01/10/error-linux-sub-process-dpkg/</id>
     <published>2023-01-09T16:00:11.000Z</published>
-    <updated>2023-01-09T16:17:05.144Z</updated>
+    <updated>2023-04-29T09:35:27.472Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;Sub-process /usr/bin/dpkg returned</summary>
         
       
     
@@ -205,7 +234,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;2022-年度总结&quot;&gt;&lt;a href=&quot;#2022-年度总结&quot;</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;2022 年度总结&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -230,7 +260,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;数据库2、关系数据库&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;数据库2、关系数据库&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -255,7 +286,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;数据库-1、基础&quot;&gt;&lt;a href=&quot;#数据库-1、基础&quot;</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;数据库 1、基础&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -306,7 +338,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-3-给核函数计时&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;CUDA 2.3</summary>
         
       
     
@@ -331,7 +363,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-2：线程与核函数&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;CUDA</summary>
         
       
     
@@ -356,7 +388,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-1：CUDA模型与内存分配&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;CUDA</summary>
         
       
     
@@ -381,7 +413,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-1：并行基础概念&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;CUDA</summary>
         
       
     
@@ -406,7 +438,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-12：引入ROS2&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;ROS 12：引入ROS2&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -426,14 +459,14 @@
     <link href="http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/"/>
     <id>http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/</id>
     <published>2022-08-08T15:56:10.000Z</published>
-    <updated>2022-08-08T16:00:08.311Z</updated>
+    <updated>2023-04-29T09:48:43.765Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;Window-设置汇总&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;Window</summary>
         
       
     
@@ -458,7 +491,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-十一-命名空间&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;ROS 十一:</summary>
         
       
     
@@ -483,32 +516,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-十：launch文件入门&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROS 九、坐标管理系统Tf简介</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/02/ros-9-tf-introduction/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/02/ros-9-tf-introduction/</id>
-    <published>2022-08-02T10:28:02.000Z</published>
-    <updated>2022-12-03T04:20:01.938Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-九：坐标管理系统tf简介&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;ROS</summary>
         
       
     

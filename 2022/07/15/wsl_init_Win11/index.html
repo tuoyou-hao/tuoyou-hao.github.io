@@ -519,19 +519,22 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Win11配置WSL"><a href="#Win11配置WSL" class="headerlink" title="Win11配置WSL"></a>Win11配置WSL</h1><blockquote>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>Win11配置WSL</h1>
+<blockquote>
 <p>前言废话：</p>
 <p>在电脑上需要LINUX开发的时候，由于虚拟机无法直接连接到电脑主机的显卡，无法在LINUX上进行CUDA编程。所以如果需要在该电脑进行LINUX的CUDA开发，配置一个wsl就显得十分重要。</p>
 <p>本次配置是在一台（刚装过vs c++和CUDA的）全新的电脑上配置的，系统是win11。</p>
 </blockquote>
-<h2 id="1、电脑系统内的配置"><a href="#1、电脑系统内的配置" class="headerlink" title="1、电脑系统内的配置"></a>1、电脑系统内的配置</h2><p>有两种方法，大同小异，可自行选择<strong>其中一种方案</strong></p>
-<h3 id="1-1-用控制面板"><a href="#1-1-用控制面板" class="headerlink" title="1.1 用控制面板"></a>1.1 用控制面板</h3><p>在 <code>控制面板-&gt;程序-&gt;启用或关闭 windows 功能</code> 中，开启 Windows 虚拟化、 Linux 子系统（WSL2)、Hyper-V </p>
+<h2 id="1、电脑系统内的配置">1、电脑系统内的配置</h2>
+<p>有两种方法，大同小异，可自行选择<strong>其中一种方案</strong></p>
+<h3 id="1-1-用控制面板">1.1 用控制面板</h3>
+<p>在 <code>控制面板-&gt;程序-&gt;启用或关闭 windows 功能</code> 中，开启 Windows 虚拟化、 Linux 子系统（WSL2)、Hyper-V</p>
 <p><img src="https://s2.loli.net/2022/07/15/9KFs4paNYw8TS1n.png" alt="控制面板"></p>
 <p><img src="https://s2.loli.net/2022/07/15/HpAB2xD8QvhJPVz.png" alt="勾选画框的部分"></p>
 <p><strong>用管理员身份打开powershell</strong>，输入以下指令：</p>
 <pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">bcdedit <span class="token operator">/</span><span class="token function">set</span> hypervisorlaunchtype auto<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="1-2-用命令行"><a href="#1-2-用命令行" class="headerlink" title="1.2 用命令行"></a>1.2 用命令行</h3><p><strong>用管理员身份打开powershell</strong>，<code>分别</code>输入以下的指令：</p>
+<h3 id="1-2-用命令行">1.2 用命令行</h3>
+<p><strong>用管理员身份打开powershell</strong>，<code>分别</code>输入以下的指令：</p>
 <pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">bcdedit <span class="token operator">/</span><span class="token function">set</span> hypervisorlaunchtype Auto
 
 <span class="token function">Enable-WindowsOptionalFeature</span> <span class="token operator">-</span>Online <span class="token operator">-</span>FeatureName Microsoft-Hyper-V <span class="token operator">-</span>All
@@ -539,17 +542,17 @@
 <span class="token function">Enable-WindowsOptionalFeature</span> <span class="token operator">-</span>Online <span class="token operator">-</span>FeatureName VirtualMachinePlatform <span class="token comment">#需要重启系统，请注意按y让他重启</span>
 
 <span class="token function">Enable-WindowsOptionalFeature</span> <span class="token operator">-</span>Online <span class="token operator">-</span>FeatureName Microsoft-Windows-Subsystem-Linux<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>如果以上内容不能顺利运行，可以执行以下的指令：</p>
 <pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">dism<span class="token punctuation">.</span>exe <span class="token operator">/</span>online <span class="token operator">/</span><span class="token function">enable-feature</span> <span class="token operator">/</span>featurename:Microsoft-Windows-Subsystem-Linux <span class="token operator">/</span>all <span class="token operator">/</span>norestart
 
 dism<span class="token punctuation">.</span>exe <span class="token operator">/</span>online <span class="token operator">/</span><span class="token function">enable-feature</span> <span class="token operator">/</span>featurename:VirtualMachinePlatform <span class="token operator">/</span>all <span class="token operator">/</span>norestart<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="2、下载linux子操作系统"><a href="#2、下载linux子操作系统" class="headerlink" title="2、下载linux子操作系统"></a>2、下载linux子操作系统</h2><p>打开<code>Microsoft Store</code>，里面有很多不同的linux操作系统，有debain，Ubuntu、kali等等，在搜索框输入自己需要的操作系统名，选择下载即可，这里使用大家都爱用的Ubuntu，版本20.04。</p>
+<h2 id="2、下载linux子操作系统">2、下载linux子操作系统</h2>
+<p>打开<code>Microsoft Store</code>，里面有很多不同的linux操作系统，有debain，Ubuntu、kali等等，在搜索框输入自己需要的操作系统名，选择下载即可，这里使用大家都爱用的Ubuntu，版本20.04。</p>
 <p><img src="https://s2.loli.net/2022/07/15/7dst9pbEokK8Pje.png" alt="选择需要的系统即可"></p>
 <p>下载完成后，在<code>cmd</code>或者<code>powershell</code>输入<code>wsl</code>即可。初始化会让你注册用户名，设定密码等等。如果你一路操作下来都很顺利，本次安装到此结束。</p>
 <p><strong>如果你出现了报错，希望在第四部分，我的踩坑解决方案可以帮助到你</strong></p>
-<h2 id="3、查看子系统的文件"><a href="#3、查看子系统的文件" class="headerlink" title="3、查看子系统的文件"></a>3、查看子系统的文件</h2><p>使用<kbd>Win</kbd>+<kbd>r</kbd>调出运行界面框，输入<code>\\wsl$</code>即可打开wsl的文件管理器。</p>
+<h2 id="3、查看子系统的文件">3、查看子系统的文件</h2>
+<p>使用<kbd>Win</kbd>+<kbd>r</kbd>调出运行界面框，输入<code>\\wsl$</code>即可打开wsl的文件管理器。</p>
 <p>但我们的运行界面有时候要用别的功能，自然会希望可以在 “此电脑” 界面中直接可以打开了</p>
 <p>我们用上面的方法打开目录后，点选上面的路径复制下来</p>
 <p><img src="https://s2.loli.net/2022/07/15/DMaisbvZyXehnEQ.png" alt="复制wsl的路径"></p>
@@ -557,12 +560,13 @@ dism<span class="token punctuation">.</span>exe <span class="token operator">/</
 <p><img src="https://s2.loli.net/2022/07/15/GrPVDuomldXac6h.png" alt="此电脑中右键菜单栏"></p>
 <p>一路点选 “下一页”，然后他要你填写网络位置的时候，把刚刚的路径粘贴进去，点选 “下一页”继续。</p>
 <p>然后就可以在此电脑界面中直接查看wsl文件了。</p>
-<h2 id="4、踩坑记录"><a href="#4、踩坑记录" class="headerlink" title="4、踩坑记录"></a>4、踩坑记录</h2><p>我出现的报错内容大致如下：</p>
-<p><img src="https://s2.loli.net/2022/07/15/CWFAgBcvGlOtbxu.png"></p>
+<h2 id="4、踩坑记录">4、踩坑记录</h2>
+<p>我出现的报错内容大致如下：</p>
+<p><img src="https://s2.loli.net/2022/07/15/CWFAgBcvGlOtbxu.png" alt=""></p>
 <p>并且我初步配置的时候，是没有功能<code>Hyper-V </code>的，而且运行下面这条指令的话，会报错<strong>功能名称 Microsoft-Hyper-V 未知。</strong></p>
 <pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token function">Enable-WindowsOptionalFeature</span> <span class="token operator">-</span>Online <span class="token operator">-</span>FeatureName Microsoft-Hyper-V <span class="token operator">-</span>All<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="4-1-解决Microsoft-Hyper-V不存在"><a href="#4-1-解决Microsoft-Hyper-V不存在" class="headerlink" title="4.1 解决Microsoft-Hyper-V不存在"></a>4.1 解决Microsoft-Hyper-V不存在</h3><p>首先在电脑新建一个txt文件，把以下内容贴进去</p>
+<h3 id="4-1-解决Microsoft-Hyper-V不存在">4.1 解决Microsoft-Hyper-V不存在</h3>
+<p>首先在电脑新建一个txt文件，把以下内容贴进去</p>
 <pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">pushd "%~dp0"
 
 dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum &gt;hyper-v.txt
@@ -572,13 +576,12 @@ for /f %%i in ('findstr /i . hyper-v.txt 2^&gt;nul') do dism /online /norestart 
 del hyper-v.txt
 
 Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /ALL<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后保存，文件后缀名改成<code>.cmd</code>格式，然后运行他。</p>
 <p>运行完毕，重新在管理员权限下的powershell中运行刚刚的Microsoft-Hyper-V指令即可</p>
 <pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token function">Enable-WindowsOptionalFeature</span> <span class="token operator">-</span>Online <span class="token operator">-</span>FeatureName Microsoft-Hyper-V <span class="token operator">-</span>All<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="4-2-解决wsl启动时出现一堆？？？的问题"><a href="#4-2-解决wsl启动时出现一堆？？？的问题" class="headerlink" title="4.2 解决wsl启动时出现一堆？？？的问题"></a>4.2 解决wsl启动时出现一堆？？？的问题</h3><p>首先下载Windows Subsystem for Linux Update setup 官方版将WSL1升级到WSL2。</p>
-<p>下载地址1：<a target="_blank" rel="noopener" href="https://www.xitongzhijia.net/soft/244754.html">https://www.xitongzhijia.net/soft/244754.html</a> </p>
+<h3 id="4-2-解决wsl启动时出现一堆？？？的问题">4.2 解决wsl启动时出现一堆？？？的问题</h3>
+<p>首先下载Windows Subsystem for Linux Update setup 官方版将WSL1升级到WSL2。</p>
+<p>下载地址1：<a target="_blank" rel="noopener" href="https://www.xitongzhijia.net/soft/244754.html">https://www.xitongzhijia.net/soft/244754.html</a></p>
 <p>下载地址2：<a target="_blank" rel="noopener" href="https://www.aliyundrive.com/s/F297Y6SNpSf">https://www.aliyundrive.com/s/F297Y6SNpSf</a></p>
 <p>下载完毕执行一下该msi程序。</p>
 <p>然后重新跑一下以下代码：</p>
@@ -589,14 +592,13 @@ Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /AL
 <span class="token function">Enable-WindowsOptionalFeature</span> <span class="token operator">-</span>Online <span class="token operator">-</span>FeatureName VirtualMachinePlatform <span class="token comment">#需要重启系统，请注意按y让他重启</span>
 
 <span class="token function">Enable-WindowsOptionalFeature</span> <span class="token operator">-</span>Online <span class="token operator">-</span>FeatureName Microsoft-Windows-Subsystem-Linux<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后我在完成到这一步就解决问题了。</p>
 <hr>
-<h2 id="5、给wsl安装图形化界面"><a href="#5、给wsl安装图形化界面" class="headerlink" title="5、给wsl安装图形化界面"></a>5、给wsl安装图形化界面</h2><p>回来更新wsl的图形界面</p>
+<h2 id="5、给wsl安装图形化界面">5、给wsl安装图形化界面</h2>
+<p>回来更新wsl的图形界面</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get purge xrdp
 
 sudo apt-get install -y xrdp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>安装完成后，选择第一个选修<code>gdm3</code></p>
 <p>如果选错了，可以用这个语句修改： <code>sudo dpkg-reconfigure gdm3</code></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt install -y xfce4-goodies
@@ -612,22 +614,19 @@ sudo sed -i 's/xserverbpp=24/#xserverbpp=24\nxserverbpp=128/g' /etc/xrdp/xrdp.in
 echo xfce4-session &gt; ~/.xsession<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后编辑/etc/xrdp/srartwm.sh文件，这里随便用什么都可以，我是直接使用vscode的wsl插件进行修改。可以使用nano对文件进行修改。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo nano /etc/xrdp/srartwm.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>末尾两句注释掉：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># test -x /etc/X11/Xsession &amp;&amp; exec /etc/X11/Xsession
 # exec /bin/sh /etc/X11/Xsession<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>并自行在最末尾加上：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># xfce
 startxfce4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>然后启动服务：<code>sudo /etc/init.d/xrdp start</code></p>
 <p>使用<kbd>win</kbd>+<kbd>r</kbd>后，输入mstsc回车</p>
 <p>在界面输入localhost:3390</p>
 <p>输入账号密码登录即可使用</p>
 <p>用完记得用sudo /etc/init.d/xrdp stop 关闭哦</p>
 <p>如果普通用户无法正常登录，比如我会出现 login failed for display 0 的报错：</p>
-<p><img src="https://s2.loli.net/2022/08/30/BmZPfeEClIVvhb4.jpg"></p>
+<p><img src="https://s2.loli.net/2022/08/30/BmZPfeEClIVvhb4.jpg" alt=""></p>
 <p>可以使用<code>su</code>进入超级用户，然后启动服务。使用root账户名和密码登录远程图形化界面，即可使用。</p>
 <p>如果以上内容还不能解决到你的问题，可以参考/var/log/xrdp-sesman.log日志，根据问题在网上查找相关解决方案</p>
 
@@ -1492,7 +1491,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

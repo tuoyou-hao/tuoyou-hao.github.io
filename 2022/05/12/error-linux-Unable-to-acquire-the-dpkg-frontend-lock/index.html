@@ -478,7 +478,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-05-12
+                    2023-04-29
                 </div>
                 
 
@@ -515,12 +515,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="linux中对于Unable-to-acquire-the-dpkg-frontend-lock的解决方法"><a href="#linux中对于Unable-to-acquire-the-dpkg-frontend-lock的解决方法" class="headerlink" title="linux中对于Unable to acquire the dpkg frontend lock的解决方法"></a>linux中对于Unable to acquire the dpkg frontend lock的解决方法</h1><p>运行环境：Ubuntu 18.04<br>问题描述：在别人配置好的Ubuntu下安装软件时，进行<code>apt-get</code>操作，出现了如下报错：</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>linux中对于Unable to acquire the dpkg frontend lock的解决方法</h1>
+<p>运行环境：Ubuntu 18.04<br>
+问题描述：在别人配置好的Ubuntu下安装软件时，进行<code>apt-get</code>操作，出现了如下报错：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">E: Could not get lock /var/lib/dpkg/lock-frontend - open (11: Resource temporarily unavailable)
 E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is another process using it?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>解决办法:</p>
-<h2 id="一、终止占用的进程"><a href="#一、终止占用的进程" class="headerlink" title="一、终止占用的进程"></a>一、终止占用的进程</h2><p>导致的原因：<strong>进程中存在与apt相关的运行中的进程</strong></p>
+<h2 id="一、终止占用的进程">一、终止占用的进程</h2>
+<p>导致的原因：<strong>进程中存在与apt相关的运行中的进程</strong></p>
 <ul>
 <li>检查是否在运行apt,apt-get相关的进程</li>
 </ul>
@@ -529,16 +531,17 @@ E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), is an
 <li>如果存在与apt相关的正在运行的进程，kill掉对应的进程ID；</li>
 </ul>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo kill -9 &lt;process id&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>​        或使用简单粗暴的方式:</p>
+<p>​		或使用简单粗暴的方式:</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo killall apt apt-get <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-<h2 id="二、删除lockfile并配置dpkg"><a href="#二、删除lockfile并配置dpkg" class="headerlink" title="二、删除lockfile并配置dpkg"></a>二、删除lockfile并配置dpkg</h2><p>问题现象：<strong>进程列表中已经没有与(apt/apt-get)相关的进程在运行，但依然报错</strong></p>
+<h2 id="二、删除lockfile并配置dpkg">二、删除lockfile并配置dpkg</h2>
+<p>问题现象：<strong>进程列表中已经没有与(apt/apt-get)相关的进程在运行，但依然报错</strong></p>
 <p>导致的原因：lock file未被正常删除</p>
 <ul>
-<li>lock file用于防止两个或多个进程使用相同的数据。 当运行apt及其相关指令时，它会在几个地方创建lock files。<br>当前一个apt命令未正确终止时，lock file就不会被删除。因此它们会阻止任何新的apt / apt-get命令实例，</li>
+<li>lock file用于防止两个或多个进程使用相同的数据。 当运行apt及其相关指令时，它会在几个地方创建lock files。<br>
+当前一个apt命令未正确终止时，lock file就不会被删除。因此它们会阻止任何新的apt / apt-get命令实例，</li>
 <li>比如正在执行<code>apt-get update</code>，在执行过程中直接ctrl+c取消了该操作，很有可能就会造成这种情况。</li>
-<li>要解决此问题，首先要删除lock file。<br>使用<code>lsof</code>命令获取持有lock file的进程的进程ID,依次运行如下命令:</li>
+<li>要解决此问题，首先要删除lock file。<br>
+使用<code>lsof</code>命令获取持有lock file的进程的进程ID,依次运行如下命令:</li>
 </ul>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">lsof /var/lib/dpkg/lock
 lsof /var/lib/apt/lists/lock
@@ -1429,7 +1432,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

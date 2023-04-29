@@ -515,21 +515,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-二：基本的命令行工具"><a href="#ROS-二：基本的命令行工具" class="headerlink" title="ROS 二：基本的命令行工具"></a>ROS 二：基本的命令行工具</h1><h2 id="一、启动ros小海龟仿真环境"><a href="#一、启动ros小海龟仿真环境" class="headerlink" title="一、启动ros小海龟仿真环境"></a>一、启动ros小海龟仿真环境</h2><p>我们打开linux的命令行，使用<code>roscore</code>先启动ROS Master</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>ROS 二：基本的命令行工具</h1>
+<h2 id="一、启动ros小海龟仿真环境">一、启动ros小海龟仿真环境</h2>
+<p>我们打开linux的命令行，使用<code>roscore</code>先启动ROS Master</p>
 <p>打开新的终端，使用<code>rosrun turtlesim turtlesim_node</code>，启动小海龟的界面（需要在linux图形化界面启动，命令行界面启动不了）</p>
 <p>再打开一个新的终端，使用<code>rosrun turtlesim turtle_teleop_key</code>（可以使用键盘控制小海龟移动了）</p>
 <ul>
 <li>本篇基本指令都围绕海龟仿真器这项服务举例说明，其他功能大同小异</li>
 </ul>
 <img src="https://s2.loli.net/2022/07/11/G8vxbJjKug367XE.png" alt="turtlesim" style="zoom:60%;">
-
-<h2 id="二、ROS常用命令"><a href="#二、ROS常用命令" class="headerlink" title="二、ROS常用命令"></a>二、ROS常用命令</h2><p><img src="https://s2.loli.net/2022/07/11/hbjFekIxfODqS3E.png"></p>
+<h2 id="二、ROS常用命令">二、ROS常用命令</h2>
+<p><img src="https://s2.loli.net/2022/07/11/hbjFekIxfODqS3E.png" alt=""></p>
 <p><a target="_blank" rel="noopener" href="http://www.clearpathrobotics.com/ros-cheat-sheet">高清链接</a></p>
-<h3 id="2-1-rqt-graph"><a href="#2-1-rqt-graph" class="headerlink" title="2.1 rqt_graph"></a>2.1 rqt_graph</h3><p>ROS里面有一系列以<code>rqt</code>开头的工具，都是一些基于qt的可视化工具，可以直观地展示各种信息</p>
+<h3 id="2-1-rqt-graph">2.1 rqt_graph</h3>
+<p>ROS里面有一系列以<code>rqt</code>开头的工具，都是一些基于qt的可视化工具，可以直观地展示各种信息</p>
 <p><img src="https://s2.loli.net/2022/07/11/LtdWq9euvbYGfAm.png" alt="rqt_graph"></p>
 <p><code>rqt_graph</code>使用来显示系统的计算图的工具。对计算图不明白的可以看<a href="https://tuoyou-hao.github.io/2022/07/11/ros-1-Core-concepts/">ros计算图简介</a>。通过观察计算图可以观察整个系统的全貌。</p>
 <p>从上图我们可以看到，上面有两个节点，<code>turtlesim</code>是我们小乌龟的节点，<code>teleop_turtle</code>是键盘的节点。<code>cmd_vel</code>节点之间通讯的话题。</p>
-<h3 id="2-2-rosnode"><a href="#2-2-rosnode" class="headerlink" title="2.2 rosnode"></a>2.2 rosnode</h3><p>显示系统中所有节点线管信息的指令。</p>
+<h3 id="2-2-rosnode">2.2 rosnode</h3>
+<p>显示系统中所有节点线管信息的指令。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosnode is a command-line tool for printing information about ROS Nodes.
 
 Commands:
@@ -539,7 +543,6 @@ Commands:
         rosnode machine list nodes running on a particular machine or list machines
         rosnode kill    kill a running node
         rosnode cleanup purge registration information of unreachable nodes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <table>
 <thead>
 <tr>
@@ -547,7 +550,8 @@ Commands:
 <th>详细说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>rosnode ping [节点名]</td>
 <td>测试链接指定节点</td>
 </tr>
@@ -571,19 +575,20 @@ Commands:
 <td>rosnode cleanup</td>
 <td>删除失连节点的注册信息</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>这里只展示个别指令</p>
-<h4 id="1、rosnode-list"><a href="#1、rosnode-list" class="headerlink" title="1、rosnode list"></a>1、rosnode list</h4><p>查看话题列表，把所有节点都列出来</p>
+<h4 id="1、rosnode-list">1、rosnode list</h4>
+<p>查看话题列表，把所有节点都列出来</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">/rosout			#启动roscore就会启动，获取ros日志信息
 /teleop_turtle
 /turtlesim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>rosout是在rqt里面不会显示的内容。只要启动roscore就会启动的一个话题，主要用于获取ros日志信息，提交给界面做显示，是ros默认的一个话题。</li>
 </ul>
-<h4 id="2、rosnode-info"><a href="#2、rosnode-info" class="headerlink" title="2、rosnode info"></a>2、rosnode info</h4><p>会展示对应节点的具体信息，语法是</p>
+<h4 id="2、rosnode-info">2、rosnode info</h4>
+<p>会展示对应节点的具体信息，语法是</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosnode info /节点名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>比如我启动<code>rosnode info /turtlesim</code>，会显示如下内容</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">--------------------------------------------------------------------------------
 Node [/turtlesim]
@@ -619,8 +624,8 @@ Connections:
     * direction: inbound (34866 - huanyu-PC:43907) [54]
     * transport: TCPROS
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-3、rostopic"><a href="#2-3、rostopic" class="headerlink" title="2.3、rostopic"></a>2.3、rostopic</h3><p>会输出ros话题相关的信息</p>
+<h3 id="2-3、rostopic">2.3、rostopic</h3>
+<p>会输出ros话题相关的信息</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rostopic is a command-line tool for printing information about ROS Topics.
 
 Commands:
@@ -633,7 +638,6 @@ Commands:
         rostopic list   list active topics
         rostopic pub    publish data to topic
         rostopic type   print topic or field type<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <table>
 <thead>
 <tr>
@@ -641,7 +645,8 @@ Commands:
 <th>详细说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>rostopic bw [话题名称]</td>
 <td>显示指定话题的消息带宽（bandwidth）</td>
 </tr>
@@ -681,8 +686,10 @@ Commands:
 <td>rostopic type [话题名称]</td>
 <td>打印主题或字段类型</td>
 </tr>
-</tbody></table>
-<h4 id="1、rostopic-pub-发布话题消息"><a href="#1、rostopic-pub-发布话题消息" class="headerlink" title="1、rostopic pub 发布话题消息"></a>1、rostopic pub 发布话题消息</h4><p>在命令行配合<kbd>Tab</kbd>键，可以自动给你补全指令</p>
+</tbody>
+</table>
+<h4 id="1、rostopic-pub-发布话题消息">1、rostopic pub 发布话题消息</h4>
+<p>在命令行配合<kbd>Tab</kbd>键，可以自动给你补全指令</p>
 <p>我们在命令行发布<strong>一次</strong>消息给<code>turtlesim</code></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rostopic pub /turtle1/cmd_vel geometry_msgs/Twist "linear:
   x: 2.0
@@ -692,8 +699,7 @@ angular:
   x: 7.0
   y: 9.0
   z: 11.0"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p> 它就会自己跑<strong>一次</strong>上述的运动（因为pub只发布了一次消息）。linear是线速度，angular是角速度。</p>
+<p>它就会自己跑<strong>一次</strong>上述的运动（因为pub只发布了一次消息）。linear是线速度，angular是角速度。</p>
 <p>要想它循环发布，就需要加个频率参数<code>-r</code>，后面跟一个uint数，表示一秒发布几次。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rostopic pub -r 10 /turtle1/cmd_vel geometry_msgs/Twist "linear:
   x: 2.0
@@ -703,8 +709,8 @@ angular:
   x: 7.0
   y: 9.0
   z: 11.0" #每秒跑10次<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-4、rosmsg"><a href="#2-4、rosmsg" class="headerlink" title="2.4、rosmsg"></a>2.4、rosmsg</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosmsg is a command-line tool for displaying information about ROS Message types.
+<h3 id="2-4、rosmsg">2.4、rosmsg</h3>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosmsg is a command-line tool for displaying information about ROS Message types.
 
 Commands:
         rosmsg show     Show message description
@@ -713,7 +719,6 @@ Commands:
         rosmsg md5      Display message md5sum
         rosmsg package  List messages in a package
         rosmsg packages List packages that contain messages<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <table>
 <thead>
 <tr>
@@ -721,7 +726,8 @@ Commands:
 <th>详细说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>rosmsg show [消息名称]</td>
 <td>显示消息的描述</td>
 </tr>
@@ -745,7 +751,8 @@ Commands:
 <td>rosmsg packages</td>
 <td>列出包含消息的功能包</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>比如我想打印<code>turtlesim</code>的消息数据结构，就按照如下指令：</p>
 <p><code>rosmsg show geometry_msgs/Twist</code></p>
 <p>会显示如下内容：</p>
@@ -757,8 +764,8 @@ geometry_msgs/Vector3 angular
   float64 x
   float64 y
   float64 z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2-5、rosservice"><a href="#2-5、rosservice" class="headerlink" title="2.5、rosservice"></a>2.5、rosservice</h3><p>命令行作为ros的 “客户端”，需要发送服务请求给这个海龟仿真器</p>
+<h3 id="2-5、rosservice">2.5、rosservice</h3>
+<p>命令行作为ros的 “客户端”，需要发送服务请求给这个海龟仿真器</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Commands:
         rosservice args print service arguments
         rosservice call call the service with the provided args
@@ -767,7 +774,6 @@ geometry_msgs/Vector3 angular
         rosservice list list active services
         rosservice type print service type
         rosservice uri  print service ROSRPC uri<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <table>
 <thead>
 <tr>
@@ -775,7 +781,8 @@ geometry_msgs/Vector3 angular
 <th>详细说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>rosservice args [服务名称]</td>
 <td>打印服务参数</td>
 </tr>
@@ -803,8 +810,10 @@ geometry_msgs/Vector3 angular
 <td>rosservice uri [服务名称]</td>
 <td>打印服务ROSRPC uri</td>
 </tr>
-</tbody></table>
-<h4 id="1、rosservice-call-发布服务请求"><a href="#1、rosservice-call-发布服务请求" class="headerlink" title="1、rosservice call 发布服务请求"></a>1、rosservice call 发布服务请求</h4><p>比如我使用<code>rosservice list</code>查询<code>turtlesim</code>的服务</p>
+</tbody>
+</table>
+<h4 id="1、rosservice-call-发布服务请求">1、rosservice call 发布服务请求</h4>
+<p>比如我使用<code>rosservice list</code>查询<code>turtlesim</code>的服务</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">/clear
 /kill
 /reset
@@ -818,13 +827,11 @@ geometry_msgs/Vector3 angular
 /turtle1/teleport_relative
 /turtlesim/get_loggers
 /turtlesim/set_logger_level<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>使用<kbd>Tab</kbd>键辅助输入：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosservice call /spawn "x: 1.0 
 y: 1.0
 theta: 0.0
 name: 'turtle2'"   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>即可成功调用服务，获得一只新的海龟。并返回值<code>name: "turtle2"</code></p>
 <p>此时使用<code>rostopic list</code>就可以看到以下的输出：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">/rosout
@@ -835,9 +842,9 @@ name: 'turtle2'"   <span aria-hidden="true" class="line-numbers-rows"><span></sp
 /turtle2/cmd_vel
 /turtle2/color_sensor
 /turtle2/pose<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>可以看到两个海龟的topic，并且可以用指令分开调用不同海龟。</p>
-<h3 id="2-6-rosbag"><a href="#2-6-rosbag" class="headerlink" title="2.6 rosbag"></a>2.6 rosbag</h3><p>可以记录话题数据并保存下来</p>
+<h3 id="2-6-rosbag">2.6 rosbag</h3>
+<p>可以记录话题数据并保存下来</p>
 <p>如果下次需要调用的时候可以直接复现出来之前保存到整个记录</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Usage: rosbag &lt;subcommand&gt; [options] [args]
 
@@ -856,8 +863,8 @@ Available subcommands:
    play         Play back the contents of one or more bag files in a time-synchronized fashion.
    record       Record a bag file with the contents of specified topics.
    reindex      Reindexes one or more bag files.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="1、rosbag-record-话题记录"><a href="#1、rosbag-record-话题记录" class="headerlink" title="1、rosbag record 话题记录"></a>1、rosbag record 话题记录</h4><p><code>rosbag record -a -O cmd_record</code></p>
+<h4 id="1、rosbag-record-话题记录">1、rosbag record 话题记录</h4>
+<p><code>rosbag record -a -O cmd_record</code></p>
 <p>系统会在当前目录下生成一个<code>cmd_record.bag</code>文件</p>
 <ul>
 <li><code>-a</code>是指把所有的话题都记录下来</li>
@@ -903,8 +910,8 @@ Options:
   --tcpnodelay          Use the TCP_NODELAY transport hint when subscribing to
                         topics.
   --udp                 Use the UDP transport hint when subscribing to topics.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="2、rosbag-play-话题复现"><a href="#2、rosbag-play-话题复现" class="headerlink" title="2、rosbag play 话题复现"></a>2、rosbag play 话题复现</h4><p>记录完成后，用<code>rosbag play</code> 语句调用保存好的<code>*.bag</code>文件，即可复现之前记录的信息。</p>
+<h4 id="2、rosbag-play-话题复现">2、rosbag play 话题复现</h4>
+<p>记录完成后，用<code>rosbag play</code> 语句调用保存好的<code>*.bag</code>文件，即可复现之前记录的信息。</p>
 <p><code>rosbag play cmd_record.bag</code></p>
 <p>就可以在海龟仿真器看到之前记录的所有指令。</p>
 
@@ -1769,7 +1776,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

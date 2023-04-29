@@ -489,7 +489,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    655
+                    657
                 </div>
                 
 
@@ -519,7 +519,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-12：引入ROS2"><a href="#ROS-12：引入ROS2" class="headerlink" title="ROS 12：引入ROS2"></a>ROS 12：引入ROS2</h1><h2 id="一、认识ROS2"><a href="#一、认识ROS2" class="headerlink" title="一、认识ROS2"></a>一、认识ROS2</h2><p>ROS在需求量增加之后，需要实现：</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>ROS 12：引入ROS2</h1>
+<h2 id="一、认识ROS2">一、认识ROS2</h2>
+<p>ROS在需求量增加之后，需要实现：</p>
 <ul>
 <li>多机器人系统</li>
 <li>跨平台</li>
@@ -532,45 +534,58 @@
 <p>ROS2有以下几个特点：</p>
 <blockquote>
 <ul>
-<li><p>ROS1 只支持Linux和MacOS，而 ROS2 支持Linux/Windows/MacOS/RTOS</p>
+<li>
+<p>ROS1 只支持Linux和MacOS，而 ROS2 支持Linux/Windows/MacOS/RTOS</p>
 </li>
-<li><p>架构的颠覆：</p>
+<li>
+<p>架构的颠覆：</p>
 <p>ROS1的通讯基于TCPROS/UDPROS，所有节点都要经过ROS Master</p>
 <p>ROS2使用基于DDS的Discovery机制，自发现后建立稳定的链接，实现真正的分布式架构</p>
 <ul>
 <li>ROS DDS由ROS Middleware中间件定义接口，使用不同厂商的DDS时，只需安装另一个DDS，代码无需再修改</li>
 </ul>
 </li>
-<li><p>节点模型不同</p>
+<li>
+<p>节点模型不同</p>
 <p>ROS1：publish/subscribe</p>
 <p>ROS2：discovery</p>
 </li>
-<li><p>进程模型不同</p>
+<li>
+<p>进程模型不同</p>
 <p>ROS1：Nodelet</p>
 <p>ROS2：Intra-process</p>
 </li>
-<li><p>编译系统升级</p>
+<li>
+<p>编译系统升级</p>
 <p>ROS1使用rosbuild，catkin管理项目</p>
 <p>ROS2使用升级版的ament，colcon</p>
 </li>
-<li><p>ROS2 支持实时控制</p>
+<li>
+<p>ROS2 支持实时控制</p>
 </li>
-<li><p>ROS2 广泛使用C++11，和Python3.5以上</p>
+<li>
+<p>ROS2 广泛使用C++11，和Python3.5以上</p>
 </li>
-<li><p>在 ROS2 上通过ros_bridge和 ROS1 进行通信</p>
+<li>
+<p>在 ROS2 上通过ros_bridge和 ROS1 进行通信</p>
 </li>
-<li><p>ROS2 使用托管启动：用户可以指定节点启动顺序</p>
+<li>
+<p>ROS2 使用托管启动：用户可以指定节点启动顺序</p>
 </li>
-<li><p>ROS2 取消了 nodelet 的概念，支持多节点初始化</p>
+<li>
+<p>ROS2 取消了 nodelet 的概念，支持多节点初始化</p>
 </li>
-<li><p>ROS2 launch文件使用 python 编写，相比于 xml 拓展了功能性</p>
+<li>
+<p>ROS2 launch文件使用 python 编写，相比于 xml 拓展了功能性</p>
 </li>
-<li><p>……</p>
+<li>
+<p>……</p>
 </li>
 </ul>
 </blockquote>
-<p><img src="https://s2.loli.net/2022/08/09/J5U6qIusKpZQbWe.png"></p>
-<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><blockquote>
+<p><img src="https://s2.loli.net/2022/08/09/J5U6qIusKpZQbWe.png" alt=""></p>
+<h2 id="二、安装">二、安装</h2>
+<blockquote>
 <p>以下是按照Ubuntu22.04版本安装</p>
 <p>ROS2在Ubuntu只支持22.04与20.04，其中20.04需要源码安装</p>
 </blockquote>
@@ -579,48 +594,40 @@
 sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 
 export LANG=en_US.UTF-8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>添加源</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt update &amp;&amp; sudo apt install curl gnupg lsb-release 
 
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>如果添加源出现<code>Failed to connect to raw.githubusercontent.com</code>的报错，按照以下步骤即可：</p>
 <p>登录网站：<a target="_blank" rel="noopener" href="https://www.ipaddress.com/">https://www.ipaddress.com</a></p>
-<p>在打开的网站中将“raw.githubusercontent.com”复制到查询栏中进行搜索，可以看到域名对应的IP地址信息</p>
+<p>在打开的网站中将“<a target="_blank" rel="noopener" href="http://raw.githubusercontent.com">raw.githubusercontent.com</a>”复制到查询栏中进行搜索，可以看到域名对应的IP地址信息</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo chmod 777 /etc/hosts <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>用编辑器打开这个文件，<strong>在文末添加你查询到的结果</strong>，比如：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">151.101.84.133 raw.githubusercontent.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>保存退出，改回权限：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo chmod 644 /etc/hosts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>即可正常使用</p>
 </blockquote>
 <p>安装</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt update
 sudo apt upgrade
 sudo apt install ros-humble-desktop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>环境变量</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">source /opt/ros/humble/setup.bash
 echo " source /opt/ros/humble/setup.bash" &gt;&gt; ~/.bashrc <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>测试：</p>
-<h3 id="测试1"><a href="#测试1" class="headerlink" title="测试1"></a>测试1</h3><p>创建一个发布者：</p>
+<h3 id="测试1">测试1</h3>
+<p>创建一个发布者：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ros2 run demo_nodes_cpp talker<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>再创建一个监听者：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ros2 run demo_nodes_py listener<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>看到两个中断可以正常打印数据即可</p>
-<h3 id="测试2"><a href="#测试2" class="headerlink" title="测试2"></a>测试2</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ros2 run turtlesim turtlesim_node
+<h3 id="测试2">测试2</h3>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ros2 run turtlesim turtlesim_node
 ros2 run turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>观察到可以正常运行即可</p>
 
                 
@@ -1484,7 +1491,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

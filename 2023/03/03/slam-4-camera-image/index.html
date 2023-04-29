@@ -515,26 +515,126 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="SLAM-4、相机与图像"><a href="#SLAM-4、相机与图像" class="headerlink" title="SLAM 4、相机与图像"></a>SLAM 4、相机与图像</h1><h2 id="一、相机模型"><a href="#一、相机模型" class="headerlink" title="一、相机模型"></a>一、相机模型</h2><h3 id="1、针孔相机模型"><a href="#1、针孔相机模型" class="headerlink" title="1、针孔相机模型"></a>1、针孔相机模型</h3><p>对于成像模型来说，大家是否第一反应是针孔模型？</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>SLAM 4、相机与图像</h1>
+<h2 id="一、相机模型">一、相机模型</h2>
+<h3 id="1、针孔相机模型">1、针孔相机模型</h3>
+<p>对于成像模型来说，大家是否第一反应是针孔模型？</p>
 <p>在一个暗箱的前方放着一支点燃的蜡烛，烛光透过暗箱上的一个小孔投影在暗箱的后方平面上，并在这个平面上形成了一个倒立的蜡烛图像。在这个过程中，小孔模型能够把三维世界中的蜡烛投影到一个二维成像平面。</p>
 <p>我们可以用这个模型来简单理解一下相机的成像过程。</p>
-<p><img src="https://s2.loli.net/2023/02/20/vDtcI14eGz8ixg3.png"></p>
+<p><img src="https://s2.loli.net/2023/02/20/vDtcI14eGz8ixg3.png" alt=""></p>
 <p>对这个简单的针孔模型进行几何建模可得：设 <code>O−x−y−z</code>为相机坐标系，我们让z轴指向相机前方，x向右，y向下。<code>O</code>为摄像机的光心，也是针孔模型中的针孔。</p>
-<p>现实世界的空间点<code>P</code>，经过小孔<code>O</code>投影之后，落在物理成像平面 <code>O′−x′−y′</code> 上，成像点为<code>P′</code>。设<code>P</code>的坐标为 $[X,Y,Z]^T$，<code>P′</code> 为 $[X′,Y′,Z′]^T$，并且设物理成像平面到小孔的距离为<code>f</code>(焦距)。根据三角形相似关系，有：<br>$$<br>\frac Zf=-\frac{X}{X^{‘}}=-\frac{Y}{Y^{‘}}<br>$$<br>其中负号表示成的像是倒立的。<strong>为了简化模型</strong>，我们把成像平面对称到相机前方，和三维空间点一起放在摄像机坐标系的同一侧，如下图中间的样子所示。</p>
+<p>现实世界的空间点<code>P</code>，经过小孔<code>O</code>投影之后，落在物理成像平面 <code>O′−x′−y′</code> 上，成像点为<code>P′</code>。设<code>P</code>的坐标为 $[X,Y,Z]^T$，<code>P′</code> 为 $[X′,Y′,Z′]^T$，并且设物理成像平面到小孔的距离为<code>f</code>(焦距)。根据三角形相似关系，有：<br>
+$$<br>
+\frac Zf=-\frac{X}{X^{‘}}=-\frac{Y}{Y^{’}}<br>
+$$<br>
+其中负号表示成的像是倒立的。<strong>为了简化模型</strong>，我们把成像平面对称到相机前方，和三维空间点一起放在摄像机坐标系的同一侧，如下图中间的样子所示。</p>
 <p><img src="https://s2.loli.net/2023/02/20/KbUESGcV9jB8FJT.png" alt="真实成像平面，对称成像平面，归一化成像平面图示"></p>
-<p>这样做可以把公式中的负号去掉，使式子更简洁：<br>$$<br>\frac Zf=\frac{X}{X^{‘}}=\frac{Y}{Y^{‘}}<br>$$<br>整理得：<br>$$<br>X’=f\frac XZ\\<br>Y’=f\frac YZ<br>$$<br>尽管从物理原理来说，小孔成像应该是倒像，但我们对图像作了预处理，所以理解成在对称平面上的像好像并没有什么影响。不引起歧义的情况下，我们就不加限制地称后一种情况为针孔模型。</p>
+<p>这样做可以把公式中的负号去掉，使式子更简洁：<br>
+$$<br>
+\frac Zf=\frac{X}{X^{‘}}=\frac{Y}{Y^{’}}<br>
+$$<br>
+整理得：<br>
+$$<br>
+X’=f\frac XZ\\<br>
+Y’=f\frac YZ<br>
+$$<br>
+尽管从物理原理来说，小孔成像应该是倒像，但我们对图像作了预处理，所以理解成在对称平面上的像好像并没有什么影响。不引起歧义的情况下，我们就不加限制地称后一种情况为针孔模型。</p>
 <p>上式描述了点<code>P</code>与它的像之间的联系。不过，相机最终是获得了一个个像素，这需要对成像平面上进行<strong>采样和量化</strong>。描述这个像素平面<code>o-u-v</code>，在像素平面即可得到<code>P'</code>的像素坐标$[u,v]^T$。</p>
 <p>像素坐标系（图像坐标系）通常定义的方式为：原点<code>o'</code>位于图像的左上角，u轴往右与x轴平行，v轴向下与y轴平行。像素坐标系与成像平面之间，相差了<u>一个缩放和一个原点的平移</u>。</p>
-<p>设像素坐标在u轴上缩放了$\alpha$倍，在v轴上缩放了$\beta$倍。同时原点还平移了$[c_x,c_y]^T$。那<code>P'</code>的坐标与像素坐标$[u,v]^T$的关系是：<br>$$<br>\left\{\begin{matrix}<br>u=\alpha X’+c_x \\<br>v=\beta Y’+c_y<br>\end{matrix}\right.<br>$$<br>代入这个式子：<br>$$<br>X’=f\frac XZ\\<br>Y’=f\frac YZ<br>$$<br>并把$\alpha f$合并成$f_x$,把$\beta f$合并成$f_y$，可得：<br>$$<br>\left\{\begin{matrix}<br>u=f\frac XZ+c_x \\<br>v=f\frac YZ+c_y<br>\end{matrix}\right.<br>$$<br>上式中，<code>f</code>的单位为米，$\alpha,\beta$的单位为像素每米，所以$f_x,f_y$单位为像素。而使用<strong>齐次坐标</strong>，写成矩阵的形式会更加直观简洁。<br>$$<br>\begin{bmatrix}<br>u\\<br>v\\<br>1<br>\end{bmatrix}=<br>\frac{1}{Z}<br>\begin{bmatrix}<br>f_x &amp; 0 &amp; c_x\\<br>0 &amp; f_y &amp; c_y\\<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>X\\<br>Y\\<br>Z<br>\end{bmatrix}\triangleq<br>\frac{1}{Z}KP<br>$$<br>把<code>Z</code>挪到左边可得：<br>$$<br>Z<br>\begin{bmatrix}<br>u\\<br>v\\<br>1<br>\end{bmatrix}=<br>\begin{bmatrix}<br>f_x &amp; 0 &amp; c_x\\<br>0 &amp; f_y &amp; c_y\\<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>X\\<br>Y\\<br>Z<br>\end{bmatrix}\triangleq<br> KP<br>$$<br>中间的$\begin{bmatrix}f_x &amp; 0 &amp; c_x\\0 &amp; f_y &amp; c_y\\0 &amp; 0 &amp; 1\end{bmatrix}$矩阵称为相机的<strong>内参数矩阵</strong>（Camera Intrinsics）<code>K</code>，简称<strong>内参</strong>。确定自己相机内参的过程叫做<strong>标定</strong>。 现在这个标定也很成熟，如<strong>张正友标定法</strong>。 </p>
+<p>设像素坐标在u轴上缩放了$\alpha$倍，在v轴上缩放了$\beta$倍。同时原点还平移了$[c_x,c_y]^T$。那<code>P'</code>的坐标与像素坐标$[u,v]^T$的关系是：<br>
+$$<br>
+\left\{\begin{matrix}<br>
+u=\alpha X’+c_x \\<br>
+v=\beta Y’+c_y<br>
+\end{matrix}\right.<br>
+$$<br>
+代入这个式子：<br>
+$$<br>
+X’=f\frac XZ\\<br>
+Y’=f\frac YZ<br>
+$$<br>
+并把$\alpha f$合并成$f_x$,把$\beta f$合并成$f_y$，可得：<br>
+$$<br>
+\left\{\begin{matrix}<br>
+u=f\frac XZ+c_x \\<br>
+v=f\frac YZ+c_y<br>
+\end{matrix}\right.<br>
+$$<br>
+上式中，<code>f</code>的单位为米，$\alpha,\beta$的单位为像素每米，所以$f_x,f_y$单位为像素。而使用<strong>齐次坐标</strong>，写成矩阵的形式会更加直观简洁。<br>
+$$<br>
+\begin{bmatrix}<br>
+u\\<br>
+v\\<br>
+1<br>
+\end{bmatrix}=<br>
+\frac{1}{Z}<br>
+\begin{bmatrix}<br>
+f_x &amp; 0 &amp; c_x\\<br>
+0 &amp; f_y &amp; c_y\\<br>
+0 &amp; 0 &amp; 1<br>
+\end{bmatrix}<br>
+\begin{bmatrix}<br>
+X\\<br>
+Y\\<br>
+Z<br>
+\end{bmatrix}\triangleq<br>
+\frac{1}{Z}KP<br>
+$$<br>
+把<code>Z</code>挪到左边可得：<br>
+$$<br>
+Z<br>
+\begin{bmatrix}<br>
+u\\<br>
+v\\<br>
+1<br>
+\end{bmatrix}=<br>
+\begin{bmatrix}<br>
+f_x &amp; 0 &amp; c_x\\<br>
+0 &amp; f_y &amp; c_y\\<br>
+0 &amp; 0 &amp; 1<br>
+\end{bmatrix}<br>
+\begin{bmatrix}<br>
+X\\<br>
+Y\\<br>
+Z<br>
+\end{bmatrix}\triangleq<br>
+KP<br>
+$$<br>
+中间的$\begin{bmatrix}f_x &amp; 0 &amp; c_x\\0 &amp; f_y &amp; c_y\\0 &amp; 0 &amp; 1\end{bmatrix}$矩阵称为相机的<strong>内参数矩阵</strong>（Camera Intrinsics）<code>K</code>，简称<strong>内参</strong>。确定自己相机内参的过程叫做<strong>标定</strong>。 现在这个标定也很成熟，如<strong>张正友标定法</strong>。</p>
 <p>与内参对应的是<strong>外参</strong>：就是相机的位姿。相比不变的内参，外参会随着相机运动而改变，也是SLAM中待估计的目标，他代表着机器人的轨迹。</p>
-<p>相机的位姿由旋转矩阵和平移向量来描述，有：<br>$$<br>ZP_{uv}=Z<br>\begin{bmatrix}<br>u\\<br>v\\<br>1<br>\end{bmatrix}=<br>K(RP_w+t)=KTP_w<br>$$</p>
+<p>相机的位姿由旋转矩阵和平移向量来描述，有：<br>
+$$<br>
+ZP_{uv}=Z<br>
+\begin{bmatrix}<br>
+u\\<br>
+v\\<br>
+1<br>
+\end{bmatrix}=<br>
+K(RP_w+t)=KTP_w<br>
+$$</p>
 <p>它描述了P的世界坐标到像素坐标的映射关系。这里相机的位姿<code>R</code>，<code>t</code>就是相机的外参。</p>
 <blockquote>
-<p>*补充：这个式子<u>隐含了一次齐次坐标到非齐次坐标的变换</u>，可以看到，右侧的$TP_w$表示把一个世界坐标系下的齐次坐标，变换到相机坐标系下。为了使它与<code>K</code>相乘，需要取它的前三维组成向量（因为$TP_w$最后一维为1）。此时，对于这个三维向量，我们还可以按照齐次坐标的方式，把最后一维进行归一化处理，得到了<code>P</code>在相机归一化平面上的投影：<br>$$<br>\overset{\sim}{P_c}=<br>\begin{bmatrix}<br>X\\<br>Y\\<br>Z<br>\end{bmatrix}=<br>(TP_w)_{(1:3)}\\<br>P_c=<br>\begin{bmatrix}<br>X/Z\\<br>Y/Z\\<br>1<br>\end{bmatrix}<br>$$</p>
-<p>这时$P_c$可以看成一个二维的齐次坐标，称为<strong>归一化坐标</strong>。它位于相机前方$z=1$处的平面上。该平面称为归一化平面。由于$P_c$经过内参之后就得到了像素坐标，所以我们可以把像素坐标$[u,v]^T$，看成对归一化平面上的点进行量化测量的结果。 </p>
+<p>*补充：这个式子<u>隐含了一次齐次坐标到非齐次坐标的变换</u>，可以看到，右侧的$TP_w$表示把一个世界坐标系下的齐次坐标，变换到相机坐标系下。为了使它与<code>K</code>相乘，需要取它的前三维组成向量（因为$TP_w$最后一维为1）。此时，对于这个三维向量，我们还可以按照齐次坐标的方式，把最后一维进行归一化处理，得到了<code>P</code>在相机归一化平面上的投影：<br>
+$$<br>
+\overset{\sim}{P_c}=<br>
+\begin{bmatrix}<br>
+X\\<br>
+Y\\<br>
+Z<br>
+\end{bmatrix}=<br>
+(TP_w)_{(1:3)}\\<br>
+P_c=<br>
+\begin{bmatrix}<br>
+X/Z\\<br>
+Y/Z\\<br>
+1<br>
+\end{bmatrix}<br>
+$$</p>
+<p>这时$P_c$可以看成一个二维的齐次坐标，称为<strong>归一化坐标</strong>。它位于相机前方$z=1$处的平面上。该平面称为归一化平面。由于$P_c$经过内参之后就得到了像素坐标，所以我们可以把像素坐标$[u,v]^T$，看成对归一化平面上的点进行量化测量的结果。</p>
 </blockquote>
-<h3 id="2、畸变"><a href="#2、畸变" class="headerlink" title="2、畸变"></a>2、畸变</h3><p>实际上，相机的前方是有装透镜的</p>
-<p>透镜对成像过程中光线的传播会产生一些新的影响: </p>
+<h3 id="2、畸变">2、畸变</h3>
+<p>实际上，相机的前方是有装透镜的</p>
+<p>透镜对成像过程中光线的传播会产生一些新的影响:</p>
 <ul>
 <li>透镜自身的形状对光线传播的影响</li>
 <li>在机械组装过程中，透镜和成像平面不可能完全平行，这也会影响光线成像时的位置</li>
@@ -544,7 +644,7 @@
 <p>可是，在实际拍摄的照片中，相机是有透镜的。透镜往往使得真实环境中的某一条直线，在图片中变成了曲线。越靠近图像的边缘，这种现象越明显。这是由于实际的透镜往往是中心对称的，这使得不规则的畸变通常径向对称。</p>
 <p><strong>径向畸变</strong>主要分为两大类：桶形畸变和枕形畸变</p>
 <p><img src="https://s2.loli.net/2023/02/24/tIEyD6ciplU12Ls.png" alt="径向畸变的两种类型"></p>
-<p>桶形畸变是由于图像放大率随着离光轴的距离增加而减小，枕形畸变相反。这两种畸变中，穿过图像中心和光轴有交点的直线还能保持形状不变。 </p>
+<p>桶形畸变是由于图像放大率随着离光轴的距离增加而减小，枕形畸变相反。这两种畸变中，穿过图像中心和光轴有交点的直线还能保持形状不变。</p>
 <hr>
 <p>除了透镜的形状导致的径向畸变。在相机的组装过程中，由于不能使得透镜和成像面严格平行，也容易导致<strong>切向畸变</strong>：</p>
 <p><img src="https://s2.loli.net/2023/02/24/Zwd9k7Biqzr8hE3.png" alt="切向畸变来源示意"></p>
@@ -553,12 +653,20 @@
 <p>知道平面上的任意一点<code>p</code>笛卡尔坐标表示为$[x,y]^T$，也可以把它写成极坐标的形式$[r,\theta]^T$</p>
 <p>其中<code>r</code>表示点<code>p</code>离坐标系原点的距离，<code>θ</code>表示和水平轴的夹角。</p>
 <ul>
-<li><p>径向畸变：可看成坐标点沿着长度方向发生了变化——其距离原点的长度发生了变化 <code>δr</code> 。</p>
+<li>
+<p>径向畸变：可看成坐标点沿着长度方向发生了变化——其距离原点的长度发生了变化 <code>δr</code> 。</p>
 </li>
-<li><p>切向畸变：可看成坐标点沿着切线方向发生了变化——其水平夹角发生了变化<code>δθ</code>。</p>
+<li>
+<p>切向畸变：可看成坐标点沿着切线方向发生了变化——其水平夹角发生了变化<code>δθ</code>。</p>
 </li>
 </ul>
-<h4 id="1）、径向畸变"><a href="#1）、径向畸变" class="headerlink" title="1）、径向畸变"></a>1）、径向畸变</h4><p>对径向畸变来说，无论是桶形畸变还是枕形畸变，它们都是随着离中心的距离增加而增加。所以我们可以用一个多项式函数来描述畸变前后的坐标变化。这类畸变可以用 <u>和距中心距离有关的二次及高次多项式函数</u> 进行纠正：<br>$$<br>x_{corrected}=x(1+k_1r^2+k_2r^4+k_3r^6)\\<br>y_{corrected}=y(1+k_1r^2+k_2r^4+k_3r^6)<br>$$<br>其中、$[x,y]^T$是还没纠正的点 的坐标 。$[x_{corrected},y_{corrected}]^T$是纠正好的坐标。</p>
+<h4 id="1）、径向畸变">1）、径向畸变</h4>
+<p>对径向畸变来说，无论是桶形畸变还是枕形畸变，它们都是随着离中心的距离增加而增加。所以我们可以用一个多项式函数来描述畸变前后的坐标变化。这类畸变可以用 <u>和距中心距离有关的二次及高次多项式函数</u> 进行纠正：<br>
+$$<br>
+x_{corrected}=x(1+k_1r^2+k_2r^4+k_3r^6)\\<br>
+y_{corrected}=y(1+k_1r^2+k_2r^4+k_3r^6)<br>
+$$<br>
+其中、$[x,y]^T$是还没纠正的点 的坐标 。$[x_{corrected},y_{corrected}]^T$是纠正好的坐标。</p>
 <blockquote>
 <p>他们都是归一化平面上的点，而不是像素平面的点。</p>
 </blockquote>
@@ -568,24 +676,47 @@
 <li>k2：纠正对于畸变较大的边缘区域</li>
 <li>k3：纠正畸变超大的摄像头——如鱼眼摄像头</li>
 </ul>
-<h4 id="2）、切向畸变"><a href="#2）、切向畸变" class="headerlink" title="2）、切向畸变"></a>2）、切向畸变</h4><p>对于切向畸变，使用另外的两个参数p1、p2来进行纠正:<br>$$<br>x_{corrected}=x+2p_1xy+p_2(r^2+2x^2)\\<br>y_{corrected}=y+p_1(r^2+2y^2)+2p_2xy<br>$$<br>使用上述这两套式子，使用五个参数就可以完成矫正了。总结一下流程：</p>
+<h4 id="2）、切向畸变">2）、切向畸变</h4>
+<p>对于切向畸变，使用另外的两个参数p1、p2来进行纠正:<br>
+$$<br>
+x_{corrected}=x+2p_1xy+p_2(r^2+2x^2)\\<br>
+y_{corrected}=y+p_1(r^2+2y^2)+2p_2xy<br>
+$$<br>
+使用上述这两套式子，使用五个参数就可以完成矫正了。总结一下流程：</p>
 <ol>
-<li><p>将三维空间点投影到归一化图像平面。设它的归一化坐标为$[x,y]^T$。</p>
+<li>
+<p>将三维空间点投影到归一化图像平面。设它的归一化坐标为$[x,y]^T$。</p>
 </li>
-<li><p>对归一化平面上的点进行径向畸变和切向畸变纠正<br>$$<br>x_{corrected}=x(1+k_1r^2+k_2r^4+k_3r^6)\\<br>+x+2p_1xy+p_2(r^2+2x^2)\\<br>y_{corrected}=y(1+k_1r^2+k_2r^4+k_3r^6)\\<br>+y+p_1(r^2+2y^2)+2p_2xy\\<br>$$</p>
+<li>
+<p>对归一化平面上的点进行径向畸变和切向畸变纠正<br>
+$$<br>
+x_{corrected}=x(1+k_1r^2+k_2r^4+k_3r^6)\\<br>
++x+2p_1xy+p_2(r^2+2x^2)\\<br>
+y_{corrected}=y(1+k_1r^2+k_2r^4+k_3r^6)\\<br>
++y+p_1(r^2+2y^2)+2p_2xy\\<br>
+$$</p>
 </li>
-<li><p>纠正后的五个点通过内参数矩阵投影到像素平面，得到该点在图像上正确的位置<br>$$<br>u=f_xx_{corrected}+c_x\\<br>v=f_yy_{corrected}+c_y<br>$$</p>
+<li>
+<p>纠正后的五个点通过内参数矩阵投影到像素平面，得到该点在图像上正确的位置<br>
+$$<br>
+u=f_xx_{corrected}+c_x\\<br>
+v=f_yy_{corrected}+c_y<br>
+$$</p>
 </li>
 </ol>
 <p>对于普通相机来说，这样矫正就够了。有时甚至只需要k1、p1、p2就够了</p>
-<h4 id="3）、小结"><a href="#3）、小结" class="headerlink" title="3）、小结"></a>3）、小结</h4><hr>
-<p>我们小结一下单目相机的成像过程： </p>
+<h4 id="3）、小结">3）、小结</h4>
+<hr>
+<p>我们小结一下单目相机的成像过程：</p>
 <ol>
-<li><p>首先，世界坐标系下有一个固定的点 <em>P</em>，世界坐标为$P_w$； </p>
+<li>
+<p>首先，世界坐标系下有一个固定的点 <em>P</em>，世界坐标为$P_w$；</p>
 </li>
-<li><p>由于相机在运动，它的运动由<code>R</code>,<code>t</code>或变换矩阵 $T\in SE(3)$描述。P的相机坐标为：$\overset{\sim}{P_c}=RP_w+t$</p>
+<li>
+<p>由于相机在运动，它的运动由<code>R</code>,<code>t</code>或变换矩阵 $T\in SE(3)$描述。P的相机坐标为：$\overset{\sim}{P_c}=RP_w+t$</p>
 </li>
-<li><p>这时的$\overset{\sim}{P_c}$仍有<code>X,Y,Z</code>三个量，把它们投影到归一化平面<code>Z=1</code>上，得到<code>P</code>的归</p>
+<li>
+<p>这时的$\overset{\sim}{P_c}$仍有<code>X,Y,Z</code>三个量，把它们投影到归一化平面<code>Z=1</code>上，得到<code>P</code>的归</p>
 </li>
 </ol>
 <p>一化相机坐标：$P_c=[\frac XZ,\frac YZ,1]^T$。 <sup class="refplus-num"><a href="#ref-ji">[1]</a></sup>
@@ -596,45 +727,62 @@
 </ol>
 <p>这里一共有四类坐标系：</p>
 <ul>
-<li><p>世界坐标系：人为定义的一种最原始的基础坐标系，用来描述世界中各个物体所处的位置</p>
+<li>
+<p>世界坐标系：人为定义的一种最原始的基础坐标系，用来描述世界中各个物体所处的位置</p>
 </li>
-<li><p>相机坐标系：以相机光心为原点，相机自身的坐标系，是一个三维坐标系</p>
+<li>
+<p>相机坐标系：以相机光心为原点，相机自身的坐标系，是一个三维坐标系</p>
 </li>
-<li><p>图像坐标系：在相机的成像平面上，为了描述相机坐标系的成像情况，所建立的二维坐标系</p>
+<li>
+<p>图像坐标系：在相机的成像平面上，为了描述相机坐标系的成像情况，所建立的二维坐标系</p>
 </li>
-<li><p>像素坐标系：以成像平面左上角为原点，像素大小为坐标分度值，将图像坐标系上的图像转化为像素坐标信息，是最终获得图片的二维坐标系</p>
+<li>
+<p>像素坐标系：以成像平面左上角为原点，像素大小为坐标分度值，将图像坐标系上的图像转化为像素坐标信息，是最终获得图片的二维坐标系</p>
 </li>
 </ul>
-<h3 id="3、双目相机模型"><a href="#3、双目相机模型" class="headerlink" title="3、双目相机模型"></a>3、双目相机模型</h3><p>仅根据一个像素，是无法确定这个空间点的具体位置的。</p>
-<p>因为，从相机光心到归一化平面连线上的所有点，都可以投影至该像素上。只有当<code>P</code>确定时（比如通过双目或 RGB-D 相机），我们才能明确地知道它在三维空间的位置。 </p>
-<p><img src="https://s2.loli.net/2023/02/24/FQ18bkWgLKrdfS6.png"></p>
+<h3 id="3、双目相机模型">3、双目相机模型</h3>
+<p>仅根据一个像素，是无法确定这个空间点的具体位置的。</p>
+<p>因为，从相机光心到归一化平面连线上的所有点，都可以投影至该像素上。只有当<code>P</code>确定时（比如通过双目或 RGB-D 相机），我们才能明确地知道它在三维空间的位置。</p>
+<p><img src="https://s2.loli.net/2023/02/24/FQ18bkWgLKrdfS6.png" alt=""></p>
 <p>测量像素距离（或深度）的方式有很多种。比如人眼：就可以根据左右眼看到的景物差异（<strong>视差</strong>）来判断物体与我们的距离。</p>
 <p>双目相机的原理就是这样。通过同步采集左右相机的图像，计算图像间视差，来估计每一个像素的深度。</p>
-<p><img src="https://s2.loli.net/2023/02/24/3Cx1oYinzuW2tyM.png"></p>
+<p><img src="https://s2.loli.net/2023/02/24/3Cx1oYinzuW2tyM.png" alt=""></p>
 <blockquote>
-<p>上图是双目相机的成像模型。$O_L, O_R$ 为左右光圈中心，蓝色框为成像平面，<code>f</code> 为焦距。 </p>
+<p>上图是双目相机的成像模型。$O_L, O_R$ 为左右光圈中心，蓝色框为成像平面，<code>f</code> 为焦距。</p>
 <p>$u_L 和 u_R$ 为成像平面的坐标。需要注意的是：按照图中坐标定义，$u_R$ 应该是负数，所以图中标出的距离为$−u_R$。</p>
 </blockquote>
-<p>双目相机一般由左眼和右眼两个水平放置的相机组成。在左右双目的相机中，我们可以把两个相机都看作针孔相机。因为它们是水平放置的，意味两个相机的光圈中心都位于<code>X</code>轴上。它们的距离称为双目相机的基线（Baseline, 记作 <em>b</em>），是双目的重要参数。 </p>
-<p>现在，考虑一个空间点 <em>P</em>，它在左眼和右眼各成一像，记作$P_L,P_R$。由于相机基线的存在，这两个成像位置是不同的。理想情况下，由于左右相机只有在<code>x</code>轴上有位移，因此<code>P</code>的像也只在<code>x</code>轴（对应图像的<code>u</code>轴）上有差异。我们记它在左侧的坐标为$u_L$，右侧坐标为$u_R$。那么，它们的几何关系如上图右侧所示。根据三角形$P-P_L-P_R$和$P-O_L-O_R$的相似关系，有：<br>$$<br>\frac{z−f}{z}=\frac{b−u_L+u_R}{b}<br>$$<br>整理一下得：<br>$$<br>z=\frac{fb}{u_L-u_R}=\frac{fb}{d}\\<br>d=u_L-u_R<br>$$<br>这里<code>d</code>为左右图的横坐标之差，称为<strong>视差（Disparity）</strong>。根据视差就可以估计一个像素离相机的距离。</p>
-<p>视差与距离成反比——视差越大，距离越近。并且，由于视差最小为一个像素，所以双目的深度存在一个理论上的最大值，由<code>fb</code>确定。所以说，当基线越长时，双目最大能测到的距离就会变远；反之，基线越短，则只能测量很近的距离。 </p>
+<p>双目相机一般由左眼和右眼两个水平放置的相机组成。在左右双目的相机中，我们可以把两个相机都看作针孔相机。因为它们是水平放置的，意味两个相机的光圈中心都位于<code>X</code>轴上。它们的距离称为双目相机的基线（Baseline, 记作 <em>b</em>），是双目的重要参数。</p>
+<p>现在，考虑一个空间点 <em>P</em>，它在左眼和右眼各成一像，记作$P_L,P_R$。由于相机基线的存在，这两个成像位置是不同的。理想情况下，由于左右相机只有在<code>x</code>轴上有位移，因此<code>P</code>的像也只在<code>x</code>轴（对应图像的<code>u</code>轴）上有差异。我们记它在左侧的坐标为$u_L$，右侧坐标为$u_R$。那么，它们的几何关系如上图右侧所示。根据三角形$P-P_L-P_R$和$P-O_L-O_R$的相似关系，有：<br>
+$$<br>
+\frac{z−f}{z}=\frac{b−u_L+u_R}{b}<br>
+$$<br>
+整理一下得：<br>
+$$<br>
+z=\frac{fb}{u_L-u_R}=\frac{fb}{d}\\<br>
+d=u_L-u_R<br>
+$$<br>
+这里<code>d</code>为左右图的横坐标之差，称为<strong>视差（Disparity）</strong>。根据视差就可以估计一个像素离相机的距离。</p>
+<p>视差与距离成反比——视差越大，距离越近。并且，由于视差最小为一个像素，所以双目的深度存在一个理论上的最大值，由<code>fb</code>确定。所以说，当基线越长时，双目最大能测到的距离就会变远；反之，基线越短，则只能测量很近的距离。</p>
 <p>虽然这个公式很简洁，但视差<code>d</code>本身的计算比较困难。我们需要确切地知道左眼图像某个像素出现在右眼图像的哪一个位置（也就是对应关系），这件事属于“人类觉得容易而计算机觉得困难”的事情。当我们想计算每个像素的深度时，其计算量与精度都将成为问题，而且只有在图像纹理变化丰富的地方才能计算视差。由于计算量的原因，双目深度估计仍需要使用GPU等大算力来计算。这在后面会提及，可以参考本博客CUDA系列文章。</p>
-<h3 id="4、RGB-D-相机模型"><a href="#4、RGB-D-相机模型" class="headerlink" title="4、RGB-D 相机模型"></a>4、<strong>RGB-D</strong> 相机模型</h3><p>RGB-D相机模型能够主动测量每个像素的深度。目前的RGB-D相机按原理可分为两大类：</p>
+<h3 id="4、RGB-D-相机模型">4、<strong>RGB-D</strong> 相机模型</h3>
+<p>RGB-D相机模型能够主动测量每个像素的深度。目前的RGB-D相机按原理可分为两大类：</p>
 <ol>
 <li>通过<strong>红外结构光</strong>（Structured Light）来测量像素距离的。如 Kinect 1 代、Project Tango 1 代、Intel RealSense 等等</li>
 </ol>
-<p><img src="https://s2.loli.net/2023/02/24/rNxqzlFkyhnRfXi.png"></p>
-<p>一个RGB-D相机至少会有一个发射器和一个接收器。 </p>
+<p><img src="https://s2.loli.net/2023/02/24/rNxqzlFkyhnRfXi.png" alt=""></p>
+<p>一个RGB-D相机至少会有一个发射器和一个接收器。</p>
 <p>无论是结构光还是 ToF，RGB-D 相机都需要向探测目标发射一束光线（通常是红外光）。</p>
 <ul>
-<li><p>在结构光原理中，相机根据返回的结构光图案，计算物体离自身的距离。</p>
+<li>
+<p>在结构光原理中，相机根据返回的结构光图案，计算物体离自身的距离。</p>
 </li>
-<li><p>在 ToF 中，相机向目标发射脉冲光，然后根据发送到返回之间的光束飞行时间，确定物体离自身的距离。</p>
+<li>
+<p>在 ToF 中，相机向目标发射脉冲光，然后根据发送到返回之间的光束飞行时间，确定物体离自身的距离。</p>
 <p>ToF 原理和激光传感器很相似，不过激光是通过逐点扫描来获取距离，而 ToF 相机则可以获得整个图像的像素深度</p>
 </li>
 </ul>
 <p>在测量深度之后，RGB-D 相机能够完成深度与彩色图像素之间的配对，输出一一对应的彩色图和深度图。我们可以在同一个图像位置，读取到色彩信息和距离信息，计算像素的 3D 相机坐标，生成点云（Point Cloud）。</p>
-<p> <span class="github-emoji"><span>⚠</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> BUT，RGB-D 相机有几点劣势：</p>
+<p><span class="github-emoji"><span>⚠</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> BUT，RGB-D 相机有几点劣势：</p>
 <ul>
 <li>这种类型的发射-接受的测量方式，使得它使用范围比较受限。</li>
 <li>用红外进行深度值测量的 RGB-D 相机，容易受到日光或其他传感器发射的红外光干扰，因此不能在室外使用；</li>
@@ -642,9 +790,11 @@
 <li>对于透射材质的物体，因为接受不到反射光，所以无法测量这些点的位置。</li>
 <li>RGB-D 相机本身的成本较大、功耗也比较高。</li>
 </ul>
-<h2 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h2><p>使用eigen、pangolin、opencv编写。环境配置可以网上查、或参照<a href="https://tuoyou-hao.github.io/2023/01/11/slam-2-code-base/">SLAM 2、代码基础</a>.</p>
+<h2 id="二、代码">二、代码</h2>
+<p>使用eigen、pangolin、opencv编写。环境配置可以网上查、或参照<a href="https://tuoyou-hao.github.io/2023/01/11/slam-2-code-base/">SLAM 2、代码基础</a>.</p>
 <p>其中代码的图像资源可以用自己的图，也可以参考<a target="_blank" rel="noopener" href="https://github.com/gaoxiang12/slambook2">slam源码仓库</a></p>
-<h3 id="1、图像去畸变"><a href="#1、图像去畸变" class="headerlink" title="1、图像去畸变"></a>1、图像去畸变</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;opencv2/opencv.hpp&gt;</span></span>
+<h3 id="1、图像去畸变">1、图像去畸变</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;opencv2/opencv.hpp&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -698,15 +848,14 @@ string image_file <span class="token operator">=</span> <span class="token strin
   cv<span class="token double-colon punctuation">::</span><span class="token function">waitKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>cmake</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">project</span><span class="token punctuation">(</span>imageBasics<span class="token punctuation">)</span>
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span>undistortImage undistortImage.cpp<span class="token punctuation">)</span>
 <span class="token comment"># 链接OpenCV库</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>undistortImage <span class="token punctuation">${</span>OpenCV_LIBS<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://s2.loli.net/2023/03/03/s985k3XCNPYbciT.png"></p>
-<h3 id="2、stereo双目点云成像"><a href="#2、stereo双目点云成像" class="headerlink" title="2、stereo双目点云成像"></a>2、stereo双目点云成像</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<p><img src="https://s2.loli.net/2023/03/03/s985k3XCNPYbciT.png" alt=""></p>
+<h3 id="2、stereo双目点云成像">2、stereo双目点云成像</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fstream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;opencv2/opencv.hpp&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;boost/format.hpp&gt;</span>  <span class="token comment">// 字符串的格式化</span></span>
@@ -822,18 +971,15 @@ string image_file <span class="token operator">=</span> <span class="token strin
     <span class="token keyword">return</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>cmake</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">find_package</span><span class="token punctuation">(</span>Pangolin REQUIRED<span class="token punctuation">)</span>
 
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span>stereoVision stereoVision.cpp<span class="token punctuation">)</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>stereoVision <span class="token punctuation">${</span>OpenCV_LIBS<span class="token punctuation">}</span> <span class="token punctuation">${</span>Pangolin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
 <p><img src="https://s2.loli.net/2023/03/03/fbR5TsUBMlxoNEz.png" alt="深度图"></p>
 <p><img src="https://s2.loli.net/2023/03/03/JpxSmFZwQ5WOVG4.png" alt="点云"></p>
-<h3 id="3、双目视觉、点云拼装"><a href="#3、双目视觉、点云拼装" class="headerlink" title="3、双目视觉、点云拼装"></a>3、双目视觉、点云拼装</h3><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;opencv2/opencv.hpp&gt;</span></span>
+<h3 id="3、双目视觉、点云拼装">3、双目视觉、点云拼装</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;opencv2/opencv.hpp&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Eigen/Core&gt;</span></span>
@@ -935,7 +1081,6 @@ string right_file <span class="token operator">=</span> <span class="token strin
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>这里对函数<code>cv::StereoSGBM::create</code>介绍一下</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">static</span> Ptr<span class="token operator">&lt;</span>StereoSGBM<span class="token operator">&gt;</span> <span class="token function">create</span>
     <span class="token punctuation">(</span><span class="token keyword">int</span> minDisparity <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
@@ -949,24 +1094,32 @@ string right_file <span class="token operator">=</span> <span class="token strin
      <span class="token keyword">int</span> speckleWindowSize <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
      <span class="token keyword">int</span> speckleRange <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
      <span class="token keyword">int</span> mode <span class="token operator">=</span> StereoSGBM<span class="token double-colon punctuation">::</span>MODE_SGBM<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>semi-global matching（SGM）是一种用于计算双目视觉中视差（disparity）的半全局匹配算法，<br>在OpenCV中的实现为semi-global block matching（SGBM）</p>
+<p>semi-global matching（SGM）是一种用于计算双目视觉中视差（disparity）的半全局匹配算法，<br>
+在OpenCV中的实现为semi-global block matching（SGBM）</p>
 <ul>
-<li><p>minDisparity 最小的可能的视差值</p>
+<li>
+<p>minDisparity 最小的可能的视差值</p>
 </li>
-<li><p>numDisparity 是最大视差减去最小视差</p>
+<li>
+<p>numDisparity 是最大视差减去最小视差</p>
 </li>
-<li><p>disp12MaxDiff是左右图视差检查所允许的最大的不同值</p>
+<li>
+<p>disp12MaxDiff是左右图视差检查所允许的最大的不同值</p>
 </li>
-<li><p>P1, P2：控制视差变化平滑性的参数。P1、P2的值越大，视差越平滑。P1是相邻像素点视差增/减 1 时的惩罚系数；P2是相邻像素点视差变化值大于1时的惩罚系数。P2必须大于P1。</p>
+<li>
+<p>P1, P2：控制视差变化平滑性的参数。P1、P2的值越大，视差越平滑。P1是相邻像素点视差增/减 1 时的惩罚系数；P2是相邻像素点视差变化值大于1时的惩罚系数。P2必须大于P1。</p>
 </li>
-<li><p>preFilterCap：预处理滤波器的截断值，预处理的输出值仅保留[-preFilterCap, preFilterCap]范围内的值，</p>
+<li>
+<p>preFilterCap：预处理滤波器的截断值，预处理的输出值仅保留[-preFilterCap, preFilterCap]范围内的值，</p>
 </li>
-<li><p>speckleWindowSize：检查视差连通区域变化度的窗口大小, 值为 0 时取消 speckle 检查，int 型</p>
+<li>
+<p>speckleWindowSize：检查视差连通区域变化度的窗口大小, 值为 0 时取消 speckle 检查，int 型</p>
 </li>
-<li><p>speckleRange：视差变化阈值，当窗口内视差变化大于阈值时，该窗口内的视差清零，int 型</p>
+<li>
+<p>speckleRange：视差变化阈值，当窗口内视差变化大于阈值时，该窗口内的视差清零，int 型</p>
 </li>
-<li><p>uniquenessRatio：视差唯一性百分比， 视差窗口范围内最低代价是次低代价的(1 + uniquenessRatio/100)倍时，最低代价对应的视差值才是该像素点的视差，否则该像素点的视差为 0</p>
+<li>
+<p>uniquenessRatio：视差唯一性百分比， 视差窗口范围内最低代价是次低代价的(1 + uniquenessRatio/100)倍时，最低代价对应的视差值才是该像素点的视差，否则该像素点的视差为 0</p>
 </li>
 </ul>
 <p>cmake</p>
@@ -977,7 +1130,6 @@ string right_file <span class="token operator">=</span> <span class="token strin
 
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span>joinMap joinMap.cpp<span class="token punctuation">)</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>joinMap <span class="token punctuation">${</span>OpenCV_LIBS<span class="token punctuation">}</span> <span class="token punctuation">${</span>Pangolin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>pose.txt的文件内容</p>
 <pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">-0.228993 0.00645704 0.0287837 -0.0004327 -0.113131 -0.0326832 0.993042
 
@@ -988,10 +1140,7 @@ string right_file <span class="token operator">=</span> <span class="token strin
 -1.41952 -0.279885 1.43657 -0.00926933 -0.222761 -0.0567118 0.973178
 
 -1.55819 -0.301094 1.6215 -0.02707 -0.250946 -0.0412848 0.966741<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p><img src="https://s2.loli.net/2023/03/03/UQPCFGt83NwEIpM.png"></p>
+<p><img src="https://s2.loli.net/2023/03/03/UQPCFGt83NwEIpM.png" alt=""></p>
 
     <style>
     #refplus, #refplus li{ 
@@ -1526,48 +1675,46 @@ string right_file <span class="token operator">=</span> <span class="token strin
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="">
+                <a href="../../../04/29/Computer-vision-1-Harris-detector/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/20.jpg" class="responsive-img" alt="SLAM 4：相机与图像">
+                        <img src="../../../../medias/featureimages/10.jpg" class="responsive-img" alt="计算机视觉 Harris角点检测">
                         
-                        <span class="card-title">SLAM 4：相机与图像</span>
+                        <span class="card-title">计算机视觉 Harris角点检测</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介相机与图像的关系
+                            简介Harris角点检测原理
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-03
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-29
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E6%95%B0%E5%AD%A6/" class="post-category">
-                                    数学
+                            <a href="../../../../categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    编程技术
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/SLAM/">
-                        <span class="chip bg-color">SLAM</span>
+                    <a href="../../../../tags/OpenCV/">
+                        <span class="chip bg-color">OpenCV</span>
                     </a>
                     
                 </div>
@@ -1884,7 +2031,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

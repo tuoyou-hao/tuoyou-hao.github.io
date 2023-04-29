@@ -515,31 +515,32 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="SLAM-2、代码基础"><a href="#SLAM-2、代码基础" class="headerlink" title="SLAM 2、代码基础"></a>SLAM 2、代码基础</h1><blockquote>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>SLAM 2、代码基础</h1>
+<blockquote>
 <p>参考这个链接下的安装路径：<a target="_blank" rel="noopener" href="https://github.com/gaoxiang12/slambook2/tree/master/3rdparty">https://github.com/gaoxiang12/slambook2/tree/master/3rdparty</a></p>
 </blockquote>
-<h2 id="一、安装环境"><a href="#一、安装环境" class="headerlink" title="一、安装环境"></a>一、安装环境</h2><h3 id="安装Eigen"><a href="#安装Eigen" class="headerlink" title="安装Eigen"></a>安装Eigen</h3><p>Eigen有效支持线性代数，矩阵和矢量运算，数值分析及其相关的算法。 </p>
+<h2 id="一、安装环境">一、安装环境</h2>
+<h3 id="安装Eigen">安装Eigen</h3>
+<p>Eigen有效支持线性代数，矩阵和矢量运算，数值分析及其相关的算法。</p>
 <p>安装：</p>
 <p><code>sudo apt install libeigen3-dev</code></p>
-<h3 id="安装Pangolin"><a href="#安装Pangolin" class="headerlink" title="安装Pangolin"></a>安装Pangolin</h3><p>Pangolin是SLAM常用的库之一，主要用于SLAM系统的可视化。它是基于OpenGL的，主要优势在于使用比OpenGL简单 </p>
+<h3 id="安装Pangolin">安装Pangolin</h3>
+<p>Pangolin是SLAM常用的库之一，主要用于SLAM系统的可视化。它是基于OpenGL的，主要优势在于使用比OpenGL简单</p>
 <p>使用tar -zxvf解压Pangolin资源包，并先下载以下内容：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt install doxygen
 sudo apt install libglew-dev
 # 如果在后续安装步骤，还报错缺什么，就百度一下安装一下<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>命令行cd到解压好的Pangolin文件夹内，按照以下步骤执行：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd Pangolin
 mkdir build &amp;&amp; cd build
 cmake -DCPP11_NO_BOOST=1 ..
 make
 sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>此时，如果你有出现以下报错：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">: error: ‘PixelFormat’ does not name a type; did you mean ‘AVPixelFormat’?
      PixelFormat     fmtdst;
      ^~~~~~~~~~~
      AVPixelFormat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>需要前往Pangolin/src底下，修改里面的CMakeLists，从第266行开始，注释以下内容：</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">find_package</span><span class="token punctuation">(</span>FFMPEG QUIET<span class="token punctuation">)</span>
 <span class="token comment"># if(BUILD_PANGOLIN_VIDEO AND FFMPEG_FOUND)</span>
@@ -550,20 +551,20 @@ sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span
 <span class="token comment">#   list(APPEND SOURCES video/drivers/ffmpeg.cpp)</span>
 <span class="token comment">#   message(STATUS "ffmpeg Found and Enabled")</span>
 <span class="token comment"># endif()</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>删除并重新建立一个build文件夹，重复上述编译安装步骤即可。</p>
-<h3 id="安装ceres"><a href="#安装ceres" class="headerlink" title="安装ceres"></a>安装ceres</h3><p>ceres是同g2o一样，运用在slam前端或后端，对相机位姿和路标点进行非线性寻优的算法，特别适用于解决后端Boundle Adjustment (BA)问题。 </p>
+<h3 id="安装ceres">安装ceres</h3>
+<p>ceres是同g2o一样，运用在slam前端或后端，对相机位姿和路标点进行非线性寻优的算法，特别适用于解决后端Boundle Adjustment (BA)问题。</p>
 <p>ceres可能需要的依赖项有：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get install liblapack-dev libsuitesparse-dev libcxsparse3 libgflags-dev libgoogle-glog-dev libgtest-dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>tar -zxvf解压程序包，执行以下操作：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ceres-solver
 mkdir build &amp;&amp; cd build
 cmake ..
 make
 sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="安装gtsam"><a href="#安装gtsam" class="headerlink" title="安装gtsam"></a>安装gtsam</h3><p> GTSAM（Georgia Tech Smoothing and Mapping）是基于因子图的C++库，可以解决slam和sfm的问题，当然它也可以解决简单或者更加复杂的<code>估计</code>问题。<br>因子图是一种图模型，非常适合于复杂的估计问题的建模，比如SLAM或者是SFM( Structure from Motion)。贝叶斯网络属于一种无环图模型 </p>
+<h3 id="安装gtsam">安装gtsam</h3>
+<p>GTSAM（Georgia Tech Smoothing and Mapping）是基于因子图的C++库，可以解决slam和sfm的问题，当然它也可以解决简单或者更加复杂的<code>估计</code>问题。<br>
+因子图是一种图模型，非常适合于复杂的估计问题的建模，比如SLAM或者是SFM( Structure from Motion)。贝叶斯网络属于一种无环图模型</p>
 <p>安装gtsam之前需要确保boost是可以正常运行的。坑比较多，有需要可以参考<a target="_blank" rel="noopener" href="https://www.boost.org/">boost官网</a></p>
 <p>tar -zxvf解压gtsam程序包，执行以下操作：</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake">cd gtsam-<span class="token number">4.0.2</span>
@@ -571,8 +572,8 @@ mkdir build &amp;&amp; cd build
 cmake ..
 make
 sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="安装Sophus"><a href="#安装Sophus" class="headerlink" title="安装Sophus"></a>安装Sophus</h3><p>Eigen库提供了集合模块，但没有提供李代数的支持。一个较好的李群和李代数的库是Sophus库，它很好的支持了SO(3),so(3),SE(3)和se(3)。Sophus库是基于Eigen基础上开发的，继承了Eigen库中的定义的各个类。因此在使用Eigen库中的类时，既可以使用Eigen命名空间，也可以使用Sophus命名空间。</p>
+<h3 id="安装Sophus">安装Sophus</h3>
+<p>Eigen库提供了集合模块，但没有提供李代数的支持。一个较好的李群和李代数的库是Sophus库，它很好的支持了SO(3),so(3),SE(3)和se(3)。Sophus库是基于Eigen基础上开发的，继承了Eigen库中的定义的各个类。因此在使用Eigen库中的类时，既可以使用Eigen命名空间，也可以使用Sophus命名空间。</p>
 <p>Sophus依赖fmt的，所以需要先安装fmt</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git clone  https://github.com/fmtlib/fmt.git
 cd fmt
@@ -581,7 +582,6 @@ cd build
 cmake ..
 make
 sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后才安装Sophus。这Sophus源码也需要修改一下，前往<code>Sophus/sophus/so2.cpp</code>，对第30行开始的地方做如下修改：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token class-name">SO2</span><span class="token double-colon punctuation">::</span><span class="token function">SO2</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -590,7 +590,6 @@ sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span
   unit_complex_<span class="token punctuation">.</span><span class="token function">real</span><span class="token punctuation">(</span><span class="token number">1.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   unit_complex_<span class="token punctuation">.</span><span class="token function">imag</span><span class="token punctuation">(</span><span class="token number">0.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后再按规矩编译安装</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd Sophus
 mkdir build
@@ -598,11 +597,10 @@ cd build
 cmake -Wno-dev ..
 make
 sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="安装g2o"><a href="#安装g2o" class="headerlink" title="安装g2o"></a>安装g2o</h3><p>g2o是一个通用图优化算法库。 目前主流的SLAM研究基本都是基于图优化的 </p>
+<h3 id="安装g2o">安装g2o</h3>
+<p>g2o是一个通用图优化算法库。 目前主流的SLAM研究基本都是基于图优化的</p>
 <p>先安装一些依赖</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get install qt5-qmake qt5-default libqglviewer-dev-qt5 libsuitesparse-dev libcxsparse3 libcholmod3 libqglviewer-dev-qt4 libqt4-dev qt4-qmake libqglviewer-headers <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>安装g2o</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd g2o
 mkdir build
@@ -610,7 +608,6 @@ cd build
 cmake ..
 make
 sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>如果中途出现找不到GL的报错，可以替换 g2o/cmake_modules里面的 FindQGLViewer.cmake文件，能够找到 libqglviewer</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token comment"># Need to find both Qt{4,5} and QGLViewer if the QQL support is to be built</span>
 <span class="token function">FIND_PACKAGE</span><span class="token punctuation">(</span>Qt4 COMPONENTS QtCore QtXml QtOpenGL QtGui<span class="token punctuation">)</span>
@@ -666,16 +663,15 @@ sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span
 <span class="token keyword">include</span><span class="token punctuation">(</span>FindPackageHandleStandardArgs<span class="token punctuation">)</span>
 <span class="token function">find_package_handle_standard_args</span><span class="token punctuation">(</span>QGLVIEWER DEFAULT_MSG
   QGLVIEWER_INCLUDE_DIR QGLVIEWER_LIBRARY<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>最后，如果你运行代码遇到诸如此类的错误：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">undefined symbol: _ZN3g2o27OptimizationAlgorithmDoglegC1EPNS_15BlockSolverBaseE<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>那是因为库没连接好，命令行运行以下语句可以解决：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">export LD_LIBRARY_PATH=./lib<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="二、代码基础"><a href="#二、代码基础" class="headerlink" title="二、代码基础"></a>二、代码基础</h2><p>这里只先介绍<code>Eigen</code>和<code>Pangolin</code>的基础，其他部分在后续再详细展开。</p>
+<h2 id="二、代码基础">二、代码基础</h2>
+<p>这里只先介绍<code>Eigen</code>和<code>Pangolin</code>的基础，其他部分在后续再详细展开。</p>
 <p>参考第一篇slam<a href="https://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/">三维刚体运动基础</a>，以里面曾介绍过的数学原理为学习基础。</p>
-<h3 id="Eigen基本类型"><a href="#Eigen基本类型" class="headerlink" title="Eigen基本类型"></a>Eigen基本类型</h3><p>示例代码中，我们会用到以下几个头文件：</p>
+<h3 id="Eigen基本类型">Eigen基本类型</h3>
+<p>示例代码中，我们会用到以下几个头文件：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token comment">// Eigen部分 </span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;Eigen/Core&gt;</span></span>
@@ -685,7 +681,6 @@ sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctime&gt;</span></span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MATRIX_SIZE</span> <span class="token expression"><span class="token operator">=</span> <span class="token number">50</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主函数中：申明一个矩阵，常用以下几种方式：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// Eigen 中所有向量和矩阵都是Eigen::Matrix，它是一个模板类。它的前三个参数为：数据类型，行，列</span>
 <span class="token comment">// 声明一个2*3的float矩阵</span>
@@ -707,7 +702,6 @@ matrix_33 <span class="token operator">=</span> Eigen<span class="token double-c
 Eigen<span class="token double-colon punctuation">::</span>Matrix<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token punctuation">,</span>Eigen<span class="token double-colon punctuation">::</span>Dynamic<span class="token punctuation">,</span>Eigen<span class="token double-colon punctuation">::</span>Dynamic<span class="token operator">&gt;</span> matrix_dynamic<span class="token punctuation">;</span>
 <span class="token comment">// 更简单的方式</span>
 Eigen<span class="token double-colon punctuation">::</span>MatrixXd matrix_x<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>数据初始化，可以直接用<code>&lt;&lt;</code>的方式赋值或访问：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 输入数据（初始化）</span>
 matrix_23 <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">;</span>
@@ -720,8 +714,8 @@ std<span class="token double-colon punctuation">::</span>cout<span class="token 
         std<span class="token double-colon punctuation">::</span>cout<span class="token operator">&lt;&lt;</span><span class="token function">matrix_23</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token string">"\t"</span><span class="token punctuation">;</span>
     std<span class="token double-colon punctuation">::</span>cout<span class="token operator">&lt;&lt;</span>std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>不同向量或矩阵可能有类型上的不同，在Eigen里你不能混合两种不同类型的矩阵，这是错误示范：<br>Eigen::Matrix&lt;double, 2, 1&gt; result_wrong_type = matrix_23 * v_3d;</p>
+<p>不同向量或矩阵可能有类型上的不同，在Eigen里你不能混合两种不同类型的矩阵，这是错误示范：<br>
+Eigen::Matrix&lt;double, 2, 1&gt; result_wrong_type = matrix_23 * v_3d;</p>
 <p>转换类型需要用显式转换，如下：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 矩阵和向量相乘（实际上还是矩阵和矩阵）</span>
 v_3d <span class="token operator">&lt;&lt;</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">;</span>
@@ -733,7 +727,6 @@ std<span class="token double-colon punctuation">::</span>cout<span class="token 
 
 Eigen<span class="token double-colon punctuation">::</span>Matrix<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token operator">&gt;</span> result_2 <span class="token operator">=</span> matrix_23 <span class="token operator">*</span> matrix_31<span class="token punctuation">;</span>
 std<span class="token double-colon punctuation">::</span>cout<span class="token operator">&lt;&lt;</span><span class="token string">"result2:\n"</span><span class="token operator">&lt;&lt;</span>result_2<span class="token operator">&lt;&lt;</span>std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>基本运算举例：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 一些简单的运算举例</span>
 Eigen<span class="token double-colon punctuation">::</span>Matrix<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token operator">&gt;</span> Rmatrix_33<span class="token punctuation">;</span>
@@ -747,7 +740,6 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> Rmatrix_33<span class="token operator">+</span>Rmatrix_33 <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>        <span class="token comment">// 加减</span>
 std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> Rmatrix_33<span class="token punctuation">.</span><span class="token function">inverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>        <span class="token comment">// 逆</span>
 std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> Rmatrix_33<span class="token punctuation">.</span><span class="token function">determinant</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>    <span class="token comment">// 行列式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>矩阵特征值计算：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 特征值 </span>
 <span class="token comment">// Eigen::SelfAdjointEigenSolver</span>
@@ -757,7 +749,6 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Eigen vectors = \n"</span> <span class="token operator">&lt;&lt;</span> eigen_solver<span class="token punctuation">.</span><span class="token function">eigenvectors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>解方程：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 解方程</span>
 <span class="token comment">// 求解 matrix_NN * x = v_Nd 方程</span>
@@ -768,7 +759,6 @@ Eigen<span class="token double-colon punctuation">::</span>Matrix<span class="to
 matrix_NN <span class="token operator">=</span> Eigen<span class="token double-colon punctuation">::</span><span class="token class-name">MatrixXd</span><span class="token double-colon punctuation">::</span><span class="token function">Random</span><span class="token punctuation">(</span>MATRIX_SIZE<span class="token punctuation">,</span> MATRIX_SIZE<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Eigen<span class="token double-colon punctuation">::</span>Matrix<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token punctuation">,</span>MATRIX_SIZE<span class="token punctuation">,</span><span class="token number">1</span><span class="token operator">&gt;</span> v_Nd<span class="token punctuation">;</span>
 v_Nd <span class="token operator">=</span> Eigen<span class="token double-colon punctuation">::</span><span class="token class-name">MatrixXd</span><span class="token double-colon punctuation">::</span><span class="token function">Random</span><span class="token punctuation">(</span>MATRIX_SIZE<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>求逆：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">clock_t time_stt <span class="token operator">=</span> <span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 计时用</span>
 
@@ -781,8 +771,8 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 time_stt <span class="token operator">=</span> <span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 x <span class="token operator">=</span> matrix_NN<span class="token punctuation">.</span><span class="token function">colPivHouseholderQr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">solve</span><span class="token punctuation">(</span>v_Nd<span class="token punctuation">)</span><span class="token punctuation">;</span>
 std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span><span class="token string">"time use in Qr decomposition is: "</span> <span class="token operator">&lt;&lt;</span><span class="token number">1000</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token function">clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>time_stt<span class="token punctuation">)</span><span class="token operator">/</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span>CLOCKS_PER_SEC <span class="token operator">&lt;&lt;</span><span class="token string">"ms"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="Cmake"><a href="#Cmake" class="headerlink" title="Cmake"></a>Cmake</h3><p>Cmake是（跨平台的）安装编译工具， 可以用简单的语句来描述所有平台的安装(编译过程) 。<code>本篇只先介绍简单的cmake语法</code>。</p>
+<h3 id="Cmake">Cmake</h3>
+<p>Cmake是（跨平台的）安装编译工具， 可以用简单的语句来描述所有平台的安装(编译过程) 。<code>本篇只先介绍简单的cmake语法</code>。</p>
 <p>既然是面向编译，就需要有程序用来编译。以下是举例的三个c++程序：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// hello.cpp</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
@@ -793,7 +783,6 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
     cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello Pokemon!"</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>以及可以用库的方式：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// libHello.cpp</span>
 <span class="token comment">// 这是一个库文件</span>
@@ -804,7 +793,6 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 <span class="token punctuation">{</span>
     cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello SLAM"</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>对应头文件：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// libHello.h</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">LIBHELLOSLAM_H_</span></span>
@@ -814,7 +802,6 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 <span class="token keyword">void</span> <span class="token function">printHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>使用这个库文件：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// useHello.cpp</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"libHello.h"</span></span>
@@ -825,7 +812,6 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
     <span class="token function">printHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>有了上述程序，现在来写CMakeLists</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token comment"># 声明要求的 cmake 最低版本</span>
 <span class="token keyword">cmake_minimum_required</span><span class="token punctuation">(</span> <span class="token property">VERSION</span> <span class="token number">2.8</span> <span class="token punctuation">)</span>
@@ -848,15 +834,12 @@ std<span class="token double-colon punctuation">::</span>cout <span class="token
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span> useHello useHello.cpp <span class="token punctuation">)</span>
 <span class="token comment"># 将库文件链接到可执行程序上</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span> useHello libhello_shared <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>编译的时候，建议参考以下步骤，将源码和编译文件区分开来：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir build &amp;&amp; cd bulid
 cmake ..
 make<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>本代码生成的文件目录如下：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">CMakeCache.txt  CMakeFiles  cmake_install.cmake  hello  liblibhello.a  liblibhello_shared.so  Makefile  useHello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>运行效果请自行动手验证</p>
 <hr>
 <p>现在来编写Eigen代码所需的CMakeLists：</p>
@@ -876,15 +859,15 @@ make<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 <span class="token comment"># 添加一个可执行程序</span>
 <span class="token comment"># 语法：add_executable( 程序名 源代码文件 ）</span>
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span> Eigen_learn EigenMatrix.cpp <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>其中<code>set( CMAKE_CXX_FLAGS "-O3" )</code>是指定了g++，并选择了优化选项。</p>
 <blockquote>
-<p>O0选项不进行任何优化，在这种情况下，编译器尽量的缩短编译消耗（时间，空间），此时，debug会产出和程序预期的结果。当程序运行被断点打断，此时程序内的各种声明是独立的，我们可以任意的给变量赋值，或者在函数体内把程序计数器指到其他语句,以及从源程序中 精确地获取你期待的结果. </p>
-<p>O1优化会消耗少多的编译时间，它主要对代码的分支，常量以及表达式等进行优化。 </p>
-<p>O2会尝试更多的寄存器级的优化以及指令级的优化，它会在编译期间占用更多的内存和编译时间。 </p>
+<p>O0选项不进行任何优化，在这种情况下，编译器尽量的缩短编译消耗（时间，空间），此时，debug会产出和程序预期的结果。当程序运行被断点打断，此时程序内的各种声明是独立的，我们可以任意的给变量赋值，或者在函数体内把程序计数器指到其他语句,以及从源程序中 精确地获取你期待的结果.</p>
+<p>O1优化会消耗少多的编译时间，它主要对代码的分支，常量以及表达式等进行优化。</p>
+<p>O2会尝试更多的寄存器级的优化以及指令级的优化，它会在编译期间占用更多的内存和编译时间。</p>
 <p>O3在O2的基础上进行更多的优化，例如使用伪寄存器网络，普通函数的内联，以及针对循环的更多优化。</p>
 </blockquote>
-<h3 id="Eigen几何模块"><a href="#Eigen几何模块" class="headerlink" title="Eigen几何模块"></a>Eigen几何模块</h3><p>这里直接上代码，一些要点整理在注释了：</p>
+<h3 id="Eigen几何模块">Eigen几何模块</h3>
+<p>这里直接上代码，一些要点整理在注释了：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -956,7 +939,6 @@ make<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>对应的cmake为：</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">cmake_minimum_required</span><span class="token punctuation">(</span> <span class="token property">VERSION</span> <span class="token number">2.8</span> <span class="token punctuation">)</span>
 <span class="token keyword">project</span><span class="token punctuation">(</span> Eigen_Geo_learn <span class="token punctuation">)</span>
@@ -964,8 +946,8 @@ make<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 <span class="token comment"># 添加Eigen头文件</span>
 <span class="token keyword">include_directories</span><span class="token punctuation">(</span> <span class="token string">"/usr/include/eigen3"</span> <span class="token punctuation">)</span>
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span> eigenGeometry EigneGeometry.cpp <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="Pangolin"><a href="#Pangolin" class="headerlink" title="Pangolin"></a>Pangolin</h3><p>参考如下代码，注意看其中的注释：</p>
+<h3 id="Pangolin">Pangolin</h3>
+<p>参考如下代码，注意看其中的注释：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pangolin/pangolin.h&gt;</span></span>
 
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span>
@@ -1014,13 +996,11 @@ pangolin<span class="token double-colon punctuation">::</span><span class="token
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>所需的CMakeLists为：</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">find_package</span><span class="token punctuation">(</span>Pangolin REQUIRED<span class="token punctuation">)</span>
 <span class="token keyword">include_directories</span><span class="token punctuation">(</span><span class="token punctuation">${</span>Pangolin_INCLUDE_DIRS<span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span>HelloPangolin main.cpp<span class="token punctuation">)</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>HelloPangolin <span class="token punctuation">${</span>Pangolin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>最终效果图中，可以通过拖动画面与按动鼠标滚轮的方式实现基本的平移旋转功能</p>
 <hr>
 <p>接下来参考如下代码，把物体旋转与平移的描述也展示出来了，以下是头文件部分：</p>
@@ -1033,7 +1013,6 @@ pangolin<span class="token double-colon punctuation">::</span><span class="token
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> Eigen<span class="token punctuation">;</span>
 
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;pangolin/pangolin.h&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>为了计算旋转矩阵、选转向量、四元数，里面重载过了运算符。主要是为了便于书写与ui展示，其展示效果可以看文末的插图。为了方便，这里把重载的部分单独拿出来。</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">RotationMatrix</span>
 <span class="token punctuation">{</span>
@@ -1088,7 +1067,6 @@ istream<span class="token operator">&amp;</span> <span class="token keyword">ope
 <span class="token punctuation">{</span>
     <span class="token keyword">return</span> in<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主函数</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span> <span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> argv <span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -1169,7 +1147,6 @@ istream<span class="token operator">&amp;</span> <span class="token keyword">ope
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>对应的cmake文件</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">cmake_minimum_required</span><span class="token punctuation">(</span> <span class="token property">VERSION</span> <span class="token number">2.8</span> <span class="token punctuation">)</span>
 <span class="token keyword">project</span><span class="token punctuation">(</span> visualizeGeometry <span class="token punctuation">)</span>
@@ -1185,9 +1162,8 @@ istream<span class="token operator">&amp;</span> <span class="token keyword">ope
 
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span> visualizeGeometry visualizeGeometry.cpp <span class="token punctuation">)</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span> visualizeGeometry <span class="token punctuation">${</span>Pangolin_LIBRARIES<span class="token punctuation">}</span> <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>运行效果</p>
-<p><img src="https://s2.loli.net/2023/01/11/Q5NEFdchpP2vJOZ.png"></p>
+<p><img src="https://s2.loli.net/2023/01/11/Q5NEFdchpP2vJOZ.png" alt=""></p>
 
                 
             </div>
@@ -2046,7 +2022,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

@@ -515,30 +515,34 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ROS-九：坐标管理系统tf简介"><a href="#ROS-九：坐标管理系统tf简介" class="headerlink" title="ROS 九：坐标管理系统tf简介"></a>ROS 九：坐标管理系统tf简介</h1><p>关于机器人学中的坐标变换，原本计划在本篇介绍，奈何整理过后的篇幅过长，还烦请移步<a href="https://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/">三维坐标介绍</a>了解相关的前置知识。</p>
-<h2 id="一、tf简介"><a href="#一、tf简介" class="headerlink" title="一、tf简介"></a>一、tf简介</h2><p>由于机器人上会安装相当多的组件，比如激光雷达、摄像机等等，他们都会组装在机器人外壳上的不同位置，因此他们拥有各自不同的坐标系。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>ROS 九：坐标管理系统tf简介</h1>
+<p>关于机器人学中的坐标变换，原本计划在本篇介绍，奈何整理过后的篇幅过长，还烦请移步<a href="https://tuoyou-hao.github.io/2022/08/02/slam-1-Fundamentals-of-three-dimensional-space-mathematics/">三维坐标介绍</a>了解相关的前置知识。</p>
+<h2 id="一、tf简介">一、tf简介</h2>
+<p>由于机器人上会安装相当多的组件，比如激光雷达、摄像机等等，他们都会组装在机器人外壳上的不同位置，因此他们拥有各自不同的坐标系。</p>
 <p>而当一个机器人设计的很庞大的时候，就会有忒儿多的坐标系要我们管理，需要运算相当多的矩阵。</p>
 <p>tf功能包会帮助我们管理坐标系，把底层的数学计算都封装好了，我们无需再实现数学计算功能。tf会广播和监听坐标变换，这和我们之前了解到的Publisher与Service这两套通讯方式是不一样的。</p>
 <p>tf会记录10秒内机器人所有坐标系的位置关系。所有坐标系都会以树形数据结构存储（tf tree）。</p>
-<h2 id="二、tf安装与demo运行"><a href="#二、tf安装与demo运行" class="headerlink" title="二、tf安装与demo运行"></a>二、tf安装与demo运行</h2><ul>
+<h2 id="二、tf安装与demo运行">二、tf安装与demo运行</h2>
+<ul>
 <li>安装turtle tf。本教程用的是melodic版本的ROS，需要根据版本号</li>
 </ul>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get install ros-melodic-turtle-tf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
 <li>运行demo。分别用不同的终端来运行。</li>
 </ul>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">roslaunch turtle_tf turtle_tf_demo.launch	#运行launch脚本
 rosrun turtlesim turtle_teleop_key			#控制小海龟移动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>其中，<code>roslaunch</code>是ROS启动launch脚本使用的指令，后续会介绍launch文件的编程</p>
+<li>
+<p>其中，<code>roslaunch</code>是ROS启动launch脚本使用的指令，后续会介绍launch文件的编程</p>
 </li>
-<li><p>启动后，通过<code>turtle_teleop_key</code>控制小海龟移动，可以看到第二只小海龟会比较第一只海龟的坐标，然后会一直跟随第一只小海龟。</p>
+<li>
+<p>启动后，通过<code>turtle_teleop_key</code>控制小海龟移动，可以看到第二只小海龟会比较第一只海龟的坐标，然后会一直跟随第一只小海龟。</p>
 </li>
 </ul>
-<h3 id="2-1-tf的工具"><a href="#2-1-tf的工具" class="headerlink" title="2.1 tf的工具"></a>2.1 tf的工具</h3><h4 id="1、view-frames"><a href="#1、view-frames" class="headerlink" title="1、view_frames"></a>1、view_frames</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosrun tf view_frames				#查看目前tf之间的关系的可视化工具<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<h3 id="2-1-tf的工具">2.1 tf的工具</h3>
+<h4 id="1、view-frames">1、view_frames</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosrun tf view_frames				#查看目前tf之间的关系的可视化工具<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
 <li>tf的<code>view_frames</code>是查看tf之间关系的可视化工具。他会先监听五秒钟，然后保存这些图到一个pdf文件。这个文件会放在终端的当前目录下。</li>
 </ul>
@@ -546,21 +550,23 @@ rosrun turtlesim turtle_teleop_key			#控制小海龟移动<span aria-hidden="tr
 <p>world坐标系是一个全局的坐标系，记录整个仿真器的坐标原点。两个turtle是两个会移动的坐标系。上面的<strong>tf tree</strong>图就记录了三个坐标系之间的关系。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#rosrun tf tf_echo &lt;node1&gt; ... &lt;node n&gt;
 rosrun tf tf_echo turtle1 turtle2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h4 id="2、tf-echo"><a href="#2、tf-echo" class="headerlink" title="2、tf_echo"></a>2、tf_echo</h4><p><code>tf_echo</code>是一个命令行工具，可以直接帮我们查询几个坐标系之间的关系。他会有类似如下输出：</p>
+<h4 id="2、tf-echo">2、tf_echo</h4>
+<p><code>tf_echo</code>是一个命令行工具，可以直接帮我们查询几个坐标系之间的关系。他会有类似如下输出：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">At time 1659434555.866
 - Translation: [0.000, 0.000, 0.000]
 - Rotation: in Quaternion [0.000, 0.000, 0.707, 0.707]
             in RPY (radian) [0.000, -0.000, 1.571]
             in RPY (degree) [0.000, -0.000, 90.000]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>Translation：是指在XYZ坐标上的平移，三个值分别代表X,Y,Z</p>
+<li>
+<p>Translation：是指在XYZ坐标上的平移，三个值分别代表X,Y,Z</p>
 </li>
-<li><p>Rotation：是指如何旋转会得到一样的姿态。里面三行数据是等价的，知识用三种不同的描述方式展示出来：</p>
+<li>
+<p>Rotation：是指如何旋转会得到一样的姿态。里面三行数据是等价的，知识用三种不同的描述方式展示出来：</p>
 <ul>
 <li>Quaternion是指四元数，用XYZW表示。</li>
-<li>RPY是指分别按照x轴，y轴，z轴旋转<ul>
+<li>RPY是指分别按照x轴，y轴，z轴旋转
+<ul>
 <li>radian是通过弧度表示</li>
 <li>degree是通过角度表示</li>
 </ul>
@@ -568,17 +574,22 @@ rosrun tf tf_echo turtle1 turtle2<span aria-hidden="true" class="line-numbers-ro
 </ul>
 </li>
 </ul>
-<h4 id="3、rviz"><a href="#3、rviz" class="headerlink" title="3、rviz"></a>3、rviz</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosrun rviz rviz -d 'rospack find turtle_tf' /rivz/turtle_rivz.rivz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+<h4 id="3、rviz">3、rviz</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rosrun rviz rviz -d 'rospack find turtle_tf' /rivz/turtle_rivz.rivz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后要在rviz界面左侧的<code>Fixed Frame</code>选项选择<code>world</code>，在左下角<code>add</code>选项打开菜单，滑到最底下勾选<code>tf</code>，就可以看到前demo正在运行的两只小海龟了。可以试着使用<code>turtle_teleop_key</code>控制小海龟，看rviz的实时效果。</p>
-<p>对于两个turtle的坐标关系来说，可以用如下式子计算，是两个4x4矩阵的乘法：<br>$$<br>T_{turtle1-turtle2}=T_{turtle1-world}\times T_{world-turtle2}<br>$$</p>
-<h2 id="三、编程实现"><a href="#三、编程实现" class="headerlink" title="三、编程实现"></a>三、编程实现</h2><h3 id="1、tf广播器-Broadcaster"><a href="#1、tf广播器-Broadcaster" class="headerlink" title="1、tf广播器(Broadcaster)"></a>1、tf广播器(Broadcaster)</h3><h4 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h4><p>头文件和全局变量</p>
+<p>对于两个turtle的坐标关系来说，可以用如下式子计算，是两个4x4矩阵的乘法：<br>
+$$<br>
+T_{turtle1-turtle2}=T_{turtle1-world}\times T_{world-turtle2}<br>
+$$</p>
+<h2 id="三、编程实现">三、编程实现</h2>
+<h3 id="1、tf广播器-Broadcaster">1、tf广播器(Broadcaster)</h3>
+<h4 id="c">c++</h4>
+<p>头文件和全局变量</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;ros/ros.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;tf/transform_broadcaster.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;turtlesim/Pose.h&gt;</span></span>
 
 std<span class="token double-colon punctuation">::</span>string turtle_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主函数</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span><span class="token punctuation">{</span>
     ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span>argv<span class="token punctuation">,</span><span class="token string">"tf_broadcaster"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -597,7 +608,6 @@ std<span class="token double-colon punctuation">::</span>string turtle_name<span
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>回调函数：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">TfPoseCallback</span><span class="token punctuation">(</span><span class="token keyword">const</span> turtlesim<span class="token double-colon punctuation">::</span>PoseConstPtr<span class="token operator">&amp;</span> msg<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -621,15 +631,14 @@ std<span class="token double-colon punctuation">::</span>string turtle_name<span
         <span class="token punctuation">(</span>transform<span class="token punctuation">,</span>ros<span class="token double-colon punctuation">::</span><span class="token class-name">Time</span><span class="token double-colon punctuation">::</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"world"</span><span class="token punctuation">,</span>turtle_name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>cmake</p>
 <pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">add_executable</span><span class="token punctuation">(</span>broadcaster src/broadcaster.cpp<span class="token punctuation">)</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>broadcaster <span class="token punctuation">${</span>catkin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span>
 
 <span class="token keyword">add_executable</span><span class="token punctuation">(</span>listener src/listener.cpp<span class="token punctuation">)</span>
 <span class="token keyword">target_link_libraries</span><span class="token punctuation">(</span>listener <span class="token punctuation">${</span>catkin_LIBRARIES<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="python"><a href="#python" class="headerlink" title="python"></a>python</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
+<h4 id="python">python</h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
 <span class="token comment"># -*- coding: utf-8 -*-</span>
 <span class="token keyword">import</span> rospy
 <span class="token keyword">import</span> roslib
@@ -657,13 +666,13 @@ roslib<span class="token punctuation">.</span>load_manifest<span class="token pu
         handle_turtle_pose<span class="token punctuation">,</span>
         turtlename<span class="token punctuation">)</span>
     rospy<span class="token punctuation">.</span>spin<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="2、监听器"><a href="#2、监听器" class="headerlink" title="2、监听器"></a>2、监听器</h3><h4 id="c-1"><a href="#c-1" class="headerlink" title="c++"></a>c++</h4><p>头文件</p>
+<h3 id="2、监听器">2、监听器</h3>
+<h4 id="c-2">c++</h4>
+<p>头文件</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ros/ros.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;tf/transform_listener.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;geometry_msgs/Twist.h&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;turtlesim/Spawn.h&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>主函数</p>
 <p>先请求生成turtle2</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros<span class="token double-colon punctuation">::</span><span class="token function">init</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span>argv<span class="token punctuation">,</span><span class="token string">"tf_listener"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -673,10 +682,8 @@ ros<span class="token double-colon punctuation">::</span>service<span class="tok
 ros<span class="token double-colon punctuation">::</span>ServiceClient add_turtle <span class="token operator">=</span> tf_l_node<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">serviceClient</span><span class="token generic class-name"><span class="token operator">&lt;</span>turtlesim<span class="token double-colon punctuation">::</span>Spawn<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">"/spawn"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 turtlesim<span class="token double-colon punctuation">::</span>Spawn srv<span class="token punctuation">;</span>
 add_turtle<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>srv<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>再创建发布控制turtle2的发布者</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">ros<span class="token double-colon punctuation">::</span>Publisher turtle_vel <span class="token operator">=</span> tf_l_node<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">advertise</span><span class="token generic class-name"><span class="token operator">&lt;</span>geometry_msgs<span class="token double-colon punctuation">::</span>Twist<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">"/turtle2/cmd_vel"</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>创建tf的监听器</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">tf<span class="token double-colon punctuation">::</span>TransformListener listener<span class="token punctuation">;</span>
 ros<span class="token double-colon punctuation">::</span>Rate <span class="token function">rate</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -719,8 +726,8 @@ ros<span class="token double-colon punctuation">::</span>Rate <span class="token
     rate<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="python-1"><a href="#python-1" class="headerlink" title="python"></a>python</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
+<h4 id="python-2">python</h4>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
 <span class="token comment"># -*- coding: utf-8 -*-</span>
 <span class="token keyword">import</span> rospy
 <span class="token keyword">import</span> math
@@ -757,8 +764,8 @@ roslib<span class="token punctuation">.</span>load_manifest<span class="token pu
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
     py_listener<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="3、运行"><a href="#3、运行" class="headerlink" title="3、运行"></a>3、运行</h3><p>在终端运行的方式：</p>
+<h3 id="3、运行">3、运行</h3>
+<p>在终端运行的方式：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~/ros_ws #进入工作空间根目录
 catkin_make
 source devel/setup.bash
@@ -775,7 +782,6 @@ rosrun learn-tf broadcaster __name:=turtle1_broadcaster /turtle1
 rosrun learn-tf broadcaster __name:=turtle2_broadcaster /turtle2
 rosrun learn-tf listener
 rosrun turtlesim turtle_teleop_key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>因为这里需要开启很多终端、输入很得多指令，实际启动项目的时候不可能如此繁琐地启动这么多指令。所以下一章将介绍如何使用launch文件快速启动本篇中c++和python的代码。</p>
 
                 
@@ -1646,7 +1652,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

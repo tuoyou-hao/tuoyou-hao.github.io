@@ -482,7 +482,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-15
+                    2023-04-29
                 </div>
                 
 
@@ -519,60 +519,68 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="快速入门Makefile-新手向"><a href="#快速入门Makefile-新手向" class="headerlink" title="快速入门Makefile(新手向)"></a>快速入门Makefile(新手向)</h1><h2 id="1、什么是Makefile"><a href="#1、什么是Makefile" class="headerlink" title="1、什么是Makefile"></a>1、什么是Makefile</h2><p>​        特别是在 Unix 下的软件编译，如果你正在开发一个大型的工程，你就不能不自己写Makefile了。</p>
-<p>​        因为，Makefile关系到了整个代码工程的编译规则。一个工程中的源文件不计数，按类型、功能、模块分别放在若干个目录中，Makefile定义了一系列的规则来指定：哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至进行其他更加复杂的操作。Makefile就像一个 Shell 脚本一样，其中也可以执行操作系统的命令。</p>
-<p>​        Makefile带来的好处就是——“自动化编译”，一旦你写好了Makefile，只需要一个<code>make </code>命令，整个工程就会完全自动编译，极大的提高了软件开发效率。</p>
-<p>​        在我还刚接触Makefile的时候，我常常苦恼于找不到易读好懂的Makefile教程。本篇仅仅快速描述一个简单的Makefile应该是什么样子的，介绍一些基本的指令和语法，便于快速熟悉相关的指令。</p>
-<h2 id="2、Makefile的一些基本规则"><a href="#2、Makefile的一些基本规则" class="headerlink" title="2、Makefile的一些基本规则"></a>2、Makefile的一些基本规则</h2><ul>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>快速入门Makefile(新手向)</h1>
+<h2 id="1、什么是Makefile">1、什么是Makefile</h2>
+<p>​		特别是在 Unix 下的软件编译，如果你正在开发一个大型的工程，你就不能不自己写Makefile了。</p>
+<p>​		因为，Makefile关系到了整个代码工程的编译规则。一个工程中的源文件不计数，按类型、功能、模块分别放在若干个目录中，Makefile定义了一系列的规则来指定：哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至进行其他更加复杂的操作。Makefile就像一个 Shell 脚本一样，其中也可以执行操作系统的命令。</p>
+<p>​		Makefile带来的好处就是——“自动化编译”，一旦你写好了Makefile，只需要一个<code>make </code>命令，整个工程就会完全自动编译，极大的提高了软件开发效率。</p>
+<p>​		在我还刚接触Makefile的时候，我常常苦恼于找不到易读好懂的Makefile教程。本篇仅仅快速描述一个简单的Makefile应该是什么样子的，介绍一些基本的指令和语法，便于快速熟悉相关的指令。</p>
+<h2 id="2、Makefile的一些基本规则">2、Makefile的一些基本规则</h2>
+<ul>
 <li>本篇将以C语言的源码为基础，默认使用gcc编译器，需要有相关的前置知识</li>
 </ul>
 <p>make 命令执行时，需要一个Makefile文件，以告诉 make 命令需要怎么样的去编译和链接程序。 文件名只能用makefile、Makefile或者GNUmakefile 。最常用的是<code>makefile</code>、<code>Makefile</code>。</p>
 <p>(如果你非要使用别的名字来命名Makefile，需要使用指令make后加参数<code>-f</code>/<code>--file</code>，如 <code>make -f your_makefile_name.md</code> )</p>
 <ul>
-<li>Makefile 的基本规则。<ul>
-<li>如果这个工程没有编译过，那么我们的所有 C 文件都要编译并被链接。 </li>
-<li>如果这个工程的某几个 C 文件被修改，那么我们只会编译被修改的 C 文件，并链接目标程序。 </li>
+<li>Makefile 的基本规则。
+<ul>
+<li>如果这个工程没有编译过，那么我们的所有 C 文件都要编译并被链接。</li>
+<li>如果这个工程的某几个 C 文件被修改，那么我们只会编译被修改的 C 文件，并链接目标程序。</li>
 <li>如果这个工程的头文件被改变了，那么我们需要编译引用了这几个头文件的 C 文件， 并链接目标程序。</li>
 </ul>
 </li>
 </ul>
-<h2 id="3、Makefile编写"><a href="#3、Makefile编写" class="headerlink" title="3、Makefile编写"></a>3、Makefile编写</h2><h3 id="3-1-来写一个最简单的Makefile"><a href="#3-1-来写一个最简单的Makefile" class="headerlink" title="3.1 来写一个最简单的Makefile"></a>3.1 来写一个最简单的Makefile</h3><p>我们来看这一段代码<code>a.c</code></p>
+<h2 id="3、Makefile编写">3、Makefile编写</h2>
+<h3 id="3-1-来写一个最简单的Makefile">3.1 来写一个最简单的Makefile</h3>
+<p>我们来看这一段代码<code>a.c</code></p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
 	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello World\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token comment">//a.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>非常简单。加入我们要在Linux下编译运行，应该要怎么做</p>
 <p>是的，在shell中使用gcc编译，生成一个可执行的二进制文件。直接执行这个文件就会显示“Hello Worrld”</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gcc a.c -o a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <p>如果我要在Makefile里面编译这个a.c的代码，应该怎么写？</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">a</span><span class="token punctuation">:</span>a.c
 	gcc a.c -o a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <p>如果你查阅过和Makefile相关的资料，你可能会看到这段文字</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">target ...</span> <span class="token punctuation">:</span> prerequisites ...  
             command  
             ...  
             ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p> 你可以对照上面编译a.c的Makefile代码来看。</p>
+<p>你可以对照上面编译a.c的Makefile代码来看。</p>
 <ul>
-<li><p>target 也就是目标文件，可以是 Object File，也可以是执行文件（比如a.c生成的 a 可执行文件）。还可以是一个标签，标签本章暂不介绍，后续的博客再做介绍。 </p>
+<li>
+<p>target 也就是目标文件，可以是 Object File，也可以是执行文件（比如a.c生成的 a 可执行文件）。还可以是一个标签，标签本章暂不介绍，后续的博客再做介绍。</p>
 </li>
-<li><p>prerequisites 就是，要生成那个 target 所需要的文件或是目标。 (a 可执行文件的生成需要依赖于 a.c)</p>
+<li>
+<p>prerequisites 就是，要生成那个 target 所需要的文件或是目标。 (a 可执行文件的生成需要依赖于 a.c)</p>
 </li>
-<li><p>command 也就是 make 需要执行的命令。（任意的 Shell 命令，比如调用gcc）</p>
+<li>
+<p>command 也就是 make 需要执行的命令。（任意的 Shell 命令，比如调用gcc）</p>
 </li>
 </ul>
 <p>而介绍完基本语句，我们就得回头来看一下make的工作方式。</p>
-<h3 id="3-2-make的工作方式"><a href="#3-2-make的工作方式" class="headerlink" title="3.2 make的工作方式"></a>3.2 make的工作方式</h3><p>这段文字放在这里我认为才有便于理解</p>
+<h3 id="3-2-make的工作方式">3.2 make的工作方式</h3>
+<p>这段文字放在这里我认为才有便于理解</p>
 <p>在默认的方式下，也就是我们只输入 make 命令。那么：</p>
 <ol>
-<li><p>make 会在当前目录下找名字叫“Makefile”或“makefile”的文件。 </p>
+<li>
+<p>make 会在当前目录下找名字叫“Makefile”或“makefile”的文件。</p>
 </li>
-<li><p>如果找到，它会找文件中的第一个目标文件（target）</p>
+<li>
+<p>如果找到，它会找文件中的第一个目标文件（target）</p>
 <p>比如下面这段Makefile，如果我们需要先把 *.c 文件先编译成 *.o 文件，而不是一步到位的编译成可执行文件，可以将上面<code>gcc a.c -o a</code>的步骤拆分成以下两句：</p>
 </li>
 </ol>
@@ -581,18 +589,21 @@
 
 <span class="token target symbol">a.o</span><span class="token punctuation">:</span>a.c
 	gcc -c a.c -o a.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>​        Makefile会先找到 “a” 这个目标，并把这个文件作为最终的目标文件。其余的各项依赖文件得写在后面，也就是我们的要介绍的：</p>
+<p>​		Makefile会先找到 “a” 这个目标，并把这个文件作为最终的目标文件。其余的各项依赖文件得写在后面，也就是我们的要介绍的：</p>
 <ol start="3">
-<li><p>如果 a 这个文件不存在，或是 a 所依赖的后面的 [*.o] 文件的文件修改时间要比 a 这个文件新，那么，他就会执行后面所定义的命令，以此生成 a 这个文件。 </p>
+<li>
+<p>如果 a 这个文件不存在，或是 a 所依赖的后面的 [*.o] 文件的文件修改时间要比 a 这个文件新，那么，他就会执行后面所定义的命令，以此生成 a 这个文件。</p>
 </li>
-<li><p>如果 a 所依赖的 *.o 文件也存在，那么 make 会在当前文件中找目标为 *.o 文件的依赖性，如果找到则再根据那一个规则生成 *.o 文件。（有点像一个堆栈的过程） </p>
+<li>
+<p>如果 a 所依赖的 *.o 文件也存在，那么 make 会在当前文件中找目标为 *.o 文件的依赖性，如果找到则再根据那一个规则生成 *.o 文件。（有点像一个堆栈的过程）</p>
 </li>
-<li><p>当然，你的 C 文件和 H 文件等等依赖文件是存在的，于是 make 会生成 *.o 文件，然后再用 *.o  文件完成make 的终极任务，也就是生成执行文件 a 了。</p>
+<li>
+<p>当然，你的 C 文件和 H 文件等等依赖文件是存在的，于是 make 会生成 *.o 文件，然后再用 *.o  文件完成make 的终极任务，也就是生成执行文件 a 了。</p>
 </li>
 </ol>
 <p>并且和上一次的单个语句编译不同，我们同时还能获得 a.o 的文件</p>
-<h3 id="3-3-多个文件编译"><a href="#3-3-多个文件编译" class="headerlink" title="3.3 多个文件编译"></a>3.3 多个文件编译</h3><p>你现在有一个大工程代码的main代码，是一个计算器，假设你是这样编写的：</p>
+<h3 id="3-3-多个文件编译">3.3 多个文件编译</h3>
+<p>你现在有一个大工程代码的main代码，是一个计算器，假设你是这样编写的：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -606,20 +617,16 @@
 	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d*%d=%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token function">mul</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token comment">//main.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>其中，加法，减法，乘法的函数写在其他的文件里面：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
 	<span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token comment">//add.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">sub</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
 	<span class="token keyword">return</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token comment">//sub.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">mul</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
 	<span class="token keyword">return</span> a<span class="token operator">*</span>b
 <span class="token punctuation">}</span><span class="token comment">//mul.c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>此时我们Makefile就可以这么写：</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token target symbol">cal</span><span class="token punctuation">:</span>main.o add.o sub.o mul.o
 	gcc main.o add.o sub.o mul.o -o cal
@@ -632,9 +639,9 @@
 	gcc -c sub.c -o sub.o
 <span class="token target symbol">mul.o</span><span class="token punctuation">:</span>mul.c
 	gcc -c mul.c -o mul.o<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>其中 cal 文件需要<code>main.o add.o sub.o mul.o</code>，而我们各个 *.o 文件需要由各自的 *.c 文件编译而成。</p>
+<li>
+<p>其中 cal 文件需要<code>main.o add.o sub.o mul.o</code>，而我们各个 *.o 文件需要由各自的 *.c 文件编译而成。</p>
 <p>记住上面这段makefile的样子。我们接下来会介绍很多种方法，简化上面这段makefile。</p>
 <p>比如我们还可以写成这种形式，便于统一管理：</p>
 </li>
@@ -652,9 +659,9 @@
 
 <span class="token target symbol">cal</span><span class="token punctuation">:</span>main.o add.o sub.o mul.o
 	gcc main.o add.o sub.o mul.o -o cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>但是如果后续我需要加入一个除法功能，或者还要加入其他计算功能，就需要不断地重写Makefile，岂不是很麻烦，于是我们引入：</p>
-<h3 id="3-4-变量"><a href="#3-4-变量" class="headerlink" title="3.4 变量"></a>3.4 变量</h3><p>在makefile中，变量声明的时候需要赋初值。使用的时候在变量名前面加上<code>$</code>号。用小括号或大括号括起来</p>
+<h3 id="3-4-变量">3.4 变量</h3>
+<p>在makefile中，变量声明的时候需要赋初值。使用的时候在变量名前面加上<code>$</code>号。用小括号或大括号括起来</p>
 <p>(如果你要使用真实的“$”字符，那么你需要用 “$$” 来表示)</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">ALL:cal
 
@@ -671,15 +678,14 @@ objects=main.o add.o sub.o mul.o
 
 cal:$(objects)
 	gcc main.o add.o sub.o mul.o -o cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>如上面这个例子，我们把<code>main.o add.o sub.o mul.o</code>全部放在<code>objects</code>变量底下，使用的时候就可以用<code>$(objects)</code>把里面存的各种变量拿来编译了。变量是可以嵌套使用的，比如：</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">x <span class="token operator">=</span> y 
 y <span class="token operator">=</span> z 
 a <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>这里 := 是赋值的意思，另一种用变量来定义变量的方法，和 = 的区别就是，前面的变量不能使用后面的变量，只能使用前面已定义好了的变量。这里的 a 里头存的就是 z 。</p>
 <p>有了变量这个好东西，我们就可以使用：</p>
-<h3 id="3-5-通配符"><a href="#3-5-通配符" class="headerlink" title="3.5 通配符"></a>3.5 通配符</h3><p>我们为了让Makefile自己找被我们更新过的代码，我们可以写成如下形式：</p>
+<h3 id="3-5-通配符">3.5 通配符</h3>
+<p>我们为了让Makefile自己找被我们更新过的代码，我们可以写成如下形式：</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
 obj <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.c, %.o, <span class="token variable">$</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
@@ -696,16 +702,17 @@ obj <span class="token operator">=</span> <span class="token variable">$</span><
 
 <span class="token target symbol">cal</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
 	gcc <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> -o cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li><code>wildcard</code>，纸牌游戏中的 “百搭牌” ，计算机里称为 “通配符” 。会在当前目录自己搜索所有匹配 <code>*.c</code>的文件。（如果你需要使用到路径，碍于篇幅，需要自行了解notdir参数，用法为<code>file=$(notdir $(src))</code>）</li>
-<li><code>patsubst</code>，模式字符串替换函数。<ul>
+<li><code>patsubst</code>，模式字符串替换函数。
+<ul>
 <li>里面的<code>%</code>是匹配符，假如说我们有<code>main.c add.c sub.c mul.c</code>这几个文件，使用<code>%</code>可以像使用for循环一样，挨个文件名遍历进去<code>*.c</code>里</li>
 <li>后面<code>$(src)</code>表示：希望<code>patsubst</code>可以遍历哪些文件。我们就遍历当前目录<code>$(src)</code>底下的 *.c 文件</li>
 </ul>
 </li>
 </ul>
-<h3 id="3-6-更多便捷的书写方式"><a href="#3-6-更多便捷的书写方式" class="headerlink" title="3.6 更多便捷的书写方式"></a>3.6 更多便捷的书写方式</h3><p>如果我还想更改代码的名称，就需要自己重写makefile，未免有点太麻烦了。如果可以自己去寻找这些文件就好了。所以我们对上面的代码更新了一下，引入自动化变量，功能不变，写成如下形式：</p>
+<h3 id="3-6-更多便捷的书写方式">3.6 更多便捷的书写方式</h3>
+<p>如果我还想更改代码的名称，就需要自己重写makefile，未免有点太麻烦了。如果可以自己去寻找这些文件就好了。所以我们对上面的代码更新了一下，引入自动化变量，功能不变，写成如下形式：</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
 obj <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.c, %.o, <span class="token variable">$</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
@@ -725,31 +732,32 @@ obj <span class="token operator">=</span> <span class="token variable">$</span><
 
 <span class="token target symbol">clean</span><span class="token punctuation">:</span>
 	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <table>
 <thead>
 <tr>
-<th align="center">符号</th>
-<th align="center">解释</th>
-<th align="center">解释</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">解释</th>
+<th style="text-align:center">解释</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">$@</td>
-<td align="center">表示要生成的目标文件</td>
-<td align="center">main.o:main.c中的main.o</td>
+<tbody>
+<tr>
+<td style="text-align:center">$@</td>
+<td style="text-align:center">表示要生成的目标文件</td>
+<td style="text-align:center">main.o:main.c中的main.o</td>
 </tr>
 <tr>
-<td align="center">$^</td>
-<td align="center">表示全部的依赖文件</td>
-<td align="center">cal:$(obj)中的整个$(obj)</td>
+<td style="text-align:center">$^</td>
+<td style="text-align:center">表示全部的依赖文件</td>
+<td style="text-align:center">cal:$(obj)中的整个$(obj)</td>
 </tr>
 <tr>
-<td align="center">$&lt;</td>
-<td align="center">表示第一个依赖文件</td>
-<td align="center">main.o:main.c中第一个依赖，也就是main.c</td>
+<td style="text-align:center">$&lt;</td>
+<td style="text-align:center">表示第一个依赖文件</td>
+<td style="text-align:center">main.o:main.c中第一个依赖，也就是main.c</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>还有很多其他的自动化变量，如$+,$*,$?等等，不在本篇博客详细解释，感兴趣的话可以自行查阅相关资料</p>
 <p>上面这段代码还可以进一步简化。</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
@@ -765,17 +773,16 @@ obj <span class="token operator">=</span> <span class="token variable">$</span><
 
 <span class="token target symbol">clean</span><span class="token punctuation">:</span>
 	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>细心的小伙伴会发现这两段代码多出来一个目标<code>clean</code>，如果你希望重新make一遍工程，那就需要先把生成的各项文件删除。用<code>make clean</code>指令就可以自己声明清理函数</p>
 <p>如果你在想，我们又不打算生成clean目标文件，有没有别的书写方案？答案是有的，就需要用到标签中的 “伪目标“ <code>.PHONY</code>。</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile"><span class="token builtin-target builtin">.PHONY</span> <span class="token punctuation">:</span> clean 
 <span class="token target symbol">clean</span> <span class="token punctuation">:</span> 
 	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
 <p>(rm 命令前面加了一个小减号的意思就是，也许某些文件出现问题，但不要管，继续做后面的事。)</p>
-<p>当然，我们并不生成“clean”这个文件。“伪目标”并不是一个文件，只是一个标签，由于“伪目标”不是文件，所以 make 无法生成它的依赖关系和决定它是否要执行。我们只有通过显示地指明这个“目标”才能让其生效。当然，“伪目标”的取名不能和文件名重名，不然其就失去了“伪目标”的意义了。 </p>
+<p>当然，我们并不生成“clean”这个文件。“伪目标”并不是一个文件，只是一个标签，由于“伪目标”不是文件，所以 make 无法生成它的依赖关系和决定它是否要执行。我们只有通过显示地指明这个“目标”才能让其生效。当然，“伪目标”的取名不能和文件名重名，不然其就失去了“伪目标”的意义了。</p>
 <p>当然，为了避免和文件重名的这种情况，我们可以使用一个特殊的标记“.PHONY”来显示地指明一个目标是“伪目标”，向 make 说明，不管是否有这个文件，这个目标就是“伪目标”。</p>
-<h3 id="3-7-引用文件"><a href="#3-7-引用文件" class="headerlink" title="3.7 引用文件"></a>3.7 引用文件</h3><p>如果我们整个工程的头文件全都在别的文件夹，比如说在<code>./inc</code>目录底下，我们有<code>add.h  mul.h  sub.h</code>三个头文件，应该怎么引用进来呢？</p>
+<h3 id="3-7-引用文件">3.7 引用文件</h3>
+<p>如果我们整个工程的头文件全都在别的文件夹，比如说在<code>./inc</code>目录底下，我们有<code>add.h  mul.h  sub.h</code>三个头文件，应该怎么引用进来呢？</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">src <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> *.c<span class="token punctuation">)</span>
 obj <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">patsubst</span> %.c, %.o, <span class="token variable">$</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
@@ -790,7 +797,6 @@ obj <span class="token operator">=</span> <span class="token variable">$</span><
 <span class="token target symbol">clean</span><span class="token punctuation">:</span>
 	-rm -rf <span class="token variable">$</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> cal
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>如上代码，我们使用<code>-I/</code>或者<code>--include-dir</code>参数，就可以指定头文件所在位置了</p>
 <p>事实上，不只是头文件，有其他的makefile文件，也可以用这个参数导入。make 就会在这个参数所指定的目录下去寻找。如果目录prefix/include（一般是：/usr/local/bin 或/usr/include）存在的话，make 也会去找。</p>
 <p>如果有文件没有找到的话，make 会生成一条警告信息，但不会马上出现致命错误。它会继续载入其它的文件，一旦完成 makefile 的读取，make 会再重试这些没有找到，或是不能读取的文件，如果还是不行，make 才会出现一条致命信息。如果你想让 make 不理那些无法读取的文件，而继续执行，你可以像上面的<code>clean</code>目标一样，在 include 前加一个减号“-”。</p>
@@ -1660,7 +1666,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

@@ -425,7 +425,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="配置cpp-opencv-的-Windows-vscode编译环境"><a href="#配置cpp-opencv-的-Windows-vscode编译环境" class="headerlink" title="配置cpp opencv 的 Windows vscode编译环境"></a>配置cpp opencv 的 Windows vscode编译环境</h1><blockquote>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>配置cpp opencv 的 Windows vscode编译环境</h1>
+<blockquote>
 <p><span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> 链接：</p>
 <p>mingw：<a target="_blank" rel="noopener" href="https://pan.quark.cn/s/cb6d3cb6d4cf">https://pan.quark.cn/s/cb6d3cb6d4cf</a></p>
 <p>opencv：<a target="_blank" rel="noopener" href="https://opencv.org/releases/">https://opencv.org/releases/</a></p>
@@ -434,20 +435,20 @@
 <p>1、下载mingw压缩包，并解压mingw，把<code>X:\xxx\mingw64\bin</code>路径添加到系统环境变量</p>
 <p>2、下载opencv源码，并在那个目录旁边新建一个build文件夹</p>
 <p>3、下载cmake，打开cmake，第一行选择opencv源码根目录路径，第二行选刚刚创建的build文件夹路径</p>
-<p><img src="https://s2.loli.net/2023/02/26/mhaWPpOgb4Ioz1k.png"></p>
+<p><img src="https://s2.loli.net/2023/02/26/mhaWPpOgb4Ioz1k.png" alt=""></p>
 <p>4、点选<code>Configure</code>，在下拉框选<code>MinGW Makefiles</code>，单选栏选<code>Use default native compilers</code>，开始cmake，注意：</p>
 <ul>
 <li>勾选BUILD_EXAMPLES、BUILD_opencv_world，WITH_OPENGL</li>
 <li>不勾选WITH_IPP、WITH_MSMF和ENABLE_PRECOMPILED_HEADERS（如果有的话），CPU_DISPATCH选空。</li>
 </ul>
 <p>然后，界面会红一下，再点一次<code>Configure</code>即可。</p>
-<p><img src="https://s2.loli.net/2023/02/26/X7jBS3IRe8HAWKZ.png"></p>
+<p><img src="https://s2.loli.net/2023/02/26/X7jBS3IRe8HAWKZ.png" alt=""></p>
 <p>5、在cmake好后，打开cmd，cd进入opencv的build目录，执行<code>MinGW32-make -j8</code>开始编译</p>
 <blockquote>
 <p>参数j是多线程数，可以视情况选<code>j4</code>、<code>j8</code>、<code>j16</code></p>
 </blockquote>
 <p>6、编译好之后，<code>minGW32-make install</code>安装，然后添加环境变量，比如我的是<code>D:\code_env\opencv_460_build\bin</code></p>
-<p>7、前往vscode，去应用商店下载微软的c++插件，然后自己找个目录是放代码的，用vscode打开这个文件夹。 在此文件夹下新建一个.vscode文件夹，再继续新建三个.json文件（<code>tasks.json</code>，<code>launch.json</code>，<code>c_cpp_properties.json</code>)。 </p>
+<p>7、前往vscode，去应用商店下载微软的c++插件，然后自己找个目录是放代码的，用vscode打开这个文件夹。 在此文件夹下新建一个.vscode文件夹，再继续新建三个.json文件（<code>tasks.json</code>，<code>launch.json</code>，<code>c_cpp_properties.json</code>)。</p>
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">//c_cpp_properties</span>
 <span class="token punctuation">{</span>
     <span class="token property">"configurations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -472,7 +473,6 @@
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token number">4</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">//tasks</span>
 <span class="token punctuation">{</span>
 	<span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"2.0.0"</span><span class="token punctuation">,</span>
@@ -510,7 +510,6 @@
 		<span class="token punctuation">}</span>
 	<span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">//launch</span>
 <span class="token punctuation">{</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.2.0"</span><span class="token punctuation">,</span>
@@ -538,7 +537,6 @@
         <span class="token punctuation">}</span>
     <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>然后可以写代码了</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;opencv2/opencv.hpp&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream&gt;</span></span>
@@ -557,7 +555,6 @@
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>使用<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>b</kbd>运行。或按<kbd>F5</kbd>运行也可以。一般来说，已经配置完毕了。</p>
 
                 
@@ -1340,7 +1337,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

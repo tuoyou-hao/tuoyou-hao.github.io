@@ -519,23 +519,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="计算机组成原理——2-1-存储系统"><a href="#计算机组成原理——2-1-存储系统" class="headerlink" title="计算机组成原理——2.1 存储系统"></a>计算机组成原理——2.1 存储系统</h1><h2 id="一、存储器的层次结构"><a href="#一、存储器的层次结构" class="headerlink" title="一、存储器的层次结构"></a>一、存储器的层次结构</h2><pre class="mermaid">graph TB
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>计算机组成原理——2.1 存储系统</h1>
+<h2 id="一、存储器的层次结构">一、存储器的层次结构</h2>
+<pre class="mermaid">graph TB
 CPU --&gt; Cache(Cache高速缓冲储存器)
 Cache --&gt; A(主存/内存)
 A --&gt;B(磁盘/辅存)
 B --&gt;C(U盘-磁带-光盘/外存)</pre>
-
 <ul>
-<li><p>从上到下：容量从小到大、速度，价格从大到小</p>
+<li>
+<p>从上到下：容量从小到大、速度，价格从大到小</p>
 </li>
-<li><p>性能更高的，还会将cache分为L1（一级cache）L2（ 二级cache）等等，通常来说，L1最快。cache成本比内存大得多。</p>
+<li>
+<p>性能更高的，还会将cache分为L1（一级cache）L2（ 二级cache）等等，通常来说，L1最快。cache成本比内存大得多。</p>
 </li>
-<li><p>主存&amp;辅存：实现虚拟存储系统，解决主存容量不够的问题。</p>
+<li>
+<p>主存&amp;辅存：实现虚拟存储系统，解决主存容量不够的问题。</p>
 </li>
-<li><p>Cache&amp;主存：解决了主存与CPU速度不匹配的问题。</p>
+<li>
+<p>Cache&amp;主存：解决了主存与CPU速度不匹配的问题。</p>
 </li>
 </ul>
-<h3 id="1、按层次分类"><a href="#1、按层次分类" class="headerlink" title="1、按层次分类"></a>1、按层次分类</h3><pre class="mermaid">graph LR
+<h3 id="1、按层次分类">1、按层次分类</h3>
+<pre class="mermaid">graph LR
 A(按层次分类)
 subgraph memory
 B(高速缓存--cache)
@@ -549,56 +555,72 @@ A --&gt;C
 A --&gt;D
 B --&gt;E
 C --&gt;E</pre>
-
-<h3 id="2、存储介质"><a href="#2、存储介质" class="headerlink" title="2、存储介质"></a>2、存储介质</h3><ul>
+<h3 id="2、存储介质">2、存储介质</h3>
+<ul>
 <li>半导体存储器（主存，Cache）</li>
 <li>磁性材料存储器（磁盘，磁带）</li>
 <li>光存储器，以光介质存储信息（光盘）</li>
 </ul>
-<h3 id="3、存取方式"><a href="#3、存取方式" class="headerlink" title="3、存取方式"></a>3、存取方式</h3><ul>
-<li><p>随机存储器（Random Access Memory，RAM）</p>
+<h3 id="3、存取方式">3、存取方式</h3>
+<ul>
+<li>
+<p>随机存储器（Random Access Memory，RAM）</p>
 <p>读写任何一个存储单元所需要的时间都相同，与存储单元所在物理位置无关。如内存条</p>
 </li>
-<li><p>顺序存储器（Sequential Access Memory，SAM）</p>
+<li>
+<p>顺序存储器（Sequential Access Memory，SAM）</p>
 <p>读写一个存储单元所需的时间取决于存储单元所在位置。如磁带</p>
 </li>
-<li><p>直接存取存储器（Direct Access Memory，DAM）</p>
+<li>
+<p>直接存取存储器（Direct Access Memory，DAM）</p>
 <p>既有随机存储特性，也有顺序存储特性。先直接选取信息所在的区域，然后按顺序的方式存储。如：机械硬盘</p>
 </li>
-<li><p>相联存储器（Associative Memory）即可以按内容访问的存储器（Content Addressed Memory，CAM）</p>
+<li>
+<p>相联存储器（Associative Memory）即可以按内容访问的存储器（Content Addressed Memory，CAM）</p>
 <p>可以按照内容检索到存储位置进行读写。快表<sup class="refplus-num"><a href="#ref-k">[1]</a></sup>就是一种相联存储器
 
   </p><ul id="refplus" style="display:none;"><li id="ref-k" data-num="1">[1]  快表是一种特殊的高速缓冲存储器（Cache），内容是页表中的一部分或全部内容。</li><li id="ref-在操作系统中引入快表是为了加快地址映射速度" data-num="2">[2] 在操作系统中引入快表是为了加快地址映射速度。</li><li id="ref-在虚拟页式存储管理中设置了快表，作为当前进程页表的Cache。通常快表处于MMU中" data-num="3">[3] 在虚拟页式存储管理中设置了快表，作为当前进程页表的Cache。通常快表处于MMU中。</li></ul><p></p>
 </li>
-<li><p>顺序存储和直接存储的存储器统称<strong>串行访问存储器</strong>：</p>
+<li>
+<p>顺序存储和直接存储的存储器统称<strong>串行访问存储器</strong>：</p>
 <p>读取某个存储单元所需时间与存储单元的物理位置有关。</p>
 </li>
 </ul>
-<h3 id="4、信息的可更改性"><a href="#4、信息的可更改性" class="headerlink" title="4、信息的可更改性"></a>4、信息的可更改性</h3><ul>
+<h3 id="4、信息的可更改性">4、信息的可更改性</h3>
+<ul>
 <li>读写存储器（read/write Memory）== 可读也可写（磁盘，内存，cache）</li>
 <li>只读存储器（Read Only Memory）== 只读，不可写（CD-ROM，BIOS存储的ROM）要写入比较麻烦，需要先擦除再写入。</li>
 </ul>
-<h3 id="5、信息的可保存性"><a href="#5、信息的可保存性" class="headerlink" title="5、信息的可保存性"></a>5、信息的可保存性</h3><ul>
+<h3 id="5、信息的可保存性">5、信息的可保存性</h3>
+<ul>
 <li>易失性存储器（主存，cache）：断电后存储信息就消失了</li>
 <li>非易失存储器（磁盘，光盘）：断电后信息还保留</li>
 <li>破坏性读出（DRAM）：信息读出后，原存储信息被破坏。DRAM读出数据后需要进行重写</li>
 <li>非破坏性读出（SRAM，磁盘，光盘）：信息读出后，原本信息不会被破坏</li>
 </ul>
-<h3 id="6、存储器性能指标"><a href="#6、存储器性能指标" class="headerlink" title="6、存储器性能指标"></a>6、存储器性能指标</h3><ul>
-<li><p>存储容量：存储字长（MDR位数） x 字长（如：1M x 16位）</p>
+<h3 id="6、存储器性能指标">6、存储器性能指标</h3>
+<ul>
+<li>
+<p>存储容量：存储字长（MDR位数） x 字长（如：1M x 16位）</p>
 </li>
-<li><p>单位成本：每位加个 = 总成本 / 总容量</p>
+<li>
+<p>单位成本：每位加个 = 总成本 / 总容量</p>
 </li>
-<li><p>存储速度：数据传输率 = 数据的宽度 / 存储周期</p>
+<li>
+<p>存储速度：数据传输率 = 数据的宽度 / 存储周期</p>
 </li>
-<li><p>存取时间Ta：从启动一次存储器操作到完成该操作所经历的时间，分读出时间和写入时间。</p>
+<li>
+<p>存取时间Ta：从启动一次存储器操作到完成该操作所经历的时间，分读出时间和写入时间。</p>
 </li>
-<li><p>存取周期Tm：存储器进行一次完整的读写操作所需的全部时间。（也就是连续两次独立访问存储器操作，所需的最小时间间隔）</p>
+<li>
+<p>存取周期Tm：存储器进行一次完整的读写操作所需的全部时间。（也就是连续两次独立访问存储器操作，所需的最小时间间隔）</p>
 </li>
-<li><p>主存带宽Bm：又称数据传输率。表每秒从主存进出心理的最大数量，单位：字/秒、字节/每秒（B/s）、位/秒（b/s）</p>
+<li>
+<p>主存带宽Bm：又称数据传输率。表每秒从主存进出心理的最大数量，单位：字/秒、字节/每秒（B/s）、位/秒（b/s）</p>
 </li>
 </ul>
-<h2 id="二、主存储器基本组成"><a href="#二、主存储器基本组成" class="headerlink" title="二、主存储器基本组成"></a>二、主存储器基本组成</h2><p>由电容与MOS关组成</p>
+<h2 id="二、主存储器基本组成">二、主存储器基本组成</h2>
+<p>由电容与MOS关组成</p>
 <p><img src="https://s2.loli.net/2022/05/13/fR9LpVQDsGouOe4.png" alt="原理图"></p>
 <p>我们使用译码器，使用n位地址找到2^n个存储单元里对应的存储信息。地址由MAR存储。CPU通过地址总线连接MAR。</p>
 <p>CPU给MAR一个地址，通过译码器找到对应地址的存储单元，将其数据通过数据总线（位线）输出给MDR，MDR吧数据给CPU。数据总线的宽度 = 存储字长</p>
@@ -606,20 +628,25 @@ C --&gt;E</pre>
 <li>总容量 = 存储单元个数 * 存储字长</li>
 </ul>
 <p>其中，MAR和MDR需要通过<strong>控制电路</strong>和<strong>译码器驱动器</strong>，可以理解为负责稳定输出。只有MAR和MDR里的数据存储稳定之后，控制电路才会打开通路的开关，让数据在总线上进行传输。</p>
-<p><img src="https://s2.loli.net/2022/05/14/Ke6lCakUjm5MNB1.png"></p>
+<p><img src="https://s2.loli.net/2022/05/14/Ke6lCakUjm5MNB1.png" alt=""></p>
 <p>片选线负责在多个存储芯片中，选择其中一个存储芯片，在里头读取数据。</p>
 <p><img src="https://s2.loli.net/2022/05/14/R4umtJ9oEPwWhvS.png" alt="多个存储芯片"></p>
 <p>存储芯片总结一共由于五类引脚：</p>
 <ul>
-<li><p>地址线</p>
+<li>
+<p>地址线</p>
 </li>
-<li><p>数据线</p>
+<li>
+<p>数据线</p>
 </li>
-<li><p>片选线</p>
+<li>
+<p>片选线</p>
 </li>
-<li><p>读写控制线</p>
+<li>
+<p>读写控制线</p>
 </li>
-<li><p>供电引脚与接地引脚</p>
+<li>
+<p>供电引脚与接地引脚</p>
 </li>
 </ul>
 <p><strong>寻址</strong></p>
@@ -630,13 +657,17 @@ C --&gt;E</pre>
 </ul>
 <p>按半字寻址</p>
 <p>按双字寻址</p>
-<h2 id="三、SRAM-amp-DRAM"><a href="#三、SRAM-amp-DRAM" class="headerlink" title="三、SRAM & DRAM"></a>三、SRAM &amp; DRAM</h2><ul>
-<li><p>DRAM，Dynamic Random Access Memory，即动态RAM</p>
+<h2 id="三、SRAM-DRAM">三、SRAM &amp; DRAM</h2>
+<ul>
+<li>
+<p>DRAM，Dynamic Random Access Memory，即动态RAM</p>
 <p>SRAM，Static Random Access Memory，即静态RAM</p>
 </li>
-<li><p>DRAM用于主存，SRAM用于Cache</p>
+<li>
+<p>DRAM用于主存，SRAM用于Cache</p>
 </li>
-<li><p>上述介绍的 “主存储器基本组成” 就是DRAM。</p>
+<li>
+<p>上述介绍的 “主存储器基本组成” 就是DRAM。</p>
 </li>
 </ul>
 <table>
@@ -647,7 +678,8 @@ C --&gt;E</pre>
 <th>SRAM（常用cache）</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>存储器</td>
 <td>栅极电容</td>
 <td>双稳态触发器</td>
@@ -687,84 +719,106 @@ C --&gt;E</pre>
 <td>功耗低，发热量小</td>
 <td>功耗高，发热量高</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
-<li><p>DRAM存储单元使用的MOS管比SRAM更少，在芯片面积不变的情况下，DRAM集成度更高。</p>
+<li>
+<p>DRAM存储单元使用的MOS管比SRAM更少，在芯片面积不变的情况下，DRAM集成度更高。</p>
 </li>
-<li><p>核心区别：存储元不一样</p>
+<li>
+<p>核心区别：存储元不一样</p>
 </li>
 </ul>
-<h3 id="3-1-DRAM刷新"><a href="#3-1-DRAM刷新" class="headerlink" title="3.1 DRAM刷新"></a>3.1 DRAM刷新</h3><ul>
-<li><p>刷新的概念</p>
+<h3 id="3-1-DRAM刷新">3.1 DRAM刷新</h3>
 <ul>
-<li><p>刷新一次的时间间隔：</p>
+<li>
+<p>刷新的概念</p>
+<ul>
+<li>
+<p>刷新一次的时间间隔：</p>
 <p>DRAM使用的电容存储信息，大概2ms后信息会消失，所以DRAM每2ms就需要刷新一次。</p>
 </li>
-<li><p>每次刷新多少个存储单元：</p>
+<li>
+<p>每次刷新多少个存储单元：</p>
 <p>由于DRAM存储器需要刷新，如果我们有20根选线，就有2^20 = 1M根选线。如果全部接在一个译码器，难度会很大。</p>
 <p>此时我们把这个译码器拆分成两个，为（行地址译码器）和（列地址译码器），每个译码器只需要处理一半的地址，即2^10 = 1k = 1024根选线，这样就可以把存储单元排列成2^{n/2} x 2^{n/2}的存储单元<strong>矩阵</strong>。</p>
 <p><strong>使用行列地址可以减少选通线的数量</strong></p>
 </li>
 </ul>
 </li>
-<li><p>如何刷新？</p>
+<li>
+<p>如何刷新？</p>
 <p>所以每次刷新的时候，以行为单位，<strong>每次刷新一行存储单元</strong>。</p>
 <p>这里有硬件的支持，由存储器独立完成，不需要CPU控制。</p>
 <p>读出一行的信息之后就重新写入。</p>
 <p>由于刷新一次类似于一次读操作，所以时间上占用一个读或写周期。</p>
 </li>
-<li><p>刷新的思路</p>
+<li>
+<p>刷新的思路</p>
 <ul>
-<li><p>思路一，分散刷新：</p>
+<li>
+<p>思路一，分散刷新：</p>
 <p>每次读写完都刷新一行</p>
 </li>
-<li><p>思路二，集中刷新：</p>
+<li>
+<p>思路二，集中刷新：</p>
 <p>2ms内集中安排一块时间全部刷新。那就会出现有一段时间专门用于刷新，无法访问存储器，称为访存 “死区”。</p>
 </li>
-<li><p>思路三，异步刷新：</p>
+<li>
+<p>思路三，异步刷新：</p>
 <p>2ms内每行刷新一次即可，那每隔2ms就会出现一次 “死时间”（可以理解为分散了死区），在这期间，CPU无法访问。<strong>可以在译码阶段刷新</strong>。</p>
 </li>
 </ul>
 </li>
-<li><p>送行列地址：</p>
+<li>
+<p>送行列地址：</p>
 <ul>
 <li>因为DRAM使用了两个译码器，所以我们使用<strong>地址线复用技术</strong>，也就是说，每次传输一半的地址给其中一个译码器即可先接受行地址，再接受列地址，分两次传输地址，给两个译码器。我们就可以减少一半的地址线，芯片引脚也会更少。</li>
 <li>SRAM因为集成度更低，所以地址我们同时传输即可</li>
 </ul>
 </li>
-<li><p>现在主存芯片通常使用<code>SDRAM</code>芯片，</p>
+<li>
+<p>现在主存芯片通常使用<code>SDRAM</code>芯片，</p>
 </li>
 </ul>
-<h2 id="四、只读存储器ROM"><a href="#四、只读存储器ROM" class="headerlink" title="四、只读存储器ROM"></a>四、只读存储器ROM</h2><p>RAM芯片断电后数据会消失（易失性的），而：</p>
+<h2 id="四、只读存储器ROM">四、只读存储器ROM</h2>
+<p>RAM芯片断电后数据会消失（易失性的），而：</p>
 <p>ROM芯片，断电后数据不会消失（非易失性的）。</p>
 <p>ROM还可以细分为：<code>MROM</code>、<code>PROM</code>、<code>EPROM</code>、<code>flash闪存</code>、 <code>SSD</code></p>
 <p>很多ROM也具有 “随机存储” 特性。</p>
-<h3 id="1、MROM"><a href="#1、MROM" class="headerlink" title="1、MROM"></a>1、MROM</h3><p>MROM（Mask Read Only Memory），掩模式只读寄存器</p>
+<h3 id="1、MROM">1、MROM</h3>
+<p>MROM（Mask Read Only Memory），掩模式只读寄存器</p>
 <p>由厂家直接写入信息，只能读出，之后任何人<strong>不可重写</strong></p>
 <p>可靠性高、灵活性差、生产周期长，只适合批量生产</p>
-<h3 id="2、PROM"><a href="#2、PROM" class="headerlink" title="2、PROM"></a>2、PROM</h3><p>PROM（Programmable Read Only Memory），可编程只读存储器</p>
+<h3 id="2、PROM">2、PROM</h3>
+<p>PROM（Programmable Read Only Memory），可编程只读存储器</p>
 <p>用户可以用专门的软件写入信息，<strong>写一次之后就不可更改</strong></p>
-<h3 id="3、EPROM"><a href="#3、EPROM" class="headerlink" title="3、EPROM"></a>3、EPROM</h3><p>EPROM（Erasable Programmable Read Only Memory）</p>
+<h3 id="3、EPROM">3、EPROM</h3>
+<p>EPROM（Erasable Programmable Read Only Memory）</p>
 <p>允许用户写入信息，之后可以擦除数据，可进行多次重写</p>
-<h3 id="4、UVEPROM"><a href="#4、UVEPROM" class="headerlink" title="4、UVEPROM"></a>4、UVEPROM</h3><p>UVEPROM（Ultraviolet rays），可以使用紫外线照射8-20分钟，擦除<strong>所有</strong>信息</p>
-<h3 id="5、EEPROM"><a href="#5、EEPROM" class="headerlink" title="5、EEPROM"></a>5、EEPROM</h3><p>第一个E表示的是Electrically，也就是说，可以使用电擦除，擦除<strong>特定</strong>的字。</p>
-<h3 id="6、FLASH-MEMORY"><a href="#6、FLASH-MEMORY" class="headerlink" title="6、FLASH MEMORY"></a>6、FLASH MEMORY</h3><p>Flash Memory，闪速存储器（比如U盘、sd卡），从<code>EEPROM</code>发展来的。断电后可以保存信息，且<strong>可以进行多次快速擦除重写</strong>。</p>
+<h3 id="4、UVEPROM">4、UVEPROM</h3>
+<p>UVEPROM（Ultraviolet rays），可以使用紫外线照射8-20分钟，擦除<strong>所有</strong>信息</p>
+<h3 id="5、EEPROM">5、EEPROM</h3>
+<p>第一个E表示的是Electrically，也就是说，可以使用电擦除，擦除<strong>特定</strong>的字。</p>
+<h3 id="6、FLASH-MEMORY">6、FLASH MEMORY</h3>
+<p>Flash Memory，闪速存储器（比如U盘、sd卡），从<code>EEPROM</code>发展来的。断电后可以保存信息，且<strong>可以进行多次快速擦除重写</strong>。</p>
 <p>由于闪存需要先电擦除再写入，所以闪存的 “写” 要比 “读” 来的更慢。</p>
 <p>每个存储元只需要一个MOS管，位密度要比<code>RAM</code>高。</p>
-<h3 id="7、SSD固态硬盘"><a href="#7、SSD固态硬盘" class="headerlink" title="7、SSD固态硬盘"></a>7、SSD固态硬盘</h3><p>由控制单元+存储单元（flash）组成。</p>
+<h3 id="7、SSD固态硬盘">7、SSD固态硬盘</h3>
+<p>由控制单元+存储单元（flash）组成。</p>
 <p>与闪存的核心区别在于：控制单元不一样。</p>
 <p>但是由于存储介质类似，<strong>可以进行多次快速擦除重写</strong>。</p>
 <p>SSD速度快、功耗低、价格高，目前个人电脑常用SSD取代传统的机械硬盘。</p>
 <p>手机辅存也是用的FLASH芯片。相比SSD使用的芯片，集成度高，功耗低，价格贵</p>
-<h2 id="五、计算机内重要的ROM"><a href="#五、计算机内重要的ROM" class="headerlink" title="五、计算机内重要的ROM"></a>五、计算机内重要的ROM</h2><pre class="mermaid">graph TB
+<h2 id="五、计算机内重要的ROM">五、计算机内重要的ROM</h2>
+<pre class="mermaid">graph TB
 subgraph 主机
 A[主存RAM //+ROM] 
 subgraph CPU
-    B(运算器)
-    C(控制器)
+	B(运算器)
+	C(控制器)
 end
 end</pre>
-
 <p>CPU的任务是到<strong>主存</strong>中取指令，然后去运行。主存RAM中存放着指令与数据。而断电后，RAM数据全部丢失。</p>
 <p>所以CPU开机的时候，里头是没有存放指令的。需要把操作系统、应用程序相关的<strong>指令、数据</strong>，重新调入主存。</p>
 <p>而我们知道，操作系统是安装在<strong>辅存</strong>里面的。如何开机，也是需要CPU执行开机指令。但此时CPU里头完全没有指令。</p>
@@ -773,8 +827,10 @@ end</pre>
 <li>主板上BIOS芯片（ROM)，存储了<strong>自举装入程序</strong>，负责引导装入操作系统（开机）</li>
 </ul>
 <p>逻辑上来说，主存由RAM（内存）+ROM（BIOS）组成，且二者通常统一编址。<strong>主板上ROM也是 “主存” 的一部分</strong>。</p>
-<h2 id="六、双端口RAM-amp-多模块存储器"><a href="#六、双端口RAM-amp-多模块存储器" class="headerlink" title="六、双端口RAM & 多模块存储器"></a>六、双端口RAM &amp; 多模块存储器</h2><ul>
-<li><p>存取周期：存取（启动存取 -&gt; 存取完）的时间 + 恢复（存取完 + 下次存取之前）的时间</p>
+<h2 id="六、双端口RAM-多模块存储器">六、双端口RAM &amp; 多模块存储器</h2>
+<ul>
+<li>
+<p>存取周期：存取（启动存取 -&gt; 存取完）的时间 + 恢复（存取完 + 下次存取之前）的时间</p>
 <p>也可以表示成：可以连续读写的最短时间间隔</p>
 <ul>
 <li>注：DRAM的恢复时间比较长，有可能会是存取时间的几倍（SRAM的恢复时间比较短）</li>
@@ -783,29 +839,36 @@ end</pre>
 </ul>
 <p>每次读取完数据，都需要一段时间恢复。如果此时多核CPU都需要访存，那是不是每个CPU都需要等待RAM的恢复时间，才能进行下一次的存取？且即使是单核CPU，读写数据的速度比主存快很多，主存恢复时间太长了该怎么办？</p>
 <p>这里就使用到双端口存储器</p>
-<h3 id="6-1-双端口RAM"><a href="#6-1-双端口RAM" class="headerlink" title="6.1 双端口RAM"></a>6.1 双端口RAM</h3><ul>
-<li><p>作用：<strong>优化多核CPU访问一根内存条的速度</strong>，可以通过两个端口</p>
+<h3 id="6-1-双端口RAM">6.1 双端口RAM</h3>
+<ul>
+<li>
+<p>作用：<strong>优化多核CPU访问一根内存条的速度</strong>，可以通过两个端口</p>
 </li>
-<li><p>需要有两组完全独立的数据线、地址线、控制线</p>
+<li>
+<p>需要有两组完全独立的数据线、地址线、控制线</p>
 </li>
-<li><p>两个端口同时操作主存时：</p>
+<li>
+<p>两个端口同时操作主存时：</p>
 <ul>
 <li>两个端口同时对不同的地址单元存数据</li>
 <li>两个端口同时对同一个地址单元读出数据</li>
 <li>两个端口同时对同一个地址单元写入数据（会造成写入错误）</li>
 <li>两个端口同时对同一个地址单元，一个写入，一个读出（会造成读出错误）</li>
-<li>解决方案：<ul>
+<li>解决方案：
+<ul>
 <li>把<code>busy</code>信号置0，由判断逻辑决定暂时关闭一个端口（被延时），未被关闭的端口正常访问，被关闭的端口延长很小一段时间后可以再次访问。</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="6-2-多体并行存储器"><a href="#6-2-多体并行存储器" class="headerlink" title="6.2 多体并行存储器"></a>6.2 多体并行存储器</h3><p>CPU读写速度比内存快很多，而内存每次读写过后，需要一段恢复的时间。当CPU需要连续读取的时候，就必须等待内存的恢复时间。所以可以用上多体并行存储器</p>
+<h3 id="6-2-多体并行存储器">6.2 多体并行存储器</h3>
+<p>CPU读写速度比内存快很多，而内存每次读写过后，需要一段恢复的时间。当CPU需要连续读取的时候，就必须等待内存的恢复时间。所以可以用上多体并行存储器</p>
 <p>多体并行存储器可以理解为使用了多个存储体（每个内存条大小一致，<strong>假设我们使用四个存储体</strong>）</p>
 <p>CPU访存的时候，一定需要一个地址。有以下两种编址模式</p>
 <ul>
-<li><p>高位交叉编址的多体存储器</p>
+<li>
+<p>高位交叉编址的多体存储器</p>
 <p><img src="https://s2.loli.net/2022/05/14/lQFVykqaizZ2C78.png" alt="高位多体并行存储器原理图"></p>
 <p>假设说我们用的八位地址，那我们就会用<strong>最高位</strong>来区分我存在第几个存储体里（比如最高两比特位共有四种状态）</p>
 <ul>
@@ -815,33 +878,46 @@ end</pre>
 <li>CPU总是按顺序访问存储模块，各个模块不能被并行访问，所以不能提高存储器的吞吐率</li>
 </ul>
 </li>
-<li><p>低位交叉编址的多体存储器</p>
+<li>
+<p>低位交叉编址的多体存储器</p>
 <p><img src="https://s2.loli.net/2022/05/14/SN7A3Kc5rlZDvXW.png" alt="低位多体并行存储器原理图"></p>
 <p>假设说我们用的八位地址，那我们就会用<strong>最低位</strong>来区分我存在第几个存储体里（比如最低两比特位共有四种状态）</p>
 <ul>
-<li><p>看图可知，每个模块按照 “模m” 交叉编址，<strong>模块号 = 单元地址 % m</strong>。</p>
+<li>
+<p>看图可知，每个模块按照 “模m” 交叉编址，<strong>模块号 = 单元地址 % m</strong>。</p>
 </li>
-<li><p>低位交叉方式下，总是把高位的体内地址送到由低位体号确定的模块内进行译码。程序连续放在相邻的模块中，因此称这种编址方式的存储器叫<strong>交叉存储器</strong>。可以在不改变每个模块存储周期的前提下，使用流水线并行存取，提高存储器的带宽。</p>
+<li>
+<p>低位交叉方式下，总是把高位的体内地址送到由低位体号确定的模块内进行译码。程序连续放在相邻的模块中，因此称这种编址方式的存储器叫<strong>交叉存储器</strong>。可以在不改变每个模块存储周期的前提下，使用流水线并行存取，提高存储器的带宽。</p>
 <ul>
-<li>如果单模块存取周期为T，总线传送周期为r，实现流水线存储，**存储器交叉模块数m(交叉存储度)  应该大于等于<code>T/r</code>**。以保证启动某个模块后的<code>m*r</code>的时间内要再次启动模块的时候，这个模块已经存取完毕，并已经度过了内存的恢复时间。</li>
+<li>如果单模块存取周期为T，总线传送周期为r，实现流水线存储，<strong>存储器交叉模块数m(交叉存储度)  应该大于等于<code>T/r</code></strong>。以保证启动某个模块后的<code>m*r</code>的时间内要再次启动模块的时候，这个模块已经存取完毕，并已经度过了内存的恢复时间。</li>
 <li>存取周期为T，存取时间为r，为了流水线不间断，保证模块数量为<code>m&gt;=T/r</code>。</li>
 </ul>
 </li>
-<li><p>这样下来，连续存取m个字所需要的时间为:<br>$$<br>t1 = T + (m-1)r<br>$$</p>
+<li>
+<p>这样下来，连续存取m个字所需要的时间为:<br>
+$$<br>
+t1 = T + (m-1)r<br>
+$$</p>
 </li>
-<li><p>而顺序方式连续读取m个字所需要的时间为：<br>$$<br>t2 = mT<br>$$</p>
+<li>
+<p>而顺序方式连续读取m个字所需要的时间为：<br>
+$$<br>
+t2 = mT<br>
+$$</p>
 </li>
-<li><p>综上所述，低位交叉存储器的带宽得到了大幅度的提高（如下图）</p>
+<li>
+<p>综上所述，低位交叉存储器的带宽得到了大幅度的提高（如下图）</p>
 </li>
 </ul>
 </li>
 </ul>
 <p><img src="https://s2.loli.net/2022/05/14/Wfg1po5J3sv67Od.png" alt="低位交叉编址甘特图"></p>
 <p>类似数组等等数据，或者编写的指令代码，其数据存放方式就是连续的存储（除了指令跳转部分）。所以连续存取的速度提升对于计算机来说很有意义。</p>
-<h3 id="6-3-单体多字存储器"><a href="#6-3-单体多字存储器" class="headerlink" title="6.3 单体多字存储器"></a>6.3 单体多字存储器</h3><p>多体并行存储器就是，每个模块都有相同的容量和存储速度，是互相独立的。CPU可以自由选择在哪个存储体的哪个位置读取数据。</p>
+<h3 id="6-3-单体多字存储器">6.3 单体多字存储器</h3>
+<p>多体并行存储器就是，每个模块都有相同的容量和存储速度，是互相独立的。CPU可以自由选择在哪个存储体的哪个位置读取数据。</p>
 <p>各个模块都有独立的读写控制电路、地址寄存器和数据寄存器等等。可以<strong>并行、交叉</strong>地工作。</p>
 <p>单体多字存储器相当于做了一个合并。共用一套读写控制电路、地址控制器和数据寄存器（类似位拓展）。</p>
-<p><img src="https://s2.loli.net/2022/05/15/BsiGhIDR1wzo8yc.png"></p>
+<p><img src="https://s2.loli.net/2022/05/15/BsiGhIDR1wzo8yc.png" alt=""></p>
 <p>每次可以读取一整行的数据</p>
 <p>设每个存储单元，存储m个字</p>
 <p>总线宽度也为m个字</p>
@@ -1741,7 +1817,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             

@@ -515,8 +515,10 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="SLAM-3-5-Sophus实践"><a href="#SLAM-3-5-Sophus实践" class="headerlink" title="SLAM 3.5 Sophus实践"></a>SLAM 3.5 Sophus实践</h1><p>前面理论讲述了很多，这里针对李群李代数部分做一个代码开发的补充</p>
-<h2 id="一、Sophus基础"><a href="#一、Sophus基础" class="headerlink" title="一、Sophus基础"></a>一、Sophus基础</h2><p>前面配置环境的时候，我们就有安装一个Sophus库。李代数最早提出的是Sophus Lie，所以这个库就叫做Sophus了。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>SLAM 3.5 Sophus实践</h1>
+<p>前面理论讲述了很多，这里针对李群李代数部分做一个代码开发的补充</p>
+<h2 id="一、Sophus基础">一、Sophus基础</h2>
+<p>前面配置环境的时候，我们就有安装一个Sophus库。李代数最早提出的是Sophus Lie，所以这个库就叫做Sophus了。</p>
 <p>由于Eigen提供了很不错的几何模块，但没有提供李群李代数的支持，而这个Sophus库就支持。他是直接基于Eigen库开发的，所以不需要额外的依赖库了。</p>
 <p>以下案例的头文件使用如下：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
@@ -527,7 +529,6 @@
 
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> Eigen<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
 <li>声明一个旋转向量，并展示其旋转后的结果：</li>
 </ul>
@@ -544,7 +545,6 @@ Sophus<span class="token double-colon punctuation">::</span>SO3d <span class="to
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SO(3) from matrix:\n"</span> <span class="token operator">&lt;&lt;</span> SO3_R<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SO(3) from quaternion:\n"</span> <span class="token operator">&lt;&lt;</span> SO3_q<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"they are equal"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>输出效果</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SO(3) from matrix:
@@ -567,7 +567,6 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"so
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"so3 hat=\n"</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>so3<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token comment">// 相对的，vee为反对称到向量</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"so3 hat vee= "</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">vee</span><span class="token punctuation">(</span>Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>so3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>输出结果：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">so3 =      0      0 1.5708
@@ -584,7 +583,6 @@ so3 hat vee=      0      0 1.5708<span aria-hidden="true" class="line-numbers-ro
 Vector3d <span class="token function">update_so3</span><span class="token punctuation">(</span><span class="token number">1e-4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//假设更新量为这么多</span>
 Sophus<span class="token double-colon punctuation">::</span>SO3d SO3_updated <span class="token operator">=</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SO3d</span><span class="token double-colon punctuation">::</span><span class="token function">exp</span><span class="token punctuation">(</span>update_so3<span class="token punctuation">)</span> <span class="token operator">*</span> SO3_R<span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SO3 updated = \n"</span> <span class="token operator">&lt;&lt;</span> SO3_updated<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>输出结果：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SO3 updated = 
@@ -612,7 +610,6 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"se
 <span class="token comment">// 同样的，有hat和vee两个算符</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"se3 hat = \n"</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>se3<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"se3 hat vee = "</span> <span class="token operator">&lt;&lt;</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">vee</span><span class="token punctuation">(</span>Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">hat</span><span class="token punctuation">(</span>se3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">transpose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>输出效果：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SE3 from R,t= 
@@ -642,7 +639,6 @@ update_se3<span class="token punctuation">.</span><span class="token function">s
 <span class="token function">update_se3</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">1e-4</span><span class="token punctuation">;</span>
 Sophus<span class="token double-colon punctuation">::</span>SE3d SE3_updated <span class="token operator">=</span> Sophus<span class="token double-colon punctuation">::</span><span class="token class-name">SE3d</span><span class="token double-colon punctuation">::</span><span class="token function">exp</span><span class="token punctuation">(</span>update_se3<span class="token punctuation">)</span> <span class="token operator">*</span> SE3_Rt<span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SE3 updated = "</span> <span class="token operator">&lt;&lt;</span> endl <span class="token operator">&lt;&lt;</span> SE3_updated<span class="token punctuation">.</span><span class="token function">matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <blockquote>
 <p>输出效果：</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">SE3 updated = 
@@ -651,8 +647,9 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SE
           0           0           1           0
           0           0           0           1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
-<h2 id="二、使用Sophus评估轨迹误差"><a href="#二、使用Sophus评估轨迹误差" class="headerlink" title="二、使用Sophus评估轨迹误差"></a>二、使用Sophus评估轨迹误差</h2><p>实际工程中，需要评估一个算法的<strong>估计轨迹与真实轨迹的差异</strong>来评价算法的精度。</p>
-<p><strong>真实轨迹</strong>Ground Truth往往是通过某些更高精度的系统获得<strong>，</strong></p>
+<h2 id="二、使用Sophus评估轨迹误差">二、使用Sophus评估轨迹误差</h2>
+<p>实际工程中，需要评估一个算法的<strong>估计轨迹与真实轨迹的差异</strong>来评价算法的精度。</p>
+<p><strong>真实轨迹</strong>Ground Truth往往是通过某些更高精度的系统获得**，**</p>
 <p><strong>估计轨迹</strong>是通过待评价算法的计算得到。</p>
 <p>如何计算两条轨迹的误差？</p>
 <hr>
@@ -661,22 +658,30 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"SE
 <ol>
 <li>常见的<strong>绝对轨迹误差（Absolute Trajectory Error，ATE）</strong></li>
 </ol>
-<p>$$<br>\mathbf{ATE}_{all}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\| \log(T_{gt,i}^{-1}T_{esti,i}) \right\|_2^2}<br>$$</p>
+<p>$$<br>
+\mathbf{ATE}_{all}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\| \log(T_{gt,i}^{-1}T_{esti,i}) \right\|_2^2}<br>
+$$</p>
 <p>实际上是计算<strong>每个位姿李代数的均方根误差（Root-Mean-Squared Error，RMSE）</strong>，可以刻画两条估计的旋转和平移误差。</p>
 <ol start="2">
 <li><strong>考虑平移误差</strong>的，定义<strong>绝对平移误差（Absolute Translational Error）</strong></li>
 </ol>
-<p>$$<br>\mathbf{ATE}_{trans}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\| trans(T_{gt,i}^{-1}T_{esti,i}) \right\|_2^2}<br>$$</p>
+<p>$$<br>
+\mathbf{ATE}_{trans}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\| trans(T_{gt,i}^{-1}T_{esti,i}) \right\|_2^2}<br>
+$$</p>
 <p>式子中tran 函数表示取括号中元素的平移部分。从整条轨迹上看，</p>
 <ol start="3">
-<li>还可以定义相对误差，仅考虑i时刻到i+△t时刻的运动，那么<strong>相对位姿误差（Relative Pose Error，RPE）</strong>可以定义为</li>
+<li>还可以定义相对误差，仅考虑i时刻到i+△t时刻的运动，那么**相对位姿误差（Relative Pose Error，RPE）**可以定义为</li>
 </ol>
-<p>$$<br>\mathbf{RPE}_{all}=\sqrt{\frac{1}{N-\Delta t}\sum_{i=1}^{N-\Delta t}\left\| \log\left( (T_{gt,i}^{-1}T_{gt,i+\Delta t})^{-1}(T_{esti,i}^{-1}T_{esti,i+\Delta t})\right)^\vee \right\|_2^2}<br>$$</p>
+<p>$$<br>
+\mathbf{RPE}_{all}=\sqrt{\frac{1}{N-\Delta t}\sum_{i=1}^{N-\Delta t}\left\| \log\left( (T_{gt,i}^{-1}T_{gt,i+\Delta t})^{-1}(T_{esti,i}^{-1}T_{esti,i+\Delta t})\right)^\vee \right\|_2^2}<br>
+$$</p>
 <ol start="4">
 <li>同样的，也可以只取平移部分：</li>
 </ol>
-<p>$$<br>\mathbf{RPE}_{trans}=\sqrt{\frac{1}{N-\Delta t}\sum_{i=1}^{N-\Delta t}\left\| trans\left( (T_{gt,i}^{-1}T_{gt,i+\Delta t})^{-1}(T_{esti,i}^{-1}T_{esti,i+\Delta t})\right)^\vee \right\|_2^2}<br>$$</p>
-<p>使用Sophus李代数库可以实现这部分轨迹误差的评估。首先需要准备数据，这里使用SLAM十四讲源码中已经给出了真实轨迹 groundtruth.txt 和 估计轨迹 estimate.txt，下面读取两条轨迹数据后，通过Sophus计算轨迹间误差，然后显示在Pangolin窗口中。 </p>
+<p>$$<br>
+\mathbf{RPE}_{trans}=\sqrt{\frac{1}{N-\Delta t}\sum_{i=1}^{N-\Delta t}\left\| trans\left( (T_{gt,i}^{-1}T_{gt,i+\Delta t})^{-1}(T_{esti,i}^{-1}T_{esti,i+\Delta t})\right)^\vee \right\|_2^2}<br>
+$$</p>
+<p>使用Sophus李代数库可以实现这部分轨迹误差的评估。首先需要准备数据，这里使用SLAM十四讲源码中已经给出了真实轨迹 groundtruth.txt 和 估计轨迹 estimate.txt，下面读取两条轨迹数据后，通过Sophus计算轨迹间误差，然后显示在Pangolin窗口中。</p>
 <p>所需前置定义的一些内容：</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fstream&gt;</span></span>
@@ -693,7 +698,6 @@ string estimated_file <span class="token operator">=</span> <span class="token s
 
 <span class="token keyword">void</span> <span class="token function">DrawTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>gt<span class="token punctuation">,</span> <span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>esti<span class="token punctuation">)</span><span class="token punctuation">;</span>
 TrajectoryType <span class="token function">ReadTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>初始化SE(3)</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">TrajectoryType <span class="token function">ReadTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   ifstream <span class="token function">fin</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//打开轨迹数据文件</span>
@@ -713,9 +717,9 @@ TrajectoryType <span class="token function">ReadTrajectory</span><span class="to
   <span class="token punctuation">}</span>
   <span class="token keyword">return</span> trajectory<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <ul>
-<li><p>计算</p>
+<li>
+<p>计算</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//定义一个特殊欧式群SE(3)的vector容器，并取个别名</span>
 <span class="token keyword">typedef</span> vector<span class="token operator">&lt;</span>Sophus<span class="token double-colon punctuation">::</span>SE3d<span class="token punctuation">,</span> Eigen<span class="token double-colon punctuation">::</span>aligned_allocator<span class="token operator">&lt;</span>Sophus<span class="token double-colon punctuation">::</span>SE3d<span class="token operator">&gt;&gt;</span> TrajectoryType<span class="token punctuation">;</span>
 
@@ -751,7 +755,8 @@ TrajectoryType <span class="token function">ReadTrajectory</span><span class="to
   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>绘制Pangolin</p>
+<li>
+<p>绘制Pangolin</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">DrawTrajectory</span><span class="token punctuation">(</span><span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>gt<span class="token punctuation">,</span> <span class="token keyword">const</span> TrajectoryType <span class="token operator">&amp;</span>esti<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment">// 创建一个名为Trajectory Viewer的3D可视化窗口，大小为1024 x 768</span>
   pangolin<span class="token double-colon punctuation">::</span><span class="token function">CreateWindowAndBind</span><span class="token punctuation">(</span><span class="token string">"Trajectory Viewer"</span><span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token number">768</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -820,9 +825,8 @@ TrajectoryType <span class="token function">ReadTrajectory</span><span class="to
     <span class="token function">usleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <p>效果：</p>
-<p><img src="https://s2.loli.net/2023/01/16/6u5cFt2ITHRaB7h.png"></p>
+<p><img src="https://s2.loli.net/2023/01/16/6u5cFt2ITHRaB7h.png" alt=""></p>
 </li>
 </ul>
 
@@ -1690,7 +1694,7 @@ $(function () {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">119.3k</span>
+                        class="white-color">121.8k</span>
             
             
             
