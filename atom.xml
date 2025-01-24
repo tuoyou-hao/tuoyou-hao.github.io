@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2023-08-31T10:11:17.083Z</updated>
+  <updated>2024-10-24T06:01:04.704Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,81 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Gazebo VMware Libcurl 报错</title>
+    <link href="http://tuoyou-hao.github.io/2024/10/17/error-gazebo-ssl-vmware/"/>
+    <id>http://tuoyou-hao.github.io/2024/10/17/error-gazebo-ssl-vmware/</id>
+    <published>2024-10-17T00:05:01.000Z</published>
+    <updated>2024-10-24T06:01:04.704Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;Gazebo-VMware-libcurl-报错&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="报错排查" scheme="http://tuoyou-hao.github.io/categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/"/>
+    
+    
+    <category term="Linux" scheme="http://tuoyou-hao.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PowerShell禁止运行脚本</title>
+    <link href="http://tuoyou-hao.github.io/2024/10/10/error-hexos/"/>
+    <id>http://tuoyou-hao.github.io/2024/10/10/error-hexos/</id>
+    <published>2024-10-10T14:04:11.000Z</published>
+    <updated>2024-10-10T14:12:11.097Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;hexo-PowerShell禁止运行脚本&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="报错排查" scheme="http://tuoyou-hao.github.io/categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/"/>
+    
+    
+    <category term="Powershell" scheme="http://tuoyou-hao.github.io/tags/Powershell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 十三、ROS手柄通信</title>
+    <link href="http://tuoyou-hao.github.io/2024/10/10/ros-13-melodic2joy/"/>
+    <id>http://tuoyou-hao.github.io/2024/10/10/ros-13-melodic2joy/</id>
+    <published>2024-10-10T07:32:02.000Z</published>
+    <updated>2024-10-10T13:51:20.253Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;ROS-十三、ROS手柄通信&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
+    
+  </entry>
   
   <entry>
     <title>电脑虚拟环境切换</title>
@@ -449,84 +524,6 @@
     
     
     <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROS 十二、认识并安装ROS2</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/09/ros-12-ros2-intro-install/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/09/ros-12-ros2-intro-install/</id>
-    <published>2022-08-09T09:30:03.000Z</published>
-    <updated>2022-08-21T08:51:50.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;ROS 12：引入ROS2&lt;/h1&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="环境搭建" scheme="http://tuoyou-hao.github.io/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-    
-    <category term="环境搭建" scheme="http://tuoyou-hao.github.io/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows设置汇总</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/08/win1011_setting_summary/</id>
-    <published>2022-08-08T15:56:10.000Z</published>
-    <updated>2023-04-29T09:48:43.765Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;Window</summary>
-        
-      
-    
-    
-    
-    <category term="计算机知识" scheme="http://tuoyou-hao.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/"/>
-    
-    
-    <category term="Windows" scheme="http://tuoyou-hao.github.io/tags/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROS 十一、命名空间</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/08/ros-11-namespace/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/08/ros-11-namespace/</id>
-    <published>2022-08-08T07:32:02.000Z</published>
-    <updated>2022-08-21T08:51:46.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;ROS 十一:</summary>
-        
-      
-    
-    
-    
-    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="ROS" scheme="http://tuoyou-hao.github.io/tags/ROS/"/>
     
   </entry>
   
