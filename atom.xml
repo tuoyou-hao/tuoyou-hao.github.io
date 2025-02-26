@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2024-10-24T06:01:04.704Z</updated>
+  <updated>2025-02-26T09:37:09.718Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pip 缺少模块无法安装的问题</title>
+    <link href="http://tuoyou-hao.github.io/2025/02/26/error-pip-no-inject_securetransport/"/>
+    <id>http://tuoyou-hao.github.io/2025/02/26/error-pip-no-inject_securetransport/</id>
+    <published>2025-02-25T16:17:30.000Z</published>
+    <updated>2025-02-26T09:37:09.718Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="报错排查" scheme="http://tuoyou-hao.github.io/categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/"/>
+    
+    
+    <category term="pip" scheme="http://tuoyou-hao.github.io/tags/pip/"/>
+    
+  </entry>
   
   <entry>
     <title>Gazebo VMware Libcurl 报错</title>
@@ -483,31 +508,6 @@
     <id>http://tuoyou-hao.github.io/2022/08/13/cuda-2-1-CUDA-model-and-memory-allocation/</id>
     <published>2022-08-13T10:00:11.000Z</published>
     <updated>2022-08-15T07:12:54.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;CUDA</summary>
-        
-      
-    
-    
-    
-    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CUDA 1：并行基础概念</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/11/cuda-1-intro/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/11/cuda-1-intro/</id>
-    <published>2022-08-10T16:17:11.000Z</published>
-    <updated>2022-08-10T16:19:00.000Z</updated>
     
     
       

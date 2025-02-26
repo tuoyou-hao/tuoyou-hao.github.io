@@ -1,1 +1,1 @@
-http://tuoyou-hao.github.io/2024/10/17/error-gazebo-ssl-vmware/
+http://tuoyou-hao.github.io/2025/02/26/error-pip-no-inject_securetransport/

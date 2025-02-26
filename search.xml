@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Pip 缺少模块无法安装的问题</title>
+      <link href="/2025/02/26/error-pip-no-inject_securetransport/"/>
+      <url>/2025/02/26/error-pip-no-inject_securetransport/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="No-module-named-‘pip-internal-utils-inject-securetransport’"><a href="#No-module-named-‘pip-internal-utils-inject-securetransport’" class="headerlink" title="No module named ‘pip._internal.utils.inject_securetransport’"></a>No module named ‘pip._internal.utils.inject_securetransport’</h1><p>在使用conda的python创建新环境后，使用pip安装内容【python3.8.20】的时候，我出现过以下问题：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">(vqvae) D:\1_thu_homework\airobot-lab\vqvae&gt;pip install -r requirements.txtTraceback (most recent call last):  File "C:\Users\ASUS\.conda\envs\vqvae\Scripts\pip-script.py", line 6, in &lt;module&gt;    from pip._internal.cli.main import main  File "C:\Users\ASUS\.conda\envs\vqvae\lib\site-packages\pip\_internal\__init__.py", line 3, in &lt;module&gt;    import pip._internal.utils.inject_securetransport  # noqaModuleNotFoundError: No module named 'pip._internal.utils.inject_securetransport'(vqvae) D:\1_thu_homework\airobot-lab\vqvae&gt;python -m pip install --upgrade pipTraceback (most recent call last):  File "C:\Users\ASUS\.conda\envs\vqvae\lib\runpy.py", line 194, in _run_module_as_main    return _run_code(code, main_globals, None,  File "C:\Users\ASUS\.conda\envs\vqvae\lib\runpy.py", line 87, in _run_code    exec(code, run_globals)  File "C:\Users\ASUS\.conda\envs\vqvae\lib\site-packages\pip\__main__.py", line 29, in &lt;module&gt;    from pip._internal.cli.main import main as _main  File "C:\Users\ASUS\.conda\envs\vqvae\lib\site-packages\pip\_internal\__init__.py", line 3, in &lt;module&gt;    import pip._internal.utils.inject_securetransport  # noqaModuleNotFoundError: No module named 'pip._internal.utils.inject_securetransport'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>核心的问题就是pip的模块不见了，所以需要重新安装pip。</p><p>网上找到了靠谱的解决方法：</p><p>输入下列指令：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python -m ensurepip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python get-pip.py --force-reinstall<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>一般在此刻就可以解决问题了，如果你出现了类似下列问题：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">(vqvae) D:\1_thu_homework\airobot-lab\vqvae&gt;pip install -r requirements.txtLooking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.comCollecting certifi==2019.3.9 (from -r requirements.txt (line 1))  Downloading certifi-2019.3.9-py2.py3-none-any.whl.metadata (2.5 kB)Collecting cffi==1.12.3 (from -r requirements.txt (line 2))  Downloading cffi-1.12.3.tar.gz (456 kB)  Preparing metadata (setup.py) ... error  error: subprocess-exited-with-error  × python setup.py egg_info did not run successfully.  │ exit code: 1  ╰─&gt; [1 lines of output]      ERROR: Can not execute `setup.py` since setuptools is not available in the build environment.      [end of output]  note: This error originates from a subprocess, and is likely not a problem with pip.error: metadata-generation-failed× Encountered error while generating package metadata.╰─&gt; See above for output.note: This is an issue with the package mentioned above, not pip.hint: See above for details.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>我的解决方法是重装setuptools：</p><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pip uninstall setuptoolspip install setuptools<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>至此，问题一般可以被解决。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 报错排查 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pip </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Gazebo VMware Libcurl 报错</title>
       <link href="/2024/10/17/error-gazebo-ssl-vmware/"/>
       <url>/2024/10/17/error-gazebo-ssl-vmware/</url>
