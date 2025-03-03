@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Dpkg Error Code 1, JNU CV 拓佑 拓佑豪 tuoyou-hao 江元豪 yuanhao 元豪 拓佑豪的博客">
-    <meta name="description" content="解决Sub-process问题">
+    <meta name="keywords" content="环境搭建,VScode,conda,离线配置">
+    <meta name="description" content="在离线服务器下配置vscode链接和conda环境">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Dpkg Error Code 1 | 拓佑豪的博客</title>
+    <title>VScode服务器离线连接配置 | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -325,12 +325,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Dpkg Error Code 1</h1>
+                    <h1 class="description center-align post-title">VScode服务器离线连接配置</h1>
                 </div>
             </div>
         </div>
@@ -446,8 +446,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="../../../../tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                <span class="chip bg-color">环境搭建</span>
+                            </a>
+                        
+                            <a href="../../../../tags/conda/">
+                                <span class="chip bg-color">conda</span>
                             </a>
                         
                     </div>
@@ -458,8 +462,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="../../../../categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/" class="post-category">
-                                报错排查
+                            <a href="../../../../categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-category">
+                                环境搭建
                             </a>
                         
                     </div>
@@ -471,28 +475,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-01-10
+                    2025-03-03
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-04-29
+                    2025-03-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    224
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    6 分
                 </div>
                 
 
@@ -515,31 +519,154 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1>Sub-process /usr/bin/dpkg returned an error code (1)解决办法</h1>
-<p>安装一些用apt-get下载的程序的时候，我出现过以下问题：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Do you want to continue? [Y/n] 
-Setting up sysstat (11.6.1-1ubuntu0.2) ...
-dpkg: error processing package sysstat (--configure):
- installed sysstat package post-installation script subprocess returned error exit status 10
-Errors were encountered while processing:
- sysstat
-E: Sub-process /usr/bin/dpkg returned an error code (1)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>网上找到了靠谱的解决方法：</p>
-<p>将info文件夹改名：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>新建一个info文件夹</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mkdir /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>安装修复</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo apt-get update
-sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>操作后，info文件夹下会有一些文件，移动一下：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info.bk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>删掉这个新的info文件夹</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo rm -rf /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>恢复原有的info文件夹名称</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">sudo mv /var/lib/dpkg/info.bk /var/lib/dpkg/info<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>到这里，问题已经可以解决了</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="VScode服务器离线连接配置"><a href="#VScode服务器离线连接配置" class="headerlink" title="VScode服务器离线连接配置"></a>VScode服务器离线连接配置</h1><p>VScode提供了两种连接服务器的方法，<code>Remote-SSH</code> 和<code>Remote-Tunnels</code>。其中<code>Remote-SSH</code>是比较常用的类型。本文将介绍如何在  目标计算机无法连上互联网  的情况下，通过  离线部署  的方式让VScode可以远程访问目标计算机。</p>
+<h2 id="一、准备步骤"><a href="#一、准备步骤" class="headerlink" title="一、准备步骤"></a>一、准备步骤</h2><h3 id="1、vscode初始化"><a href="#1、vscode初始化" class="headerlink" title="1、vscode初始化"></a>1、vscode初始化</h3><p>在vscode左侧的扩展按钮（或<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>），搜索插件<code>Remote-SSH</code>，点击Microsoft版本的<code>Remote-SSH</code>并在下载页中进行下载</p>
+<h3 id="2、准备vscode资料"><a href="#2、准备vscode资料" class="headerlink" title="2、准备vscode资料"></a>2、准备vscode资料</h3><p>在顶部菜单栏<kbd>help</kbd>中点选<kbd>about</kbd>，会有一个弹出框，复制其中的<code>Commit</code>项后面的值，形如：<code>abdxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></p>
+<p> <font style="background:yellow">  <span class="github-emoji"><span>⚠</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>这个ID值需手动拷贝，后面提到的所有<code>${commit_id}</code>的部分都需手动更改为您自己的Commit_ID值</font></p>
+<h3 id="3、软件准备（可选）"><a href="#3、软件准备（可选）" class="headerlink" title="3、软件准备（可选）"></a>3、软件准备（可选）</h3><p>建议准备一个FileZilla，便于文件传输</p>
+<p>如果不采用这个软件，则需要使用scp语句进行传输。如果你是使用windows端而非linux，需要在windows端先下载GIT，然后即可使用和ssh，scp相关的指令。scp用法可以参考文末附录</p>
+<h2 id="二、解决方法"><a href="#二、解决方法" class="headerlink" title="二、解决方法"></a>二、解决方法</h2><h3 id="1、下载离线文件并传输至指定位置"><a href="#1、下载离线文件并传输至指定位置" class="headerlink" title="1、下载离线文件并传输至指定位置"></a>1、下载离线文件并传输至指定位置</h3><p>在某次更新后，远端的<code>.vscode-server</code>目录结构变化如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">📦.vscode-server
+ ┣━ 📁bin  # 存放旧方法下的vscode commit相关文件
+ ┃   ┗━ 📁${commit_id1}
+ ┃   ┗━ 📁${commit_id2}
+ ┃   ┗━ ···
+ ┣━ 📁cli  # 存放新方法下的vscode commit相关文件
+ ┃   ┗━ 📁servers
+ ┃   ┃   ┗━ 📁Stable-${commit_id}
+ ┃   ┃   ┃   ┗━ 📁servers
+ ┃   ┃   ┃   ┗━ ···
+ ┃   ┃   ┗━ ···
+ ┃   ┗━ 📜iru.json  # 存放最近的vscode commit_id
+ ┣━ 📜code-${commit_id}  # 存放vscode_cli_alpine_x64_cli.tar.gz解压后名为code的文件,并将其改名为code-${commit_id}
+ ┣━ 📁data
+ ┗━ 📁extensions<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>所以你现在需要手动下载以下文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">x86:
+https://vscode.download.prss.microsoft.com/dbazure/download/stable/<span class="token variable">${commit_id}</span>/vscode-server-linux-x64.tar.gz
+https://vscode.download.prss.microsoft.com/dbazure/download/stable/<span class="token variable">${commit_id}</span>/vscode_cli_alpine_x64_cli.tar.gz
+ 
+arm:
+https://vscode.download.prss.microsoft.com/dbazure/download/stable/<span class="token variable">${commit_id}</span>/vscode-server-linux-arm64.tar.gz
+https://vscode.download.prss.microsoft.com/dbazure/download/stable/<span class="token variable">${commit_id}</span>/vscode_cli_alpine_arm64_cli.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2、传输文件"><a href="#2、传输文件" class="headerlink" title="2、传输文件"></a>2、传输文件</h3><p>需要使用一个终端先和目标计算机建立ssh链接。连接成功后，</p>
+<p>第一个文件: <code>vscode-server-linux-x64.tar.gz</code> 解压后，文件夹名字为 <code>vscode-server-linux-x64</code> ，</p>
+<ul>
+<li><p>需要将该文件夹改名为 <code>server</code> 放在 <code>/home/${user}/.vscode−server/cli/servers/Stable−${commit_id}/</code> 目录下</p>
+</li>
+<li><p>同时这个文件需要解压在<code>/home/${user}/.vscode-server/bin/${commit_id}</code>目录下，执行下列指令创建文件夹，后不再赘述：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> -p /home/<span class="token variable">${user}</span>/.vscode-server/bin/<span class="token variable">${commit_id}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<p>第二个文件: <code>vscode_cli_alpine_x64_cli.tar.gz</code> 解压后，文件名字为<code>code</code> 的文件改名为 <code>code-${commit_id}</code> ，放在<code>/home/${user}/.vscode-server/</code>目录下 </p>
+<blockquote>
+<p>解压指令：<code>tar -zxvf xxx.tar.gz</code></p>
+</blockquote>
+<h3 id="3、创建lru-json文件"><a href="#3、创建lru-json文件" class="headerlink" title="3、创建lru.json文件"></a>3、创建lru.json文件</h3><p>在 <code>~/.vscode-server/cli/servers/</code> 目录下创建 <code>lru.json</code> 文件，内容为：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span><span class="token string">"Stable-${commit_id}"</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这一步确保 VS Code Server 能正确识别离线安装的版本</p>
+<h2 id="三、可能的问题"><a href="#三、可能的问题" class="headerlink" title="三、可能的问题"></a>三、可能的问题</h2><h3 id="1、仍不能连接"><a href="#1、仍不能连接" class="headerlink" title="1、仍不能连接"></a>1、仍不能连接</h3><p> 如果仍然连接不上,则可能需要修改<code>.vscode-server</code>文件夹及其子目录的权限,例如权限改为700,再尝试连接: </p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> -R <span class="token number">700</span> /home/<span class="token variable">${user}</span>/.vscode-server/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="2、检查目录"><a href="#2、检查目录" class="headerlink" title="2、检查目录"></a>2、检查目录</h3><p>检查目录结构是否符合要求，有的错误可能只是文件放的位置错了：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">~/.vscode-server/
+├── bin/<span class="token variable">${commit_id}</span>/
+├── cli/
+│   └── servers/Stable-<span class="token variable">${commit_id}</span>/server
+├── code-<span class="token variable">${commit_id}</span>
+└── extensions/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3、检查日志"><a href="#3、检查日志" class="headerlink" title="3、检查日志"></a>3、检查日志</h3><p>完成上述步骤后，需重新尝试连接服务器。如果仍然出现问题，可以查看服务器端的日志文件（如 <code>~/.vscode-server/cli/servers/Stable-${commit_id}/log.txt</code>）以查看问题具体原因</p>
+<h2 id="四、免密登录"><a href="#四、免密登录" class="headerlink" title="四、免密登录"></a>四、免密登录</h2><p>生成 ssh 使用的公钥/密钥对，需要从客户端上的命令提示符（windows：cmd【需下载GIT】、linux：bash等）运行以下命令</p>
+<pre class="line-numbers language-undefined" data-language="undefined"><code class="language-undefined">ssh-keygen -t rsa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>输入命令执行完成后会生成<code>.ssh</code>文件夹,里面会有这两个文件</p>
+<ul>
+<li><p>id_rsa(私钥)</p>
+</li>
+<li><p>id_rsa.pub(公钥)</p>
+</li>
+</ul>
+<p>在服务器上添加文件夹（需先登录上服务器）<code>mkdir -p ~/.ssh</code></p>
+<p>添加公钥到远程服务器</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">将 SSH 公钥添加到远程服务器
+ssh-copy-id <span class="token variable">${user}</span>@<span class="token variable">${server_ip}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>id_rsa.pub(公钥)生成后，打开复制内容，打开远程主机<code>/home/${user}/.ssh/authorized_keys</code>文件,</p>
+<p>如果文件不存在就创建，然后粘贴复制的公钥内容并打开</p>
+<p>通过更新 ssh 配置文件连接中的<code>C:\Users\${user}\.ssh\config</code>或<code>/home/${user}/.ssh/config</code>配置文件</p>
+<p>在你要连接的Host下配置IdentityFile,后面填写id_rsa(私钥)路径,并保存:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">Host xxx
+  HostName xxx<span class="token punctuation">.</span>xxx<span class="token punctuation">.</span>xxx<span class="token punctuation">.</span>xxx
+  Port xx
+  <span class="token keyword">User</span> xxx
+  IdentityFile <span class="token string">"C:\Users\${user}\.ssh\id_rsa"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果手动创建 /home/${user}/.ssh/authorized_keys,需要更改其权限:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> <span class="token number">700</span> /home/<span class="token variable">${user}</span>/.ssh
+<span class="token function">chmod</span> <span class="token number">600</span> /home/<span class="token variable">${user}</span>/.ssh/authorized_keys<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="五、离线配置conda环境"><a href="#五、离线配置conda环境" class="headerlink" title="五、离线配置conda环境"></a>五、离线配置conda环境</h2><p>首先在可以联网的电脑下载<code>miniconda</code>，并通过<code>scp</code>的方式上传至服务器</p>
+<p>上传完成后，执行下列指令，给文件增加运行权限并安装：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> u+x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>安装完成后记得：<code>source ~/.bashrc</code></p>
+<p>在和服务器差不多的系统和系统架构下的电脑（比如服务器是Ubuntu ， linux系统，x86_64架构，那你自己的电脑也需要类似）创建自己的conda环境，下载安装好环境包，保证代码能够运行后，就对该conda环境进行打包。</p>
+<p>执行下面的指令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">conda <span class="token function">install</span> conda-pack <span class="token comment"># 安装conda pack</span>
+<span class="token comment"># or</span>
+pip <span class="token function">install</span> conda-pack
+<span class="token comment"># 在你自己的电脑打包，需关注自己的环境名称，并替换${env_name}部分字段</span>
+conda pack -n <span class="token variable">${env_name}</span> -o <span class="token variable">${env_name}</span>.tar.gz
+<span class="token comment"># 上传你的压缩包</span>
+<span class="token function">scp</span> <span class="token variable">${env_name}</span>.tar.gz <span class="token variable">${user}</span>@<span class="token variable">${server_ip}</span>:~/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在服务器上：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压你上传的压缩包</span>
+<span class="token function">mkdir</span> -p miniconda3/envs/<span class="token variable">${env_name}</span>/
+<span class="token function">tar</span> -xzvf <span class="token variable">${env_name}</span>.tar.gz -C miniconda3/envs/<span class="token variable">${env_name}</span>/
+<span class="token comment"># 修复clear命令无法执行问题</span>
+./miniconda3/envs/<span class="token variable">${env_name}</span>/bin/python
+<span class="token builtin class-name">source</span> ./miniconda3/envs/<span class="token variable">${env_name}</span>/bin/activate
+conda-unpack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样你在服务器上，使用<code>conda info -e</code>指令，即可看到你上传的<code>${env_name}</code>环境了，可以离线使用自己配好的python环境</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="1、scp用法"><a href="#1、scp用法" class="headerlink" title="1、scp用法"></a>1、scp用法</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">scp</span> <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token punctuation">[</span>源文件<span class="token punctuation">]</span> <span class="token punctuation">[</span>目标文件<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><strong>源文件</strong>：要复制的文件或目录路径。</li>
+<li><strong>目标文件</strong>：复制到的目标路径。</li>
+<li><strong>选项</strong>：用于控制 <code>scp</code> 的行为，例如递归复制、指定端口等。</li>
+</ul>
+<p><strong>常用选项</strong></p>
+<ul>
+<li><strong>-r</strong>：递归复制目录。</li>
+<li><strong>-P</strong>：指定远程服务器的 SSH 端口（默认是 22）。</li>
+<li><strong>-i</strong>：指定私钥文件路径（用于密钥认证）。</li>
+<li><strong>-C</strong>：启用压缩，适合传输大文件。</li>
+<li><strong>-v</strong>：显示详细信息，方便调试。</li>
+</ul>
+<p><strong>从本地复制到远程服务器</strong>：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">scp</span> file.txt <span class="token variable">${user}</span>@<span class="token variable">${remote_host}</span>:/home/<span class="token variable">${user}</span>/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><code>file.txt</code> 是本地文件路径。</li>
+<li><code>${user}</code> 是远程服务器的用户名。</li>
+<li><code>${remote_host}</code> 是远程服务器的 IP 地址或主机名。</li>
+<li><code>/home/${user}/</code> 是远程服务器的目标路径。</li>
+</ul>
+<p><strong>从远程服务器复制文件到本地</strong></p>
+<p>假设你想将远程服务器上的 <code>/home/user/file.txt</code> 文件复制到本地的当前目录：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">scp</span> <span class="token variable">${user}</span>@<span class="token variable">${remote_host}</span>:/home/<span class="token variable">${user}</span>/file.txt <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+<ul>
+<li><code>${user}@${remote_host}:/home/${user}/file.txt</code> 是远程文件路径。</li>
+<li><code>.</code> 表示命令行当前的目录。</li>
+</ul>
 
                 
             </div>
@@ -604,8 +731,12 @@ sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span
                     
                         <div class="article-tag">
                             
-                                <a href="../../../../tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                                    <span class="chip bg-color">环境搭建</span>
+                                </a>
+                            
+                                <a href="../../../../tags/conda/">
+                                    <span class="chip bg-color">conda</span>
                                 </a>
                             
                         </div>
@@ -1053,29 +1184,30 @@ sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="../../11/slam-2-code-base/">
+                <a href="">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/17.jpg" class="responsive-img" alt="SLAM 2：代码基础">
+                        <img src="../../../../medias/featureimages/10.jpg" class="responsive-img" alt="VScode服务器离线连接配置">
                         
-                        <span class="card-title">SLAM 2：代码基础</span>
+                        <span class="card-title">VScode服务器离线连接配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            slam环境部署与Eigen、Pangolin代码基础
+                            在离线服务器下配置vscode链接和conda环境
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1088,11 +1220,16 @@ sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/SLAM/">
-                        <span class="chip bg-color">SLAM</span>
+                    <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                        <span class="chip bg-color">环境搭建</span>
+                    </a>
+                    
+                    <a href="../../../../tags/conda/">
+                        <span class="chip bg-color">conda</span>
                     </a>
                     
                 </div>
@@ -1106,31 +1243,31 @@ sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="../../01/Newyear_Summary_2022/">
+                <a href="../../../02/26/error-pip-no-inject_securetransport/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/8.jpg" class="responsive-img" alt="2022年度总结">
+                        <img src="../../../../medias/featureimages/7.jpg" class="responsive-img" alt="Pip 缺少模块无法安装的问题">
                         
-                        <span class="card-title">2022年度总结</span>
+                        <span class="card-title">Pip 缺少模块无法安装的问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2022年度总结
+                            pip._internal.utils.inject_securetransport
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="../../../../categories/%E9%97%B2%E8%81%8A/" class="post-category">
-                                    闲聊
+                            <a href="../../../../categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/" class="post-category">
+                                    报错排查
                                 </a>
                             
                             
@@ -1140,8 +1277,8 @@ sudo apt-get install -f <span aria-hidden="true" class="line-numbers-rows"><span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="../../../../tags/%E9%97%B2%E8%81%8A/">
-                        <span class="chip bg-color">闲聊</span>
+                    <a href="../../../../tags/pip/">
+                        <span class="chip bg-color">pip</span>
                     </a>
                     
                 </div>
