@@ -1,1 +1,1 @@
-http://tuoyou-hao.github.io/2025/03/03/env_build-vscode-offline-connect/
+http://tuoyou-hao.github.io/2025/03/08/cuda-2-4/

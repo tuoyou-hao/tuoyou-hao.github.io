@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2025-03-03T08:38:54.752Z</updated>
+  <updated>2025-03-08T07:54:08.640Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CUDA 2.4：组织并行线程</title>
+    <link href="http://tuoyou-hao.github.io/2025/03/08/cuda-2-4/"/>
+    <id>http://tuoyou-hao.github.io/2025/03/08/cuda-2-4/</id>
+    <published>2025-03-08T07:54:11.000Z</published>
+    <updated>2025-03-08T07:54:08.640Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-4-组织并行线程&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
+    
+  </entry>
   
   <entry>
     <title>VScode服务器离线连接配置</title>
@@ -492,31 +517,6 @@
         
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;CUDA 2.3</summary>
-        
-      
-    
-    
-    
-    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CUDA 2.2：编程模型概述(二)</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/15/cuda-2-2-Threads-and-kernel-functions/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/15/cuda-2-2-Threads-and-kernel-functions/</id>
-    <published>2022-08-15T07:10:11.000Z</published>
-    <updated>2022-08-15T07:13:04.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1&gt;CUDA</summary>
         
       
     
