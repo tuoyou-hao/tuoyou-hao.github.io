@@ -1,1 +1,1 @@
-http://tuoyou-hao.github.io/2025/03/08/cuda-2-4/
+http://tuoyou-hao.github.io/2025/06/20/cuda-2-5-device-information/
