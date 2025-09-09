@@ -42,6 +42,31 @@
   </entry>
   
   <entry>
+    <title>CUDA 3.1：CUDA执行模型概述</title>
+    <link href="http://tuoyou-hao.github.io/2025/06/20/cuda-3-1/"/>
+    <id>http://tuoyou-hao.github.io/2025/06/20/cuda-3-1/</id>
+    <published>2025-06-20T07:54:11.000Z</published>
+    <updated>2025-09-01T13:41:45.202Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;CUDA 3.1</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CUDA 2.4：组织并行线程</title>
     <link href="http://tuoyou-hao.github.io/2025/03/08/cuda-2-4-organize-parallel-threads/"/>
     <id>http://tuoyou-hao.github.io/2025/03/08/cuda-2-4-organize-parallel-threads/</id>
@@ -500,32 +525,6 @@
     
     
     <category term="SQL" scheme="http://tuoyou-hao.github.io/tags/SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VMware文件拖拽报错</title>
-    <link href="http://tuoyou-hao.github.io/2022/08/27/error-Fix-VMware-drag-and-drop-failure/"/>
-    <id>http://tuoyou-hao.github.io/2022/08/27/error-Fix-VMware-drag-and-drop-failure/</id>
-    <published>2022-08-27T06:01:11.000Z</published>
-    <updated>2022-08-27T06:17:58.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;在使用vmware linux时，有时候会出现如下情况：&lt;/p&gt;
-&lt;pre</summary>
-        
-      
-    
-    
-    
-    <category term="报错排查" scheme="http://tuoyou-hao.github.io/categories/%E6%8A%A5%E9%94%99%E6%8E%92%E6%9F%A5/"/>
-    
-    
-    <category term="Linux" scheme="http://tuoyou-hao.github.io/tags/Linux/"/>
     
   </entry>
   
