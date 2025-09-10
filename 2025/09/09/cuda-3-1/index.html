@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CUDA 3.1：CUDA执行模型概述 | 拓佑豪的博客</title>
+    <title>CUDA 3.1：执行模型概述 | 拓佑豪的博客</title>
     <link rel="icon" type="image/png" href="../../../../TYH-logo.png">
 
     <link rel="stylesheet" type="text/css" href="../../../../libs/awesome/css/all.min.css">
@@ -325,12 +325,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('../../../../medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CUDA 3.1：CUDA执行模型概述</h1>
+                    <h1 class="description center-align post-title">CUDA 3.1：执行模型概述</h1>
                 </div>
             </div>
         </div>
@@ -471,14 +471,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-06-20
+                    2025-09-09
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-09-01
+                    2025-09-10
                 </div>
                 
 
@@ -515,12 +515,10 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>CUDA 3.1 CUDA执行模型概述</h1>
-<p>这一篇开始，就要接近CUDA最核心的部分，有关硬件和程序的执行模型的部分。</p>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CUDA-3-1-CUDA执行模型概述"><a href="#CUDA-3-1-CUDA执行模型概述" class="headerlink" title="CUDA 3.1 CUDA执行模型概述"></a>CUDA 3.1 CUDA执行模型概述</h1><p>这一篇开始，就要接近CUDA最核心的部分，有关硬件和程序的执行模型的部分。</p>
 <p>前面几篇我们学了编写，启动核函数，计时，统计时间，然后学习了线程，内存模型，线程内存部分。接下来我们将继续学习最底层最优理论指导意义的知识。</p>
-<h2 id="一、概述">一、概述</h2>
-<p>GPU架构是围绕一个流式多处理器（SM）的可扩展阵列搭建的。可以通过复制这种架构的构建块来实现GPU的硬件并行。</p>
-<p><img src="https://s2.loli.net/2025/06/20/f8aiZQjDlIMOb59.png" alt=""></p>
+<h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>GPU架构是围绕一个流式多处理器（SM）的可扩展阵列搭建的。可以通过复制这种架构的构建块来实现GPU的硬件并行。</p>
+<p><img src="https://s2.loli.net/2025/06/20/f8aiZQjDlIMOb59.png"></p>
 <p>上图包括关键组件：</p>
 <ul>
 <li>CUDA核心</li>
@@ -530,14 +528,11 @@
 <li>特殊功能单元</li>
 <li>线程束调度器</li>
 </ul>
-<h3 id="1-1-流式多处理器（SM）">1.1 流式多处理器（SM）</h3>
-<p>GPU中每个流式多处理器（SM）都能支持数百个线程并发执行，每个GPU通常有多个SM，当一个核函数的网格被启动的时候，多个block会被同时分配给可用的SM上执行。</p>
+<h3 id="1-1-流式多处理器（SM）"><a href="#1-1-流式多处理器（SM）" class="headerlink" title="1.1 流式多处理器（SM）"></a>1.1 流式多处理器（SM）</h3><p>GPU中每个流式多处理器（SM）都能支持数百个线程并发执行，每个GPU通常有多个SM，当一个核函数的网格被启动的时候，多个block会被同时分配给可用的SM上执行。</p>
 <p><strong>注意:</strong> 当一个block被分配给一个SM后，他就只能在这个SM上执行了，不可能重新分配到其他SM上了，多个线程块可以被分配到同一个SM上。</p>
 <p>在SM上同一个块内的多个线程进行线程级别并行，而同一线程内，指令利用指令级并行将单个线程处理成流水线。</p>
-<h3 id="1-2-线程束">1.2 线程束</h3>
-<p>CUDA采用单指令<strong>多线程（SIMT）<strong>架构来管理和执行线程，每32个线程为一组，被称为</strong>线程束（warp）</strong>。 不同设备有不同的线程束大小。从机器的角度，在某时刻T，SM上只执行一个线程束，也就是32个线程在同时同步执行，线程束中的每个线程执行同一条指令，包括有分支的部分，这个我们后面会讨论。</p>
-<h3 id="1-3-SIMD-vs-SIMT">1.3 SIMD vs SIMT</h3>
-<p>单指令多数据（SIMD）的执行就像四匹马排成一排拉马车，比如有四个数字要加上四个数字，那么使用这种单指令多数据（SIMD）的指令一次完成原本要做四次的运算。</p>
+<h3 id="1-2-线程束"><a href="#1-2-线程束" class="headerlink" title="1.2 线程束"></a>1.2 线程束</h3><p>CUDA采用单指令<strong>多线程（SIMT）</strong>架构来管理和执行线程，每32个线程为一组，被称为<strong>线程束（warp）</strong>。 不同设备有不同的线程束大小。从机器的角度，在某时刻T，SM上只执行一个线程束，也就是32个线程在同时同步执行，线程束中的每个线程执行同一条指令，包括有分支的部分，这个我们后面会讨论。</p>
+<h3 id="1-3-SIMD-vs-SIMT"><a href="#1-3-SIMD-vs-SIMT" class="headerlink" title="1.3 SIMD vs SIMT"></a>1.3 SIMD vs SIMT</h3><p>单指令多数据（SIMD）的执行就像四匹马排成一排拉马车，比如有四个数字要加上四个数字，那么使用这种单指令多数据（SIMD）的指令一次完成原本要做四次的运算。</p>
 <ul>
 <li>这种机制的问题就是过于死板，不允许每个分支有不同的操作，所有分支必须同时执行相同的指令，必须执行没有例外。</li>
 </ul>
@@ -547,19 +542,15 @@
 </ul>
 <p>SIMT包括以下SIMD不具有的关键特性：</p>
 <ul>
-<li>
-<p>每个线程都有自己的指令地址计数器</p>
+<li><p>每个线程都有自己的指令地址计数器</p>
 </li>
-<li>
-<p>每个县城都有自己的寄存器状态</p>
+<li><p>每个县城都有自己的寄存器状态</p>
 </li>
-<li>
-<p>每个线程可以有一个独立的执行路径</p>
+<li><p>每个线程可以有一个独立的执行路径</p>
 </li>
 </ul>
 <p>而上面这三个特性在编程模型可用的方式就是给每个线程一个唯一的标号（blckIdx,threadIdx），并且这三个特性保证了各线程之间的独立</p>
-<h3 id="1-4-最常用的数字-32">1.4 最常用的数字 32</h3>
-<p>32在CUDA程序里是一个神奇的数字。它来自于硬件系统，也对软件的性能有着重要的影响。</p>
+<h3 id="1-4-最常用的数字-32"><a href="#1-4-最常用的数字-32" class="headerlink" title="1.4 最常用的数字 32"></a>1.4 最常用的数字 32</h3><p>32在CUDA程序里是一个神奇的数字。它来自于硬件系统，也对软件的性能有着重要的影响。</p>
 <p>从概念上讲，32是SM以SIMD方式同时处理的工作粒度，一个SM上在某一个时刻，有32个线程在执行同一条指令，这32个线程可以选择性执行，虽然有些可以不执行，但是他也不能执行别的指令，需要另外需要执行这条指令的线程执行完，然后再继续下一条，</p>
 <blockquote>
 <p>这里参考<a target="_blank" rel="noopener" href="https://face2ai.com/CUDA-F-3-1-CUDA%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/">大佬谭升举的例子</a>：像老师给小朋友们分水果：</p>
@@ -567,15 +558,12 @@
 <p>第二次分橘子<span class="github-emoji"><span>🍊</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f34a.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>，你很爱吃，可是有别的小朋友不爱吃，当然这时候他也不能干别的，只能看你吃完。吃完后老师继续回收刚才没吃的橘子。</p>
 <p>第三次分桃子<span class="github-emoji"><span>🍑</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f351.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>，大家都很爱吃，大家一起吃，吃完了老师发现没有剩下的，继续发别的水果，一直发到所有种类的水果都发完了。今天就可以放学了。</p>
 </blockquote>
-<h3 id="1-5-CUDA编程的组件与逻辑">1.5 CUDA编程的组件与逻辑</h3>
-<p>下图从逻辑角度和硬件角度描述了CUDA编程模型对应的组件。</p>
-<p><img src="https://s2.loli.net/2025/09/01/KD623L5mipbvGkJ.png" alt=""></p>
+<h3 id="1-5-CUDA编程的组件与逻辑"><a href="#1-5-CUDA编程的组件与逻辑" class="headerlink" title="1.5 CUDA编程的组件与逻辑"></a>1.5 CUDA编程的组件与逻辑</h3><p>下图从逻辑角度和硬件角度描述了CUDA编程模型对应的组件。</p>
+<p><img src="https://s2.loli.net/2025/09/01/KD623L5mipbvGkJ.png"></p>
 <p>一个线程块只能在一个SM上被调度。一旦线程块在一个SM上被调度，就会保存在该SM上直到执行完成。在同一时间，一个SM可以容纳多个线程块。</p>
-<p>SM中共享内存，和寄存器是关键的资源，线程块中线程通过共享内存和寄存器相互通信协调。<br>
-寄存器和共享内存的分配可以严重影响性能！</p>
+<p>SM中共享内存，和寄存器是关键的资源，线程块中线程通过共享内存和寄存器相互通信协调。<br>寄存器和共享内存的分配可以严重影响性能！</p>
 <p>尽管线程块里的所有线程都可以逻辑地并行运行，但是并不是所有线程都可以同时在物理层面执行。因此，线程块里的不同线程可能会以不同的速度前进。</p>
-<h2 id="二、Fermi-架构">二、Fermi 架构</h2>
-<p><img src="https://s2.loli.net/2025/09/01/ydVqJfEmX9xPkTs.jpg" alt="Fermi 架构图"></p>
+<h2 id="二、Fermi-架构"><a href="#二、Fermi-架构" class="headerlink" title="二、Fermi 架构"></a>二、Fermi 架构</h2><p><img src="https://s2.loli.net/2025/09/01/ydVqJfEmX9xPkTs.jpg" alt="Fermi 架构图"></p>
 <p>Fermi架构逻辑图如上，具体数据如下:</p>
 <ul>
 <li>512个加速核心，CUDA核</li>
@@ -596,28 +584,26 @@
 <p>特殊功能单元SFU执行固有指令，如正弦，余弦，平方根和插值，SFU在每个时钟周期内的每个线程上执行一个固有指令。</p>
 <p>每个SM有两个线程束调度器，和两个指令调度单元，当一个线程块被指定给一个SM时，线程块内的所有线程被分成线程束，两个线程束选择其中两个线程束，在用指令调度器存储两个线程束要执行的指令（就像上面例子中分水果的水果一样，我们这里有两个班，两个班的老师各自控制的自己的水果，老师就是指令调度器）</p>
 <p>像第一张图上的显示一样，每16个CUDA核心为一个组，还有16个加载/存储单元或4个特殊功能单元。当某个线程块被分配到一个SM上的时候，会被分成多个线程束，线程束在SM上交替执行：</p>
-<p><img src="https://s2.loli.net/2025/09/01/li2CjDA4GVUJynf.jpg" alt=""></p>
+<p><img src="https://s2.loli.net/2025/09/01/li2CjDA4GVUJynf.jpg"></p>
 <p>上面曾经说过，每个线程束在同一时间执行同一指令，同一个块内的线程束互相切换是没有时间消耗的。</p>
 <p>Fermi上支持同时并发执行内核。并发执行内核允许执行一些小的内核程序来充分利用GPU，如图：</p>
-<p><img src="https://s2.loli.net/2025/09/01/feDsibtIhpR8M6r.jpg" alt=""></p>
-<h2 id="3-Kepler-架构">3 Kepler 架构</h2>
-<p>Kepler架构作为Fermi架构的后代，有以下技术突破：</p>
+<p><img src="https://s2.loli.net/2025/09/01/feDsibtIhpR8M6r.jpg"></p>
+<h2 id="3-Kepler-架构"><a href="#3-Kepler-架构" class="headerlink" title="3 Kepler 架构"></a>3 Kepler 架构</h2><p>Kepler架构作为Fermi架构的后代，有以下技术突破：</p>
 <ul>
 <li>强化的SM</li>
 <li>动态并行</li>
 <li>Hyper-Q技术</li>
 </ul>
 <p>技术参数也提高了不少，比如单个SM上CUDA核的数量，SFU的数量，LD/ST的数量等：</p>
-<p><img src="https://s2.loli.net/2025/09/01/X7osyOUHwIQCAjV.jpg" alt=""></p>
-<p><img src="https://s2.loli.net/2025/09/01/Vz5lfiAFXjsqw2B.jpg" alt=""></p>
+<p><img src="https://s2.loli.net/2025/09/01/X7osyOUHwIQCAjV.jpg"></p>
+<p><img src="https://s2.loli.net/2025/09/01/Vz5lfiAFXjsqw2B.jpg"></p>
 <p>kepler架构的最突出的一个特点就是内核可以启动内核了，这使得我们可以使用GPU完成简单的递归操作，流程如下。</p>
-<p><img src="https://s2.loli.net/2025/09/01/MhKqOJoC4cdEgp8.jpg" alt=""></p>
+<p><img src="https://s2.loli.net/2025/09/01/MhKqOJoC4cdEgp8.jpg"></p>
 <p>Hyper-Q技术主要是CPU和GPU之间的同步硬件连接，以确保CPU在GPU执行的同事做更多的工作。Fermi架构下CPU控制GPU只有一个队列，Kepler架构下可以通过Hyper-Q技术实现多个队列如下图。</p>
-<p><img src="https://s2.loli.net/2025/09/01/TyA2zdBumvqSCIK.jpg" alt=""></p>
+<p><img src="https://s2.loli.net/2025/09/01/TyA2zdBumvqSCIK.jpg"></p>
 <p>计算能力概览：</p>
-<p><img src="https://s2.loli.net/2025/09/01/Mex6mNidGCgkvUP.jpg" alt=""></p>
-<h2 id="4-使用Profile进行优化（Profile-Driven-Optimization）">4 使用Profile进行优化（Profile-Driven Optimization）</h2>
-<p>中文翻译的这个标题是配置文件驱动优化，驱动这个词在这里应该是个动词，或者翻译的人直接按照字面意思翻译的，其实看完内容以后的意思是根据profile这个文件内的信息对程序进行优化。</p>
+<p><img src="https://s2.loli.net/2025/09/01/Mex6mNidGCgkvUP.jpg"></p>
+<h2 id="4-使用Profile进行优化（Profile-Driven-Optimization）"><a href="#4-使用Profile进行优化（Profile-Driven-Optimization）" class="headerlink" title="4 使用Profile进行优化（Profile-Driven Optimization）"></a>4 使用Profile进行优化（Profile-Driven Optimization）</h2><p>中文翻译的这个标题是配置文件驱动优化，驱动这个词在这里应该是个动词，或者翻译的人直接按照字面意思翻译的，其实看完内容以后的意思是根据profile这个文件内的信息对程序进行优化。</p>
 <p>性能分析通过以下方法来进行：</p>
 <ol>
 <li>应用程序代码的空间(内存)或时间复杂度</li>
@@ -632,14 +618,11 @@
 </ol>
 <p>Profile可以帮助我们观察程序内部。</p>
 <ul>
-<li>
-<p>一个原生的内核应用一般不会产生最佳效果，也就是我们基本不能一下子就写出最好最快的内核，需要通过性能分析工具分析性能。找出性能瓶颈</p>
+<li><p>一个原生的内核应用一般不会产生最佳效果，也就是我们基本不能一下子就写出最好最快的内核，需要通过性能分析工具分析性能。找出性能瓶颈</p>
 </li>
-<li>
-<p>CUDA将SM中的计算资源在该SM中的多个常驻线程块之间进行分配，这种分配方式可能导致一些资源成为性能限制因素，性能分析工具可以帮我们找出来这些资源是如何被使用的</p>
+<li><p>CUDA将SM中的计算资源在该SM中的多个常驻线程块之间进行分配，这种分配方式可能导致一些资源成为性能限制因素，性能分析工具可以帮我们找出来这些资源是如何被使用的</p>
 </li>
-<li>
-<p>CUDA提供了一个硬件架构的抽象。它能够让用户控制线程并发。性能分析工具可以检测和优化，并肩优化可视化</p>
+<li><p>CUDA提供了一个硬件架构的抽象。它能够让用户控制线程并发。性能分析工具可以检测和优化，并肩优化可视化</p>
 </li>
 </ul>
 <p>总结起来一句话，想优化速度，先学好怎么用性能分析工具。</p>
@@ -1166,17 +1149,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="../cuda-2-5-device-information/">
+                <a href="">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/9.jpg" class="responsive-img" alt="CUDA 2.5：GPU设备信息">
+                        <img src="../../../../medias/featureimages/22.jpg" class="responsive-img" alt="CUDA 3.1：执行模型概述">
                         
-                        <span class="card-title">CUDA 2.5：GPU设备信息</span>
+                        <span class="card-title">CUDA 3.1：执行模型概述</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1186,9 +1170,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1201,6 +1185,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1219,24 +1204,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="../../../03/08/cuda-2-4-organize-parallel-threads/">
+                <a href="../../../06/20/cuda-2-5-device-information/">
                     <div class="card-image">
                         
                         
-                        <img src="../../../../medias/featureimages/8.jpg" class="responsive-img" alt="CUDA 2.4：组织并行线程">
+                        <img src="../../../../medias/featureimages/9.jpg" class="responsive-img" alt="CUDA 2.5：GPU设备信息">
                         
-                        <span class="card-title">CUDA 2.4：组织并行线程</span>
+                        <span class="card-title">CUDA 2.5：GPU设备信息</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍CUDA并行线程
+                            介绍如何获取设备（一个或多个）信息
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-20
                             </span>
                         <span class="publish-author">
                             

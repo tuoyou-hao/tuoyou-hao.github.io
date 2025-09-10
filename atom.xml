@@ -6,7 +6,7 @@
   <link href="http://tuoyou-hao.github.io/atom.xml" rel="self"/>
   
   <link href="http://tuoyou-hao.github.io/"/>
-  <updated>2025-06-20T09:15:28.112Z</updated>
+  <updated>2025-09-10T14:05:25.014Z</updated>
   <id>http://tuoyou-hao.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CUDA 3.1：执行模型概述</title>
+    <link href="http://tuoyou-hao.github.io/2025/09/09/cuda-3-1/"/>
+    <id>http://tuoyou-hao.github.io/2025/09/09/cuda-3-1/</id>
+    <published>2025-09-09T07:54:11.000Z</published>
+    <updated>2025-09-10T14:05:25.014Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-3-1-CUDA执行模型概述&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
+    
+  </entry>
   
   <entry>
     <title>CUDA 2.5：GPU设备信息</title>
@@ -29,31 +54,6 @@
         
         
     <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;CUDA-2-5-GPU设备信息&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="编程技术" scheme="http://tuoyou-hao.github.io/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="CUDA" scheme="http://tuoyou-hao.github.io/tags/CUDA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CUDA 3.1：CUDA执行模型概述</title>
-    <link href="http://tuoyou-hao.github.io/2025/06/20/cuda-3-1/"/>
-    <id>http://tuoyou-hao.github.io/2025/06/20/cuda-3-1/</id>
-    <published>2025-06-20T07:54:11.000Z</published>
-    <updated>2025-09-01T13:41:45.202Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;CUDA 3.1</summary>
         
       
     
